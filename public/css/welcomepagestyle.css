@@ -1,0 +1,500 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    outline: none;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+*::selection {
+    background: rgb(173, 141, 255);
+    color: #fff;
+}
+
+:root {
+    --primary-color: #f9f9f9;
+    --secondary-color: #222;
+}
+
+.dark-mode {
+    --primary-color: #212121;
+    --secondary-color: #f9f9f9;
+}
+
+html {
+    font-size: 62%;
+    overflow-x: hidden;
+}
+
+body {
+    background: var(--primary-color);
+    transition: 1s;
+}
+
+section {
+    min-height: 100vh;
+    padding: 0 9%;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: var(--primary-color);
+    padding: 2rem 9%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    transition: 1s;
+}
+
+header .logo-kilau {
+    position: relative;
+    width: 5rem;
+    animation: slideRight .5s linear forwards;
+    opacity: 0;
+}
+
+header .navtop a {
+    display: inline-block;
+    font-size: 1.7rem;
+    margin-left: 3rem;
+    color: var(--secondary-color);
+    font-weight: 500;
+    animation: slideTop .5s ease forwards;
+    opacity: 0;
+    animation-delay: calc(.2s * var(--i));
+}
+
+header .navtop a:hover {
+    color: rgb(173, 141, 255);
+}
+
+header .mode {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 3rem;
+    height: 3rem;
+    background: linear-gradient(rgb(0, 0, 0), rgb(149, 218, 254));
+    color: #f9f9f9;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    animation: slideRight .5s linear forwards;
+    opacity: 0;
+}
+
+header .bg-navtop {
+    display: none;
+}
+
+.home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home .border {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    z-index: -1;
+    animation: slide .5s linear forwards;
+    opacity: 0;
+}
+
+.home .contenthome h3 {
+    font-size: 4.4rem;
+    color: var(--secondary-color);
+    text-transform: uppercase;
+    line-height: 5.3rem;
+    animation: slideRight .5s linear forwards;
+    opacity: 0;
+    animation-delay: .3s;
+}
+
+.home .contenthome h3 span {
+    font-size: 7rem;
+    color: rgb(22, 97, 165);
+    line-height: 7rem;
+}
+
+.home .contenthome p {
+    font-size: 1.6rem;
+    color: var(--secondary-color);
+    padding: 1rem 0;
+    animation: slideLeft .5s ease forwards;
+    opacity: 0;
+    animation-delay: 1s;
+}
+
+.tombol {
+    position: relative;
+    display: inline-block;
+    padding: .8rem 5rem;
+    margin-top: 1rem;
+    border-radius: 5rem;
+    font-size: 1.7rem;
+    color: #f9f9f9;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .5);
+    overflow: hidden;
+    animation: fadeIn .5s linear forwards;
+    opacity: 0;
+    animation-delay: 1.5s;
+}
+
+.tombol span {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    background: linear-gradient( rgb(166, 170, 245), rgb(149, 218, 254), rgb(166, 170, 245), rgb(149, 218, 254));
+    width: 100%;
+    height: 300%;
+    z-index: -1;
+    transition: .5s;
+}
+
+.tombol:hover span {
+    top: 0;
+    transition: .5s;
+}
+
+.home .gambar {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200rem;
+}
+
+.home .gambar .logokilau2 {
+    position: absolute;
+    width: 60%;
+    animation: fadeIn .5s linear forwards;
+    opacity: 0;
+    animation-delay: 2s;
+}
+
+.home .gambar .siluet-kilau {
+    position: absolute;
+    width: 80%;
+    opacity: .1;
+    z-index: -2;
+    transition: 1s;
+    animation: zoomIn .7s ease forwards;
+    transform: scale(0);
+    animation-delay: 2.3s;
+}
+
+.home .gambar .siluet-kilau.siluet-dark {
+    opacity: .8;
+}
+
+.iconsosmed {
+    position: absolute;
+    bottom: 2.5rem;
+    display: flex;
+    margin-left: -2rem;
+}
+
+.iconsosmed a {
+    display: inline-block;
+    width: 4rem;
+    height: 4rem;
+    background-color: rgb(92, 92, 252);
+    border-radius: 50%;
+    text-align: center;
+    margin-left: 2.5rem;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .5);
+    transition: .3s;
+    animation: fadeIn .5s linear forwards;
+    opacity: 0;
+    animation-delay: calc(.2s * var(--i));
+}
+
+.iconsosmed a i {
+    font-size: 1.7rem;
+    color: #f9f9f9;
+    line-height: 4rem;
+    transition: .3s;
+}
+
+.iconsosmed a:hover {
+    background: #f9f9f9;
+    transform: translateY(-5px);
+}
+
+.iconsosmed a:hover i {
+    color: rgb(92, 92, 252);
+}
+
+.tombolbar {
+    position: relative;
+    font-size: 3rem;
+    color: var(--secondary-color);
+    cursor: pointer;
+    display: none;
+    animation: slideLeft .5s linear forwards;
+    opacity: 0;
+}
+
+/* Keyframes Animation */
+@keyframes slideRight {
+    0% {
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    
+}
+
+@keyframes slideTop {
+    0% {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    
+}
+
+@keyframes slideLeft {
+    0% {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+    
+}
+
+@keyframes zoomIn {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+    
+}
+
+@keyframes slide {
+    0% {
+        transform: translate(100px, 100px);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(0);
+        opacity: 1;
+    }
+    
+}
+/* End Keyframes Animation */
+
+
+/* Breakpoints */
+@media (max-width: 992px) {
+    html {
+        font-size: 60%;
+    }
+
+    section {
+        padding: 0 5%;
+    }
+
+    header {
+        padding: 2rem 5%;
+    }
+
+    .home .contenthome h3 {
+        font-size: 3.3rem;
+        line-height: 2.5rem;
+    }
+
+    .home .contenthome h3 span {
+        font-size: 5.5rem;
+    }
+
+    .iconsosmed {
+        bottom: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    html {
+        font-size: 59%;
+    }
+    
+    .tombolbar {
+        display: block;
+    }
+
+    header .navtop {
+        position: absolute;
+        top: -300px;
+        left: 0;
+        width: 100%;
+        background: var(--primary-color);
+        padding: 1rem 5%;
+        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+        border-top: .1rem solid rgba(0, 0, 0, .2);
+        overflow: hidden;
+        transition: .8s;
+        z-index: -2;
+    }
+
+    header .navtop.slide {
+        top: 100%;
+    }
+    
+    header .navtop a {
+        display: block;
+        margin: 2rem 0;
+        font-size: 1.8rem;
+    }
+
+    header .mode {
+        position: absolute;
+        right: 12%;
+    }
+
+    header .bg-navtop {
+        position: fixed;
+        display: block;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 74px;
+        background: var(--primary-color);
+        z-index: -1;
+        transition: 1s;
+    }
+
+    section {
+        padding: 2rem 5%;
+    }
+
+    .home {
+        flex-direction: column;
+    }
+
+    .home .gambar {
+        width: 50rem;
+        height: 20rem;
+        margin-top: 5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    html {
+        font-size: 55%;
+    }
+
+    header .navtop.slide {
+        top: 78px;
+    }
+}
+
+@media (max-width: 434px) {
+    .home .gambar {
+        width: 40rem;
+    }
+}
+
+@media (max-width: 330px) {
+    html {
+        font-size: 50%;
+    }
+
+    header .mode {
+        right: 15%;
+    }
+
+    .home .gambar {
+        width: 40rem;
+        height: 25rem;
+    }
+
+    .iconsosmed {
+        bottom: 3rem;
+    }
+}
+
+/* .carousel-inner img {
+    object-fit: cover;
+    width: 900px;
+    height: 500px;
+} */
+
+/* .btnmsk {
+    position: relative;
+    cursor: pointer;
+    margin: 0 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border: none;
+    padding: 14px 32px;
+    background: #fff;
+    color: #262626;
+    font-size: 20px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.btnmsk:before {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: -10px;
+    left: -10px;
+    border-top: 3px solid #fff;
+    border-left: 3px solid #fff;
+    transition: all 0.5s;
+    text-decoration: none;
+}
+
+.btnmsk:after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    bottom: -10px;
+    right: -10px;
+    border-bottom: 3px solid #fff;
+    border-right: 3px solid #fff;
+    transition: all 0.5s; 
+    text-decoration: none;
+}
+
+.btnmsk:hover:before,
+    .btnmsk:hover:after {
+        height: 100%;
+        width: 100%;
+    } */

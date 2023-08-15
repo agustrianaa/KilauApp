@@ -599,9 +599,7 @@ trait ValidatesAttributes
 
         $matches = [];
 
-        if (preg_match('/^[+-]?\d*\.?(\d*)$/', $value, $matches) !== 1) {
-            return false;
-        }
+        preg_match('/^[+-]?\d*.(\d*)$/', $value, $matches);
 
         $decimals = strlen(end($matches));
 
@@ -2304,12 +2302,11 @@ trait ValidatesAttributes
      *
      * @param  string  $attribute
      * @param  mixed  $value
-     * @param  array<int, string>  $parameters
      * @return bool
      */
-    public function validateUrl($attribute, $value, $parameters = [])
+    public function validateUrl($attribute, $value)
     {
-        return Str::isUrl($value, $parameters);
+        return Str::isUrl($value);
     }
 
     /**

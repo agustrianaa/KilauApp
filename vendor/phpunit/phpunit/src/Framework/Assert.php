@@ -2165,8 +2165,6 @@ abstract class Assert
     }
 
     /**
-     * @psalm-param 'array'|'boolean'|'bool'|'double'|'float'|'integer'|'int'|'null'|'numeric'|'object'|'real'|'resource'|'resource (closed)'|'string'|'scalar'|'callable'|'iterable' $type
-     *
      * @throws Exception
      */
     final public static function isType(string $type): IsType
