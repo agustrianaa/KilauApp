@@ -17,6 +17,10 @@ class HomeController extends Controller
     public function dashboard(){
         return view('dashboard');
     }
+    
+    public function contoh(){
+        return view('layout.contoh');
+    }
 
     public function index(){
         $data = User::get();

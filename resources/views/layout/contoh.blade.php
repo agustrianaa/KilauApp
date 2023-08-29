@@ -1,104 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Register</title>
-
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{ asset('lte/plugins/fontawesome-free/css/all.min.css') }}">
-  <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="{{ asset('lte/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('lte/dist/css/adminlte.min.css') }}">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{{ asset('css/contoh.css') }}">
+<title>Contoh Halaman</title>
 </head>
-<body class="hold-transition login-page">
-<div class="login-box">
-  <!-- /.login-logo -->
-  <div class="card card-outline card-primary">
-    <div class="card-header text-center">
-      <a href="{{ route('register') }}" class="h1">Register</a>
+
+<body>
+
+    <section class="home">
+        <div class="title-wrapper">
+            <h1 class="title">Kilau Information System</h1>
+            <h2 class="subtitle">Kilau Indonesia</h2>
+        </div>
+
+        <div class="main-content">
+            <div class="outer-box">
+                <div class="inner-box">
+                
+                    <div class="colored-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                            <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+                        </svg>
+                        Pemberdayaan
+                    </div>
+                
+                    <div class="colored-box">
+                        Report
+                    </div>
+                
+                    <div class="colored-box">
+                        Serttings
+                    </div>
+                
+                    <div class="colored-box">
+                        Keuangan
+                    </div>
+                
+                    <div class="colored-box">
+                        Berita
+                    </div>
+                
+                    <div class="colored-box">
+                        Logout
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <img class="bg" src="{{ asset('images/bg.jpg') }}">
+    </section>
+
+    
+
+    <div class="footer">
+        <p>&copy; 2023 Kilau Indonesia. All Rights Reserved.</p>
     </div>
-    <div class="card-body">
-      <p class="login-box-msg">Register Account</p>
 
-      <form action="{{ route('register-proses') }}" method="post">
-        @csrf
-        <div class="input-group mb-3">
-            <input type="text" name="nama" class="form-control" placeholder="Nama Lengkap..." value="{{ old('nama') }}">
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-user"></span>
-              </div>
-            </div>
-          </div>
-          @error('nama')
-          <small>{{ $message }}</small>
-          @enderror
-        <div class="input-group mb-3">
-          <input type="email" name="email" class="form-control" placeholder="Email" value="{{ old('email') }}">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
-        </div>
-        @error('email')
-        <small>{{ $message }}</small>
-        @enderror
-        <div class="input-group mb-3">
-          <input type="password" name="password" class="form-control" placeholder="Password">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-        @error('password')
-        <small>{{ $message }}</small>
-        @enderror
-        <div class="row">
-          <!-- /.col -->
-          <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block">Register</button>
-          </div>
-          <!-- /.col -->
-        </div>
-      </form>
-      <br>
-      <p class="mb-0">
-        Sudah memiliki akun? <a href="{{ route('login') }}" class="text-center">Login</a>
-      </p>
-    </div>
-    <!-- /.card-body -->
-  </div>
-  <!-- /.card -->
-</div>
-<!-- /.login-box -->
-
-<!-- jQuery -->
-<script src="{{ asset('lte/plugins/jquery/jquery.min.js') }}"></script>
-<!-- Bootstrap 4 -->
-<script src="{{ asset('lte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset('lte/dist/js/adminlte.min.js') }}"></script>
-
-<!-- SweetAlert2 -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-@if ($message = Session::get('success'))
-<script>
-  Swal.fire('{{ $message }}')
-</script>
-@endif
-
-@if ($message = Session::get('failed'))
-<script>
-  Swal.fire('{{ $message }}')
-</script>
-@endif
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const coloredBoxes = document.querySelectorAll(".colored-box");
+    
+            coloredBoxes.forEach((box) => {
+                box.addEventListener("click", function () {
+                    // Hapus class "clicked" dari semua kotak sebelumnya
+                    coloredBoxes.forEach((otherBox) => {
+                        otherBox.classList.remove("clicked");
+                    });
+    
+                    // Tambahkan class "clicked" pada kotak yang diklik
+                    this.classList.add("clicked");
+                });
+            });
+        });
+    </script>
+    
 
 </body>
 </html>
