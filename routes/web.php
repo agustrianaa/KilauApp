@@ -54,4 +54,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::get('/standards', [StudentController::class, 'getStandard'])->name('standards');
     Route::get('/results', [StudentController::class, 'getResult'])->name('results');
     Route::get('/students/records', [StudentController::class, 'records'])->name('students/records');
+    Route::resource('/posts', \App\Http\Controllers\PostController::class);
+Route::resource('/acc', \App\Http\Controllers\AccController::class);
 });
+
+
