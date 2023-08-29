@@ -13,5 +13,6 @@ class Post extends Model
         'image',
         'title',
         'content',
+        'confirmed',
     ];
 }

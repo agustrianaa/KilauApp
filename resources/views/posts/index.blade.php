@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Data Posts</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-</head>
-<body style="background: lightgray">
+@extends('layout.main')
 
-    <div class="container mt-5">
+@section('content')
+
+    <div class="container mt-5 content-wrapper">
         <div class="row">
             <div class="col-md-12">
                 <div>
@@ -19,7 +11,7 @@
                 </div>
                 <div class="card border-0 shadow-sm rounded">
                     <div class="card-body">
-                        <a href="{{ route('posts.create') }}" class="btn btn-md btn-success mb-3">TAMBAH POST</a>
+                        <a href="{{ route('admin.posts.create') }}" class="btn btn-md btn-success mb-3 content">TAMBAH POST</a>
                         <table class="table table-bordered">
                             <thead>
                               <tr>
@@ -38,9 +30,9 @@
                                     <td>{{ $post->title }}</td>
                                     <td>{!! $post->content !!}</td>
                                     <td class="text-center">
-                                        <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('posts.destroy', $post->id) }}" method="POST">
-                                            <a href="{{ route('posts.show', $post->id) }}" class="btn btn-sm btn-dark">SHOW</a>
-                                            <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-sm btn-primary">EDIT</a>
+                                        <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('admin.posts.destroy', $post->id) }}" method="POST">
+                                            <a href="{{ route('admin.posts.show', $post->id) }}" class="btn btn-sm btn-dark">SHOW</a>
+                                            <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-sm btn-primary">EDIT</a>
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
@@ -78,5 +70,4 @@
         @endif
     </script>
 
-</body>
-</html>
+@endsection

@@ -28,7 +28,8 @@ class PostController extends Controller
         $this->validate($request, [
             'image'     => 'required|image|mimes:jpeg,jpg,png|max:2048',
             'title'     => 'required|min:5',
-            'content'   => 'required|min:10'
+            'content'   => 'required|min:10',
+            'confirmed' => 'boolean'
         ]);
 
         //upload image
@@ -39,11 +40,12 @@ class PostController extends Controller
         Post::create([
             'image'     => $image->hashName(),
             'title'     => $request->title,
-            'content'   => $request->content
+            'content'   => $request->content,
+            'confirmed' => $request->confirmed
         ]);
 
         //redirect to index
-        return redirect()->route('posts.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        return redirect()->route('admin.posts.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
     public function show(string $id): View
     {
@@ -67,7 +69,8 @@ class PostController extends Controller
         $this->validate($request, [
             'image'     => 'image|mimes:jpeg,jpg,png|max:2048',
             'title'     => 'required|min:5',
-            'content'   => 'required|min:10'
+            'content'   => 'required|min:10',
+            'confirmed' => 'boolean'
         ]);
 
         //get post by ID
@@ -87,7 +90,8 @@ class PostController extends Controller
             $post->update([
                 'image'     => $image->hashName(),
                 'title'     => $request->title,
-                'content'   => $request->content
+                'content'   => $request->content,
+                'confirmed' => $request->confirmed
             ]);
 
         } else {
@@ -95,12 +99,13 @@ class PostController extends Controller
             //update post without image
             $post->update([
                 'title'     => $request->title,
-                'content'   => $request->content
+                'content'   => $request->content,
+                'confirmed' => $request->confirmed
             ]);
         }
 
         //redirect to index
-        return redirect()->route('posts.index')->with(['success' => 'Data Berhasil Diubah!']);
+        return redirect()->route('admin.posts.index')->with(['success' => 'Data Berhasil Diubah!']);
     }
     public function destroy($id): RedirectResponse
     {
@@ -114,6 +119,6 @@ class PostController extends Controller
         $post->delete();
 
         //redirect to index
-        return redirect()->route('posts.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        return redirect()->route('admin.posts.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

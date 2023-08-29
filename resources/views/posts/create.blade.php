@@ -1,20 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tambah Data Post - SantriKoding.com</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body style="background: lightgray">
+@extends('layout.main')
 
-    <div class="container mt-5 mb-5">
+@section('content')
+
+    <div class="container mt-5 mb-5 content-wrapper">
         <div class="row">
             <div class="col-md-12">
                 <div class="card border-0 shadow-sm rounded">
                     <div class="card-body">
-                        <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data">
 
                             @csrf
 
@@ -54,6 +47,10 @@
                                 @enderror
                             </div>
 
+                            <div class="form-group">
+                                <input type="hidden" name="confirmed" id="confirmed" value="{{ 0 }}">
+                            </div>
+
                             <button type="submit" class="btn btn-md btn-primary">SIMPAN</button>
                             <button type="reset" class="btn btn-md btn-warning">RESET</button>
 
@@ -70,5 +67,5 @@
 <script>
     CKEDITOR.replace( 'content' );
 </script>
-</body>
-</html>
+
+@endsection
