@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -75,4 +75,4 @@ class LoginController extends Controller
             return redirect()->route('login')->with('failed','Email atau Password Salah');
         }
     }
-}
+}     
