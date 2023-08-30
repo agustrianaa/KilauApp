@@ -30,6 +30,10 @@ class HomeController extends Controller
             return view('dashboard');
         }
     }
+    
+    public function menu(){
+        return view('page.menu');
+    }
 
     public function index(){
         $data = User::get();

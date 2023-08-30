@@ -34,6 +34,8 @@ Route::post('/register-proses',[LoginController::class,'register_proses'])->name
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
 
 Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], function(){
+    Route::get('/menu',[HomeController::class,'menu'])->name('menu');
+
     Route::get('/dashboard',[HomeController::class,'dashboard'])->name('dashboard');
 
     Route::get('/user',[HomeController::class,'index'])->name('index');
