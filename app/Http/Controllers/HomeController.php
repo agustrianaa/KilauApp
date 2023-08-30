@@ -15,7 +15,24 @@ class HomeController extends Controller
     }
 
     public function dashboard(){
-        return view('dashboard');
+        // return view('dashboard');
+        if (auth()->user()->role == 'admin'){
+            return view('dashboard');
+        } else if(auth()->user()->role == 'adminpusat'){
+            return view('dashboard');
+        } else if(auth()->user()->role == 'admincabang'){
+            return view('dashboard');
+        } else if(auth()->user()->role == 'shelter'){
+            return view('dashboard');
+        } else if(auth()->user()->role == 'donatur'){
+            return view('dashboard');
+        } else if(auth()->user()->role == 'orangtua'){
+            return view('dashboard');
+        }
+    }
+    
+    public function menu(){
+        return view('page.menu');
     }
 
     public function index(){

@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+section {
+    min-height: 100vh;
+    padding: 0 9%;
+}
+
+.home {
+    display: flex;
+    flex-direction: column; /* Stack the items vertically */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.home .bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.main-content {
+    display: block;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-wrapper {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 24px;
+    color: #666;
+    margin-top: 5px;
+}
+
+.outer-box {
+    justify-content: center;
+    display: flex;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.inner-box {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 0 auto;
+}
+
+.colored-box {
+    background-color: #34cddb;
+    color: white;
+    padding: 40px;
+    text-align: center;
+    border-radius: 12px;
+    cursor: pointer; /* Menampilkan tanda bahwa kotak dapat diklik */
+    transition: background-color 0.3s; /* Efek transisi saat berubah warna */
+}
+
+.colored-box:hover {
+    background-color: #6b57de; /* Warna saat hover */
+}
+
+/* Tambahkan class baru untuk status klik */
+.colored-box.clicked {
+    background-color: #d3e73c; /* Warna saat diklik */
+}
+
+
+.footer {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
