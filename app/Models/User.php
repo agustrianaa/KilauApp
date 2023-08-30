@@ -18,9 +18,9 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -42,4 +42,23 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function admin() {
+        return $this->hasOne('App\Models\Admin');
+    }
+    public function adminpusat() {
+        return $this->hasOne('App\Models\AdminPusat');
+    }
+    public function admincabang(){
+        return $this->hasOne('App\Models\AdminCabang');
+    }
+    public function shelter(){
+        return $this->hasOne('App\Models\Shelter');
+    }
+    public function donatur(){
+        return $this->hasOne('App\Models\Donatur');
+    }
+    public function orangtua(){
+        return $this->hasOne('App\Models\Orangtua');
+    }
 }

@@ -31,6 +31,8 @@ Route::get('/logout',[LoginController::class,'logout'])->name('logout');
 Route::get('/register',[LoginController::class,'register'])->name('register');
 Route::post('/register-proses',[LoginController::class,'register_proses'])->name('register-proses');
 
+Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
+
 Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], function(){
     Route::get('/menu',[HomeController::class,'menu'])->name('menu');
 
