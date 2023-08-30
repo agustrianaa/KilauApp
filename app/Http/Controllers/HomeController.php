@@ -18,8 +18,8 @@ class HomeController extends Controller
         return view('dashboard');
     }
     
-    public function contoh(){
-        return view('layout.contoh');
+    public function menu(){
+        return view('page.menu');
     }
 
     public function index(){
