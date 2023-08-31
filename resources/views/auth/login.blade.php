@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Log in</title>
-  <!-- <link rel="stylesheet" href="{{ asset('css/login.css') }}"> -->
   <link href="../images/LogoKilau.png" rel="icon">
 
   <!-- Google Fonts -->

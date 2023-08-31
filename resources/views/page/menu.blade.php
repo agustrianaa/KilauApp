@@ -27,11 +27,11 @@
                     </div>
                 
                     <div class="colored-box">
-                        Report
+                        Dashboard
                     </div>
                 
                     <div class="colored-box">
-                        Serttings
+                        Settings
                     </div>
                 
                     <div class="colored-box">
