@@ -63,22 +63,56 @@ section {
 }
 
 .colored-box {
-    background-color: #34cddb;
-    color: white;
-    padding: 40px;
-    text-align: center;
-    border-radius: 12px;
-    cursor: pointer; /* Menampilkan tanda bahwa kotak dapat diklik */
-    transition: background-color 0.3s; /* Efek transisi saat berubah warna */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Memusatkan ikon dan teks secara horizontal */
+    justify-content: center; /* Memusatkan ikon dan teks secara vertikal */
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
 }
 
 .colored-box:hover {
-    background-color: #6b57de; /* Warna saat hover */
+    background-color: #fff051; /* Warna saat hover */
+    transform: scale(1.05);
+}
+
+.colored-box-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.colored-box svg {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px; /* Jarak antara ikon dan teks */
+    margin-top: 10px; /* Tambahkan jarak atas untuk ikon */
 }
 
 /* Tambahkan class baru untuk status klik */
 .colored-box.clicked {
-    background-color: #d3e73c; /* Warna saat diklik */
+    background-color: #ffffff;
+}
+
+.colored-box span {
+    font-size: 16px;
+    text-align: center;
+}
+
+.box-link {
+    display: block;
+    text-decoration: none; /* Menghilangkan garis link */
+    color: inherit;
+}
+
+.box-text {
+    font-size: 16px;
+    margin-top: 10px; /* Tambahkan jarak atas untuk teks */
 }
 
 

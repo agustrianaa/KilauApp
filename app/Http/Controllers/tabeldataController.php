@@ -28,8 +28,12 @@ class tabeldataController extends Controller
             ],
             [
                 'name' => $request->name,
-                'email' => $request->email,
-                'address' => $request->address
+                'agama' => $request->email,
+                'TTL' => $request->TTL,
+                'jenis_kelamin' => $request->jenis_kelamin,
+                'anak_ke' => $request->anak_ke,
+                'kepala_keluarga' => $request->kepala_keluarga,
+                'status_binaan' => $request->status_binaan,
             ]);
 
             return Response()->json($tabeldata);
