@@ -329,20 +329,60 @@
                         <a class="btn btn-primary" onClick="add()" href="javascript:void(0)">Tambah Data+</a>
                     </div>
                 </div>
+                <div class="col-lg-12">
+                  <h3>Filter</h3>
+                </div>
+                <div class="col-lg-12">
+                  <div class="row">
+                    <div class="col-lg-3 mb-2">
+                      <label for="agama">Agama</label>
+                        <select class="form-select" id="agama">
+                          <option value="">-Pilih-</option>
+                          <option value="Islam">Islam</option>
+                          <option value="Kristen Protestan">Kristen Protestan</option>
+                          <option value="Kristen Katolik">Kristen Katolik</option>
+                          <option value="Hindu">Hindu</option>
+                          <option value="Buddha"> Buddha</option>
+                          <option value="Konghucu">Konghucu</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 mb-2">
+                      <label for="jeniskelamin">Jenis Kelamin</label>
+                        <select class="form-select" id="jenis_kelamin">
+                          <option value="">-Pilih-</option>
+                            <option value="Laki-Laki">Laki-Laki</option>
+                            <option value="Perempuan">Perempuan</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 mb-2">
+                      <label for="statusbinaan">Status Binaan</label>
+                        <select class="form-select" id="status_binaan">
+                          <option value="">-Pilih-</option>
+                          <option value="PB">PB</option>
+                          <option value="NPB">NPB</option>
+                          <option value="CPB">CPB</option>
+                          <option value="BCPB">BCPB</option>
+                        </select>
+                    </div>
+                  </div>
+                </div>
             </div>
             @if ($message = Session::get('success'))
                 <div class="alert alert-success">
                     <p>{{ $message }}</p>
                 </div>
             @endif
+          <div class="card">
             <div class="card-body">
+              <div class="table-responsive text-nowrap">
                 <table class="table table-bordered" id="ajax-crud-datatable">
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Nama</th>
                             <th>Agama</th> <!-- Kolom Agama -->
-                            <th>TTL</th> <!-- Kolom TTL -->
+                            <th>Tempat Lahir</th> <!-- Kolom TTL -->
+                            <th>Tanggal Lahir</th>
                             <th>Jenis Kelamin</th> <!-- Kolom Jenis Kelamin -->
                             <th>Anak Ke</th> <!-- Kolom Anak Ke -->
                             <th>Kepala Keluarga</th> <!-- Kolom Kepala Keluarga -->
@@ -351,7 +391,9 @@
                         </tr>
                     </thead>
                 </table>
+              </div>
             </div>
+          </div>
         </div>
     
         <!-- Modal -->
@@ -368,20 +410,20 @@
                             <div class="form-group">
                                 <label for="name" class="col-sm-2 control-label">Nama</label>
                                 <div class="col-sm-12">
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Name..." maxlength="50" required="">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Nama..." maxlength="50" required="">
                                 </div>
                             </div>
                             <div class="form-group">
                               <label for="name" class="col-sm-2 control-label">Agama</label>
                               <div class="col-sm-12">
-                                  <select class="form-control" id="agama" name="agama" required="">
+                                  <select class="form-select" id="agama" name="agama" required="">
                                     <option value="" disabled selected>-Pilih-</option>
-                                    <option value="islam">Islam</option>
-                                    <option value="kristenprotestan">Kristen Protestan</option>
-                                    <option value="kristenkatolik">Kristen Katolik</option>
-                                    <option value="hindu">Hindu</option>
-                                    <option value="buddha"> Buddha</option>
-                                    <option value="konghucu">Konghucu</option>
+                                    <option value="Islam">Islam</option>
+                                    <option value="Kristen Protestan">Kristen Protestan</option>
+                                    <option value="Kristen Katolik">Kristen Katolik</option>
+                                    <option value="Hindu">Hindu</option>
+                                    <option value="Buddha"> Buddha</option>
+                                    <option value="Konghucu">Konghucu</option>
                                   </select>
                               </div>
                             </div>
@@ -390,10 +432,10 @@
                               <div class="col-sm-12">
                                 <div class="row">
                                   <div class="col-md-6">
-                                      <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="Tempat Lahir..." required="">
+                                      <input type="text" class="form-control" id="teml" name="teml" placeholder="Tempat Lahir..." required="">
                                   </div>
                                   <div class="col-md-6">
-                                      <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" required="">
+                                      <input type="date" class="form-control" id="tgll" name="tgll" required="">
                                   </div>
                                 </div>
                               </div>
@@ -401,10 +443,10 @@
                             <div class="form-group">
                               <label for="name" class="col-sm-2 control-label">Jenis Kelamin</label>
                               <div class="col-sm-12">
-                                  <select class="form-control" id="jenis_kelamin" name="jenis_kelamin" required="">
+                                  <select class="form-select" id="jenis_kelamin" name="jenis_kelamin" required="">
                                     <option value="" disabled selected>-Pilih-</option>
-                                      <option value="lakilaki">Laki-Laki</option>
-                                      <option value="perempuan">Perempuan</option>
+                                      <option value="Laki-Laki">Laki-Laki</option>
+                                      <option value="Perempuan">Perempuan</option>
                                   </select>
                               </div>
                             </div>
@@ -423,7 +465,7 @@
                             <div class="form-group">
                               <label for="name" class="col-sm-2 control-label">Status Binaan</label>
                               <div class="col-sm-12">
-                                  <select class="form-control" id="status_binaan" name="status_binaan" required="">
+                                  <select class="form-select" id="status_binaan" name="status_binaan" required="">
                                     <option value="" disabled selected>-Pilih-</option>
                                     <option value="PB">PB</option>
                                     <option value="NPB">NPB</option>
@@ -465,16 +507,31 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-  
-        $('#ajax-crud-datatable').DataTable({
+
+        load_data();
+
+        function load_data(){
+          var agama = $('#agama').val();
+          var jenis_kelamin = $('#jenis_kelamin').val();
+          var status_binaan = $('#status_binaan').val();
+
+          $('#ajax-crud-datatable').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ url('admin/ajax-crud-datatable') }}",
+            ajax: {
+              url : "{{ url('admin/ajax-crud-datatable') }}",
+              data: {
+                agama : agama,
+                jenis_kelamin : jenis_kelamin,
+                status_binaan : status_binaan
+              }
+            },
             columns: [
                 { data: 'id', name: 'id'},
                 { data: 'name', name: 'name'},
                 { data: 'agama', name: 'agama'},
-                { data: 'TTL', name: 'TTL'},
+                { data: 'teml', name: 'teml'},
+                { data: 'tgll', name: 'tgll'},
                 { data: 'jenis_kelamin', name: 'jenis_kelamin'},
                 { data: 'anak_ke', name: 'anak_ke'},
                 { data: 'kepala_keluarga', name: 'kepala_keluarga'},
@@ -485,6 +542,20 @@
             paging: true,
             pageLength: 10 // Menyeting jumlah entri yang ditampilkan menjadi 10
         });
+        }
+        
+        $('#agama').on('change', function(){
+            $('#ajax-crud-datatable').DataTable().destroy()
+            load_data()
+        })
+        $('#jenis_kelamin').on('change', function(){
+            $('#ajax-crud-datatable').DataTable().destroy()
+            load_data()
+        })
+        $('#status_binaan').on('change', function(){
+            $('#ajax-crud-datatable').DataTable().destroy()
+            load_data()
+        })
     });
   
     function add(){
@@ -492,6 +563,14 @@
         $('#TambahModal').html("Tambah Data");
         $('#tambah-modal').modal('show');
         $('#id').val('');
+        // Reset nilai-nilai input tambahan seperti Agama, TTL, Jenis Kelamin, Anak Ke, Kepala Keluarga, dan Status Binaan
+        $('#agama').val('');
+        $('#teml').val('');
+        $('#tgll').val('');
+        $('#jenis_kelamin').val('');
+        $('#anak_ke').val('');
+        $('#kepala_keluarga').val('');
+        $('#status_binaan').val('');
     }
   
     function editFunc(id){
@@ -508,6 +587,14 @@
                 $('#name').val(res.name);
                 $('#address').val(res.address);
                 $('#email').val(res.email);
+                // Isi nilai-nilai input tambahan seperti Agama, TTL, Jenis Kelamin, Anak Ke, Kepala Keluarga, dan Status Binaan
+                $('#agama').val(res.agama);
+                $('#teml').val(res.teml);
+                $('#tgll').val(res.tgll);
+                $('#jenis_kelamin').val(res.jenis_kelamin);
+                $('#anak_ke').val(res.anak_ke);
+                $('#kepala_keluarga').val(res.kepala_keluarga);
+                $('#status_binaan').val(res.status_binaan);
             }
         });
     }

@@ -9,5 +9,5 @@ class tabeldata extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'email', 'address'];
+    protected $fillable = ['name', 'agama', 'teml', 'tgll', 'jenis_kelamin', 'anak_ke', 'kepala_keluarga', 'status_binaan'];
 }
