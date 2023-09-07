@@ -16,7 +16,7 @@ class tabeldataController extends Controller
             $fjenis_kelamin = $request->jenis_kelamin;
             $fstatus_binaan = $request->status_binaan;
 
-            $data = tabeldata::select('*');
+            $data = tabeldata::select("*");
 
             if ($fagama != '') {
                 $data = $data->where('agama', $fagama);
