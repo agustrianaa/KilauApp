@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AyahController;
+use App\Http\Controllers\DatakeluargaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\StudentController;
@@ -56,4 +58,13 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::get('/standards', [StudentController::class, 'getStandard'])->name('standards');
     Route::get('/results', [StudentController::class, 'getResult'])->name('results');
     Route::get('/students/records', [StudentController::class, 'records'])->name('students/records');
+});
+
+Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], function(){
+    Route::get('/datakeluarga',[DatakeluargaController::class,'index'])->name('datakeluarga');
+    Route::post('/save-datakeluarga',[DatakeluargaController::class,'store'])->name('save-datakeluarga');
+    Route::post('/delete-datakeluarga',[DatakeluargaController::class,'destroy'])->name('delete-datakeluarga');
+    
+    Route::get('/detail-datakeluarga/{id}',[DatakeluargaController::class,'show'])->name('detail-datakeluarga');
+    Route::get('/ayah',[AyahController::class,'index'])->name('ayah');
 });
