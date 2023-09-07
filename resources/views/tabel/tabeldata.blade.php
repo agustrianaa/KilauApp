@@ -329,12 +329,12 @@
                         <a class="btn btn-primary" onClick="add()" href="javascript:void(0)">Tambah Data+</a>
                     </div>
                 </div>
-                <div class="col-lg-12">
+                <div class="col-lg-12 mt-4">
                   <h3>Filter</h3>
                 </div>
                 <div class="col-lg-12">
-                  <div class="row">
-                    <div class="col-lg-3 mb-2">
+                  <div class="row align-items-end">
+                    <div class="col-lg-2 mb-2">
                       <label for="agama">Agama</label>
                         <select class="form-select" id="agama">
                           <option value="">-Pilih-</option>
@@ -346,7 +346,7 @@
                           <option value="Konghucu">Konghucu</option>
                         </select>
                     </div>
-                    <div class="col-lg-3 mb-2">
+                    <div class="col-lg-2 mb-2">
                       <label for="jeniskelamin">Jenis Kelamin</label>
                         <select class="form-select" id="jenis_kelamin">
                           <option value="">-Pilih-</option>
@@ -354,7 +354,7 @@
                             <option value="Perempuan">Perempuan</option>
                         </select>
                     </div>
-                    <div class="col-lg-3 mb-2">
+                    <div class="col-lg-2 mb-2">
                       <label for="statusbinaan">Status Binaan</label>
                         <select class="form-select" id="status_binaan">
                           <option value="">-Pilih-</option>
@@ -363,6 +363,9 @@
                           <option value="CPB">CPB</option>
                           <option value="BCPB">BCPB</option>
                         </select>
+                    </div>
+                    <div class="col-lg-1 mb-2">
+                      <button type="button" class="btn btn-outline-danger" id="resetfilters">Reset</button>
                     </div>
                   </div>
                 </div>
@@ -383,6 +386,7 @@
                             <th>Agama</th> <!-- Kolom Agama -->
                             <th>Tempat Lahir</th> <!-- Kolom TTL -->
                             <th>Tanggal Lahir</th>
+                            <th>TTL</th>
                             <th>Jenis Kelamin</th> <!-- Kolom Jenis Kelamin -->
                             <th>Anak Ke</th> <!-- Kolom Anak Ke -->
                             <th>Kepala Keluarga</th> <!-- Kolom Kepala Keluarga -->
@@ -523,7 +527,7 @@
               data: {
                 agama : agama,
                 jenis_kelamin : jenis_kelamin,
-                status_binaan : status_binaan
+                status_binaan : status_binaan,
               }
             },
             columns: [
@@ -531,7 +535,8 @@
                 { data: 'name', name: 'name'},
                 { data: 'agama', name: 'agama'},
                 { data: 'teml', name: 'teml'},
-                { data: 'tgll', name: 'tgll'},
+                { data: 'tgll', name: 'tgll' },
+                { data: 'ttl', name: 'ttl' },
                 { data: 'jenis_kelamin', name: 'jenis_kelamin'},
                 { data: 'anak_ke', name: 'anak_ke'},
                 { data: 'kepala_keluarga', name: 'kepala_keluarga'},
@@ -556,6 +561,17 @@
             $('#ajax-crud-datatable').DataTable().destroy()
             load_data()
         })
+
+        $('#resetfilters').click(function() {
+            // Mengatur nilai-nilai semua elemen select ke nilai kosong
+            $('#agama').val('');
+            $('#jenis_kelamin').val('');
+            $('#status_binaan').val('');
+            
+            // Memuat ulang data dengan filter kosong
+            $('#ajax-crud-datatable').DataTable().destroy();
+            load_data();
+        });
     });
   
     function add(){
