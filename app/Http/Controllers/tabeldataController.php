@@ -12,27 +12,30 @@ class tabeldataController extends Controller
     public function index(Request $request)
     {
         if (request()->ajax()) {
-            $agama = $request->agama;
-            $jenis_kelamin = $request->jenis_kelamin;
-            $status_binaan = $request->status_binaan;
+            $fagama = $request->agama;
+            $fjenis_kelamin = $request->jenis_kelamin;
+            $fstatus_binaan = $request->status_binaan;
 
-            $data = tabeldata::select('*', DB::raw("CONCAT(teml, ', ', tgll) as ttl"));
+            $data = tabeldata::select('*');
 
-            if ($agama != '') {
-                $data = $data->where('agama', $agama);
+            if ($fagama != '') {
+                $data = $data->where('agama', $fagama);
             }
 
-            if ($jenis_kelamin != '') {
-                $data = $data->where('jenis_kelamin', $jenis_kelamin);
+            if ($fjenis_kelamin != '') {
+                $data = $data->where('jenis_kelamin', $fjenis_kelamin);
             }
 
-            if ($status_binaan != '') {
-                $data = $data->where('status_binaan', $status_binaan);
+            if ($fstatus_binaan != '') {
+                $data = $data->where('status_binaan', $fstatus_binaan);
             }
 
             return datatables($data)
                 ->addColumn('action', 'tabel.tabeldata-action')
-                ->rawColumns(['action'])
+                ->addColumn('ttl', function($data) {
+                    return $data->teml.', '.$data->tgll;
+                })
+                ->rawColumns(['action', 'ttl'])
                 ->addIndexColumn()
                 ->make(true);
         }
