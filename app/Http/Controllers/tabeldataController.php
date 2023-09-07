@@ -16,7 +16,7 @@ class tabeldataController extends Controller
             $jenis_kelamin = $request->jenis_kelamin;
             $status_binaan = $request->status_binaan;
 
-            $data = tabeldata::select('*', DB::raw("CONCAT(teml, ', ', tgll) as ttl"));
+            $data = tabeldata::selectRaw("*");
 
             if ($agama != '') {
                 $data = $data->where('agama', $agama);
@@ -32,7 +32,10 @@ class tabeldataController extends Controller
 
             return datatables($data)
                 ->addColumn('action', 'tabel.tabeldata-action')
-                ->rawColumns(['action'])
+                ->addColumn('ttl', function($data) {
+                    return $data->teml.', '.$data->tgll;
+                })
+                ->rawColumns(['action', 'ttl'])
                 ->addIndexColumn()
                 ->make(true);
         }
