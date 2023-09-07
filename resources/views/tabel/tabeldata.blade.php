@@ -329,14 +329,14 @@
                         <a class="btn btn-primary" onClick="add()" href="javascript:void(0)">Tambah Data+</a>
                     </div>
                 </div>
-                <div class="col-lg-12">
+                <div class="col-lg-12 mt-4">
                   <h3>Filter</h3>
                 </div>
                 <div class="col-lg-12">
-                  <div class="row">
-                    <div class="col-lg-3 mb-2">
-                      <label for="agama">Agama</label>
-                        <select class="form-select" id="agama">
+                  <div class="row align-items-end">
+                    <div class="col-lg-2 mb-2">
+                      <label>Agama</label>
+                        <select class="form-select" id="fagama">
                           <option value="">-Pilih-</option>
                           <option value="Islam">Islam</option>
                           <option value="Kristen Protestan">Kristen Protestan</option>
@@ -346,23 +346,26 @@
                           <option value="Konghucu">Konghucu</option>
                         </select>
                     </div>
-                    <div class="col-lg-3 mb-2">
-                      <label for="jeniskelamin">Jenis Kelamin</label>
-                        <select class="form-select" id="jenis_kelamin">
+                    <div class="col-lg-2 mb-2">
+                      <label>Jenis Kelamin</label>
+                        <select class="form-select" id="fjenis_kelamin">
                           <option value="">-Pilih-</option>
                             <option value="Laki-Laki">Laki-Laki</option>
                             <option value="Perempuan">Perempuan</option>
                         </select>
                     </div>
-                    <div class="col-lg-3 mb-2">
-                      <label for="statusbinaan">Status Binaan</label>
-                        <select class="form-select" id="status_binaan">
+                    <div class="col-lg-2 mb-2">
+                      <label>Status Binaan</label>
+                        <select class="form-select" id="fstatus_binaan">
                           <option value="">-Pilih-</option>
                           <option value="PB">PB</option>
                           <option value="NPB">NPB</option>
                           <option value="CPB">CPB</option>
                           <option value="BCPB">BCPB</option>
                         </select>
+                    </div>
+                    <div class="col-lg-1 mb-2">
+                      <button type="button" class="btn btn-outline-danger" id="resetfilters">Reset</button>
                     </div>
                   </div>
                 </div>
@@ -380,13 +383,12 @@
                         <tr>
                             <th>ID</th>
                             <th>Nama</th>
-                            <th>Agama</th> <!-- Kolom Agama -->
-                            <th>Tempat Lahir</th> <!-- Kolom TTL -->
-                            <th>Tanggal Lahir</th>
-                            <th>Jenis Kelamin</th> <!-- Kolom Jenis Kelamin -->
-                            <th>Anak Ke</th> <!-- Kolom Anak Ke -->
-                            <th>Kepala Keluarga</th> <!-- Kolom Kepala Keluarga -->
-                            <th>Status Binaan</th> <!-- Kolom Status Binaan -->
+                            <th>Agama</th>
+                            <th>TTL</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Anak Ke</th>
+                            <th>Kepala Keluarga</th>
+                            <th>Status Binaan</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -511,9 +513,9 @@
         load_data();
 
         function load_data(){
-          var agama = $('#agama').val();
-          var jenis_kelamin = $('#jenis_kelamin').val();
-          var status_binaan = $('#status_binaan').val();
+          var fagama = $('#fagama').val();
+          var fjenis_kelamin = $('#fjenis_kelamin').val();
+          var fstatus_binaan = $('#fstatus_binaan').val();
 
           $('#ajax-crud-datatable').DataTable({
             processing: true,
@@ -521,17 +523,16 @@
             ajax: {
               url : "{{ url('admin/ajax-crud-datatable') }}",
               data: {
-                agama : agama,
-                jenis_kelamin : jenis_kelamin,
-                status_binaan : status_binaan
+                agama : fagama,
+                jenis_kelamin : fjenis_kelamin,
+                status_binaan : fstatus_binaan,
               }
             },
             columns: [
                 { data: 'id', name: 'id'},
                 { data: 'name', name: 'name'},
                 { data: 'agama', name: 'agama'},
-                { data: 'teml', name: 'teml'},
-                { data: 'tgll', name: 'tgll'},
+                { data: 'ttl', name: 'ttl'},
                 { data: 'jenis_kelamin', name: 'jenis_kelamin'},
                 { data: 'anak_ke', name: 'anak_ke'},
                 { data: 'kepala_keluarga', name: 'kepala_keluarga'},
@@ -544,18 +545,29 @@
         });
         }
         
-        $('#agama').on('change', function(){
+        $('#fagama').on('change', function(){
             $('#ajax-crud-datatable').DataTable().destroy()
             load_data()
         })
-        $('#jenis_kelamin').on('change', function(){
+        $('#fjenis_kelamin').on('change', function(){
             $('#ajax-crud-datatable').DataTable().destroy()
             load_data()
         })
-        $('#status_binaan').on('change', function(){
+        $('#fstatus_binaan').on('change', function(){
             $('#ajax-crud-datatable').DataTable().destroy()
             load_data()
         })
+
+        $('#resetfilters').click(function() {
+            // Mengatur nilai-nilai semua elemen select ke nilai kosong
+            $('#fagama').val('');
+            $('#fjenis_kelamin').val('');
+            $('#fstatus_binaan').val('');
+            
+            // Memuat ulang data dengan filter kosong
+            $('#ajax-crud-datatable').DataTable().destroy();
+            load_data();
+        });
     });
   
     function add(){
@@ -627,7 +639,13 @@
             contentType: false,
             processData: false,
             success: (data) => {
-                console.log(data);
+              Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: 'Data berhasil ditambahkan!',
+                showConfirmButton: false,
+                timer: 1500 // Durasi pesan SweetAlert ditampilkan dalam milidetik (ms)
+              });
                 $("#tambah-modal").modal('hide');
                 var oTable = $('#ajax-crud-datatable').dataTable();
                 oTable.fnDraw(false);

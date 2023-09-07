@@ -9,36 +9,40 @@ use Illuminate\Support\Facades\DB;
 
 class tabeldataController extends Controller
 {
-    public function index(Request $request) {
-        if(request()->ajax()) {
-            $agama = $request->agama;
-            $jenis_kelamin = $request->jenis_kelamin;
-            $status_binaan = $request->status_binaan;
-            
-            $data = tabeldata::select('*')
-                        ->where(function($q) use($agama) {
-                            if($agama != ''){
-                                $q->where('agama', $agama);
-                            }
-                        })
-                        ->where(function($q) use($jenis_kelamin) {
-                            if($jenis_kelamin != ''){
-                                $q->where('jenis_kelamin', $jenis_kelamin);
-                            }
-                        })
-                        ->where(function($q) use($status_binaan) {
-                            if($status_binaan != ''){
-                                $q->where('status_binaan', $status_binaan);
-                            }
-                        });
+    public function index(Request $request)
+    {
+        if (request()->ajax()) {
+            $fagama = $request->agama;
+            $fjenis_kelamin = $request->jenis_kelamin;
+            $fstatus_binaan = $request->status_binaan;
+
+            $data = tabeldata::select("*");
+
+            if ($fagama != '') {
+                $data = $data->where('agama', $fagama);
+            }
+
+            if ($fjenis_kelamin != '') {
+                $data = $data->where('jenis_kelamin', $fjenis_kelamin);
+            }
+
+            if ($fstatus_binaan != '') {
+                $data = $data->where('status_binaan', $fstatus_binaan);
+            }
+
             return datatables($data)
-            ->addColumn('action', 'tabel.tabeldata-action')
-            ->rawColumns(['action'])
-            ->addIndexColumn()
-            ->make(true);
+                ->addColumn('action', 'tabel.tabeldata-action')
+                ->addColumn('ttl', function($data) {
+                    return $data->teml.', '.$data->tgll;
+                })
+                ->rawColumns(['action', 'ttl'])
+                ->addIndexColumn()
+                ->make(true);
         }
+
         return view('tabel.tabeldata');
     }
+
 
     public function store(Request $request)  {
         $tabeldataId = $request->id;
