@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\IbuController;
 use App\Http\Controllers\AyahController;
 use App\Http\Controllers\DatakeluargaController;
 use App\Http\Controllers\HomeController;
@@ -66,5 +67,11 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::post('/delete-datakeluarga',[DatakeluargaController::class,'destroy'])->name('delete-datakeluarga');
     
     Route::get('/detail-datakeluarga/{id}',[DatakeluargaController::class,'show'])->name('detail-datakeluarga');
-    Route::get('/ayah',[AyahController::class,'index'])->name('ayah');
+    Route::put('/ayah/{id}',[AyahController::class,'update'])->name('ayah.update');
+
+
+    // Data Ibu
+    Route::put('/updateibu/{idIbu}', [IbuController::class, 'update'])->name('updateibu');
+// Route::put('/detail-datakeluarga/updateibu/{idIbu}', [IbuController::class, 'update'])->name('updateibu');
+
 });

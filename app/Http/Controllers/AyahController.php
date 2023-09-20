@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ayah;
 use Illuminate\Http\Request;
 
 class AyahController extends Controller
@@ -11,7 +12,7 @@ class AyahController extends Controller
      */
     public function index()
     {
-        return view('page.ayah');
+        // return view('page.ayah');
     }
 
     /**
@@ -27,7 +28,7 @@ class AyahController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Ayah::create($request->all());
     }
 
     /**
@@ -43,7 +44,7 @@ class AyahController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        
     }
 
     /**
@@ -51,7 +52,12 @@ class AyahController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $dataAyah = Ayah::find($id);
+        
+        $dataAyah->update($request->all());
+
+        return redirect()->route('admin.detail-datakeluarga', ['id' => $dataAyah->id, '#tab_dataAyah']);
+
     }
 
     /**

@@ -6,15 +6,41 @@
     <section class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="row">
-                <h1>Data Keluarga ya Woik</h1>
+            <div class="row text-center">
+                <h1>DATA KELUARGA</h1>
             </div>
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Bordered Table</h3>
+                    <h2 class="card-title text-center">Data Keluarga</h2>
+                    <button class="btn btn-primary float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        <i class="fas fa-filter"></i> Filter
+                    </button>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body" style="overflow-x:auto;">
+
+                <!-- Filteerrrr -->
+                <p class="d-inline-flex gap-1">
+                    <!-- <button class="btn btn-primary float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        <i class="fas fa-filter"></i>
+                    </button> -->
+                </p>
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label for="a">Shelter</label>
+                                    <select class="form-select" name="" id="fwilbin">
+                                        <option value="">Seluruh</option>
+                                        <option value="imy">Indramayu</option>
+                                        <option value="smd">Sumedang</option>
+                                    </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                    <!-- Tabel data keluarga -->
                     <table class="table table-bordered"  id="data-keluarga">
                     <thead>
                         <tr>
@@ -30,15 +56,17 @@
                     </table>
                 </div>
 
+                <!-- Button tambah data keluarga -->
                 <div class="pull-right mb-2">
                     <a class="btn btn-primary" onClick="add_datakeluarga()" href="javascript:void(0)"> Tambahkan Data Keluarga</a>
                 </div>
+
                 <!-- Modal Data Keluarga -->
                 <div class="modal fade" id="modal-datakeluarga" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Tambah Data User</h5>
+                                <h5 class="modal-title">Tambah Data Keluarga</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -62,6 +90,7 @@
                                             <input type="text" class="form-control" id="wilbin" name="wilbin" placeholder="Wilayah Binaan..." required="">
                                         </div>
                                     </div>
+                                    
                                     <div class="col-sm-offset-2 col-sm-10"><br/>
                                         <button type="submit" class="btn btn-primary" id="btn-save">Save</button>
                                     </div>
@@ -85,19 +114,45 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         }),
-        $('#data-keluarga').DataTable({
-            processing : true,
-            serverSide : true,
-            ajax : "{{ url('admin/datakeluarga') }}",
-            columns : [
-                { data: 'id', name: 'id'},
-                { data: 'no_kk', name: 'no_kk'},
-                { data: 'kepala_keluarga', name: 'kepala_keluarga'},
-                { data: 'wilbin', name: 'wilbin'},
-                { data: 'action', name: 'action', orderable: false},
-            ],
-            order: [[0, 'desc']],
+
+        // untuk collapse filteeerrrr
+        $('collapseExample').hide();
+        $("button").click(function(){
+            $("#collapseExample").toggle();
         });
+
+        load_data();
+
+        function load_data(){
+            var fwilbin = $('#fwilbin').val();
+
+            $('#data-keluarga').DataTable({
+                processing : true,
+                serverSide : true,
+                ajax : {
+                    url : "{{ url('admin/datakeluarga') }}",
+                    data: {
+                        wilbin : fwilbin,
+                    }
+                },
+
+                columns : [
+                    { data: 'id', name: 'id'},
+                    { data: 'no_kk', name: 'no_kk'},
+                    { data: 'kepala_keluarga', name: 'kepala_keluarga'},
+                    { data: 'wilbin', name: 'wilbin'},
+                    { data: 'action', name: 'action', orderable: false},
+                ],
+                order: [[0, 'desc']],
+            });
+        }
+
+        //filter daerah wilayah binaan
+        $('#fwilbin').on('change', function(){
+            $('#data-keluarga').DataTable().destroy();
+            load_data();
+        });
+
     });
 
     //Menambahkan data keluarga

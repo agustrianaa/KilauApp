@@ -1,4 +1,4 @@
-<a href="javascript:void(0)" data-toggle="tooltip" onClick="detailDatakeluarga({{ $id }})" data-original-title="Edit" class="edit btn btn-success edit">
+<a href="javascript:void(0)" data-toggle="tooltip" onClick="detailDatakeluarga({{ $id }})" data-original-title="Edit" class="show btn btn-success show">
     <i class="far fa-eye"></i> <!-- Ini adalah ikon mata -->
 </a>
 
