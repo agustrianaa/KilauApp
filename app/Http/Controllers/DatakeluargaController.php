@@ -24,19 +24,13 @@ class DatakeluargaController extends Controller
                 }
             });
 
-            
-
-            // if($fwilbin != '') {
-            //     $data = $data->where('wilbin', $fwilbin);
-            // }
-
             return datatables($data)
             ->addColumn('action', 'layout.components.datakeluarga-action')
             ->rawColumns(['action'])
             ->addIndexColumn()
             ->make(true);
         }
-        return view ('page.datakeluarga');
+        return view ('page.menukeluarga.contoh');
     }
 
     /**
@@ -63,7 +57,38 @@ class DatakeluargaController extends Controller
                         'kepala_keluarga' => $request->kepala_keluarga,
                         'wilbin' => $request->wilbin,
                     ]);
-        return Response()->json($datakeluarga);
+        
+        // AYAAAHH
+        $dataAyah = Ayah::create(
+            [
+                'data_keluargas_id' => $datakeluarga -> id,
+                'nik_ayah' => $request->nik_ayah,
+                'nama_ayah' => $request->nama_ayah,
+                'tempat_lahir' => $request->tempat_lahir,
+                'tanggal_lahir' => $request->tanggal_lahir,
+                'agama' => $request->agama,
+                'alamat' => $request->alamat,
+                'pekerjaan' => $request->pekerjaan,
+            ]
+        );
+
+        // IBUUUU
+        $dataIbu = Ibu::create(
+            [
+                'data_keluargas_id' => $datakeluarga -> id,
+                'nik_ibu' => $request->nik_ibu,
+                'nama_ibu' => $request->nama_ibu,
+                'tempat_lahir' => $request->tempat_lahir,
+                'tanggal_lahir' => $request->tanggal_lahir,
+                'agama' => $request->agama,
+                'alamat' => $request->alamat,
+                'pekerjaan' => $request->pekerjaan,
+            ]
+        );
+        
+        return Response()->json(['datakeluarga' => $datakeluarga,
+        'dataAyah' => $dataAyah,
+        'dataIbu' => $dataIbu,]);
     }
 
     /**
@@ -77,7 +102,7 @@ class DatakeluargaController extends Controller
         $dataIbu = Ibu::where('data_keluargas_id', $id)->first();
         $dataAyah = Ayah::where('data_keluargas_id', $id)->first();
         // Tampilkan halaman detail data keluarga (misalnya, menggunakan view 'detail_datakeluarga.blade.php')
-        return view('page.detail_datakeluarga', ['dataKeluarga' => $dataKeluarga, 'dataIbu' => $dataIbu, 'dataAyah' => $dataAyah]);
+        return view('page.menukeluarga.detail_datakeluarga', ['dataKeluarga' => $dataKeluarga, 'dataIbu' => $dataIbu, 'dataAyah' => $dataAyah]);
 
         //data ibu
         

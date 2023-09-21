@@ -56,7 +56,7 @@ class AyahController extends Controller
         
         $dataAyah->update($request->all());
 
-        return redirect()->route('admin.detail-datakeluarga', ['id' => $dataAyah->id, '#tab_dataAyah']);
+        return redirect()->route('admin.menukeluarga.detail-datakeluarga', ['id' => $dataAyah->id, '#tab_dataAyah']);
 
     }
 

@@ -79,13 +79,13 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="name" class="col-sm-2 control-label">KepalaKeluarga</label>
+                                        <label for="name" class="control-label">Kepala Keluarga</label>
                                         <div class="col-sm-12">
                                             <input type="text" class="form-control" id="kepala_keluarga" name="kepala_keluarga" placeholder="Kepala Keluarga..." maxlength="50" required="">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">Wilayah Binaan</label>
+                                        <label class=" control-label">Wilayah Binaan</label>
                                         <div class="col-sm-12">
                                             <input type="text" class="form-control" id="wilbin" name="wilbin" placeholder="Wilayah Binaan..." required="">
                                         </div>
@@ -99,7 +99,7 @@
                             <div class="modal-footer"></div>
                         </div>
                     </div>
-                </div><!-- End Modal -->
+                </div><!-- End Modal  -->
 
             </div>
         </div>

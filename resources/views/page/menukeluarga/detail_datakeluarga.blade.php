@@ -83,10 +83,10 @@
                                         <p>Ini adalah data Ayah yang lengkap</p>
                                         <ul class="list-group list-group-unbordered mb-3">
                                             <li class="list-group-item">
-                                                <b>NIK</b> <a class="float-right">{{ $dataAyah ? $dataAyah->nik : 'Data Kosong' }}</a>
+                                                <b>NIK</b> <a class="float-right">{{ $dataAyah ? $dataAyah->nik_ayah : 'Data Kosong' }}</a>
                                             </li>
                                             <li class="list-group-item">
-                                                <b>Nama Lengkap</b> <a class="float-right">{{ $dataAyah ? $dataAyah->nama : 'Data Kosong' }}</a>
+                                                <b>Nama Lengkap</b> <a class="float-right">{{ $dataAyah ? $dataAyah->nama_ayah : 'Data Kosong' }}</a>
                                             </li>
                                             <li class="list-group-item">
                                                 <b>Tempat, Tanggal Lahir</b> <a class="float-right">{{ $dataAyah ? $dataAyah->tempat_lahir : 'Data Kosong' }}, {{ $dataAyah ? $dataAyah->tanggal_lahir : 'Data Kosong' }}</a>
@@ -109,10 +109,10 @@
                                         <p>Ini adalah data Ibu yang lengkap</p>
                                         <ul class="list-group list-group-unbordered mb-3">
                                             <li class="list-group-item">
-                                                <b>NIK</b> <a class="float-right">{{ $dataIbu ? $dataIbu->nik : 'Data Kosong' }}</a>
+                                                <b>NIK</b> <a class="float-right">{{ $dataIbu ? $dataIbu->nik_ibu : 'Data Kosong' }}</a>
                                             </li>
                                             <li class="list-group-item">
-                                                <b>Nama Lengkap</b> <a class="float-right">{{ $dataIbu ? $dataIbu->nama : 'Data Kosong' }}</a>
+                                                <b>Nama Lengkap</b> <a class="float-right">{{ $dataIbu ? $dataIbu->nama_ibu : 'Data Kosong' }}</a>
                                             </li>
                                             <li class="list-group-item">
                                                 <b>Tempat, Tanggal Lahir</b> <a class="float-right">{{ $dataIbu ? $dataIbu->tempat_lahir : 'Data Kosong' }}, {{ $dataIbu ? $dataIbu->tanggal_lahir : 'Data Kosong' }}</a>
@@ -143,17 +143,17 @@
                                                     <form >
                                                         @csrf
                                                         @method('PUT')
-                                                    <input type="hidden" name="id" id="id" value="1">
+                                                    <input type="hidden" name="id_ibu" id="id_ibu" value="1">
                                                         <div class="form-group">
                                                             <label for="no_kk" class="control-label">NIK</label>
                                                             <div class="col-sm-12">
-                                                                <input type="text" class="form-control" id="nik-ibu" name="nik" placeholder="Masukkan NIK..." value="{{ $dataIbu ? $dataIbu->nik : 'Data Kosong' }}"  maxlength="50" required="">
+                                                                <input type="text" class="form-control" id="nik-ibu" name="nik" placeholder="Masukkan NIK..." value="{{ $dataIbu ? $dataIbu->nik_ibu : 'Data Kosong' }}"  maxlength="50" required="">
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="name" class="control-label">Nama Lengkap</label>
                                                             <div class="col-sm-12">
-                                                                <input type="text" class="form-control" id="nama" name="nama" placeholder="" value="{{ $dataIbu ? $dataIbu->nama : 'Data Kosong' }}" maxlength="50" required="">
+                                                                <input type="text" class="form-control" id="nama" name="nama" placeholder="" value="{{ $dataIbu ? $dataIbu->nama_ibu : 'Data Kosong' }}" maxlength="50" required="">
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
@@ -162,7 +162,7 @@
                                                                 <div class="col-sm-8">
                                                                     <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder=""value="{{ $dataIbu ? $dataIbu->tempat_lahir : 'Data Kosong' }}" required="">
                                                                 </div>
-                                                                <div class="col-sm-4">
+                                                                <div class="col-psm-4">
                                                                     <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" placeholder="" value="{{ $dataIbu ? $dataIbu->tanggal_lahir : 'Data Kosong' }}" required="">
                                                                 </div>
                                                             </div>
@@ -209,6 +209,11 @@
 
 <script>
     $(document).ready(function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        })
         var idIbu;
 
         $('#modal_dataIbu').on('show.bs.modal', function(event){
@@ -234,9 +239,8 @@
 
             $.ajax({
                 type: 'PUT',
-                url: '/admin/updateibu/' + idIbu,
+                url: "{{ url('admin/updateibu') }}" + idIbu,
                 data: {
-                    _token: '{{ csrf_token() }}',
                     nik: nik,
                     nama: nama,
                     tempat_lahir: tempat_lahir,

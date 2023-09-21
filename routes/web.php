@@ -71,7 +71,6 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
 
 
     // Data Ibu
-    Route::put('/updateibu/{idIbu}', [IbuController::class, 'update'])->name('updateibu');
-// Route::put('/detail-datakeluarga/updateibu/{idIbu}', [IbuController::class, 'update'])->name('updateibu');
+    Route::post('/updateibu/{idIbu}', [IbuController::class, 'update'])->name('updateibu');
 
 });
