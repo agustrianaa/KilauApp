@@ -584,6 +584,11 @@
         $('#kepala_keluarga').val('');
         $('#status_binaan').val('');
     }
+
+    function viewFunc(id) {
+      // Navigate to the view page with the record's ID as a query parameter
+      window.location.href = "{{ url('admin/tabeldataview/') }}/" + id;
+    }
   
     function editFunc(id){
         $.ajax({

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\tabeldata;
 use Datatables;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class tabeldataController extends Controller
 {
@@ -65,6 +66,12 @@ class tabeldataController extends Controller
             return Response()->json($tabeldata);
     }
 
+    public function showViewPage(Request $request, $id):View
+    {
+        $record = tabeldata::find($id);
+
+        return view('tabeldata-view', compact('record'));
+    }
     public function edit(Request $request) {
         $where = array('id' => $request->id);
         $tabeldata = tabeldata::where($where)->first();

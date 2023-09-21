@@ -40,13 +40,14 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
 
     Route::get('/create',[HomeController::class,'create'])->name('user.create');
     Route::post('/store',[HomeController::class,'store'])->name('user.store');
-
+    
     Route::get('/edit/{id}',[HomeController::class,'edit'])->name('user.edit');
     Route::put('/update/{id}',[HomeController::class,'update'])->name('user.update');
     Route::delete('/delete/{id}',[HomeController::class,'delete'])->name('user.delete');
 
     Route::get('/ajax-crud-datatable', [tabeldataController::class, 'index'])->name('ajax-crud-datatable');
     Route::post('/tabeldatastore', [tabeldataController::class, 'store'])->name('tabeldatastore');
+    Route::get('/tabeldataview/{id}', [tabeldataController::class, 'showViewPage'])->name('tabeldataview');
     Route::post('/tabeldataedit', [tabeldataController::class, 'edit'])->name('tabeldataedit');
     Route::post('/tabeldatadelete', [tabeldataController::class, 'destroy'])->name('tabeldatadelete');
 
