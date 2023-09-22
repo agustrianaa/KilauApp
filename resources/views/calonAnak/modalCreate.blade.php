@@ -114,7 +114,7 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: '{{ route(calon.index) }}', // Gunakan route() untuk memanggil URL
+                url: "{{ route('calon.index') }}", // Gunakan route() untuk memanggil URL
                 data: {
                     nama: $('#fruit-select').val()
                 }

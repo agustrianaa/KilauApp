@@ -58,3 +58,5 @@ Route::resource('/acc', \App\Http\Controllers\AccController::class);
 
 
 Route::resource('/calon', \App\Http\Controllers\CalonAnakBinaanController::class);
+
+Route::resource('/datasurvey', \App\http\Controllers\dataSurveyController::class);
