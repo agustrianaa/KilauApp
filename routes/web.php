@@ -60,3 +60,6 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
 });
 
 
+Route::resource('/calon', \App\Http\Controllers\CalonAnakBinaanController::class);
+
+Route::resource('/datasurvey', \App\http\Controllers\dataSurveyController::class);
