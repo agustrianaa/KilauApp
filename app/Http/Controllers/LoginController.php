@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +30,7 @@ class LoginController extends Controller
         ];
 
         if(Auth::attempt($data)){
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('admin.menu');
         }else{
             return redirect()->route('login')->with('failed','Email atau Password Salah');
         }
@@ -70,9 +70,9 @@ class LoginController extends Controller
         ];
 
         if(Auth::attempt($login)){
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('admin.menu');
         }else{
             return redirect()->route('login')->with('failed','Email atau Password Salah');
         }
     }
-}
+}     

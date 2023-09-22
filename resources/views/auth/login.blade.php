@@ -3,56 +3,74 @@
 <head>
   <meta charset="UTF-8">
   <title>Log in</title>
-  <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+  <link href="../images/LogoKilau.png" rel="icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="../assets/css/style.css" rel="stylesheet">
+
 </head>
 <body>
 
-  <section>
+  <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
     <div class="container">
-      <div id="scene">
-        <div class="layer" data-depth-x="-0.15">
-          <img src="{{ asset('images/vw4.png') }}" alt=""  style="--i:4;">
-        </div>
-        <div class="layer" data-depth-x="0.20">
-          <img src="{{ asset('images/vw3.png') }}" alt=""  style="--i:3;">
-        </div>
-        <div class="layer" data-depth-x="0.35">
-          <img src="{{ asset('images/vw2.png') }}" alt=""  style="--i:2;">
-        </div>
-        <div class="layer" data-depth-x="0.25">
-          <img src="{{ asset('images/vw1.png') }}" alt=""  style="--i:1;">
-        </div>
-        <div class="layer" data-depth-x="-0.5">
-          <img src="{{ asset('images/sunshine.png') }}" alt=""  style="--i:5;">
-        </div>
-        <div class="layer" data-depth-x="-0.3" data-depth-y="-0.1">
-          <img src="{{ asset('images/vw5.png') }}" alt="" class="leave">
-        </div>
+      <div class="row justify-content-center">
+      <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+      <div class="d-flex justify-content-center py-4">
+              <img src="../images/LogoKilau.png" alt="Logo" width="115" height="100" class="d-inline-block align-text-top" >
       </div>
-    </div>
-    <div class="login">
-      <h2>Login</h2>
-      <form action="{{ route('login-proses') }}" method="post">
-        @csrf
-        <div class="inputBox">
-          <input type="email" name="email" placeholder="Email">
+
+          <div class="card mb-3">
+            <div class="card-header">
+              <h5 class="card-title text-center pb-0 fs-4">LOGIN</h5>
+            </div>
+            <div class="card-body">
+            <form class="row g-3 needs-validation" action="{{ route('login-proses') }}" method="post">
+              @csrf
+              <div class="col-12">
+                  <label for="email" class="form-label">Email Address</label>
+                      <div class="input-group has-validation">
+                          <span class="input-group-text" id="inputGroupPrepend">@</span>
+                          <input type="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus class="form-control" id="email">
+                          <div class="invalid-feedback">Please enter your username.</div>
+                      </div>
+              </div>
+              @error('email')
+              <small>{{ $message }}</small>
+              @enderror
+              <div class="col-12">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" name="password" class="form-control" id="password" required>
+              
+                <div class="invalid-feedback">Please enter your password!</div>
+              </div>
+              @error('password')
+              <small>{{ $message }}</small>
+              @enderror
+              <div class="col-12">
+                <input class="btn btn-primary w-100" type="submit" value="Login" id="tombollogin">
+              </div>
+            <div class="col-15">
+              <a href="#"> Belum Punya Akun?</a>
+              <a href="{{ route('register') }}">Register</a>
+            </div>
+            </form>
+            </div>
+          </div>
         </div>
-        @error('email')
-        <small>{{ $message }}</small>
-        @enderror
-        <div class="inputBox">
-          <input type="password" name="password" placeholder="Password">
-        </div>
-        @error('password')
-        <small>{{ $message }}</small>
-        @enderror
-        <div class="inputBox">
-          <input type="submit" value="Login" id="tombollogin">
-        </div>
-      </form>
-      <div class="group">
-        <a href="#"> Belum Punya Akun?</a>
-        <a href="{{ route('register') }}">Register</a>
       </div>
     </div>
   </section>

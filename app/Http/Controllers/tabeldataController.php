@@ -6,28 +6,29 @@ use Illuminate\Http\Request;
 use App\Models\tabeldata;
 use Datatables;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class tabeldataController extends Controller
 {
     public function index(Request $request)
     {
         if (request()->ajax()) {
-            $agama = $request->agama;
-            $jenis_kelamin = $request->jenis_kelamin;
-            $status_binaan = $request->status_binaan;
+            $fagama = $request->agama;
+            $fjenis_kelamin = $request->jenis_kelamin;
+            $fstatus_binaan = $request->status_binaan;
 
-            $data = tabeldata::select('*');
+            $data = tabeldata::select("*");
 
-            if ($agama != '') {
-                $data = $data->where('agama', $agama);
+            if ($fagama != '') {
+                $data = $data->where('agama', $fagama);
             }
 
-            if ($jenis_kelamin != '') {
-                $data = $data->where('jenis_kelamin', $jenis_kelamin);
+            if ($fjenis_kelamin != '') {
+                $data = $data->where('jenis_kelamin', $fjenis_kelamin);
             }
 
-            if ($status_binaan != '') {
-                $data = $data->where('status_binaan', $status_binaan);
+            if ($fstatus_binaan != '') {
+                $data = $data->where('status_binaan', $fstatus_binaan);
             }
 
             return datatables($data)
@@ -65,6 +66,12 @@ class tabeldataController extends Controller
             return Response()->json($tabeldata);
     }
 
+    public function showViewPage(Request $request, $id):View
+    {
+        $record = tabeldata::find($id);
+
+        return view('tabeldata-view', compact('record'));
+    }
     public function edit(Request $request) {
         $where = array('id' => $request->id);
         $tabeldata = tabeldata::where($where)->first();

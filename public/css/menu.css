@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+section {
+    min-height: 100vh;
+    padding: 0 9%;
+}
+
+.home {
+    display: flex;
+    flex-direction: column; /* Stack the items vertically */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.home .bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.main-content {
+    display: block;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-wrapper {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 24px;
+    color: #666;
+    margin-top: 5px;
+}
+
+.outer-box {
+    justify-content: center;
+    display: flex;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.inner-box {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 0 auto;
+}
+
+.colored-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Memusatkan ikon dan teks secara horizontal */
+    justify-content: center; /* Memusatkan ikon dan teks secara vertikal */
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.colored-box:hover {
+    background-color: #fff051; /* Warna saat hover */
+    transform: scale(1.05);
+}
+
+.colored-box-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.colored-box svg {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px; /* Jarak antara ikon dan teks */
+    margin-top: 10px; /* Tambahkan jarak atas untuk ikon */
+}
+
+/* Tambahkan class baru untuk status klik */
+.colored-box.clicked {
+    background-color: #ffffff;
+}
+
+.colored-box span {
+    font-size: 16px;
+    text-align: center;
+}
+
+.box-link {
+    display: block;
+    text-decoration: none; /* Menghilangkan garis link */
+    color: inherit;
+}
+
+.box-text {
+    font-size: 16px;
+    margin-top: 10px; /* Tambahkan jarak atas untuk teks */
+}
+
+
+.footer {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
