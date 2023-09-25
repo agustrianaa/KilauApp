@@ -106,4 +106,8 @@ class HomeController extends Controller
 
         return redirect()->route('admin.index');
     }
+
+    public function a() {
+        return view('survey.a');
+    }
 }

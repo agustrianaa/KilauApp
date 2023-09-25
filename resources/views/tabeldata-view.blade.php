@@ -59,7 +59,7 @@
 
                   <div class="container-fluid">
                     <div class="top-lefta">
-                      <div class="card rounded">
+                      <div class="cardrounded">
                         <div class="card-body">
                           <div class="gambar">
                             <img src="{{ asset('images/iahnf.jpg') }}" alt="">
@@ -71,7 +71,7 @@
 
                   <div class="container-fluid">
                     <div class="bottom-lefta">
-                      <div class="card rounded">
+                      <div class="cardrounded">
                         <div class="card-body">
                           <div class="list-group">
                             <p class="list-group-item">{{ $record->name }}</p>

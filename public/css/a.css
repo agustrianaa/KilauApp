@@ -1,0 +1,30 @@
+/* Style untuk kotak besar */
+.containera {
+    display: flex;
+    flex-direction: column; /* Mengatur tampilan vertikal */
+}
+
+.kotak-atas {
+    display: flex;
+    flex: 1;
+    justify-content: center; /* Mengatur kotak-kiri, kotak-bawah, dan kotak-kanan menjadi tengah */
+}
+
+.kotak-bawah-container {
+    display: flex;
+}
+
+.kotak-kiri {
+    flex: 1;
+    padding: 20px;
+}
+
+.kotak-kanan {
+    flex: 0.5;
+    padding: 20px;
+}
+
+.kotak-bawah {
+    flex: 1;
+    padding: 20px;
+}

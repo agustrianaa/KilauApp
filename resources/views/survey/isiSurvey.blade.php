@@ -16,7 +16,7 @@
             cursor: pointer;
         }
 
-        </style>
+    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
@@ -87,10 +87,6 @@
             </div>
         </div>
 
-
-
-
-
             <div class="row mb-5">
                 <div class="col-md-12">
                     <div class="card border-0 shadow-sm rounded-md mt-4">
@@ -117,17 +113,12 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary" id="store">Validasi</button>
-                            <button type="#" class="btn btn-danger">Kembali</button>
+                            <a href="{{ route('admin.dashboard') }}" class="btn btn-danger">Kembali</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
-
-
-
 
 
 <script>
@@ -260,99 +251,97 @@
         let alamat_wali = $('#alamat_wali').val();
 
         $.ajax({
-                    url: "{{ route('datasurvey.store') }}",
-                    type: 'POST',
-                    // cache: false,
-                    data: {
-                        "pendidikan_kepala_keluarga": pendidikan_kepala_keluarga,
-                        "jumlah_tanggungan": jumlah_tanggungan,
-                        // survey ekonomi
-                        "pekerjaan_kepala_keluarga": pekerjaan_kepala_keluarga,
-                        "penghasilan": penghasilan,
-                        "kepemilikan_tabungan": kepemilikan_tabungan,
-                        "jumlah_makan": jumlah_makan,
+            url: "{{ route('datasurvey.store') }}",
+            type: 'POST',
+            // cache: false,
+            data: {
+                "pendidikan_kepala_keluarga": pendidikan_kepala_keluarga,
+                "jumlah_tanggungan": jumlah_tanggungan,
+                // survey ekonomi
+                "pekerjaan_kepala_keluarga": pekerjaan_kepala_keluarga,
+                "penghasilan": penghasilan,
+                "kepemilikan_tabungan": kepemilikan_tabungan,
+                "jumlah_makan": jumlah_makan,
 
-                        // survey asset
-                        "kepemilikan_tanah": kepemilikan_tanah,
-                        "kepemilikan_rumah": kepemilikan_rumah,
-                        "kondisi_rumah_lantai": kondisi_rumah_lantai,
-                        "kondisi_rumah_dinding": kondisi_rumah_dinding,
-                        "kepemilikan_kendaraan": kepemilikan_kendaraan,
-                        "kepemilikan_elektronik": kepemilikan_elektronik,
+                // survey asset
+                "kepemilikan_tanah": kepemilikan_tanah,
+                "kepemilikan_rumah": kepemilikan_rumah,
+                "kondisi_rumah_lantai": kondisi_rumah_lantai,
+                "kondisi_rumah_dinding": kondisi_rumah_dinding,
+                "kepemilikan_kendaraan": kepemilikan_kendaraan,
+                "kepemilikan_elektronik": kepemilikan_elektronik,
 
-                        // survey kesehatan
-                        "sumber_air_bersih": sumber_air_bersih,
-                        "jamban_limbah": jamban_limbah,
-                        "tempat_sampah": tempat_sampah,
-                        "perokok": perokok,
-                        "konsumen_miras": konsumen_miras,
-                        "persediaan_p3k": persediaan_p3k,
-                        "makan_buah_sayur": makan_buah_sayur,
+                // survey kesehatan
+                "sumber_air_bersih": sumber_air_bersih,
+                "jamban_limbah": jamban_limbah,
+                "tempat_sampah": tempat_sampah,
+                "perokok": perokok,
+                "konsumen_miras": konsumen_miras,
+                "persediaan_p3k": persediaan_p3k,
+                "makan_buah_sayur": makan_buah_sayur,
 
-                        // survey ibadah sosial
-                        "solat_lima_waktu": solat_lima_waktu,
-                        "membaca_alquran": membaca_alquran,
-                        "majelis_taklim": majelis_taklim,
-                        "membaca_koran": membaca_koran,
-                        "pengurus_organisasi": pengurus_organisasi,
+                // survey ibadah sosial
+                "solat_lima_waktu": solat_lima_waktu,
+                "membaca_alquran": membaca_alquran,
+                "majelis_taklim": majelis_taklim,
+                "membaca_koran": membaca_koran,
+                "pengurus_organisasi": pengurus_organisasi,
 
-                        // survey lainnya
-                        "status_anak": status_anak,
-                        "biaya_pendidikan_perbulan": biaya_pendidikan_perbulan,
-                        "bantuan_lembaga_formal_lain": bantuan_lembaga_formal_lain,
+                // survey lainnya
+                "status_anak": status_anak,
+                "biaya_pendidikan_perbulan": biaya_pendidikan_perbulan,
+                "bantuan_lembaga_formal_lain": bantuan_lembaga_formal_lain,
 
-                        // survey data
-                        "kondisi_penerima_manfaat": kondisi_penerima_manfaat,
-                        "petugas_survey": petugas_survey,
+                // survey data
+                "kondisi_penerima_manfaat": kondisi_penerima_manfaat,
+                "petugas_survey": petugas_survey,
 
-                        // validasi survey
-                        "hasil_survey": hasil_survey,
-                        "keterangan_hasil": keterangan_hasil,
+                // validasi survey
+                "hasil_survey": hasil_survey,
+                "keterangan_hasil": keterangan_hasil,
 
 
-                        // pengajuan keluarga
-                        "no_kk": no_kk,
-                        "kepala_keluarga": kepala_keluarga,
-                        "status_ortu": status_ortu,
+                // pengajuan keluarga
+                "no_kk": no_kk,
+                "kepala_keluarga": kepala_keluarga,
+                "status_ortu": status_ortu,
 
-                        // survey ekonomi
-                        "no_rek": no_rek,
-                        "an_rek": an_rek,
-                        "no_tlp": no_tlp,
-                        "an_tlp": an_tlp,
+                // survey ekonomi
+                "no_rek": no_rek,
+                "an_rek": an_rek,
+                "no_tlp": no_tlp,
+                "an_tlp": an_tlp,
 
-                        // pengajuan ayah
-                        "nik_ayah": nik_ayah,
-                        "nama_ayah": nama_ayah,
-                        "agama_ayah": agama_ayah,
-                        "status_ayah": status_ayah,
-                        "penghasilan_ayah": penghasilan_ayah,
-                        "alamat_ayah": alamat_ayah,
+                // pengajuan ayah
+                "nik_ayah": nik_ayah,
+                "nama_ayah": nama_ayah,
+                "agama_ayah": agama_ayah,
+                "status_ayah": status_ayah,
+                "penghasilan_ayah": penghasilan_ayah,
+                "alamat_ayah": alamat_ayah,
 
-                        // pengajuan ibu
-                        "nik_ibu": nik_ibu,
-                        "nama_ibu": nama_ibu,
-                        "agama_ibu": agama_ibu,
-                        "status_ibu": status_ibu,
-                        "penghasilan_ibu": penghasilan_ibu,
-                        "alamat_ibu": alamat_ibu,
+                // pengajuan ibu
+                "nik_ibu": nik_ibu,
+                "nama_ibu": nama_ibu,
+                "agama_ibu": agama_ibu,
+                "status_ibu": status_ibu,
+                "penghasilan_ibu": penghasilan_ibu,
+                "alamat_ibu": alamat_ibu,
 
-                        // pengajuan wali
-                        "nik_wali": nik_wali,
-                        "nama_wali": nama_wali,
-                        "agama_wali": agama_wali,
-                        "hub_kerabat": hub_kerabat,
-                        "penghasilan_wali": penghasilan_wali,
-                        "alamat_wali": alamat_wali,
-                    },
-                    success: function() {
-                        window.location.href = "{{ route('calon.index') }}";
-                    }
+                // pengajuan wali
+                "nik_wali": nik_wali,
+                "nama_wali": nama_wali,
+                "agama_wali": agama_wali,
+                "hub_kerabat": hub_kerabat,
+                "penghasilan_wali": penghasilan_wali,
+                "alamat_wali": alamat_wali,
+            },
+            success: function() {
+                window.location.href = "{{ route('calon.index') }}";
+            }
+        })
     })
-    })
-
-
-    });
+});
 </script>
 
 </body>
