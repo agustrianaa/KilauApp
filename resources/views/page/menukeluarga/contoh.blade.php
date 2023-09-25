@@ -89,9 +89,21 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
+                                                <label class=" control-label">Kantor Cabang</label>
+                                                <div class="col-sm-12">
+                                                    <input type="text" class="form-control" id="kacab" name="kacab" placeholder="Wilayah Binaan..." required="">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
                                                 <label class=" control-label">Wilayah Binaan</label>
                                                 <div class="col-sm-12">
                                                     <input type="text" class="form-control" id="wilbin" name="wilbin" placeholder="Wilayah Binaan..." required="">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class=" control-label">Shelter</label>
+                                                <div class="col-sm-12">
+                                                    <input type="text" class="form-control" id="shelter" name="shelter" placeholder="Wilayah Binaan..." required="">
                                                 </div>
                                             </div>
                                         </div>

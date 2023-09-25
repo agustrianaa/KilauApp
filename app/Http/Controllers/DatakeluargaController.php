@@ -55,7 +55,9 @@ class DatakeluargaController extends Controller
                     [
                         'no_kk' => $request->no_kk,
                         'kepala_keluarga' => $request->kepala_keluarga,
+                        'kacab' => $request->kacab,
                         'wilbin' => $request->wilbin,
+                        'shelter' => $request->shelter,
                     ]);
         
         // AYAAAHH
@@ -121,7 +123,12 @@ class DatakeluargaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $dataKeluarga = DataKeluarga::find($id);
+
+        $dataKeluarga->update($request->all());
+
+        return response()->json(['success' => true]);
+
     }
 
     /**

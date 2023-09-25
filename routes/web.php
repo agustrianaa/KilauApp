@@ -65,12 +65,13 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::get('/datakeluarga',[DatakeluargaController::class,'index'])->name('datakeluarga');
     Route::post('/save-datakeluarga',[DatakeluargaController::class,'store'])->name('save-datakeluarga');
     Route::post('/delete-datakeluarga',[DatakeluargaController::class,'destroy'])->name('delete-datakeluarga');
-    
     Route::get('/detail-datakeluarga/{id}',[DatakeluargaController::class,'show'])->name('detail-datakeluarga');
-    Route::put('/ayah/{id}',[AyahController::class,'update'])->name('ayah.update');
+    Route::put('/updatekeluarga/{idKeluarga}',[DatakeluargaController::class,'update'])->name('updatekeluarga');
 
+    // Data Ayah
+    Route::put('/updateayah/{idAyah}',[AyahController::class,'update'])->name('updateayah');
 
     // Data Ibu
-    Route::post('/updateibu/{idIbu}', [IbuController::class, 'update'])->name('updateibu');
+    Route::put('/updateibu/{idIbu}', [IbuController::class, 'update'])->name('updateibu');
 
 });

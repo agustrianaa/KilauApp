@@ -85,12 +85,23 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class=" control-label">Kantor Cabang</label>
+                                        <div class="col-sm-12">
+                                            <input type="text" class="form-control" id="kacab" name="kacab" placeholder="Wilayah Binaan..." required="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class=" control-label">Wilayah Binaan</label>
                                         <div class="col-sm-12">
                                             <input type="text" class="form-control" id="wilbin" name="wilbin" placeholder="Wilayah Binaan..." required="">
                                         </div>
                                     </div>
-                                    
+                                    <div class="form-group">
+                                        <label class=" control-label">Shelter</label>
+                                        <div class="col-sm-12">
+                                            <input type="text" class="form-control" id="shelter" name="shelter" placeholder="Wilayah Binaan..." required="">
+                                        </div>
+                                    </div>
                                     <div class="col-sm-offset-2 col-sm-10"><br/>
                                         <button type="submit" class="btn btn-primary" id="btn-save">Save</button>
                                     </div>
@@ -140,7 +151,9 @@
                     { data: 'id', name: 'id'},
                     { data: 'no_kk', name: 'no_kk'},
                     { data: 'kepala_keluarga', name: 'kepala_keluarga'},
+                    { data: 'kacab', name: 'kacab'},
                     { data: 'wilbin', name: 'wilbin'},
+                    { data: 'shelter', name: 'shelter'},
                     { data: 'action', name: 'action', orderable: false},
                 ],
                 order: [[0, 'desc']],

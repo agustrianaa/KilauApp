@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('data_keluargas', function (Blueprint $table) {
             $table->id();
+            $table->string('kacab');
             $table->string('no_kk');
             $table->string('kepala_keluarga');
             $table->string('wilbin');
-            $table->string('shelter')->nullable();
+            $table->string('shelter');
             $table->string('no_telp')->nullable();
             $table->string('no_rek')->nullable();
             $table->timestamps();

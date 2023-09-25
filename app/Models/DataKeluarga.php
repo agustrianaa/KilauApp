@@ -10,7 +10,8 @@ class DataKeluarga extends Model
     use HasFactory;
 
     public $tabel = 'data_keluargas';
-    protected $fillable = [ 'no_kk', 'kepala_keluarga', 'wilbin', 'shelter', 'no_telp', 'no_rek' ];
+    protected $primaryKey = 'id';
+    protected $fillable = [ 'no_kk', 'kepala_keluarga','kacab', 'wilbin', 'shelter', 'no_telp', 'no_rek' ];
 
     public function dataAyah(){
         return $this->hasOne('App\Models\Ayah');

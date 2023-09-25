@@ -50,13 +50,22 @@ class AyahController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id_ayah)
     {
-        $dataAyah = Ayah::find($id);
+        // 
+        /** Cara Update 
+         * 01. mengganti/mengupdate seluruh kolom data sekaligus
+         *  $dataAyah->update($request->all());
+         * 
+         * 02. Mengganti/mengupdate secara manual
+         * $dataIbu->nik_ibu = $request->input('nik_ibu');
+         * $dataIbu->nama_ibu = $request->input('nama_ibu');
+         */
+        $dataAyah = Ayah::find($id_ayah);
         
         $dataAyah->update($request->all());
 
-        return redirect()->route('admin.menukeluarga.detail-datakeluarga', ['id' => $dataAyah->id, '#tab_dataAyah']);
+        return response()->json(['success' => true]);
 
     }
 

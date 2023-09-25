@@ -10,7 +10,9 @@ class Ayah extends Model
     use HasFactory;
 
     protected $table = 'ayah';
-    protected $fillable = [ 'data_keluargas_id', 'nik_ayah', 'nama_ayah', 'tempat_lahir', 'tanggal_lahir','agama', 'alamat', 'pekerjaan',];
+    protected $primaryKey = 'id_ayah';
+
+    protected $fillable = [  'nik_ayah', 'nama_ayah', 'tempat_lahir', 'tanggal_lahir','agama', 'alamat', 'pekerjaan', 'data_keluargas_id'];
 
     public function dataKeluarga()
     {
