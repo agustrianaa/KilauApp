@@ -40,6 +40,7 @@ class IbuController extends Controller
     // Simpan perubahan
     $dataIbu->save();
 
+    // return redirect()->route('admin.detail-datakeluarga', ['id' => $id_ibu])->with('success', 'Berhasil memperbarui data Ibu');
     return response()->json(['success' => true]);
 }
 

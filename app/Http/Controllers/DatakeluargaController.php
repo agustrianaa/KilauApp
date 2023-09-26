@@ -7,6 +7,7 @@ use App\Models\DataKeluarga;
 use App\Models\Ibu;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert; 
 
 class DatakeluargaController extends Controller
 {
@@ -30,7 +31,7 @@ class DatakeluargaController extends Controller
             ->addIndexColumn()
             ->make(true);
         }
-        return view ('page.menukeluarga.contoh');
+        return view ('page.menukeluarga.datakeluarga');
     }
 
     /**
@@ -43,54 +44,64 @@ class DatakeluargaController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     */
+        */
     public function store(Request $request)
     {
         $keluargaId = $request->id;
 
-        $datakeluarga = DataKeluarga::updateOrCreate(
-                    [
-                        'id' => $keluargaId
-                    ],
-                    [
-                        'no_kk' => $request->no_kk,
-                        'kepala_keluarga' => $request->kepala_keluarga,
-                        'kacab' => $request->kacab,
-                        'wilbin' => $request->wilbin,
-                        'shelter' => $request->shelter,
-                    ]);
-        
-        // AYAAAHH
-        $dataAyah = Ayah::create(
-            [
-                'data_keluargas_id' => $datakeluarga -> id,
-                'nik_ayah' => $request->nik_ayah,
-                'nama_ayah' => $request->nama_ayah,
-                'tempat_lahir' => $request->tempat_lahir,
-                'tanggal_lahir' => $request->tanggal_lahir,
-                'agama' => $request->agama,
-                'alamat' => $request->alamat,
-                'pekerjaan' => $request->pekerjaan,
-            ]
-        );
+        try {
+            $datakeluarga = DataKeluarga::updateOrCreate(
+                [
+                    'id' => $keluargaId
+                ],
+                [
+                    'no_kk' => $request->no_kk,
+                    'kepala_keluarga' => $request->kepala_keluarga,
+                    'kacab' => $request->kacab,
+                    'wilbin' => $request->wilbin,
+                    'shelter' => $request->shelter,
+                ]);
 
-        // IBUUUU
-        $dataIbu = Ibu::create(
-            [
-                'data_keluargas_id' => $datakeluarga -> id,
-                'nik_ibu' => $request->nik_ibu,
-                'nama_ibu' => $request->nama_ibu,
-                'tempat_lahir' => $request->tempat_lahir,
-                'tanggal_lahir' => $request->tanggal_lahir,
-                'agama' => $request->agama,
-                'alamat' => $request->alamat,
-                'pekerjaan' => $request->pekerjaan,
-            ]
-        );
-        
-        return Response()->json(['datakeluarga' => $datakeluarga,
-        'dataAyah' => $dataAyah,
-        'dataIbu' => $dataIbu,]);
+            // AYAAAHH
+            $dataAyah = Ayah::create(
+                [
+                    'data_keluargas_id' => $datakeluarga->id,
+                    'nik_ayah' => $request->nik_ayah,
+                    'nama_ayah' => $request->nama_ayah,
+                    'tempat_lahir' => $request->tempat_lahir,
+                    'tanggal_lahir' => $request->tanggal_lahir,
+                    'agama' => $request->agama,
+                    'alamat' => $request->alamat,
+                    'pekerjaan' => $request->pekerjaan,
+                ]
+            );
+
+            // IBUUUU
+            $dataIbu = Ibu::create(
+                [
+                    'data_keluargas_id' => $datakeluarga->id,
+                    'nik_ibu' => $request->nik_ibu,
+                    'nama_ibu' => $request->nama_ibu,
+                    'tempat_lahir' => $request->tempat_lahir,
+                    'tanggal_lahir' => $request->tanggal_lahir,
+                    'agama' => $request->agama,
+                    'alamat' => $request->alamat,
+                    'pekerjaan' => $request->pekerjaan,
+                ]
+            );
+
+            // Gunakan SweetAlert untuk menampilkan pesan sukses
+            Alert::success('Sukses', 'Data Berhasil disimpan!');
+
+            // Redirect pengguna ke halaman yang sesuai
+            return redirect('datakeluarga');
+        } catch (\Exception $e) {
+            // Gunakan SweetAlert untuk menampilkan pesan kesalahan
+            Alert::error('Error', 'Terjadi kesalahan: ' . $e->getMessage());
+
+            // Redirect pengguna kembali ke halaman sebelumnya
+            return back()->withInput();
+        }
     }
 
     /**
