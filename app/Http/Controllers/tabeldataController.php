@@ -70,7 +70,7 @@ class tabeldataController extends Controller
     {
         $record = tabeldata::find($id);
 
-        return view('tabeldata-view', compact('record'));
+        return view('tabel.tabeldata-view', compact('record'));
     }
     public function edit(Request $request) {
         $where = array('id' => $request->id);

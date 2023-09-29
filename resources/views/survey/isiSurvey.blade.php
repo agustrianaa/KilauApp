@@ -3,7 +3,7 @@
 
 
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-<link rel="stylesheet" href="{{ asset('css/a.css') }}">
+<link rel="stylesheet" href="{{ asset('css/isiSurvey.css') }}">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
