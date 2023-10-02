@@ -17,7 +17,7 @@
                 <div class="card-body">
                     <div class="card d-flex align-items-center border-0">
                         <div class="card-body">
-                            Halaman Prototype
+                            Haya Halimah
                         </div>
                     </div>
                         <a class="action">
@@ -25,8 +25,6 @@
                                 <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
                             </svg>
                         </a>
-
-
                 </div>
             </div>
         </div>
@@ -50,7 +48,7 @@
                             Data User
                         </a>
 
-                        <a href="{{ route('admin.ajax-crud-datatable') }}" class="list-group-item border-0 list-group-item-action">
+                        <a href="{{ route('admin.tabeldata') }}" class="list-group-item border-0 list-group-item-action">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-table" viewBox="0 0 16 16">
                                 <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z"/>
                             </svg>
@@ -174,6 +172,23 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div class="card">
+                        <div class="card-body">
+                            <script type="text/javascript">
+                                $(document).ready(function() {
+                                    $('#example-getting-started').multiselect();
+                                });
+                            </script>
+                            <select id="example-getting-started" multiple="multiple">
+                                <option value="cheese">Cheese</option>
+                                <option value="tomatoes">Tomatoes</option>
+                                <option value="Mozzarella">Mozzarella</option>
+                                <option value="Mushrooms">Mushrooms</option>
+                                <option value="Pepperoni">Pepperoni</option>
+                                <option value="Onions">Onions</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -203,6 +218,8 @@ $(document).ready(function() {
     });
 });
 </script>
+
+<script src="{{ asset('javascript/bootstrap-multiselect.js') }}"></script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

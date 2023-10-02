@@ -62,7 +62,7 @@
                       <div class="cardrounded">
                         <div class="card-body">
                           <div class="gambar">
-                            <img src="{{ asset('images/iahnf.jpg') }}" alt="">
+                            <img src="{{ asset('images/LogoKilau2.png') }}" alt="">
                           </div>
                         </div>
                       </div>
@@ -314,7 +314,7 @@
                               </tbody>
                           </table>
                           <div class="container" style="display: flex; justify-content: center;">
-                              <a href="{{ route('admin.ajax-crud-datatable') }}" class="btn btn-primary">Kembali</a>
+                              <a href="{{ route('admin.tabeldata') }}" class="btn btn-primary">Kembali</a>
                           </div>
                       </div>
                   </div>

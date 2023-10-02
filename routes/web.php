@@ -47,7 +47,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
 
     Route::get('/a',[HomeController::class,'a'])->name('a');
 
-    Route::get('/ajax-crud-datatable', [tabeldataController::class, 'index'])->name('ajax-crud-datatable');
+    Route::get('/tabeldata', [tabeldataController::class, 'index'])->name('tabeldata');
     Route::post('/tabeldatastore', [tabeldataController::class, 'store'])->name('tabeldatastore');
     Route::get('/tabeldataview/{id}', [tabeldataController::class, 'showViewPage'])->name('tabeldataview');
     Route::post('/tabeldataedit', [tabeldataController::class, 'edit'])->name('tabeldataedit');

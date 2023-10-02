@@ -13,36 +13,39 @@ class tabeldataController extends Controller
     public function index(Request $request)
     {
         if (request()->ajax()) {
-            $fagama = $request->agama;
-            $fjenis_kelamin = $request->jenis_kelamin;
-            $fstatus_binaan = $request->status_binaan;
-
             $data = tabeldata::select("*");
-
-            if ($fagama != '') {
-                $data = $data->where('agama', $fagama);
+        
+            // Mengecek apakah filter agama diberikan
+            if ($request->has('agama')) {
+                $agama = $request->agama;
+                $data = $data->whereIn('agama', $agama);
             }
-
-            if ($fjenis_kelamin != '') {
-                $data = $data->where('jenis_kelamin', $fjenis_kelamin);
+        
+            // Mengecek apakah filter jenis_kelamin diberikan
+            if ($request->has('jenis_kelamin')) {
+                $jenis_kelamin = $request->jenis_kelamin;
+                $data = $data->whereIn('jenis_kelamin', $jenis_kelamin);
             }
-
-            if ($fstatus_binaan != '') {
-                $data = $data->where('status_binaan', $fstatus_binaan);
+        
+            // Mengecek apakah filter status_binaan diberikan
+            if ($request->has('status_binaan')) {
+                $status_binaan = $request->status_binaan;
+                $data = $data->whereIn('status_binaan', $status_binaan);
             }
-
+        
             return datatables($data)
                 ->addColumn('action', 'tabel.tabeldata-action')
-                ->addColumn('ttl', function($data) {
-                    return $data->teml.', '.$data->tgll;
+                ->addColumn('ttl', function ($data) {
+                    return $data->teml . ', ' . $data->tgll;
                 })
                 ->rawColumns(['action', 'ttl'])
                 ->addIndexColumn()
                 ->make(true);
         }
-
+    
         return view('tabel.tabeldata');
     }
+
 
 
     public function store(Request $request)  {
