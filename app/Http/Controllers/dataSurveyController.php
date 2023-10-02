@@ -15,14 +15,15 @@ class dataSurveyController extends Controller
     {
         return view('survey.isiSurvey');
     }
-    // public function survey()
-    // {
-    //     return view('survey.isiSurvey');
-    // }
+
+    public function back()
+    {
+        return view('survey.index');
+    }
 
     public function store(Request $request)
     {
-        Keluarga::create([
+        $Keluarga = Keluarga::create([
             'no_kk' => $request->no_kk,
             'kepala_keluarga' => $request->kepala_keluarga,
             'status_ortu' => $request->status_ortu,
@@ -31,7 +32,11 @@ class dataSurveyController extends Controller
             'no_tlp' => $request->no_tlp,
             'an_tlp' => $request->an_tlp,
         ]);
+
+        $userID = $Keluarga->id;
+
         Survey::create([
+            "keluarga_id" => $userID,
             "pendidikan_kepala_keluarga" =>$request->pendidikan_kepala_keluarga,
             "jumlah_tanggungan" =>$request->jumlah_tanggungan,
             "pekerjaan_kepala_keluarga" =>$request->pekerjaan_kepala_keluarga,
@@ -65,6 +70,7 @@ class dataSurveyController extends Controller
             "keterangan_hasil" =>$request->keterangan_hasil,
         ]);
         Ayah::create([
+            "keluarga_id" => $userID,
             "nik_ayah" => $request->nik_ayah,
             "nama_ayah" => $request->nama_ayah,
             "agama_ayah" => $request->agama_ayah,
@@ -73,6 +79,7 @@ class dataSurveyController extends Controller
             "alamat_ayah" => $request->alamat_ayah,
         ]);
         Ibu::create([
+            "keluarga_id" => $userID,
             "nik_ibu" => $request->nik_ibu,
             "nama_ibu" => $request->nama_ibu,
             "agama_ibu" => $request->agama_ibu,
@@ -81,6 +88,7 @@ class dataSurveyController extends Controller
             "alamat_ibu" => $request->alamat_ibu,
         ]);
         Wali::create([
+            "keluarga_id" => $userID,
             "nik_wali" => $request->nik_wali,
             "nama_wali" => $request->nama_wali,
             "agama_wali" => $request->agama_wali,

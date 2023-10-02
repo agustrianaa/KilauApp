@@ -105,7 +105,7 @@
                         <div class="card bg-light border-0 shadow-none rounded-lg">
                           <div class="card-body text-center">
                               <h4>Validasi Kelayakan</h4>
-  
+
                               <div class="row ml-2 mt-2">
                                   <label class="control-label mx-auto" for="hasil_survey">Hasil Survey:</label>
                                   <div class="col-sm-4 mx-auto">
@@ -145,22 +145,22 @@
           $('#kedua #keluarga').addClass('border border-bottom-0');
       }
       hideAllForms();
-  
-  
+
+
       $(document).ready(function () {
       $.ajaxSetup({
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           }
       });
-  
+
       function hideSurveyForms() {
           $("#survey .form").hide();
       }
       function hidePengajuanForms() {
           $("#pengajuan .form").hide();
       }
-  
+
       $('#pertama .bg-white').click(function () {
           let nilai = $(this).attr('id');
           hideSurveyForms();
@@ -169,9 +169,9 @@
           console.log(nilai);
           $(`#survey #${nilai}`).show();
       });
-  
+
       $('#kedua .bg-white').click(function () {
-  
+
           let nilai = $(this).attr('id');
           hidePengajuanForms();
           $('#kedua div').removeClass('border');
@@ -179,9 +179,9 @@
           console.log(nilai);
           $(`#pengajuan #${nilai}`).show();
       });
-  
-  
-  
+
+
+
       $('#store').click(function(e) {
           // survey keluarga
           let pendidikan_kepala_keluarga = $('#pendidikan_kepala_keluarga').val();
@@ -191,7 +191,7 @@
           let penghasilan = $('#penghasilan').val();
           let kepemilikan_tabungan = $('#kepemilikan_tabungan').val();
           let jumlah_makan = $('#jumlah_makan').val();
-  
+
           // survey asset
           let kepemilikan_tanah = $('#kepemilikan_tanah').val();
           let kepemilikan_rumah = $('#kepemilikan_rumah').val();
@@ -199,7 +199,7 @@
           let kondisi_rumah_dinding = $('#kondisi_rumah_dinding').val();
           let kepemilikan_kendaraan = $('#kepemilikan_kendaraan').val();
           let kepemilikan_elektronik = $('#kepemilikan_elektronik').val();
-  
+
           // survey kesehatan
           let sumber_air_bersih = $('#sumber_air_bersih').val();
           let jamban_limbah = $('#jamban_limbah').val();
@@ -208,39 +208,39 @@
           let konsumen_miras = $('#konsumen_miras').val();
           let persediaan_p3k = $('#persediaan_p3k').val();
           let makan_buah_sayur = $('#makan_buah_sayur').val();
-  
+
           // survey ibadah sosial
           let solat_lima_waktu = $('#solat_lima_waktu').val();
           let membaca_alquran = $('#membaca_alquran').val();
           let majelis_taklim = $('#majelis_taklim').val();
           let membaca_koran = $('#membaca_koran').val();
           let pengurus_organisasi = $('#pengurus_organisasi').val();
-  
+
           // survey lainnya
           let status_anak = $('#status_anak').val();
           let biaya_pendidikan_perbulan = $('#biaya_pendidikan_perbulan').val();
           let bantuan_lembaga_formal_lain = $('#bantuan_lembaga_formal_lain').val();
-  
+
           // survey data
           let kondisi_penerima_manfaat = $('#kondisi_penerima_manfaat').val();
           let petugas_survey = $('#petugas_survey').val();
-  
+
           // validasi survey
           let hasil_survey = $('#hasil_survey').val();
           let keterangan_hasil = $('#keterangan_hasil').val();
-  
-  
+
+
           // pengajuan keluarga
           let no_kk = $('#no_kk').val();
           let kepala_keluarga = $('#kepala_keluarga').val();
           let status_ortu = $('#status_ortu').val();
-  
+
           // survey ekonomi
           let no_rek = $('#no_rek').val();
           let an_rek = $('#an_rek').val();
           let no_tlp = $('#no_tlp').val();
           let an_tlp = $('#an_tlp').val();
-  
+
           // pengajuan ayah
           let nik_ayah = $('#nik_ayah').val();
           let nama_ayah = $('#nama_ayah').val();
@@ -248,7 +248,7 @@
           let status_ayah = $('#status_ayah').val();
           let penghasilan_ayah = $('#penghasilan_ayah').val();
           let alamat_ayah = $('#alamat_ayah').val();
-  
+
           // pengajuan ibu
           let nik_ibu = $('#nik_ibu').val();
           let nama_ibu = $('#nama_ibu').val();
@@ -256,7 +256,7 @@
           let status_ibu = $('#status_ibu').val();
           let penghasilan_ibu = $('#penghasilan_ibu').val();
           let alamat_ibu = $('#alamat_ibu').val();
-  
+
           // pengajuan wali
           let nik_wali = $('#nik_wali').val();
           let nama_wali = $('#nama_wali').val();
@@ -264,7 +264,7 @@
           let hub_kerabat = $('#hub_kerabat').val();
           let penghasilan_wali = $('#penghasilan_wali').val();
           let alamat_wali = $('#alamat_wali').val();
-  
+
           $.ajax({
               url: "{{ route('datasurvey.store') }}",
               type: 'POST',
@@ -277,7 +277,7 @@
                   "penghasilan": penghasilan,
                   "kepemilikan_tabungan": kepemilikan_tabungan,
                   "jumlah_makan": jumlah_makan,
-  
+
                   // survey asset
                   "kepemilikan_tanah": kepemilikan_tanah,
                   "kepemilikan_rumah": kepemilikan_rumah,
@@ -285,7 +285,7 @@
                   "kondisi_rumah_dinding": kondisi_rumah_dinding,
                   "kepemilikan_kendaraan": kepemilikan_kendaraan,
                   "kepemilikan_elektronik": kepemilikan_elektronik,
-  
+
                   // survey kesehatan
                   "sumber_air_bersih": sumber_air_bersih,
                   "jamban_limbah": jamban_limbah,
@@ -294,39 +294,39 @@
                   "konsumen_miras": konsumen_miras,
                   "persediaan_p3k": persediaan_p3k,
                   "makan_buah_sayur": makan_buah_sayur,
-  
+
                   // survey ibadah sosial
                   "solat_lima_waktu": solat_lima_waktu,
                   "membaca_alquran": membaca_alquran,
                   "majelis_taklim": majelis_taklim,
                   "membaca_koran": membaca_koran,
                   "pengurus_organisasi": pengurus_organisasi,
-  
+
                   // survey lainnya
                   "status_anak": status_anak,
                   "biaya_pendidikan_perbulan": biaya_pendidikan_perbulan,
                   "bantuan_lembaga_formal_lain": bantuan_lembaga_formal_lain,
-  
+
                   // survey data
                   "kondisi_penerima_manfaat": kondisi_penerima_manfaat,
                   "petugas_survey": petugas_survey,
-  
+
                   // validasi survey
                   "hasil_survey": hasil_survey,
                   "keterangan_hasil": keterangan_hasil,
-  
-  
+
+
                   // pengajuan keluarga
                   "no_kk": no_kk,
                   "kepala_keluarga": kepala_keluarga,
                   "status_ortu": status_ortu,
-  
+
                   // survey ekonomi
                   "no_rek": no_rek,
                   "an_rek": an_rek,
                   "no_tlp": no_tlp,
                   "an_tlp": an_tlp,
-  
+
                   // pengajuan ayah
                   "nik_ayah": nik_ayah,
                   "nama_ayah": nama_ayah,
@@ -334,7 +334,7 @@
                   "status_ayah": status_ayah,
                   "penghasilan_ayah": penghasilan_ayah,
                   "alamat_ayah": alamat_ayah,
-  
+
                   // pengajuan ibu
                   "nik_ibu": nik_ibu,
                   "nama_ibu": nama_ibu,
@@ -342,7 +342,7 @@
                   "status_ibu": status_ibu,
                   "penghasilan_ibu": penghasilan_ibu,
                   "alamat_ibu": alamat_ibu,
-  
+
                   // pengajuan wali
                   "nik_wali": nik_wali,
                   "nama_wali": nama_wali,
@@ -352,7 +352,7 @@
                   "alamat_wali": alamat_wali,
               },
               success: function() {
-                  window.location.href = "{{ route('calon.index') }}";
+                  window.location.href = "{{ url('kembali') }}";
               }
           })
       })

@@ -304,7 +304,7 @@
                   </p>
                 </a>
               </li>
-              
+
               <li class="nav-item">
                 <a href="{{ route('logout') }}" class="nav-link">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
@@ -421,7 +421,7 @@
             </div>
           </div>
         </div>
-    
+
         <!-- Modal -->
         <div class="modal fade" id="tambah-modal" aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -465,7 +465,7 @@
                                   </div>
                                 </div>
                               </div>
-                            </div>                                                 
+                            </div>
                             <div class="form-group">
                               <label for="name" class="col-sm-2 control-label">Jenis Kelamin</label>
                               <div class="col-sm-12">
@@ -499,7 +499,7 @@
                                     <option value="BCPB">BCPB</option>
                                   </select>
                               </div>
-                            </div>                                                                                          
+                            </div>
                             <div class="col-sm-offset-2 col-sm-10"><br/>
                                 <button type="submit" class="btn btn-primary" id="btn-save">Save</button>
                             </div>
@@ -568,7 +568,7 @@
             pageLength: 10 // Menyeting jumlah entri yang ditampilkan menjadi 10
         });
         }
-        
+
         $('#fagama').on('change', function(){
             $('#ajax-crud-datatable').DataTable().destroy()
             load_data()
@@ -587,13 +587,13 @@
             $('#fagama').val('');
             $('#fjenis_kelamin').val('');
             $('#fstatus_binaan').val('');
-            
+
             // Memuat ulang data dengan filter kosong
             $('#ajax-crud-datatable').DataTable().destroy();
             load_data();
         });
     });
-  
+
     function add(){
         $('#tabeldataForm').trigger("reset");
         $('#TambahModal').html("Tambah Data");
@@ -613,7 +613,7 @@
       // Navigate to the view page with the record's ID as a query parameter
       window.location.href = "{{ url('admin/tabeldataview/') }}/" + id;
     }
-  
+
     function editFunc(id){
         $.ajax({
             type: "POST",
@@ -639,7 +639,7 @@
             }
         });
     }
-  
+
     function deleteFunc(id){
         if (confirm("Ingin Mengahapus Data?") == true) {
             var id = id;
@@ -656,7 +656,7 @@
             });
         }
     }
-  
+
     $('#tabeldataForm').submit(function(e) {
         e.preventDefault();
         var formData = new FormData(this);
@@ -687,7 +687,7 @@
         });
     });
   </script>
-  
+
 
 <script>
   $.widget.bridge('uibutton', $.ui.button)

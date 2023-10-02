@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('surveys', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('keluarga_id')->references('id')->on('keluargas')->unique();
             $table->string('pendidikan_kepala_keluarga');
             $table->string('jumlah_tanggungan');
             $table->string('pekerjaan_kepala_keluarga');
