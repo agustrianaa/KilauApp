@@ -75,6 +75,7 @@ class tabeldataController extends Controller
 
         return view('tabel.tabeldata-view', compact('record'));
     }
+    
     public function edit(Request $request) {
         $where = array('id' => $request->id);
         $tabeldata = tabeldata::where($where)->first();

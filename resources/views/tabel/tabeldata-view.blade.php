@@ -29,6 +29,7 @@
           <div class="card">
             <div class="card-body">
                 <h5 class="card-title ml-2">Nama : {{ $record->name }}</h5>
+                <h1>{{ $tabel }}</h1>
                 <div class="float-right">
                   <a href="" class="btn btn-info mx-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-badge-fill" viewBox="0 0 16 16">
