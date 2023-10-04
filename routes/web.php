@@ -67,15 +67,17 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::resource('/acc', \App\Http\Controllers\AccController::class);
 });
 
-
 Route::resource('/calon', \App\Http\Controllers\CalonAnakBinaanController::class);
 
 Route::resource('/datasurvey', \App\http\Controllers\dataSurveyController::class);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Route::get('/kembali', [dataSurveyController::class, 'back']);
 =======
 
+=======
+>>>>>>> imam
 Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], function(){
     Route::get('/datakeluarga',[DatakeluargaController::class,'index'])->name('datakeluarga');
     Route::post('/save-datakeluarga',[DatakeluargaController::class,'store'])->name('save-datakeluarga');
@@ -90,4 +92,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::put('/updateibu/{idIbu}', [IbuController::class, 'update'])->name('updateibu');
 
 });
+<<<<<<< HEAD
 >>>>>>> c0085f78bf732bcfd7734df0b498145965e9614a
+=======
+>>>>>>> imam
