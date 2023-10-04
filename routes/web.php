@@ -49,6 +49,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::delete('/delete/{id}',[HomeController::class,'delete'])->name('user.delete');
 
     Route::get('/a',[HomeController::class,'a'])->name('a');
+    
+    Route::get('/b',[tabeldataController::class,'totaldata'])->name('b');
 
     Route::get('/tabeldata', [tabeldataController::class, 'index'])->name('tabeldata');
     Route::post('/tabeldatastore', [tabeldataController::class, 'store'])->name('tabeldatastore');

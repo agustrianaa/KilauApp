@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Models\tabeldata;
 
 class HomeController extends Controller
 {
@@ -14,22 +15,18 @@ class HomeController extends Controller
         return view('page.welcomePage');
     }
 
-    public function dashboard(){
-        // return view('dashboard');
-        if (auth()->user()->role == 'admin'){
-            return view('dashboard');
-        } else if(auth()->user()->role == 'adminpusat'){
-            return view('dashboard');
-        } else if(auth()->user()->role == 'admincabang'){
-            return view('dashboard');
-        } else if(auth()->user()->role == 'shelter'){
-            return view('dashboard');
-        } else if(auth()->user()->role == 'donatur'){
-            return view('dashboard');
-        } else if(auth()->user()->role == 'orangtua'){
-            return view('dashboard');
-        }
+    public function dashboard()
+{
+    // Hitung jumlah total data tabel yang Anda butuhkan
+    $totalData = tabeldata::count();
+
+    if (auth()->user()->role == 'admin' || auth()->user()->role == 'adminpusat' || auth()->user()->role == 'admincabang' || auth()->user()->role == 'shelter' || auth()->user()->role == 'donatur' || auth()->user()->role == 'orangtua') {
+        return view('dashboard', compact('totalData'));
+    } else {
+        return view('dashboard'); // Tambahkan logika lain jika diperlukan
     }
+}
+
     
     public function menu(){
         return view('page.menu');
@@ -46,19 +43,22 @@ class HomeController extends Controller
     
     public function store(Request $request){
         $validator = Validator::make($request->all(),[
+            'name' => 'required',
             'email' => 'required|email',
-            'nama' => 'required',
+            'role' => 'required',
             'password' => 'required',
         ],[
-            'nama.required' => 'Nama wajib diisi',
+            'name.required' => 'Nama wajib diisi',
             'email.required' => 'Email wajib diisi',
+            'role' => 'Role wajib dipilih',
             'password' => 'Password wajib diisi',
         ]);
 
         if($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);
 
+        $data['name'] = $request->name;
         $data['email'] = $request->email;
-        $data['name'] = $request->nama;
+        $data['role'] = $request->name;
         $data['password'] = Hash::make($request->password);
 
         User::create($data);
@@ -74,19 +74,22 @@ class HomeController extends Controller
 
     public function update(Request $request,$id){
         $validator = Validator::make($request->all(),[
+            'name' => 'required',
             'email' => 'required|email',
-            'nama' => 'required',
+            'role' => 'required',
             'password' => 'nullable',
         ],[
-            'nama.required' => 'Nama wajib diisi',
+            'name.required' => 'Nama wajib diisi',
             'email.required' => 'Email wajib diisi',
+            'role' => 'Role wajib dipilih',
             'password' => 'Password wajib diisi',
         ]);
 
         if($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);
 
+        $data['name'] = $request->name;
         $data['email'] = $request->email;
-        $data['name'] = $request->nama;
+        $data['role'] = $request->role;
         
         if($request->password){
             $data['password'] = Hash::make($request->password);
