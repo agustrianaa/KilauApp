@@ -17,5 +17,14 @@
         </div>
     </div>
 </body>
+    <div class="container">
+        <div class="card d-flex align-items-center">
+            <div class="card-body">
+                <b><h1>Total Data :</h1></b>
+                <div class="card-title"><h1>{{ $totalData }}</h1></div>
+            </div>
+        </div>
+    </div>
+</body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </html>
