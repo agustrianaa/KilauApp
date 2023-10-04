@@ -101,7 +101,7 @@
             </div>
           </div>
         </div>
-    
+
         <!-- Modal -->
         <div class="modal fade" id="tambah-modal" aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -145,7 +145,7 @@
                                   </div>
                                 </div>
                               </div>
-                            </div>                                                 
+                            </div>
                             <div class="form-group">
                               <label for="name" class="col-sm-2 control-label">Jenis Kelamin</label>
                               <div class="col-sm-12">
@@ -179,7 +179,7 @@
                                     <option value="BCPB">BCPB</option>
                                   </select>
                               </div>
-                            </div>                                                                                          
+                            </div>
                             <div class="col-sm-offset-2 col-sm-10"><br/>
                                 <button type="submit" class="btn btn-primary" id="btn-save">Save</button>
                             </div>
@@ -254,6 +254,7 @@
         });
         }
 
+<<<<<<< HEAD
         
         // Tombol "Filter" ditekan
         $('#filters').click(function () {
@@ -268,19 +269,33 @@
           // Memuat data dengan filter
           load_data(fagama, fjenis_kelamin, fstatus_binaan);
         });
+=======
+        $('#fagama').on('change', function(){
+            $('#ajax-crud-datatable').DataTable().destroy()
+            load_data()
+        })
+        $('#fjenis_kelamin').on('change', function(){
+            $('#ajax-crud-datatable').DataTable().destroy()
+            load_data()
+        })
+        $('#fstatus_binaan').on('change', function(){
+            $('#ajax-crud-datatable').DataTable().destroy()
+            load_data()
+        })
+>>>>>>> faried
 
         $('#resetfilters').click(function() {
             // Mengatur nilai-nilai semua elemen select ke nilai kosong
             $('#fagama').val('');
             $('#fjenis_kelamin').val('');
             $('#fstatus_binaan').val('');
-            
+
             // Memuat ulang data dengan filter kosong
             $('#tabeldata').DataTable().destroy();
             load_data();
         });
     });
-  
+
     function add(){
         $('#tabeldataForm').trigger("reset");
         $('#TambahModal').html("Tambah Data");
@@ -300,7 +315,7 @@
       // Navigate to the view page with the record's ID as a query parameter
       window.location.href = "{{ url('admin/tabeldataview/') }}/" + id;
     }
-  
+
     function editFunc(id){
         $.ajax({
             type: "POST",
@@ -326,7 +341,7 @@
             }
         });
     }
-  
+
     function deleteFunc(id){
         if (confirm("Ingin Mengahapus Data?") == true) {
             var id = id;
@@ -343,7 +358,7 @@
             });
         }
     }
-  
+
     $('#tabeldataForm').submit(function(e) {
         e.preventDefault();
         var formData = new FormData(this);
@@ -374,5 +389,9 @@
         });
     });
   </script>
+<<<<<<< HEAD
+=======
+
+>>>>>>> faried
 
 @endsection

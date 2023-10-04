@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('ayahs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('keluarga_id')->references('id')->on('keluargas')->unique();
             $table->string('nik_ayah');
             $table->string('nama_ayah');
             $table->string('agama_ayah');

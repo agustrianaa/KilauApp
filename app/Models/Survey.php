@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Survey extends Model
 {
     use HasFactory;
 
     protected $fillable = [
+        "keluarga_id",
         "pendidikan_kepala_keluarga",
         "jumlah_tanggungan",
         "pekerjaan_kepala_keluarga",
@@ -42,4 +44,9 @@ class Survey extends Model
         "hasil_survey",
         "keterangan_hasil",
     ];
+
+    public function keluarga(): BelongsTo
+    {
+        return $this->belongsTo(Keluarga::class);
+    }
 }

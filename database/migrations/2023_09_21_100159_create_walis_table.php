@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('walis', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('keluarga_id')->references('id')->on('keluargas')->unique();
             $table->string('nik_wali');
             $table->string('nama_wali');
             $table->string('agama_wali');
