@@ -29,6 +29,7 @@
           <div class="card">
             <div class="card-body">
                 <h5 class="card-title ml-2">Nama : {{ $record->name }}</h5>
+                <h1>{{ $tabel }}</h1>
                 <div class="float-right">
                   <a href="" class="btn btn-info mx-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-badge-fill" viewBox="0 0 16 16">
@@ -62,7 +63,7 @@
                       <div class="cardrounded">
                         <div class="card-body">
                           <div class="gambar">
-                            <img src="{{ asset('images/iahnf.jpg') }}" alt="">
+                            <img src="{{ asset('images/LogoKilau2.png') }}" alt="">
                           </div>
                         </div>
                       </div>
@@ -314,7 +315,7 @@
                               </tbody>
                           </table>
                           <div class="container" style="display: flex; justify-content: center;">
-                              <a href="{{ route('admin.ajax-crud-datatable') }}" class="btn btn-primary">Kembali</a>
+                              <a href="{{ route('admin.tabeldata') }}" class="btn btn-primary">Kembali</a>
                           </div>
                       </div>
                   </div>

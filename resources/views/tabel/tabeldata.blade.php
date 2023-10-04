@@ -192,7 +192,7 @@
           <img src="{{ asset('lte/dist/img/test-1-removebg-preview.png') }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+          <a href="#" class="d-block">{{ Auth::user()->role }}</a>
         </div>
       </div>
 
@@ -219,7 +219,7 @@
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
                     <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
                   </svg>
-                  <p class="pl-1">Home</p>
+                  <p class="pl-1">Dashboard</p>
                 </a>
               </li>
 
@@ -235,7 +235,7 @@
               </li>
 
               <li class="nav-item">
-                <a href="{{ route('admin.ajax-crud-datatable') }}" class="nav-link">
+                <a href="{{ route('admin.tabeldata') }}" class="nav-link">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-table" viewBox="0 0 16 16">
                     <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z"/>
                   </svg>
@@ -265,17 +265,6 @@
                   </svg>
                   <p class="pl-1">
                     Halaman Prototype
-                  </p>
-                </a>
-              </li>
-
-              <li class="nav-item">
-                <a href="{{ route('admin.students') }}" class="nav-link">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
-                    <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z"/>
-                  </svg>
-                  <p class="pl-1">
-                    Filter
                   </p>
                 </a>
               </li>
@@ -359,9 +348,9 @@
                 <div class="col-lg-12">
                   <div class="row align-items-end">
                     <div class="col-lg-2 mb-2">
-                      <label>Agama</label>
-                        <select class="form-select" id="fagama">
-                          <option value="">-Pilih-</option>
+                      <label class="form-label select-label">Agama</label>
+                        <select class="form-select" id="fagama" multiple="multiple">
+                          <option value="" disabled selected>-Pilih-</option>
                           <option value="Islam">Islam</option>
                           <option value="Kristen Protestan">Kristen Protestan</option>
                           <option value="Kristen Katolik">Kristen Katolik</option>
@@ -372,16 +361,16 @@
                     </div>
                     <div class="col-lg-2 mb-2">
                       <label>Jenis Kelamin</label>
-                        <select class="form-select" id="fjenis_kelamin">
-                          <option value="">-Pilih-</option>
+                        <select class="form-select" id="fjenis_kelamin" multiple>
+                          <option value="" disabled selected>-Pilih-</option>
                             <option value="Laki-Laki">Laki-Laki</option>
                             <option value="Perempuan">Perempuan</option>
                         </select>
                     </div>
                     <div class="col-lg-2 mb-2">
                       <label>Status Binaan</label>
-                        <select class="form-select" id="fstatus_binaan">
-                          <option value="">-Pilih-</option>
+                        <select class="form-select" id="fstatus_binaan" multiple>
+                          <option value="" disabled selected>-Pilih-</option>
                           <option value="PB">PB</option>
                           <option value="NPB">NPB</option>
                           <option value="CPB">CPB</option>
@@ -389,6 +378,9 @@
                         </select>
                     </div>
                     <div class="col-lg-1 mb-2">
+                      <button type="button" class="btn btn-outline-info" id="filters">Filter</button>
+                    </div>
+                    <div class="col-lg mb-2">
                       <button type="button" class="btn btn-outline-danger" id="resetfilters">Reset</button>
                     </div>
                   </div>
@@ -402,7 +394,7 @@
           <div class="card">
             <div class="card-body">
               <div class="table-responsive text-nowrap">
-                <table class="table table-bordered" id="ajax-crud-datatable">
+                <table class="table table-bordered" id="tabeldata">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -533,19 +525,24 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+         // Variabel untuk menyimpan nilai-nilai pilihan select
+        var selectedAgama = [];
+        var selectedJenisKelamin = [];
+        var selectedStatusBinaan = [];
 
-        load_data();
+        load_data(agama, jenis_kelamin, status_binaan);
+      
 
         function load_data(){
           var fagama = $('#fagama').val();
           var fjenis_kelamin = $('#fjenis_kelamin').val();
           var fstatus_binaan = $('#fstatus_binaan').val();
 
-          $('#ajax-crud-datatable').DataTable({
+          $('#tabeldata').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
-              url : "{{ url('admin/ajax-crud-datatable') }}",
+              url : "{{ url('admin/tabeldata') }}",
               data: {
                 agama : fagama,
                 jenis_kelamin : fjenis_kelamin,
@@ -569,6 +566,7 @@
         });
         }
 
+<<<<<<< HEAD
         $('#fagama').on('change', function(){
             $('#ajax-crud-datatable').DataTable().destroy()
             load_data()
@@ -581,6 +579,22 @@
             $('#ajax-crud-datatable').DataTable().destroy()
             load_data()
         })
+=======
+        
+        // Tombol "Filter" ditekan
+        $('#filters').click(function () {
+          // Mengambil nilai-nilai select yang telah dipilih sebelumnya
+          var fagama = selectedAgama;
+          var fjenis_kelamin = selectedJenisKelamin;
+          var fstatus_binaan = selectedStatusBinaan;
+        
+          // Meng-"destroy" tabel lama
+          $('#tabeldata').DataTable().destroy();
+        
+          // Memuat data dengan filter
+          load_data(fagama, fjenis_kelamin, fstatus_binaan);
+        });
+>>>>>>> c0085f78bf732bcfd7734df0b498145965e9614a
 
         $('#resetfilters').click(function() {
             // Mengatur nilai-nilai semua elemen select ke nilai kosong
@@ -589,7 +603,7 @@
             $('#fstatus_binaan').val('');
 
             // Memuat ulang data dengan filter kosong
-            $('#ajax-crud-datatable').DataTable().destroy();
+            $('#tabeldata').DataTable().destroy();
             load_data();
         });
     });
@@ -650,7 +664,7 @@
                 data: { id: id },
                 dataType: 'json',
                 success: function(res){
-                    var oTable = $('#ajax-crud-datatable').dataTable();
+                    var oTable = $('#tabeldata').dataTable();
                     oTable.fnDraw(false);
                 }
             });
@@ -676,7 +690,7 @@
                 timer: 1500 // Durasi pesan SweetAlert ditampilkan dalam milidetik (ms)
               });
                 $("#tambah-modal").modal('hide');
-                var oTable = $('#ajax-crud-datatable').dataTable();
+                var oTable = $('#tabeldata').dataTable();
                 oTable.fnDraw(false);
                 $("#btn-save").html('Submit');
                 $("#btn-save"). attr("disabled", false);

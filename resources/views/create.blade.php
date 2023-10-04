@@ -35,13 +35,7 @@
                             <!-- form start -->
                             <form>
                                 <div class="card-body">
-                                <div class="form-group">
-                                  <label for="exampleInputEmail1">Email</label>
-                                  <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="Masukkan Email">
-                                </div>
-                                @error('email')
-                                    <small>{{ $message }}</small>
-                                @enderror
+
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">Nama</label>
                                   <input type="text" class="form-control" id="exampleInputname" name="nama" placeholder="Masukkan nama...">
@@ -49,6 +43,31 @@
                                 @error('nama')
                                   <small>{{ $message }}</small>
                                 @enderror
+
+                                <div class="form-group">
+                                  <label for="exampleInputEmail1">Email</label>
+                                  <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="Masukkan Email">
+                                </div>
+                                @error('email')
+                                    <small>{{ $message }}</small>
+                                @enderror
+
+                                <div class="form-group">
+                                  <label for="exampleInputEmail1">Role</label>
+                                  <select class="form-select" id="exampleInputEmail1" name="role" >
+                                    <option value="" disabled selected>-Pilih-</option>
+                                      <option value="admin">admin</option>
+                                      <option value="adminpusat">adminpusat</option>
+                                      <option value="admincabang">admincabang</option>
+                                      <option value="Perempuan">shelter</option>
+                                      <option value="donatur">donatur</option>
+                                      <option value="orangtua">orangtua</option>
+                                  </select>
+                                </div>
+                                @error('role')
+                                    <small>{{ $message }}</small>
+                                @enderror
+
                                 <div class="form-group">
                                   <label for="exampleInputPassword1">Password</label>
                                   <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
@@ -56,6 +75,7 @@
                                 @error('password')
                                     <small>{{ $message }}</small>
                                 @enderror
+
                                 <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>

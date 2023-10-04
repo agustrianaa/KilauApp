@@ -25,6 +25,18 @@ class UserSeeder extends Seeder
                 'name' => 'Rita M',
                 'user_id' => $user -> id
             ]);
+        };
+
+        $user = User::create([
+            'email' => 'imam@gmail.com',
+            'password' => bcrypt('inipassword'),
+            'role' => 'adminpusat',
+        ]);
+        if($user) {
+            AdminPusat::create([
+                'name' => 'Imam A',
+                'user_id' => $user -> id
+            ]);
         }
 
         $user = User::create([

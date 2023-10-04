@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\IbuController;
+use App\Http\Controllers\AyahController;
+use App\Http\Controllers\DatakeluargaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\StudentController;
@@ -46,8 +49,10 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::delete('/delete/{id}',[HomeController::class,'delete'])->name('user.delete');
 
     Route::get('/a',[HomeController::class,'a'])->name('a');
+    
+    Route::get('/b',[tabeldataController::class,'totaldata'])->name('b');
 
-    Route::get('/ajax-crud-datatable', [tabeldataController::class, 'index'])->name('ajax-crud-datatable');
+    Route::get('/tabeldata', [tabeldataController::class, 'index'])->name('tabeldata');
     Route::post('/tabeldatastore', [tabeldataController::class, 'store'])->name('tabeldatastore');
     Route::get('/tabeldataview/{id}', [tabeldataController::class, 'showViewPage'])->name('tabeldataview');
     Route::post('/tabeldataedit', [tabeldataController::class, 'edit'])->name('tabeldataedit');
@@ -57,6 +62,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::get('/standards', [StudentController::class, 'getStandard'])->name('standards');
     Route::get('/results', [StudentController::class, 'getResult'])->name('results');
     Route::get('/students/records', [StudentController::class, 'records'])->name('students/records');
+
     Route::resource('/posts', \App\Http\Controllers\PostController::class);
     Route::resource('/acc', \App\Http\Controllers\AccController::class);
 });
@@ -66,4 +72,22 @@ Route::resource('/calon', \App\Http\Controllers\CalonAnakBinaanController::class
 
 Route::resource('/datasurvey', \App\http\Controllers\dataSurveyController::class);
 
+<<<<<<< HEAD
 Route::get('/kembali', [dataSurveyController::class, 'back']);
+=======
+
+Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], function(){
+    Route::get('/datakeluarga',[DatakeluargaController::class,'index'])->name('datakeluarga');
+    Route::post('/save-datakeluarga',[DatakeluargaController::class,'store'])->name('save-datakeluarga');
+    Route::post('/delete-datakeluarga',[DatakeluargaController::class,'destroy'])->name('delete-datakeluarga');
+    Route::get('/detail-datakeluarga/{id}',[DatakeluargaController::class,'show'])->name('detail-datakeluarga');
+    Route::put('/updatekeluarga/{idKeluarga}',[DatakeluargaController::class,'update'])->name('updatekeluarga');
+
+    // Data Ayah
+    Route::put('/updateayah/{idAyah}',[AyahController::class,'update'])->name('updateayah');
+
+    // Data Ibu
+    Route::put('/updateibu/{idIbu}', [IbuController::class, 'update'])->name('updateibu');
+
+});
+>>>>>>> c0085f78bf732bcfd7734df0b498145965e9614a
