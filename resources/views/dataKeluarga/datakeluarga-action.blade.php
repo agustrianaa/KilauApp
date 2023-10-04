@@ -1,7 +1,7 @@
 <a href="javascript:void(0)" data-toggle="tooltip" onClick="detailDatakeluarga({{ $id }})" data-original-title="Edit" class="show btn btn-success show">
-    <i class="far fa-eye"></i> <!-- Ini adalah ikon mata -->
+    <i class="bi bi-eye-fill"></i> Detail
 </a>
 
 <a href="javascript:void(0);" id="delete-compnay" onClick="delete_datakeluarga({{ $id }})" data-toggle="tooltip" data-original-title="Delete" class="delete btn btn-danger">
-    <i class="fas fa-trash"></i> <!-- Ikon sampah -->
+    <i class="bi bi-trash3-fill"></i> Delete
 </a>

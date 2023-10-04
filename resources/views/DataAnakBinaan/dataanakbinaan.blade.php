@@ -1,8 +1,15 @@
 @extends('layout.main')
 @section('content')
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+<style>
+  .content-wrapper.background {
+    background-color: rgb(242, 242, 242);
+  }
+</style>
 <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  <div class="content-wrapper background">
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
@@ -65,11 +72,42 @@
                           <option value="BCPB">BCPB</option>
                         </select>
                     </div>
-                    <div class="col-lg-1 mb-2">
-                      <button type="button" class="btn btn-outline-info" id="filters">Filter</button>
+                    <div class="col-lg-2 mb-2">
+                      <button type="button" class="btn btn-outline-info mx-1" id="filters">Filter</button>
+                      <button type="button" class="btn btn-outline-danger mx-1" id="resetfilters">Reset</button>
                     </div>
-                    <div class="col-lg mb-2">
-                      <button type="button" class="btn btn-outline-danger" id="resetfilters">Reset</button>
+                    <div class="col-lg-2 mb-2">
+                      <div class="dropdown">
+                        <a class="btn btn-info dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Filter Checkbox
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <div class="form-check ml-1">
+                                  <input class="form-check-input checkbox-filter" type="checkbox" value="Islam" id="checkboxIslam">
+                                  <label class="form-check-label" for="checkboxIslam">
+                                      Islam
+                                  </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-check ml-1">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        Default checkbox
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-check ml-1">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        Default checkbox
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -147,7 +185,7 @@
                               </div>
                             </div>
                             <div class="form-group">
-                              <label for="name" class="col-sm-2 control-label">Jenis Kelamin</label>
+                              <label for="name" class="col-sm-2 control-label text-nowrap">Jenis Kelamin</label>
                               <div class="col-sm-12">
                                   <select class="form-select" id="jenis_kelamin" name="jenis_kelamin" required="">
                                     <option value="" disabled selected>-Pilih-</option>
@@ -169,7 +207,7 @@
                               </div>
                             </div>
                             <div class="form-group">
-                              <label for="name" class="col-sm-2 control-label">Status Binaan</label>
+                              <label for="name" class="col-sm-2 control-label text-nowrap">Status Binaan</label>
                               <div class="col-sm-12">
                                   <select class="form-select" id="status_binaan" name="status_binaan" required="">
                                     <option value="" disabled selected>-Pilih-</option>
@@ -201,9 +239,9 @@
 </div>
 <!-- ./wrapper -->
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.18/dist/sweetalert2.all.min.js"></script>
 
 <script type="text/javascript">
@@ -213,12 +251,11 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-         // Variabel untuk menyimpan nilai-nilai pilihan select
-        var selectedAgama = [];
-        var selectedJenisKelamin = [];
-        var selectedStatusBinaan = [];
+        selectedAgama = getSelectedValues('#fagama');
+        selectedJenisKelamin = getSelectedValues('#fjenis_kelamin');
+        selectedStatusBinaan = getSelectedValues('#fstatus_binaan');
 
-        load_data(agama, jenis_kelamin, status_binaan);
+        load_data(selectedAgama, selectedJenisKelamin, selectedStatusBinaan);
       
 
         function load_data(){
@@ -253,20 +290,40 @@
             pageLength: 10 // Menyeting jumlah entri yang ditampilkan menjadi 10
         });
         }
+
+        function getSelectedValues(selectId) {
+          var selectedValues = [];
+          $(selectId + ' option:selected').each(function () {
+              selectedValues.push($(this).val());
+          });
+          return selectedValues;
+        }
         
         // Tombol "Filter" ditekan
         $('#filters').click(function () {
-          // Mengambil nilai-nilai select yang telah dipilih sebelumnya
-          var fagama = selectedAgama;
-          var fjenis_kelamin = selectedJenisKelamin;
-          var fstatus_binaan = selectedStatusBinaan;
+            // Mengambil nilai-nilai select yang telah dipilih sebelumnya
+            var fagama = selectedAgama;
+            var fjenis_kelamin = selectedJenisKelamin;
+            var fstatus_binaan = selectedStatusBinaan;
         
-          // Meng-"destroy" tabel lama
-          $('#tabeldata').DataTable().destroy();
+            // Mengambil nilai-nilai checkbox yang dicentang
+            var checkedCheckboxes = $('.checkbox-filter:checked');
+            var checkedValues = [];
         
-          // Memuat data dengan filter
-          load_data(fagama, fjenis_kelamin, fstatus_binaan);
+            checkedCheckboxes.each(function () {
+                checkedValues.push($(this).val());
+            });
+          
+            // Menambahkan nilai-nilai checkbox yang dicentang ke dalam filter
+            fagama = fagama.concat(checkedValues);
+          
+            // Meng-"destroy" tabel lama
+            $('#tabeldata').DataTable().destroy();
+          
+            // Memuat data dengan filter
+            load_data(fagama, fjenis_kelamin, fstatus_binaan);
         });
+
 
         $('#resetfilters').click(function() {
             // Mengatur nilai-nilai semua elemen select ke nilai kosong
@@ -279,6 +336,8 @@
             load_data();
         });
     });
+
+    
 
     function add(){
         $('#tabeldataForm').trigger("reset");

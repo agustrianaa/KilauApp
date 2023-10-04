@@ -1,4 +1,4 @@
-<a href="javascript:void(0)" data-toggle="tooltip" onClick="viewFunc({{ $id }})" data-original-title="View" class="view btn btn-info view">
+<a href="javascript:void(0)" data-toggle="tooltip" onClick="viewFunc({{ $id }})" data-original-title="View" class="view btn btn-info view text-white">
     View
 </a>
 <a href="javascript:void(0)" data-toggle="tooltip" onClick="editFunc({{ $id }})" data-original-title="Edit" class="edit btn btn-success edit">
