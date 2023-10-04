@@ -1,3 +1,6 @@
+@extends('layout.main')
+@section('content')
+
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -250,28 +253,6 @@
             pageLength: 10 // Menyeting jumlah entri yang ditampilkan menjadi 10
         });
         }
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        $('#fagama').on('change', function(){
-            $('#ajax-crud-datatable').DataTable().destroy()
-            load_data()
-        })
-        $('#fjenis_kelamin').on('change', function(){
-            $('#ajax-crud-datatable').DataTable().destroy()
-            load_data()
-        })
-        $('#fstatus_binaan').on('change', function(){
-            $('#ajax-crud-datatable').DataTable().destroy()
-            load_data()
-        })
-=======
-=======
->>>>>>> imam
-=======
-
->>>>>>> a3481e380a3d57ef5114f794b618b18ea78cdbc2
         
         // Tombol "Filter" ditekan
         $('#filters').click(function () {
@@ -286,28 +267,6 @@
           // Memuat data dengan filter
           load_data(fagama, fjenis_kelamin, fstatus_binaan);
         });
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> c0085f78bf732bcfd7734df0b498145965e9614a
-=======
-=======
-        $('#fagama').on('change', function(){
-            $('#ajax-crud-datatable').DataTable().destroy()
-            load_data()
-        })
-        $('#fjenis_kelamin').on('change', function(){
-            $('#ajax-crud-datatable').DataTable().destroy()
-            load_data()
-        })
-        $('#fstatus_binaan').on('change', function(){
-            $('#ajax-crud-datatable').DataTable().destroy()
-            load_data()
-        })
->>>>>>> faried
->>>>>>> imam
-=======
-
->>>>>>> a3481e380a3d57ef5114f794b618b18ea78cdbc2
 
         $('#resetfilters').click(function() {
             // Mengatur nilai-nilai semua elemen select ke nilai kosong
