@@ -34,8 +34,6 @@ Route::get('/logout',[LoginController::class,'logout'])->name('logout');
 Route::get('/register',[LoginController::class,'register'])->name('register');
 Route::post('/register-proses',[LoginController::class,'register_proses'])->name('register-proses');
 
-Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
-
 Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], function(){
     Route::get('/menu',[HomeController::class,'menu'])->name('menu');
 
@@ -50,8 +48,13 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::put('/update/{id}',[HomeController::class,'update'])->name('user.update');
     Route::delete('/delete/{id}',[HomeController::class,'delete'])->name('user.delete');
 
-    Route::get('/ajax-crud-datatable', [tabeldataController::class, 'index'])->name('ajax-crud-datatable');
+    Route::get('/a',[HomeController::class,'a'])->name('a');
+    
+    Route::get('/b',[tabeldataController::class,'totaldata'])->name('b');
+
+    Route::get('/tabeldata', [tabeldataController::class, 'index'])->name('tabeldata');
     Route::post('/tabeldatastore', [tabeldataController::class, 'store'])->name('tabeldatastore');
+    Route::get('/tabeldataview/{id}', [tabeldataController::class, 'showViewPage'])->name('tabeldataview');
     Route::post('/tabeldataedit', [tabeldataController::class, 'edit'])->name('tabeldataedit');
     Route::post('/tabeldatadelete', [tabeldataController::class, 'destroy'])->name('tabeldatadelete');
 
@@ -59,7 +62,16 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::get('/standards', [StudentController::class, 'getStandard'])->name('standards');
     Route::get('/results', [StudentController::class, 'getResult'])->name('results');
     Route::get('/students/records', [StudentController::class, 'records'])->name('students/records');
+
+    Route::resource('/posts', \App\Http\Controllers\PostController::class);
+    Route::resource('/acc', \App\Http\Controllers\AccController::class);
 });
+
+Route::resource('/calon', \App\Http\Controllers\CalonAnakBinaanController::class);
+
+Route::resource('/datasurvey', \App\http\Controllers\dataSurveyController::class);
+
+Route::get('/kembali', [dataSurveyController::class, 'back']);
 
 Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], function(){
     Route::get('/datakeluarga',[DatakeluargaController::class,'index'])->name('datakeluarga');
