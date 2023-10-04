@@ -1,7 +1,6 @@
 @extends('layout.main')
 @section('content')
 
-
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 <link rel="stylesheet" href="{{ asset('css/isiSurvey.css') }}">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

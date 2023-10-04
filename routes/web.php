@@ -67,14 +67,10 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::resource('/acc', \App\Http\Controllers\AccController::class);
 });
 
-
 Route::resource('/calon', \App\Http\Controllers\CalonAnakBinaanController::class);
 
 Route::resource('/datasurvey', \App\http\Controllers\dataSurveyController::class);
 
-<<<<<<< HEAD
-Route::get('/kembali', [dataSurveyController::class, 'back']);
-=======
 
 Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], function(){
     Route::get('/datakeluarga',[DatakeluargaController::class,'index'])->name('datakeluarga');
@@ -90,4 +86,4 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::put('/updateibu/{idIbu}', [IbuController::class, 'update'])->name('updateibu');
 
 });
->>>>>>> c0085f78bf732bcfd7734df0b498145965e9614a
+
