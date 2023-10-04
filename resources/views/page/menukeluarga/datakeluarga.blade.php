@@ -33,7 +33,7 @@
                                     <select class="form-select" name="" id="fwilbin">
                                         <option value="">Seluruh</option>
                                         <option value="imy">Indramayu</option>
-                                        <option value="smd">Sumedang</option>
+                                        <option value="Sumedang">Sumedang</option>
                                     </select>
                             </div>
                         </div>
