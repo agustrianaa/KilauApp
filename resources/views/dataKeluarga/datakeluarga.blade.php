@@ -1,23 +1,21 @@
 @extends('layout.main')
 @section('content')
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
 <div class="content-wrapper">
     <section class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="row text-center">
-                <h1>DATA KELUARGA</h1>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title text-center">Data Keluarga</h2>
-                    <button class="btn btn-warning float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                        <i class="fas fa-filter"></i> Filter
-                    </button>
-                </div>
-                <!-- /.card-header -->
+            <div class="card mt-5">
                 <div class="card-body" style="overflow-x:auto;">
+                    <div class="card-title ml-2"><h4>Data Keluarga</h4></div>
+                    <div class="float-right">
+                        <button class="btn btn-warning mx-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            <i class="fas fa-filter"></i> Filter
+                        </button>
+                    </div>
+                <hr class="mt-5">
 
                 <!-- Filteerrrr -->
                 <p class="d-inline-flex gap-1">
@@ -33,33 +31,37 @@
                                     <select class="form-select" name="" id="fwilbin">
                                         <option value="">Seluruh</option>
                                         <option value="imy">Indramayu</option>
-                                        <option value="smd">Sumedang</option>
+                                        <option value="Sumedang">Sumedang</option>
                                     </select>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                    <!-- Tabel data keluarga -->
-                    <table class="table table-bordered"  id="data-keluarga">
-                    <thead>
-                        <tr>
-                            <th style="width: 10px">No</th>
-                            <th>No KK</th>
-                            <th>Kepala Keluarga</th>
-                            <th>Wilayah Binaan</th>
-                            <th style="width: 150px">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                    </table>
+                    <!-- Button tambah data keluarga -->
+                    <div class="pull-right mb-2">
+                        <a class="btn btn-primary" onClick="add_datakeluarga()" href="javascript:void(0)"> Tambahkan Data Keluarga</a>
+                    </div>
+
+                    <div class="table-responsive text-nowrap">
+                        <!-- Tabel data keluarga -->
+                        <table class="table table-bordered"  id="data-keluarga">
+                        <thead>
+                            <tr>
+                                <th style="width: 10px">No</th>
+                                <th>No KK</th>
+                                <th>Kepala Keluarga</th>
+                                <th>Wilayah Binaan</th>
+                                <th style="width: 150px">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        </table>
+                    </div>
                 </div>
 
-                <!-- Button tambah data keluarga -->
-                <div class="pull-right mb-2">
-                    <a class="btn btn-primary" onClick="add_datakeluarga()" href="javascript:void(0)"> Tambahkan Data Keluarga</a>
-                </div>
+                
 
                 <!-- Modal Data Keluarga -->
                 <div class="modal fade" id="modal-datakeluarga" aria-hidden="true">
@@ -235,6 +237,8 @@
 </section>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
 <script type="text/javascript">
     $(document).ready(function() {
         $.ajaxSetup({
@@ -271,7 +275,7 @@
                     { data: 'wilbin', name: 'wilbin'},
                     { data: 'action', name: 'action', orderable: false},
                 ],
-                order: [[0, 'desc']],
+                order: [[0, 'asc']],
             });
         }
 

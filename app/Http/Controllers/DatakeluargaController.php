@@ -19,19 +19,19 @@ class DatakeluargaController extends Controller
         if(request()->ajax()) {
             $fwilbin = $request->wilbin;
             $data = DataKeluarga::select('*')
-                        ->where(function($q) use($fwilbin) {
+            ->where(function($q) use($fwilbin) {
                 if($fwilbin != ''){
                     $q->where('wilbin', $fwilbin);
                 }
             });
 
             return datatables($data)
-            ->addColumn('action', 'layout.components.datakeluarga-action')
+            ->addColumn('action', 'dataKeluarga.datakeluarga-action')
             ->rawColumns(['action'])
             ->addIndexColumn()
             ->make(true);
         }
-        return view ('page.menukeluarga.datakeluarga');
+        return view ('dataKeluarga.datakeluarga');
     }
 
     /**
@@ -115,7 +115,7 @@ class DatakeluargaController extends Controller
         $dataIbu = Ibu::where('data_keluargas_id', $id)->first();
         $dataAyah = Ayah::where('data_keluargas_id', $id)->first();
         // Tampilkan halaman detail data keluarga (misalnya, menggunakan view 'detail_datakeluarga.blade.php')
-        return view('page.menukeluarga.detail_datakeluarga', ['dataKeluarga' => $dataKeluarga, 'dataIbu' => $dataIbu, 'dataAyah' => $dataAyah]);
+        return view('dataKeluarga.detail_datakeluarga', ['dataKeluarga' => $dataKeluarga, 'dataIbu' => $dataIbu, 'dataAyah' => $dataAyah]);
 
         //data ibu
         
