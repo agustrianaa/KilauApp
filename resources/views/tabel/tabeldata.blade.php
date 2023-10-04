@@ -1,7 +1,4 @@
-@extends('layout.main')
-@section('content')
-
-  <!-- Content Wrapper. Contains page content -->
+<!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -254,7 +251,7 @@
         });
         }
 
-<<<<<<< HEAD
+
         
         // Tombol "Filter" ditekan
         $('#filters').click(function () {
@@ -269,20 +266,7 @@
           // Memuat data dengan filter
           load_data(fagama, fjenis_kelamin, fstatus_binaan);
         });
-=======
-        $('#fagama').on('change', function(){
-            $('#ajax-crud-datatable').DataTable().destroy()
-            load_data()
-        })
-        $('#fjenis_kelamin').on('change', function(){
-            $('#ajax-crud-datatable').DataTable().destroy()
-            load_data()
-        })
-        $('#fstatus_binaan').on('change', function(){
-            $('#ajax-crud-datatable').DataTable().destroy()
-            load_data()
-        })
->>>>>>> faried
+
 
         $('#resetfilters').click(function() {
             // Mengatur nilai-nilai semua elemen select ke nilai kosong
@@ -389,9 +373,6 @@
         });
     });
   </script>
-<<<<<<< HEAD
-=======
 
->>>>>>> faried
 
 @endsection

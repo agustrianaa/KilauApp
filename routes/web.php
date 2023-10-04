@@ -71,6 +71,7 @@ Route::resource('/calon', \App\Http\Controllers\CalonAnakBinaanController::class
 
 Route::resource('/datasurvey', \App\http\Controllers\dataSurveyController::class);
 
+
 Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], function(){
     Route::get('/datakeluarga',[DatakeluargaController::class,'index'])->name('datakeluarga');
     Route::post('/save-datakeluarga',[DatakeluargaController::class,'store'])->name('save-datakeluarga');
@@ -85,3 +86,4 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::put('/updateibu/{idIbu}', [IbuController::class, 'update'])->name('updateibu');
 
 });
+
