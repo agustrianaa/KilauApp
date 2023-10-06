@@ -31,7 +31,7 @@ class DatakeluargaController extends Controller
             ->addIndexColumn()
             ->make(true);
         }
-        return view ('dataKeluarga.datakeluarga');
+        return view('dataKeluarga.datakeluarga');
     }
 
     /**

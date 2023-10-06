@@ -40,7 +40,7 @@ const Default = {
   maxResults: 7,
   highlightName: true,
   highlightPath: false,
-  highlightClass: 'text-light',
+  highlightClass: 'text-info',
   notFoundText: 'No element found!'
 }
 

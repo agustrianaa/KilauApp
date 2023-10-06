@@ -10,8 +10,11 @@ class calonAnakBinaan extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nama',
-        'shelter',
-        'no_kk'
+        'name',
+        'tempat_lahir',
+        'tanggal_lahir',
+        'anak_ke',
+        'status_binaan',
+        'status_validasi',
     ];
 }

@@ -395,6 +395,12 @@
                 data: { id: id },
                 dataType: 'json',
                 success: function(res){
+                  Swal.fire(
+                      'Terhapus!',
+                      'Data berhasil dihapus.',
+                      'success'
+                  );
+
                     var oTable = $('#tabeldata').dataTable();
                     oTable.fnDraw(false);
                 }
@@ -420,12 +426,14 @@
                 showConfirmButton: false,
                 timer: 1500 // Durasi pesan SweetAlert ditampilkan dalam milidetik (ms)
               });
-                $("#tambah-modal").modal('hide');
-                var oTable = $('#tabeldata').dataTable();
-                oTable.fnDraw(false);
-                $("#btn-save").html('Submit');
-                $("#btn-save"). attr("disabled", false);
+
+              $("#tambah-modal").modal('hide');
+              var oTable = $('#tabeldata').dataTable();
+              oTable.fnDraw(false);
+              $("#btn-save").html('Submit');
+              $("#btn-save"). attr("disabled", false);
             },
+            
             error: function(data) {
                 console.log(data);
             }

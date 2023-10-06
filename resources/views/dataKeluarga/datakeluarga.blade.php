@@ -30,8 +30,10 @@
                                 <label for="a">Shelter</label>
                                     <select class="form-select" name="" id="fwilbin">
                                         <option value="">Seluruh</option>
-                                        <option value="imy">Indramayu</option>
+                                        <option value="Indramayu">Indramayu</option>
                                         <option value="Sumedang">Sumedang</option>
+                                        <option value="Bandung">Bandung</option>
+                                        <option value="Bogor">Bogor</option>
                                     </select>
                             </div>
                         </div>
@@ -77,35 +79,59 @@
                                     <div class="row">
                                     <!-- Form data Keluarga -->
                                         <div class="col-12 col-sm-4">
-                                            <input type="hidden" name="id" id="id">
-                                            <div class="form-group">
-                                                <label for="no_kk" class=" control-label">No KK</label>
-                                                <div class="col-sm-12">
-                                                    <input type="text" class="form-control" id="no_kk" name="no_kk" placeholder="No Kartu Keluarga..." maxlength="50" required="">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="name" class="control-label">Kepala Keluarga</label>
-                                                <div class="col-sm-12">
-                                                    <input type="text" class="form-control" id="kepala_keluarga" name="kepala_keluarga" placeholder="Kepala Keluarga..." maxlength="50" required="">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class=" control-label">Kantor Cabang</label>
-                                                <div class="col-sm-12">
-                                                    <input type="text" class="form-control" id="kacab" name="kacab" placeholder="Wilayah Binaan..." required="">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class=" control-label">Wilayah Binaan</label>
-                                                <div class="col-sm-12">
-                                                    <input type="text" class="form-control" id="wilbin" name="wilbin" placeholder="Wilayah Binaan..." required="">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class=" control-label">Shelter</label>
-                                                <div class="col-sm-12">
-                                                    <input type="text" class="form-control" id="shelter" name="shelter" placeholder="Wilayah Binaan..." required="">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h4 class="text-center">Form Keluarga</h4>
+                                                    <hr>
+                                                    <input type="hidden" name="id" id="id">
+                                                    <div class="form-group">
+                                                        <label for="no_kk" class=" control-label">No KK</label>
+                                                        <div class="col-sm-12">
+                                                            <input type="text" class="form-control" id="no_kk" name="no_kk" placeholder="No Kartu Keluarga..." maxlength="50" required="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="name" class="control-label">Kepala Keluarga</label>
+                                                        <div class="col-sm-12">
+                                                            <input type="text" class="form-control" id="kepala_keluarga" name="kepala_keluarga" placeholder="Kepala Keluarga..." maxlength="50" required="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label">Kantor Cabang</label>
+                                                        <div class="col-sm-12">
+                                                            <select class="form-select" id="kacab" name="kacab" required="">
+                                                                <option value="" disabled selected>Pilih Kantor</option>
+                                                                <option value="Bandung">Bandung</option>
+                                                                <option value="Sumedang">Sumedang</option>
+                                                                <option value="Indramayu">Indramayu</option>
+                                                                <option value="Bogor">Bogor</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label">Wilayah Cabang</label>
+                                                        <div class="col-sm-12">
+                                                            <select class="form-select" id="wilbin" name="wilbin" required="">
+                                                                <option value="" disabled selected>Pilih Wilayah</option>
+                                                                <option value="Bandung">Bandung</option>
+                                                                <option value="Sumedang">Sumedang</option>
+                                                                <option value="Indramayu">Indramayu</option>
+                                                                <option value="Bogor">Bogor</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label">Shelter</label>
+                                                        <div class="col-sm-12">
+                                                            <select class="form-select" id="shelter" name="shelter" required="">
+                                                                <option value="" disabled selected>Pilih Shelter</option>
+                                                                <option value="Bandung">Bandung</option>
+                                                                <option value="Sumedang">Sumedang</option>
+                                                                <option value="Indramayu">Indramayu</option>
+                                                                <option value="Bogor">Bogor</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -113,106 +139,122 @@
 
                                         <!-- Form Ayah -->
                                         <div class="col-12 col-sm-4">
-                                            <div class="form-group">
-                                                <label class=" control-label">NIK</label>
-                                                <div class="col-sm-12">
-                                                    <input type="text" class="form-control" id="nik_ayah" name="nik_ayah" placeholder="" required="">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class=" control-label">Nama Ayah</label>
-                                                <div class="col-sm-12">
-                                                    <input type="text" class="form-control" id="nama_ayah" name="nama_ayah" placeholder="Nama Ayah" required="">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <label class="control-label">Tempat, Tanggal Lahir</label>
-                                                    <div class="col-sm-8">
-                                                        <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="" required="">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h4 class="text-center">Form Ayah</h4>
+                                                    <hr>
+                                                    <div class="form-group">
+                                                        <label class=" control-label">NIK</label>
+                                                        <div class="col-sm-12">
+                                                            <input type="text" class="form-control" id="nik_ayah" name="nik_ayah" placeholder="" required="">
+                                                        </div>
                                                     </div>
-                                                    <div class="col-sm-4">
-                                                        <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" placeholder=""  required="">
+                                                    <div class="form-group">
+                                                        <label class=" control-label">Nama Ayah</label>
+                                                        <div class="col-sm-12">
+                                                            <input type="text" class="form-control" id="nama_ayah" name="nama_ayah" placeholder="Nama Ayah" required="">
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label">Agama</label>
-                                                <div class="col-sm-12">
-                                                    <select class="form-control" id="agama" name="agama" aria-placeholder="pilih agama" required>
-                                                        <option value="" disabled selected>Pilih Agama</option>
-                                                        <option value="Islam">Islam</option>
-                                                        <option value="Kristen">Kristen</option>
-                                                        <option value="Katolik">Katolik</option>
-                                                        <option value="Hindu">Hindu</option>
-                                                        <option value="Buddha">Buddha</option>
-                                                        <option value="Konghucu">Konghucu</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label">Alamat</label>
-                                                <div class="col-sm-12">
-                                                    <input type="text" class="form-control" id="alamat" name="alamat" placeholder="" required="">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label">Pekerjaan</label>
-                                                <div class="col-sm-12">
-                                                    <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" placeholder="" required="">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Tempat, Tanggal Lahir</label>
+                                                        <div class="col-sm-12">
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="" required="">
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" placeholder=""  required="">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label">Agama</label>
+                                                        <div class="col-sm-12">
+                                                            <select class="form-select" id="agama" name="agama" required="">
+                                                                <option value="" disabled selected>Pilih Agama</option>
+                                                                <option value="Islam">Islam</option>
+                                                                <option value="Kristen">Kristen</option>
+                                                                <option value="Katolik">Katolik</option>
+                                                                <option value="Hindu">Hindu</option>
+                                                                <option value="Buddha">Buddha</option>
+                                                                <option value="Konghucu">Konghucu</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label">Alamat</label>
+                                                        <div class="col-sm-12">
+                                                            <input type="text" class="form-control" id="alamat" name="alamat" placeholder="" required="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label">Pekerjaan</label>
+                                                        <div class="col-sm-12">
+                                                            <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" placeholder="" required="">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <!-- Form Ibu -->
                                         <div class="col-12 col-sm-4">
-                                            <div class="form-group">
-                                                <label class=" control-label">NIK</label>
-                                                <div class="col-sm-12">
-                                                    <input type="text" class="form-control" id="nik_ibu" name="nik_ibu" placeholder="" required="">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class=" control-label">Nama Ibu</label>
-                                                <div class="col-sm-12">
-                                                    <input type="text" class="form-control" id="nama_ibu" name="nama_ibu" placeholder="Nama Ibu" required="">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <label class="control-label">Tempat, Tanggal Lahir</label>
-                                                    <div class="col-sm-8">
-                                                        <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder=""required="">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h4 class="text-center">Form Ibu</h4>
+                                                    <hr>
+                                                    <div class="form-group">
+                                                        <label class=" control-label">NIK</label>
+                                                        <div class="col-sm-12">
+                                                            <input type="text" class="form-control" id="nik_ibu" name="nik_ibu" placeholder="" required="">
+                                                        </div>
                                                     </div>
-                                                    <div class="col-sm-4">
-                                                        <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" placeholder="" required="">
+                                                    <div class="form-group">
+                                                        <label class=" control-label">Nama Ibu</label>
+                                                        <div class="col-sm-12">
+                                                            <input type="text" class="form-control" id="nama_ibu" name="nama_ibu" placeholder="Nama Ibu" required="">
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label">Agama</label>
-                                                <div class="col-sm-12">
-                                                    <select class="form-control" id="agama" name="agama" aria-placeholder="pilih agama" required>
-                                                        <option value="" disabled selected>Pilih Agama</option>
-                                                        <option value="Islam">Islam</option>
-                                                        <option value="Kristen">Kristen</option>
-                                                        <option value="Katolik">Katolik</option>
-                                                        <option value="Hindu">Hindu</option>
-                                                        <option value="Buddha">Buddha</option>
-                                                        <option value="Konghucu">Konghucu</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label">Alamat</label>
-                                                <div class="col-sm-12">
-                                                    <input type="text" class="form-control" id="alamat" name="alamat" placeholder="" required="">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label">Pekerjaan</label>
-                                                <div class="col-sm-12">
-                                                    <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" placeholder="" required="">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Tempat, Tanggal Lahir</label>
+                                                        <div class="col-sm-12">
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="" required="">
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" placeholder=""  required="">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label">Agama</label>
+                                                        <div class="col-sm-12">
+                                                            <select class="form-select" id="agama" name="agama" required="">
+                                                                <option value="" disabled selected>Pilih Agama</option>
+                                                                <option value="Islam">Islam</option>
+                                                                <option value="Kristen">Kristen</option>
+                                                                <option value="Katolik">Katolik</option>
+                                                                <option value="Hindu">Hindu</option>
+                                                                <option value="Buddha">Buddha</option>
+                                                                <option value="Konghucu">Konghucu</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label">Alamat</label>
+                                                        <div class="col-sm-12">
+                                                            <input type="text" class="form-control" id="alamat" name="alamat" placeholder="" required="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label">Pekerjaan</label>
+                                                        <div class="col-sm-12">
+                                                            <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" placeholder="" required="">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -223,8 +265,7 @@
                                         <button type="submit" class="btn btn-primary" id="btn-save">Save</button>
                                     </div>
 
-                                    </form>
-                                
+                                </form>
                             </div>
                             <div class="modal-footer"></div>
                         </div>

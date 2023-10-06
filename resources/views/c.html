@@ -1,69 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dropdown dengan Checkbox</title>
-    <style>
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f1f1f1;
-            min-width: 200px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            padding: 10px;
-            z-index: 1;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-    </style>
-</head>
-<body>
-    <div class="dropdown">
-        <button><i class="bi bi-1-square-fill"></i>Dropdown</button>
-        <div class="dropdown-content">
-            <label><input type="checkbox" name="option1"> Pilihan 1</label><br>
-            <label><input type="checkbox" name="option2"> Pilihan 2</label><br>
-            <label><input type="checkbox" name="option3"> Pilihan 3</label><br>
-            <label><input type="checkbox" name="option4"> Pilihan 4</label><br>
-        </div>
-    </div>
-
-    <script>
-        // Fungsi untuk menampilkan pilihan yang sudah dicentang
-        function showCheckedOptions() {
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            const checkedOptions = [];
-    
-            checkboxes.forEach(function(checkbox) {
-                if (checkbox.checked) {
-                    checkedOptions.push(checkbox.name);
-                }
-            });
-    
-            if (checkedOptions.length > 0) {
-                alert('Pilihan yang dicentang: ' + checkedOptions.join(', '));
-            } else {
-                alert('Belum ada pilihan yang dicentang.');
-            }
-        }
-    
-        // Menambahkan event listener untuk tombol tampilkan
-        const showButton = document.createElement('button');
-        showButton.textContent = 'Tampilkan yang Dicentang';
-        showButton.addEventListener('click', showCheckedOptions);
-    
-        // Menambahkan tombol tampilkan ke dalam dropdown-content
-        const dropdownContent = document.querySelector('.dropdown-content');
-        dropdownContent.appendChild(showButton);
-    </script>
-    
-</body>
+<html>
+        <head>
+                <meta charset="utf-8">
+                <title>CKEditor</title>
+                <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
+        </head>
+        <body>
+                <div id="editor">This is some sample content.</div>
+                <script>
+                        ClassicEditor
+                                .create( document.querySelector( '#editor' ) )
+                                .then( editor => {
+                                        console.log( editor );
+                                } )
+                                .catch( error => {
+                                        console.error( error );
+                                } );
+                </script>
+        </body>
 </html>
