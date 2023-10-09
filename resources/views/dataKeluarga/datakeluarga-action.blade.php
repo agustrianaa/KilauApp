@@ -1,4 +1,4 @@
-<a href="javascript:void(0)" data-toggle="tooltip" onClick="detailDatakeluarga({{ $id }})" data-original-title="Edit" class="show btn btn-success show">
+<a href="javascript:void(0)" data-toggle="tooltip" onClick="detailDatakeluarga({{ $id }})" data-original-title="Edit" class="show btn btn-info show text-white">
     <i class="bi bi-eye-fill"></i> Detail
 </a>
 
