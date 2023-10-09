@@ -53,7 +53,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     
     Route::get('/b',[tabeldataController::class,'b'])->name('b');
 
-    Route::get('DataCalonAnakBinaan/CalonAnakBinaan', [CalonAnakBinaanController::class, 'calonanakbinaan'])->name('calonanakbinaan');
+    Route::get('/calonAnakBinaan', [CalonAnakBinaanController::class, 'calonanakbinaan'])->name('calonanakbinaan');
     // Route::post('/tabeldatastore', [tabeldataController::class, 'store'])->name('tabeldatastore');
     // Route::get('/tabeldataview/{id}', [tabeldataController::class, 'showViewPage'])->name('tabeldataview');
     // Route::post('/tabeldataedit', [tabeldataController::class, 'edit'])->name('tabeldataedit');

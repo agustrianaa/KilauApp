@@ -10,18 +10,21 @@ class Ayah extends Model
 {
     use HasFactory;
 
+    public $tabel = 'ayahs';
+    protected $primaryKey = 'id_ayah';
     protected $fillable = [
-        "keluarga_id",
-        "nik_ayah",
-        "nama_ayah",
-        "agama_ayah",
-        "status_ayah",
-        "penghasilan_ayah",
-        "alamat_ayah",
+        'nik_ayah',
+        'nama_ayah',
+        'tempat_lahir',
+        'tanggal_lahir',
+        'agama',
+        'alamat',
+        'pekerjaan',
+        'data_keluargas_id',
     ];
 
-    public function keluarga(): BelongsTo
+    public function dataKeluarga()
     {
-        return $this->belongsTo(Keluarga::class);
+        return $this->belongsTo('App\Models\DataKeluarga', 'data_keluargas_id');
     }
 }
