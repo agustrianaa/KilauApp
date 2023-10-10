@@ -9,6 +9,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\tabeldataController;
+use App\Http\Controllers\ValidasiBeasiswaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -80,7 +81,7 @@ Route::resource('/datasurvey', \App\http\Controllers\dataSurveyController::class
 Route::get('/kembali', [dataSurveyController::class, 'back']);
 Route::post('/upload', [PostController::class, 'upload'])->name('posts.upload');
 
-
+Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], function(){
     Route::get('/datakeluarga',[DatakeluargaController::class,'index'])->name('datakeluarga');
     Route::post('/save-datakeluarga',[DatakeluargaController::class,'store'])->name('save-datakeluarga');
     Route::post('/delete-datakeluarga',[DatakeluargaController::class,'destroy'])->name('delete-datakeluarga');
@@ -92,6 +93,10 @@ Route::post('/upload', [PostController::class, 'upload'])->name('posts.upload');
 
     // Data Ibu
     Route::put('/updateibu/{idIbu}', [IbuController::class, 'update'])->name('updateibu');
+
+
+    // Validasi Beasiswa
+    Route::get('/validasi-beasiswa', [ValidasiBeasiswaController::class, 'index'])->name('validasi-beasiswa');
 
 });
 
