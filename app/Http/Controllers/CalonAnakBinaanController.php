@@ -2,192 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ayah;
 use App\Models\calonAnakBinaan;
-use App\Http\Requests\StorecalonAnakBinaanRequest;
-use App\Http\Requests\UpdatecalonAnakBinaanRequest;
+use App\Models\DataKeluarga;
+use App\Models\Ibu;
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use RealRashid\SweetAlert\Facades\Alert; 
 
 class CalonAnakBinaanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(Request $request)
-    {
-        // $ambil = $request->ambil;
-        // $anak = calonAnakBinaan::when($ambil, function ($query) use ($ambil) {
-        //     return $query->where('nama', 'Faried Yoga Prawira');
-        // })->latest()->get();
-        // if($ambil === ''){
-            //     $anak = calonAnakBinaan::latest().get();
-            // } else {
-                //     $anak = calonAnakBinaan::where('nama', 'Faried Yoga Prawira');
-                // }
+    public function calonanakbinaan(Request $request)
+{
+    if (request()->ajax()) {
+        $data = DataKeluarga::select('data_keluargas.*', 'ayahs.*', 'calon_anak_binaans.*')
+            ->leftJoin('ayahs', 'data_keluargas.id', '=', 'ayahs.data_keluargas_id')
+            ->leftJoin('ibu', 'data_keluargas.id', '=', 'ibu.data_keluargas_id')
+            ->leftJoin('calon_anak_binaans', 'data_keluargas.id', '=', 'calon_anak_binaans.data_keluargas_id');
 
-        // $output = "";
-        // $anak = calonAnakBinaan::where('nama', 'LIKE', '%'.$request->ambil.'%')->orWhere('shelter', 'LIKE', '%'.$request->ambil.'%')->get();
-        // foreach($anak as $an){
-        //     $output .=
-        //     '
-        //     <div class="halo">
-        //                         <tr id="index_'. $an->id .'">
-        //                             <td>'. $an->nama .'</td>
-        //                             <td>'. $an->shelter .'</td>
-        //                             <td>'. $an->no_kk .'</td>
-        //                             <td class="text-center">
-        //                                 <a href="javascript:void(0)" id="btn-edit-an" data-id="'. $an->id .'" class="btn btn-primary btn-sm">EDIT</a>
-        //                                 <a href="javascript:void(0)" id="btn-delete-an" data-id="'. $an->id .'" class="btn btn-danger btn-sm">DELETE</a>
-        //                             </td>
-        //                         </tr>
-        //                     </div>
-        //     ';
-        // }
-        if (request()->ajax()) {
-            $nama = $request->nama;
-            // $jenis_kelamin = $request->jenis_kelamin;
-            // $status_binaan = $request->status_binaan;
-
-            $data = calonAnakBinaan::select('*');
-
-            if ($nama != '') {
-                $data = $data->where('nama','LIKE', '%'.$nama.'%');
-            }
-
-            // if ($jenis_kelamin != '') {
-            //     $data = $data->where('jenis_kelamin', $jenis_kelamin);
-            // }
-
-            // if ($status_binaan != '') {
-            //     $data = $data->where('status_binaan', $status_binaan);
-            // }
-
-            return datatables($data)
-                // ->addColumn('action')
-                ->addIndexColumn()
-                ->addColumn('action', function ($data) {
-                    $btn = '<a href="javascript:void(0)" id="btn-edit-an" data-id="'. $data->id .'" class="btn btn-primary btn-sm">EDIT</a>';
-                    $btn = $btn.'<a href="javascript:void(0)" id="btn-delete-an" data-id="'. $data->id .'" class="btn btn-danger btn-sm">DELETE</a>';
-
-                    return $btn;
-
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
-
-
-        return view('calonAnak.index');
+        return datatables($data)
+            ->addColumn('TTL', function ($data) {
+                return $data->tempat_lahir_calon_anak . ', ' . $data->tanggal_lahir_calon_anak;
+            })
+            ->addColumn('action', 'DataCalonAnakBinaan.CalonAnakBinaan-action')
+            ->rawColumns(['action'])
+            ->addIndexColumn()
+            ->make(true);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
+    return view('DataCalonAnakBinaan.CalonAnakBinaan');
+}
 
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //define validation rules
-        $validator = Validator::make($request->all(), [
-            'nama'     => 'required',
-            'shelter'   => 'required',
-            'no_kk'   => 'required',
-        ]);
-
-        //check if validation fails
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        }
-
-        //create post
-        $anak = calonAnakBinaan::create([
-            'nama'     => $request->nama,
-            'shelter'   => $request->shelter,
-            'no_kk'   => $request->no_kk
-        ]);
-
-        //return response
-        return response()->json([
-            'success' => true,
-            'message' => 'Data Berhasil Disimpan!',
-            'data'    => $anak
-        ]);
-
-
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show($id, calonAnakBinaan $calonAnakBinaan)
-    {
-        $calonAnakBinaan = calonAnakBinaan::find($id);
-        return response()->json([
-            'success' => true,
-            'message' => 'Detail Data Post',
-            'data'    => $calonAnakBinaan
-        ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(calonAnakBinaan $calonAnakBinaan)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update($id, Request $request, calonAnakBinaan $calonAnakBinaan)
-    {
-        $calonAnakBinaan = calonAnakBinaan::find($id);
-         //define validation rules
-         $validator = Validator::make($request->all(), [
-            'nama'     => 'required',
-            'shelter'   => 'required',
-            'no_kk'   => 'required'
-        ]);
-
-        //check if validation fails
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        }
-
-        //create post
-        $calonAnakBinaan->update([
-            'nama'     => $request->nama,
-            'shelter'   => $request->shelter,
-            'no_kk'   => $request->no_kk
-        ]);
-
-        //return response
-        return response()->json([
-            'success' => true,
-            'message' => 'Data Berhasil Diudapte!',
-            'data'    => $calonAnakBinaan
-        ]);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        //delete post by ID
-        calonAnakBinaan::where('id', $id)->delete();
-
-        //return response
-        return response()->json([
-            'success' => true,
-            'message' => 'Data Post Berhasil Dihapus!.',
-        ]);
-    }
 }

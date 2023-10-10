@@ -14,10 +14,13 @@ class DataKeluarga extends Model
     protected $fillable = [ 'no_kk', 'kepala_keluarga','kacab', 'wilbin', 'shelter', 'no_telp', 'no_rek' ];
 
     public function dataAyah(){
-        return $this->hasOne('App\Models\Ayah');
+        return $this->hasOne('App\Models\Ayahs');
     }
 
     public function dataIbu(){
         return $this->hasOne('App\Models\Ibu');
+    }
+    public function dataCalonAnakBinaan(){
+        return $this->hasOne('App\Models\calonAnakBinaan');
     }
 }

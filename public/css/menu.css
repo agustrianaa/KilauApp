@@ -87,12 +87,19 @@ section {
     text-align: center;
 }
 
-.colored-box svg {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 10px; /* Jarak antara ikon dan teks */
+/* ICON */
+.colored-box i {
+    font-size: 40px; /* Ukuran icon */
+    margin-bottom: 10px; /* Jarak bawah icon antara ikon dan teks */
     margin-top: 10px; /* Tambahkan jarak atas untuk ikon */
 }
+
+/* .colored-box svg {
+    width: 40px;            |<- Lebar icon SVG
+    height: 40px;           |<- Tinggi icon SVG
+    margin-bottom: 10px;    |<- Jarak antara ikon dan teks
+    margin-top: 10px;       |<- Tambahkan jarak atas untuk ikon
+} */
 
 /* Tambahkan class baru untuk status klik */
 .colored-box.clicked {

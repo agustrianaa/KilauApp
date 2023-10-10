@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\IbuController;
 use App\Http\Controllers\AyahController;
+use App\Http\Controllers\CalonAnakBinaanController;
 use App\Http\Controllers\DatakeluargaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\tabeldataController;
 use Illuminate\Support\Facades\Route;
@@ -49,19 +51,23 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::delete('/delete/{id}',[HomeController::class,'delete'])->name('user.delete');
 
     Route::get('/a',[HomeController::class,'a'])->name('a');
+
+    Route::get('/b',[tabeldataController::class,'totaldata'])->name('b');
     
     Route::get('/b',[tabeldataController::class,'b'])->name('b');
+
+    Route::get('/calonAnakBinaan', [CalonAnakBinaanController::class, 'calonanakbinaan'])->name('calonanakbinaan');
+    // Route::post('/tabeldatastore', [tabeldataController::class, 'store'])->name('tabeldatastore');
+    // Route::get('/tabeldataview/{id}', [tabeldataController::class, 'showViewPage'])->name('tabeldataview');
+    // Route::post('/tabeldataedit', [tabeldataController::class, 'edit'])->name('tabeldataedit');
+    // Route::post('/tabeldatadelete', [tabeldataController::class, 'destroy'])->name('tabeldatadelete');
+
 
     Route::get('/tabeldata', [tabeldataController::class, 'index'])->name('tabeldata');
     Route::post('/tabeldatastore', [tabeldataController::class, 'store'])->name('tabeldatastore');
     Route::get('/tabeldataview/{id}', [tabeldataController::class, 'showViewPage'])->name('tabeldataview');
     Route::post('/tabeldataedit', [tabeldataController::class, 'edit'])->name('tabeldataedit');
     Route::post('/tabeldatadelete', [tabeldataController::class, 'destroy'])->name('tabeldatadelete');
-
-    Route::get('/students', [StudentController::class, 'index'])->name('students');
-    Route::get('/standards', [StudentController::class, 'getStandard'])->name('standards');
-    Route::get('/results', [StudentController::class, 'getResult'])->name('results');
-    Route::get('/students/records', [StudentController::class, 'records'])->name('students/records');
 
     Route::resource('/posts', \App\Http\Controllers\PostController::class);
     Route::resource('/acc', \App\Http\Controllers\AccController::class);
@@ -72,8 +78,9 @@ Route::resource('/calon', \App\Http\Controllers\CalonAnakBinaanController::class
 Route::resource('/datasurvey', \App\http\Controllers\dataSurveyController::class);
 
 Route::get('/kembali', [dataSurveyController::class, 'back']);
+Route::post('/upload', [PostController::class, 'upload'])->name('posts.upload');
 
-Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], function(){
+
     Route::get('/datakeluarga',[DatakeluargaController::class,'index'])->name('datakeluarga');
     Route::post('/save-datakeluarga',[DatakeluargaController::class,'store'])->name('save-datakeluarga');
     Route::post('/delete-datakeluarga',[DatakeluargaController::class,'destroy'])->name('delete-datakeluarga');
@@ -87,3 +94,9 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::put('/updateibu/{idIbu}', [IbuController::class, 'update'])->name('updateibu');
 
 });
+
+Route::resource('/calon', \App\Http\Controllers\CalonAnakBinaanController::class);
+
+Route::resource('/datasurvey', \App\http\Controllers\dataSurveyController::class);
+
+Route::get('/kembali', [dataSurveyController::class, 'back']);
