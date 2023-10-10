@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\tabeldata;
+use App\Models\DataKeluarga;
 
 class HomeController extends Controller
 {
@@ -20,8 +21,10 @@ class HomeController extends Controller
     // Hitung jumlah total data tabel yang Anda butuhkan
     $totalData = tabeldata::count();
 
+    $totaldatakeluarga = DataKeluarga::count();
+
     if (auth()->user()->role == 'admin' || auth()->user()->role == 'adminpusat' || auth()->user()->role == 'admincabang' || auth()->user()->role == 'shelter' || auth()->user()->role == 'donatur' || auth()->user()->role == 'orangtua') {
-        return view('dashboard', compact('totalData'));
+        return view('dashboard', compact('totalData', 'totaldatakeluarga'));
     } else {
         return view('dashboard'); // Tambahkan logika lain jika diperlukan
     }
