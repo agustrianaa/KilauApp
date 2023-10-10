@@ -6,6 +6,7 @@ use App\Http\Controllers\CalonAnakBinaanController;
 use App\Http\Controllers\DatakeluargaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\tabeldataController;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::delete('/delete/{id}',[HomeController::class,'delete'])->name('user.delete');
 
     Route::get('/a',[HomeController::class,'a'])->name('a');
+
+    Route::get('/b',[tabeldataController::class,'totaldata'])->name('b');
     
     Route::get('/b',[tabeldataController::class,'b'])->name('b');
 
@@ -59,6 +62,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     // Route::post('/tabeldataedit', [tabeldataController::class, 'edit'])->name('tabeldataedit');
     // Route::post('/tabeldatadelete', [tabeldataController::class, 'destroy'])->name('tabeldatadelete');
 
+
     Route::get('/tabeldata', [tabeldataController::class, 'index'])->name('tabeldata');
     Route::post('/tabeldatastore', [tabeldataController::class, 'store'])->name('tabeldatastore');
     Route::get('/tabeldataview/{id}', [tabeldataController::class, 'showViewPage'])->name('tabeldataview');
@@ -67,6 +71,15 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
 
     Route::resource('/posts', \App\Http\Controllers\PostController::class);
     Route::resource('/acc', \App\Http\Controllers\AccController::class);
+});
+
+Route::resource('/calon', \App\Http\Controllers\CalonAnakBinaanController::class);
+
+Route::resource('/datasurvey', \App\http\Controllers\dataSurveyController::class);
+
+Route::get('/kembali', [dataSurveyController::class, 'back']);
+Route::post('/upload', [PostController::class, 'upload'])->name('posts.upload');
+
 
     Route::get('/datakeluarga',[DatakeluargaController::class,'index'])->name('datakeluarga');
     Route::post('/save-datakeluarga',[DatakeluargaController::class,'store'])->name('save-datakeluarga');
