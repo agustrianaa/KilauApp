@@ -1,27 +1,19 @@
 <?php
-
 namespace App\Models;
 use App\Models\DataKeluarga;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
 class Ayah extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        "keluarga_id",
-        "nik_ayah",
-        "nama_ayah",
-        "agama_ayah",
-        "status_ayah",
-        "penghasilan_ayah",
-        "alamat_ayah",
-    ];
+    protected $table = 'ayah';
+    protected $primaryKey = 'id_ayah';
 
-    public function keluarga(): BelongsTo
+    protected $fillable = [  'nik_ayah', 'nama_ayah', 'tempat_lahir', 'tanggal_lahir','agama', 'alamat', 'pekerjaan', 'data_keluargas_id'];
+
+    public function dataKeluarga()
     {
-        return $this->belongsTo(Keluarga::class);
+        return $this->belongsTo('App\Models\DataKeluarga', 'data_keluargas_id');
     }
 }
