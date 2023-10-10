@@ -14,27 +14,27 @@ class tabeldataController extends Controller
     {
         if (request()->ajax()) {
             $data = tabeldata::select("*");
-        
+    
             // Mengecek apakah filter agama diberikan
             if ($request->has('agama')) {
                 $agama = $request->agama;
                 $data = $data->whereIn('agama', $agama);
             }
-        
+    
             // Mengecek apakah filter jenis_kelamin diberikan
             if ($request->has('jenis_kelamin')) {
                 $jenis_kelamin = $request->jenis_kelamin;
                 $data = $data->whereIn('jenis_kelamin', $jenis_kelamin);
             }
-        
+    
             // Mengecek apakah filter status_binaan diberikan
             if ($request->has('status_binaan')) {
                 $status_binaan = $request->status_binaan;
                 $data = $data->whereIn('status_binaan', $status_binaan);
             }
-        
+    
             return datatables($data)
-                ->addColumn('action', 'tabel.tabeldata-action')
+                ->addColumn('action', 'DataAnakBinaan.dataanakbinaan-action')
                 ->addColumn('ttl', function ($data) {
                     return $data->teml . ', ' . $data->tgll;
                 })
@@ -43,8 +43,9 @@ class tabeldataController extends Controller
                 ->make(true);
         }
     
-        return view('tabel.tabeldata');
+        return view('DataAnakBinaan.dataanakbinaan');
     }
+    
 
 
 
@@ -73,7 +74,7 @@ class tabeldataController extends Controller
     {
         $record = tabeldata::find($id);
 
-        return view('tabel.tabeldata-view', compact('record'));
+        return view('DataAnakBinaan.dataanakbinaan-view', compact('record'));
     }
     
     public function edit(Request $request) {
@@ -87,5 +88,9 @@ class tabeldataController extends Controller
         $tabeldata = tabeldata::where('id', $request->id)->delete();
 
         return Response()->json($tabeldata);
+    }
+
+    public function b() {
+        return view('b');
     }
 }
