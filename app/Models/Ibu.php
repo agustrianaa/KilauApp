@@ -14,12 +14,14 @@ class Ibu extends Model
     protected $primaryKey = 'id_ibu';
 
     protected $fillable = [ 
-        'nik_ibu', 'nama_ibu', 
-        'tempat_lahir', 
-        'tanggal_lahir',
+        'nik_ibu',
+        'nama_ibu', 
+        'tempat_lahir_ibu', 
+        'tanggal_lahir_ibu',
+        'pekerjaan_ibu', 
+        'pendapatan_ibu', 
         'agama', 
         'alamat', 
-        'pekerjaan', 
         'data_keluargas_id'
     ];
 
