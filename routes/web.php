@@ -6,7 +6,7 @@ use App\Http\Controllers\CalonAnakBinaanController;
 use App\Http\Controllers\DatakeluargaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\PengajuanAnakController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\tabeldataController;
 use Illuminate\Support\Facades\Route;
@@ -55,6 +55,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::get('/b',[tabeldataController::class,'totaldata'])->name('b');
     
     Route::get('/b',[tabeldataController::class,'b'])->name('b');
+
+    Route::get('/PengajuanForm',[PengajuanAnakController::class,'pengajuanForm'])->name('pengajuanForm');
 
     Route::get('/calonAnakBinaan', [CalonAnakBinaanController::class, 'calonanakbinaan'])->name('calonanakbinaan');
     // Route::post('/tabeldatastore', [tabeldataController::class, 'store'])->name('tabeldatastore');
