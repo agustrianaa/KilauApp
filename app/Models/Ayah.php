@@ -15,11 +15,13 @@ class Ayah extends Model
     protected $fillable = [
         'nik_ayah',
         'nama_ayah',
-        'tempat_lahir',
-        'tanggal_lahir',
+        'tempat_lahir_ayah',
+        'tanggal_lahir_ayah',
+        'pekerjaan_ayah',
+        'jumlah_tanggungan_ayah',
+        'pendapatan_ayah',
         'agama',
         'alamat',
-        'pekerjaan',
         'data_keluargas_id',
     ];
 

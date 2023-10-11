@@ -58,6 +58,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::get('/b',[tabeldataController::class,'b'])->name('b');
 
     Route::get('/PengajuanForm',[PengajuanAnakController::class,'pengajuanForm'])->name('pengajuanForm');
+    Route::get('/PengajuanFormStore',[PengajuanAnakController::class,'pengajuanFormStore'])->name('pengajuanFormStore');
 
     Route::get('/calonAnakBinaan', [CalonAnakBinaanController::class, 'calonanakbinaan'])->name('calonanakbinaan');
     // Route::post('/tabeldatastore', [tabeldataController::class, 'store'])->name('tabeldatastore');
@@ -65,6 +66,11 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     // Route::post('/tabeldataedit', [tabeldataController::class, 'edit'])->name('tabeldataedit');
     // Route::post('/tabeldatadelete', [tabeldataController::class, 'destroy'])->name('tabeldatadelete');
 
+    Route::get('/datakeluarga',[DatakeluargaController::class,'index'])->name('datakeluarga');
+    Route::post('/save-datakeluarga',[DatakeluargaController::class,'store'])->name('save-datakeluarga');
+    Route::post('/delete-datakeluarga',[DatakeluargaController::class,'destroy'])->name('delete-datakeluarga');
+    Route::get('/detail-datakeluarga/{id}',[DatakeluargaController::class,'show'])->name('detail-datakeluarga');
+    Route::put('/updatekeluarga/{idKeluarga}',[DatakeluargaController::class,'update'])->name('updatekeluarga');
 
     Route::get('/tabeldata', [tabeldataController::class, 'index'])->name('tabeldata');
     Route::post('/tabeldatastore', [tabeldataController::class, 'store'])->name('tabeldatastore');
@@ -89,14 +95,15 @@ Route::resource('/datasurvey', \App\http\Controllers\dataSurveyController::class
 Route::get('/kembali', [dataSurveyController::class, 'back']);
 Route::post('/upload', [PostController::class, 'upload'])->name('posts.upload');
 
-Route::resource('/calon', CalonAnakBinaanController::class);
+// Data Ayah
+Route::put('/updateayah/{idAyah}',[AyahController::class,'update'])->name('updateayah');
+// Data Ibu
+Route::put('/updateibu/{idIbu}', [IbuController::class, 'update'])->name('updateibu');
+
+
+Route::resource('/calon', \App\Http\Controllers\CalonAnakBinaanController::class);
 
 Route::resource('/datasurvey', \App\http\Controllers\dataSurveyController::class);
 
 Route::get('/kembali', [dataSurveyController::class, 'back']);
 
-    // Data Ayah
-    Route::put('/updateayah/{idAyah}',[AyahController::class,'update'])->name('updateayah');
-
-    // Data Ibu
-    Route::put('/updateibu/{idIbu}', [IbuController::class, 'update'])->name('updateibu');
