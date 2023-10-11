@@ -49,22 +49,24 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <table class="table table-info table-striped text-nowrap" id="calonAnakBinaan">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nama</th>
-                                    <th>TTL</th>
-                                    <th>Shelter</th>
-                                    <th>No KK</th>
-                                    <th>Kepala Keluarga</th>
-                                    <th>Anak Ke</th>
-                                    <th>Status Binaan</th>
-                                    <th>Status Validasi</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                        </table>
+                        <div class="table-responsive text-nowrap">
+                            <table class="table table-info table-striped" id="calonAnakBinaan">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nama</th>
+                                        <th>TTL</th>
+                                        <th>Shelter</th>
+                                        <th>No KK</th>
+                                        <th>Kepala Keluarga</th>
+                                        <th>Anak Ke</th>
+                                        <th>Status Binaan</th>
+                                        <th>Status Validasi</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
