@@ -97,6 +97,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
 
     // Validasi Beasiswa
     Route::get('/validasi-beasiswa', [ValidasiBeasiswaController::class, 'index'])->name('validasi-beasiswa');
+    Route::get('/validasi/{id}', [ValidasiBeasiswaController::class, 'validation'])->name('validasi');
 
 });
 

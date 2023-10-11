@@ -54,6 +54,14 @@
             ],
             order: [[0, 'desc']]
         })
+
+        function validFunc(id){
+            window.location.href = "{{ url('admin/validasi') }}/" + id;
+        }
     });
+
+    function validFunc(id){
+            window.location.href = "{{ url('admin/validasi') }}/" + id;
+        }
 </script>
 @endsection

@@ -16,12 +16,20 @@ class ValidasiBeasiswaController extends Controller
             return datatables()->of(tabeldata::select('*'))
             ->addIndexColumn()
             ->addColumn('action', function($row){
-                $beasiswaAct = '<a href="javascript:void(0)" class="aktivasi btn btn-success btn-sm">Aktivasi</a>';
+                $id = $row->id; // Ambil ID dari baris data
+                $beasiswaAct = '<a href="javascript:void(0)" onClick="validFunc(' . $id . ')" data-original-title="View" class="aktivasi btn btn-success btn-sm">Aktivasi</a>';
                 return $beasiswaAct; })
             ->rawColumns(['action'])
             ->make(true);
         }
         return view('validasiBeasiswa.validasibeasiswa');
+    }
+
+    public function validation(Request $request, $id)
+    {
+        $validasi = tabeldata::find($id);
+
+        return view('validasiBeasiswa.validasi', compact('id', 'validasi'));
     }
 
     /**
