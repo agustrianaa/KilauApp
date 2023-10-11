@@ -1,6 +1,7 @@
 @extends('layout.main')
 
 @section('content')
+<link rel="stylesheet" href="{{ asset('css/b.css') }}">
 
     <div class="container mt-5 content-wrapper">
         <div class="row">
@@ -28,7 +29,7 @@
                                         <img src="{{ asset('storage/posts/'.$post->image) }}" class="rounded" style="width: 150px">
                                     </td>
                                     <td>{{ $post->title }}</td>
-                                    <td>{{ $post->content }}</td>
+                                    <td class="content">{!!  $post->content  !!}</td>
                                     <td class="text-center">
                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('admin.posts.destroy', $post->id) }}" method="POST">
                                             <a href="{{ route('admin.posts.show', $post->id) }}" class="btn btn-sm btn-dark">SHOW</a>
