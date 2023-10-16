@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Wali extends Model
 {
     use HasFactory;
-
     public $tabel = 'walis';
     protected $primaryKey = 'id_wali';
     protected $fillable = [
@@ -21,11 +20,11 @@ class Wali extends Model
         'pekerjaan_wali',
         'jumlah_tanggungan_wali',
         'pendapatan_wali',
-        'data_keluargas_id'
+        'data_keluarga_id'
     ];
 
-    public function dataKeluarga()
+    public function dataKeluarga():BelongsTo
     {
-        return $this->belongsTo('App\Models\DataKeluarga', 'data_keluargas_id');
+        return $this->belongsTo(DataKeluarga::class);
     }
 }
