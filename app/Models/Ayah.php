@@ -11,7 +11,9 @@ class Ayah extends Model
     use HasFactory;
 
     public $tabel = 'ayahs';
+  
     protected $primaryKey = 'id';
+  
     protected $fillable = [
         'data_keluarga_id',
         'nik_ayah',

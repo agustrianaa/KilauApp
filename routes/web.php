@@ -60,11 +60,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::get('/PengajuanForm',[PengajuanAnakController::class,'pengajuanForm'])->name('pengajuanForm');
     Route::post('/PengajuanFormStore',[PengajuanAnakController::class, 'pengajuanFormStore'])->name('pengajuanFormStore');
 
-    Route::get('/calonAnakBinaan', [CalonAnakBinaanController::class, 'calonanakbinaan'])->name('calonanakbinaan');
-    // Route::post('/tabeldatastore', [tabeldataController::class, 'store'])->name('tabeldatastore');
-    // Route::get('/tabeldataview/{id}', [tabeldataController::class, 'showViewPage'])->name('tabeldataview');
-    // Route::post('/tabeldataedit', [tabeldataController::class, 'edit'])->name('tabeldataedit');
-    // Route::post('/tabeldatadelete', [tabeldataController::class, 'destroy'])->name('tabeldatadelete');
+    Route::get('/calonAnakBinaan', [CalonAnakBinaanController::class, 'calonanakbinaanIndex'])->name('calonanakbinaanIndex');
+    Route::get('/calonAnakBinaanDetail/{id}', [CalonAnakBinaanController::class, 'showDetail'])->name('calonAnakBinaanView');
 
     Route::get('/datakeluarga',[DatakeluargaController::class,'index'])->name('datakeluarga');
     Route::post('/save-datakeluarga',[DatakeluargaController::class,'store'])->name('save-datakeluarga');

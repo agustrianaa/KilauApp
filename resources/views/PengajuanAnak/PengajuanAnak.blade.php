@@ -54,6 +54,7 @@
                                         </div>
                                         <hr>
                                         <div class="card-body">
+
                                             <div class="row mb-2">
                                                 <div class="col-12 col-sm-4">
                                                     <p class="text-sm-end">Nama Lengkap :</p>
@@ -507,7 +508,7 @@
                         </div>
                         <div class="card-footer">
                             <div class="text-center">
-                                <button type="submit" class="btn btn-outline-primary" id="pengajuanFormStore">Submit</button>
+                                <button type="submit" class="btn btn-outline-primary" id="tombol-save">Submit</button>
                             </div>
                         </div>
                     </form>
@@ -532,143 +533,5 @@
 <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.18/dist/sweetalert2.all.min.js"></script>
 
-<script>
-    // $(document).ready(function() {
-    //     $.ajaxSetup({
-    //         headers: {
-    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //         }
-    //     });
-
-    //     $('#pengajuanFormStore').click(function(e) {
-
-    //         //form anak
-    //         let nama_lengkap_calon_anak = $('#nama_lengkap_calon_anak').val();
-    //         let nama_panggilan_calon_anak = $('#nama_panggilan_calon_anak').val();
-    //         let tempat_lahir_calon_anak = $('#tempat_lahir_calon_anak').val();
-    //         let tanggal_lahir_calon_anak = $('#tanggal_lahir_calon_anak').val();
-    //         let nama_sekolah = $('#nama_sekolah').val();
-    //         let kelas_sekolah = $('#kelas_sekolah').val();
-    //         let nama_madrasah = $('#nama_madrasah').val();
-    //         let kelas_madrasah = $('#kelas_madrasah').val();
-    //         let hobby = $('#hobby').val();
-    //         let cita_cita = $('#cita_cita').val();
-    //         let jarak_ke_shelter = $('#jarak_ke_shelter').val();
-
-
-    //         //form keluarga
-    //         let no_kk = $('#no_kk').val();
-    //         let anak_ke = $('#anak_ke').val();
-    //         let alamat_kk = $('#alamat_kk').val();
-    //         let kepala_keluarga = $('#kepala_keluarga').val();
-
-    //         //form ayah
-    //         let nama_ayah = $('#nama_ayah').val();
-    //         let pekerjaan_ayah = $('#pekerjaan_ayah').val();
-    //         let jumlah_tanggungan_ayah = $('#jumlah_tanggungan_ayah').val();
-    //         let pendapatan_ayah = $('#pendapatan_ayah').val();
-
-    //         //form ibu
-    //         let nama_ibu = $('#nama_ibu').val();
-    //         let pekerjaan_ibu = $('#pekerjaan_ibu').val();
-    //         let pendapatan_ibu = $('#pendapatan_ibu').val();
-
-    //         //form wali
-    //         let no_ktp_wali = $('#no_ktp_wali').val();
-    //         let nama_lengkap_wali = $('#nama_lengkap_wali').val();
-    //         let nama_panggilan_wali = $('#nama_panggilan_wali').val();
-    //         let tempat_lahir_wali = $('#tempat_lahir_wali').val();
-    //         let tanggal_lahir_wali = $('#aabbbca').val();
-    //         let pekerjaan_wali = $('#pekerjaan_wali').val();
-    //         let jumlah_tanggungan_wali = $('#jumlah_tanggungan_wali').val();
-    //         let pendapatan_wali = $('#pendapatan_wali').val();
-
-    //         $.ajax({
-    //             url: "{{ url('admin/pengajuanFormStore') }}"
-    //             type: 'POST',
-
-    //             data: {
-    //                 //Form Anak
-    //                 "nama_lengkap_calon_anak": nama_lengkap_calon_anak,
-    //                 "nama_panggilan_calon_anak": nama_panggilan_calon_anak,
-    //                 "tempat_lahir_calon_anak": tempat_lahir_calon_anak,
-    //                 "tanggal_lahir_calon_anak": tanggal_lahir_calon_anak,
-    //                 "nama_sekolah": nama_sekolah,
-    //                 "kelas_sekolah": kelas_sekolah,
-    //                 "nama_madrasah": nama_madrasah,
-    //                 "kelas_madrasah": kelas_madrasah,
-    //                 "hobby": hobby,
-    //                 "cita_cita": cita_cita,
-    //                 "jarak_ke_shelter": jarak_ke_shelter,
-
-    //                 //Form Keluarga
-    //                 "no_kk": no_kk,
-    //                 "anak_ke": anak_ke,
-    //                 "alamat_kk": alamat_kk,
-    //                 "kepala_keluarga": kepala_keluarga,
-
-    //                 //Form Ayah
-    //                 "nama_ayah": nama_ayah,
-    //                 "pekerjaan_ayah": pekerjaan_ayah,
-    //                 "jumlah_tanggungan_ayah": jumlah_tanggungan_ayah,
-    //                 "pendapatan_ayah": pendapatan_ayah,
-
-    //                 //Form Ibu
-    //                 "nama_ibu": nama_ibu,
-    //                 "pekerjaan_ibu": pekerjaan_ibu,
-    //                 "pendapatan_ibu": pendapatan_ibu,
-
-    //                 //Form Wali
-    //                 "no_ktp_wali": no_ktp_wali,
-    //                 "nama_lengkap_wali": nama_lengkap_wali,
-    //                 "nama_panggilan_wali": nama_panggilan_wali,
-    //                 "tempat_lahir_wali": tempat_lahir_wali,
-    //                 "tanggal_lahir_wali": tanggal_lahir_wali,
-    //                 "pekerjaan_wali": pekerjaan_wali,
-    //                 "jumlah_tanggungan_wali": jumlah_tanggungan_wali,
-    //                 "pendapatan_wali": pendapatan_wali,
-    //             },
-    //             success: function() {
-    //                 // Reset semua input-an ke nilai awalnya
-    //                 $('#nama_lengkap_calon_anak').val('');
-    //                 $('#nama_panggilan_calon_anak').val('');
-    //                 $('#tempat_lahir_calon_anak').val('');
-    //                 $('#tanggal_lahir_calon_anak').val('');
-    //                 $('#nama_sekolah').val('');
-    //                 $('#kelas_sekolah').val('');
-    //                 $('#nama_madrasah').val('');
-    //                 $('#kelas_madrasah').val('');
-    //                 $('#hobby').val('');
-    //                 $('#cita_cita').val('');
-    //                 $('#jarak_ke_shelter').val('');
-
-    //                 $('#no_kk').val('');
-    //                 $('#anak_ke').val('');
-    //                 $('#alamat_kk').val('');
-    //                 $('#kepala_keluarga').val('');
-
-    //                 $('#nama_ayah').val('');
-    //                 $('#pekerjaan_ayah').val('');
-    //                 $('#jumlah_tanggungan_ayah').val('');
-    //                 $('#pendapatan_ayah').val('');
-
-    //                 $('#nama_ibu').val('');
-    //                 $('#pekerjaan_ibu').val('');
-    //                 $('#pendapatan_ibu').val('');
-
-    //                 $('#no_ktp_wali').val('');
-    //                 $('#nama_lengkap_wali').val('');
-    //                 $('#nama_panggilan_wali').val('');
-    //                 $('#tempat_lahir_wali').val('');
-    //                 $('#tanggal_lahir_wali').val('');
-    //                 $('#pekerjaan_wali').val('');
-    //                 $('#jumlah_tanggungan_wali').val('');
-    //                 $('#pendapatan_wali').val('');
-    //             }
-
-    //         });
-    //     });
-    // });
-</script>
 
 @endsection

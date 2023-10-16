@@ -77,9 +77,9 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.18/dist/sweetalert2.all.min.js"></script>
 
 <!-- jQuery -->
-<!-- <script src="{{ asset('lte/plugins/jquery/jquery.min.js') }}"></script> -->
+{{-- <script src="{{ asset('lte/plugins/jquery/jquery.min.js') }}"></script> --}}
 <!-- jQuery UI 1.11.4 -->
-<!-- <script src="{{ asset('lte/plugins/jquery-ui/jquery-ui.min.js') }}"></script> -->
+{{-- <script src="{{ asset('lte/plugins/jquery-ui/jquery-ui.min.js') }}"></script> --}}
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 
 <script>

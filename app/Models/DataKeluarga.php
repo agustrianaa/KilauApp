@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class DataKeluarga extends Model
 {
     use HasFactory;
+
     public $tabel = 'data_keluargas';
+
     protected $primaryKey = 'id';
     protected $fillable = [
         'kacab',

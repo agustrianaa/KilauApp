@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class CalonAnakBinaan extends Model
 {
     use HasFactory;
+
     public $tabel = 'calon_anak_binaans';
+
     protected $primaryKey = 'id_calon_anak_binaans';
     protected $fillable = [
         'nama_lengkap_calon_anak',
