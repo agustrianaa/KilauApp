@@ -4,36 +4,42 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class DataKeluarga extends Model
 {
     use HasFactory;
 
-    public $table = 'data_keluargas';
+    public $tabel = 'data_keluargas';
+
     protected $primaryKey = 'id';
     protected $fillable = [
-            'no_kk',
-            'alamat_kk',
-            'kepala_keluarga',
-            'kacab',
-            'wilbin',
-            'shelter',
-            'jarak_ke_shelter',
-            'no_telp',
-            'no_rek'
+        'kacab',
+        'no_kk',
+        'alamat_kk',
+        'kepala_keluarga',
+        'wilbin',
+        'shelter',
+        'jarak_ke_shelter',
+        'no_telp',
+        'no_rek'
         ];
 
-    public function dataAyah(){
-        return $this->hasOne('App\Models\Ayahs');
+    public function dataAyah():HasOne
+    {
+        return $this->hasOne(Ayah::class);
     }
 
-    public function dataIbu(){
-        return $this->hasOne('App\Models\Ibu');
+    public function dataIbu():HasOne
+    {
+        return $this->hasOne(Ibu::class);
     }
-    public function dataCalonAnakBinaan(){
-        return $this->hasOne('App\Models\calonAnakBinaan');
+    public function dataCalonAnakBinaan():HasOne
+    {
+        return $this->hasOne(CalonAnakBinaan::class);
     }
-    public function dataWali(){
-        return $this->hasOne('App\Models\Wali');
+    public function dataWali():HasOne
+    {
+        return $this->hasOne(Wali::class);
     }
 }

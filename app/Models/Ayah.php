@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-use App\Models\DataKeluarga;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,9 +10,12 @@ class Ayah extends Model
 {
     use HasFactory;
 
-    public $table = 'ayahs';
-    protected $primaryKey = 'id_ayahs';
+    public $tabel = 'ayahs';
+  
+    protected $primaryKey = 'id';
+  
     protected $fillable = [
+        'data_keluarga_id',
         'nik_ayah',
         'nama_ayah',
         'tempat_lahir_ayah',
@@ -21,12 +24,11 @@ class Ayah extends Model
         'jumlah_tanggungan_ayah',
         'pendapatan_ayah',
         'agama',
-        'alamat',
-        'data_keluargas_id',
+        'alamat'
     ];
 
-    public function dataKeluarga()
+    public function dataKeluarga():BelongsTo
     {
-        return $this->belongsTo('App\Models\DataKeluarga', 'data_keluargas_id');
+        return $this->belongsTo(DataKeluarga::class);
     }
 }
