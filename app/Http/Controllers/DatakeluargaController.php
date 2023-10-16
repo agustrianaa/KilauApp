@@ -65,7 +65,7 @@ class DatakeluargaController extends Controller
             // AYAAAHH
             $dataAyah = Ayah::create(
                 [
-                    'data_keluargas_id' => $datakeluarga->id,
+                    'data_keluarga_id' => $datakeluarga->id,
                     'nik_ayah' => $request->nik_ayah,
                     'nama_ayah' => $request->nama_ayah,
                     'tempat_lahir' => $request->tempat_lahir,
@@ -79,7 +79,7 @@ class DatakeluargaController extends Controller
             // IBUUUU
             $dataIbu = Ibu::create(
                 [
-                    'data_keluargas_id' => $datakeluarga->id,
+                    'data_keluarga_id' => $datakeluarga->id,
                     'nik_ibu' => $request->nik_ibu,
                     'nama_ibu' => $request->nama_ibu,
                     'tempat_lahir' => $request->tempat_lahir,
@@ -112,8 +112,8 @@ class DatakeluargaController extends Controller
         // ini untuk detail data keluarga
         // Ambil data keluarga berdasarkan $id dari database
         $dataKeluarga = DataKeluarga::find($id);
-        $dataIbu = Ibu::where('data_keluargas_id', $id)->first();
-        $dataAyah = Ayah::where('data_keluargas_id', $id)->first();
+        $dataIbu = Ibu::where('data_keluarga_id', $id)->first();
+        $dataAyah = Ayah::where('data_keluarga_id', $id)->first();
         // Tampilkan halaman detail data keluarga (misalnya, menggunakan view 'detail_datakeluarga.blade.php')
         return view('dataKeluarga.detail_datakeluarga', ['dataKeluarga' => $dataKeluarga, 'dataIbu' => $dataIbu, 'dataAyah' => $dataAyah]);
 

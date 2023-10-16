@@ -62,6 +62,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
 
     Route::get('/calonAnakBinaan', [CalonAnakBinaanController::class, 'calonanakbinaanIndex'])->name('calonanakbinaanIndex');
     Route::get('/calonAnakBinaanDetail/{id}', [CalonAnakBinaanController::class, 'showDetail'])->name('calonAnakBinaanView');
+    Route::get('/calonAnakBinaanUpdate/{idKeluarga}', [CalonAnakBinaanController::class, 'updated'])->name('calonAnakBinaanUpdate');
 
     Route::get('/datakeluarga',[DatakeluargaController::class,'index'])->name('datakeluarga');
     Route::post('/save-datakeluarga',[DatakeluargaController::class,'store'])->name('save-datakeluarga');
@@ -74,12 +75,6 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::get('/tabeldataview/{id}', [tabeldataController::class, 'showViewPage'])->name('tabeldataview');
     Route::post('/tabeldataedit', [tabeldataController::class, 'edit'])->name('tabeldataedit');
     Route::post('/tabeldatadelete', [tabeldataController::class, 'destroy'])->name('tabeldatadelete');
-
-    Route::get('/datakeluarga',[DatakeluargaController::class,'index'])->name('datakeluarga');
-    Route::post('/save-datakeluarga',[DatakeluargaController::class,'store'])->name('save-datakeluarga');
-    Route::post('/delete-datakeluarga',[DatakeluargaController::class,'destroy'])->name('delete-datakeluarga');
-    Route::get('/detail-datakeluarga/{id}',[DatakeluargaController::class,'show'])->name('detail-datakeluarga');
-    Route::put('/updatekeluarga/{idKeluarga}',[DatakeluargaController::class,'update'])->name('updatekeluarga');
 
     Route::resource('/posts', \App\Http\Controllers\PostController::class);
     Route::resource('/acc', \App\Http\Controllers\AccController::class);

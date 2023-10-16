@@ -10,7 +10,7 @@ class Ibu extends Model
 {
     use HasFactory;
     protected $table = 'ibus';
-    protected $primaryKey = 'id_ibu';
+    protected $primaryKey = 'id_ibus';
 
     protected $fillable = [
         'nik_ibu',

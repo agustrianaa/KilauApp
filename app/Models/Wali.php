@@ -10,7 +10,7 @@ class Wali extends Model
 {
     use HasFactory;
     public $tabel = 'walis';
-    protected $primaryKey = 'id_wali';
+    protected $primaryKey = 'id_walis';
     protected $fillable = [
         'no_ktp_wali',
         'nama_lengkap_wali',

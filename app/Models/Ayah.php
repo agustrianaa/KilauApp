@@ -12,7 +12,7 @@ class Ayah extends Model
 
     public $tabel = 'ayahs';
   
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'id_ayahs';
   
     protected $fillable = [
         'data_keluarga_id',

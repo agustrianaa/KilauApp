@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('walis', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_walis');
             $table->foreignId('data_keluarga_id')->references('id')->on('data_keluargas')->onDelete('cascade');
             $table->string('no_ktp_wali');
             $table->string('nama_lengkap_wali');
