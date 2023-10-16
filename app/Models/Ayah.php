@@ -10,8 +10,8 @@ class Ayah extends Model
 {
     use HasFactory;
 
-    public $tabel = 'ayahs';
-    protected $primaryKey = 'id_ayah';
+    public $table = 'ayahs';
+    protected $primaryKey = 'id_ayahs';
     protected $fillable = [
         'nik_ayah',
         'nama_ayah',

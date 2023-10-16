@@ -9,7 +9,7 @@ class calonAnakBinaan extends Model
 {
     use HasFactory;
     
-    public $tabel = 'calon_anak_binaans';
+    public $table = 'calon_anak_binaans';
     protected $primaryKey = 'id_calon_anak_binaans';
     protected $fillable = [
         'nama_lengkap_calon_anak',

@@ -9,7 +9,7 @@ class DataKeluarga extends Model
 {
     use HasFactory;
 
-    public $tabel = 'data_keluargas';
+    public $table = 'data_keluargas';
     protected $primaryKey = 'id';
     protected $fillable = [
             'no_kk',

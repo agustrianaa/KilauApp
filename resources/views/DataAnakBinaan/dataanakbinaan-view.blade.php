@@ -324,6 +324,30 @@
                     document.getElementById(tableId).style.display = 'table';
                 }
               </script>
+
+              <script>
+                $(document).ready(function () {
+                    // Ambil URL saat ini
+                    var currentUrl = window.location.href;
+                
+                    // Loop melalui setiap tautan di sidebar
+                    $(".col-md-2 .tombol").each(function () {
+                        // Jika URL saat ini cocok dengan tautan ini, tandai sebagai aktif
+                        if (currentUrl === $(this).attr("href")) {
+                            $(this).closest(".tombol").addClass("active");
+                        }
+                    });
+                  
+                    // Tambahkan event handler saat tautan di sidebar diklik
+                    $(".col-md-2 .tombol").on("click", function () {
+                        // Hapus kelas "active" dari semua item
+                        $(".col-md-2 .tombol").removeClass("active");
+
+                        // Tambahkan kembali kelas "active" ke item yang sedang diklik
+                        $(this).closest(".tombol").addClass("active");
+                    });
+                });
+              </script>
               
             </div>
             </div>
