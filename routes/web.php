@@ -58,7 +58,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::get('/b',[tabeldataController::class,'b'])->name('b');
 
     Route::get('/PengajuanForm',[PengajuanAnakController::class,'pengajuanForm'])->name('pengajuanForm');
-    Route::get('/PengajuanFormStore',[PengajuanAnakController::class,'pengajuanFormStore'])->name('pengajuanFormStore');
+    Route::post('/PengajuanFormStore',[PengajuanAnakController::class, 'pengajuanFormStore'])->name('pengajuanFormStore');
 
     Route::get('/calonAnakBinaan', [CalonAnakBinaanController::class, 'calonanakbinaan'])->name('calonanakbinaan');
     // Route::post('/tabeldatastore', [tabeldataController::class, 'store'])->name('tabeldatastore');

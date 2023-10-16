@@ -17,21 +17,22 @@ class PengajuanAnakController extends Controller
 
     public function pengajuanFormStore(Request $request) {
         $dataKeluarga = DataKeluarga::create([
-            'no_kk' => $request->no_kk,
-            'alamat_kk' => $request->alamat_kk,
-            'kepala_keluarga' => $request->kepala_keluarga,
-            'kacab' => $request->kacab,
-            'wilbin' => $request->wilbin,
-            'shelter' => $request->shelter,
-            'jarak_ke_shelter' => $request->jarak_ke_shelter,
-            'no_telp' => $request->no_telp,
-            'no_rek' => $request->no_rek,
+            "kacab" => $request->kacab,
+            "no_kk" => $request->no_kk,
+            "alamat_kk" => $request->alamat_kk,
+            "kepala_keluarga" => $request->kepala_keluarga,
+            "wilbin" => $request->wilbin,
+            "shelter" => $request->shelter,
+            "jarak_ke_shelter" => $request->jarak_ke_shelter,
+            "no_telp" => $request->no_telp,
+            "no_rek" => $request->no_rek
         ]);
+        // $dataKeluarga;
 
         $keluargaID = $dataKeluarga->id;
 
         calonAnakBinaan::create([
-            "data_keluargas_id" => $keluargaID,
+            "data_keluarga_id" => $keluargaID,
             "nama_lengkap_calon_anak" => $request->nama_lengkap_calon_anak,
             "nama_panggilan_calon_anak" => $request->nama_panggilan_calon_anak,
             "tempat_lahir_calon_anak" => $request->tempat_lahir_calon_anak,
@@ -44,10 +45,10 @@ class PengajuanAnakController extends Controller
             "hobby" => $request->hobby,
             "cita_cita" => $request->cita_cita,
             "status_binaan" => $request->status_binaan,
-            "status_validasi" => $request->status_validasi,
+            "status_validasi" => $request->status_validasi
         ]);
         Ayah::create([
-            "data_keluargas_id" => $keluargaID,
+            "data_keluarga_id" => $keluargaID,
             "nik_ayah" => $request->nik_ayah,
             "nama_ayah" => $request->nama_ayah,
             "tempat_lahir_ayah" => $request->tempat_lahir_ayah,
@@ -59,17 +60,18 @@ class PengajuanAnakController extends Controller
             "alamat" => $request->alamat,
         ]);
         Ibu::create([
-            "data_keluargas_id" => $keluargaID,
+            "data_keluarga_id" => $keluargaID,
             "nik_ibu" => $request->nik_ibu,
-            "nama_ibu" => $request->nama_ibu, 
-            "tempat_lahir_ibu" => $request->tempat_lahir_ibu, 
+            "nama_ibu" => $request->nama_ibu,
+            "tempat_lahir_ibu" => $request->tempat_lahir_ibu,
             "tanggal_lahir_ibu" => $request->tanggal_lahir_ibu,
-            "pekerjaan_ibu" => $request->pekerjaan_ibu, 
-            "pendapatan_ibu" => $request->pendapatan_ibu, 
-            "agama" => $request->agama, 
+            "pekerjaan_ibu" => $request->pekerjaan_ibu,
+            "pendapatan_ibu" => $request->pendapatan_ibu,
+            "agama" => $request->agama,
             "alamat" => $request->alamat,
         ]);
         Wali::create([
+            "data_keluarga_id" => $keluargaID,
             "no_ktp_wali" => $request->no_ktp_wali,
             "nama_lengkap_wali" => $request->nama_lengkap_wali,
             "nama_panggilan_wali" => $request->nama_panggilan_wali,
@@ -79,5 +81,7 @@ class PengajuanAnakController extends Controller
             "jumlah_tanggungan_wali" => $request->jumlah_tanggungan_wali,
             "pendapatan_wali" => $request->pendapatan_wali,
         ]);
+
+        return redirect()->route('admin.dashboard');
     }
 }
