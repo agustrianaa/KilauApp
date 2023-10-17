@@ -43,23 +43,27 @@
                         </div> -->
                         <div class="card-body">
                             <h4>Apakah anak binaan ini telah memenuhi kriteria penerimaan beasiswa?</h4> <hr>
-                            <div class="form-group">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label" checked><h5>Ya, Layak Menerima Beasiswa</h5> 'Penerimaan Beasiswa(PB)'</label>
+                            <form method="POST" action="{{ route('admin.save-validasi') }}" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input type="radio" name="status_binaan" class="form-check-input" id="pb" value="PB">
+                                        <label class="form-check-label" checked><h5>Ya, Layak Menerima Beasiswa</h5> 'Penerimaan Beasiswa(PB)'</label>
+                                    </div>
+                                    <br>
+                                    <div class="form-check">
+                                        <input type="radio" name="status_binaan" class="form-check-input" id="bcpb" value="BCPB">
+                                        <label for="" class="form-check-label" checked><h5>Ditangguhkan, Data Belum Lengkap</h5> 'Calon Bakal Penerimaan Beasiswa (CBPB)'</label>
+                                    </div>
+                                    <br>
+                                    <div class="form-check">
+                                        <input type="radio" name="status_binaan" class="form-check-input" id="npb" value="NPB">
+                                        <label for="" class="form-check-label" checked><h5>Tidak, tidak dapat menerima Beasiswa</h5> 'Non Penerima Beasiswa (NPB)'</label>
+                                    </div>
+                                    <button type="submit" class="btn btn-success btn-sm">Validasi</button>
                                 </div>
-                                <br>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label" checked><h5>Ditangguhkan, Data Belum Lengkap</h5> 'Calon Bakal Penerimaan Beasiswa (CBPB)'</label>
-                                </div>
-                                <br>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label" checked><h5>Tidak, tidak dapat menerima Beasiswa</h5> 'Non Penerima Beasiswa (NPB)'</label>
-                                </div>
-                                <a href="" class="btn btn-primary float-right btn-lg"> Validasi </a>
-                            </div>
+                            </form>
                         </div>
                         
                     </div>

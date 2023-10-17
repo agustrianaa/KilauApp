@@ -23,7 +23,7 @@
                                 </li>
                             </ul>
                             <!-- Untuk ke data lengkap anak -->
-                            <a href="{{ route('admin.tabeldataview', ['id' => $id]) }}" class="btn btn-primary btn-block"><b>Detail</b></a> 
+                            
                         </div>
                     </div>
                 </div>

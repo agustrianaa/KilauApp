@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\dataSurveyController;
 use App\Http\Controllers\tabeldataController;
 use App\Http\Controllers\ValidasiBeasiswaController;
 use Illuminate\Support\Facades\Route;
@@ -98,6 +99,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     // Validasi Beasiswa
     Route::get('/validasi-beasiswa', [ValidasiBeasiswaController::class, 'index'])->name('validasi-beasiswa');
     Route::get('/validasi/{id}', [ValidasiBeasiswaController::class, 'validation'])->name('validasi');
+    Route::put('/save-validasi', [ValidasiBeasiswaController::class, 'store'])->name('save-validasi');
 
 });
 

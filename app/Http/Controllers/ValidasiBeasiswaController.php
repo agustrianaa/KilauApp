@@ -45,7 +45,21 @@ class ValidasiBeasiswaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validasi = $request->validate([
+            'status_binaan' => 'required|in:PB,BCPB,NPB',
+        ]);
+
+        if($request->has('id')) {
+            $id = $request->input('id');
+            $status_binaan = tabeldata::findOrFail($id);
+            $status_binaan->update($validasi);
+            return redirect()->route('admin.validasi',['id' => $id])->with('success', 'Data berhasil diperbarui');
+        // } else {
+        //     tabeldata::create($validasi);
+            
+        //     return redirect()->route('admin.validasi, $id')->with('success', 'Data berhasil diperbarui');
+        }
+
     }
 
     /**
