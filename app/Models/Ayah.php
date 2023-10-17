@@ -28,13 +28,8 @@ class Ayah extends Model
         'agama',
         'alamat'
     ];
-<<<<<<< HEAD
-    
-    public function dataKeluarga()
-=======
 
-    public function dataKeluarga():BelongsTo
->>>>>>> 6a332e6a20ab76dbce46b97404f01e443c759720
+    public function dataKeluarga()
     {
         return $this->belongsTo(DataKeluarga::class);
     }

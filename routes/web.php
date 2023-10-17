@@ -61,14 +61,12 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
 
     Route::get('/PengajuanForm',[PengajuanAnakController::class,'pengajuanForm'])->name('pengajuanForm');
     Route::post('/PengajuanFormStore',[PengajuanAnakController::class, 'pengajuanFormStore'])->name('pengajuanFormStore');
-
-<<<<<<< HEAD
-Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], function(){
-=======
+});
+    
+    Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], function(){
     Route::get('/calonAnakBinaan', [CalonAnakBinaanController::class, 'calonanakbinaanIndex'])->name('calonanakbinaanIndex');
     Route::get('/calonAnakBinaanDetail/{id}', [CalonAnakBinaanController::class, 'showDetail'])->name('calonAnakBinaanView');
 
->>>>>>> main
     Route::get('/datakeluarga',[DatakeluargaController::class,'index'])->name('datakeluarga');
     Route::post('/save-datakeluarga',[DatakeluargaController::class,'store'])->name('save-datakeluarga');
     Route::post('/delete-datakeluarga',[DatakeluargaController::class,'destroy'])->name('delete-datakeluarga');
@@ -87,17 +85,12 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::get('/detail-datakeluarga/{id}',[DatakeluargaController::class,'show'])->name('detail-datakeluarga');
     Route::put('/updatekeluarga/{idKeluarga}',[DatakeluargaController::class,'update'])->name('updatekeluarga');
 
-<<<<<<< HEAD
-
     // Validasi Beasiswa
     Route::get('/validasi-beasiswa', [ValidasiBeasiswaController::class, 'index'])->name('validasi-beasiswa');
     Route::get('/validasi/{id}', [ValidasiBeasiswaController::class, 'validation'])->name('validasi');
     Route::put('/save-validasi', [ValidasiBeasiswaController::class, 'store'])->name('save-validasi');
-
-=======
     Route::resource('/posts', \App\Http\Controllers\PostController::class);
     Route::resource('/acc', \App\Http\Controllers\AccController::class);
->>>>>>> main
 });
 
 Route::resource('/calon', CalonAnakBinaanController::class);
@@ -118,4 +111,3 @@ Route::resource('/calon', \App\Http\Controllers\CalonAnakBinaanController::class
 Route::resource('/datasurvey', \App\http\Controllers\dataSurveyController::class);
 
 Route::get('/kembali', [dataSurveyController::class, 'back']);
-

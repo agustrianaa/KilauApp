@@ -95,6 +95,7 @@ class PengajuanAnakController extends Controller
         return redirect()->route('admin.dashboard');
     }
 
+}
     // public function pengajuanFormStore(Request $request) {
     //     $dataKeluarga = DataKeluarga::create([
     //         'no_kk' => $request->no_kk,
