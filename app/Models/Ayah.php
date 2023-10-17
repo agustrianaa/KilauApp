@@ -1,6 +1,6 @@
 <?php
 namespace App\Models;
-use App\Models\DataKeluarga;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 class Ayah extends Model
@@ -13,20 +13,29 @@ class Ayah extends Model
     // protected $fillable = [  'nik_ayah', 'nama_ayah', 'tempat_lahir', 'tanggal_lahir','agama', 'alamat', 'pekerjaan', 'data_keluargas_id'];
 
     public $tabel = 'ayahs';
-    protected $primaryKey = 'id_ayah';
+  
+    protected $primaryKey = 'id';
+  
     protected $fillable = [
+        'data_keluarga_id',
         'nik_ayah',
         'nama_ayah',
-        'tempat_lahir',
-        'tanggal_lahir',
+        'tempat_lahir_ayah',
+        'tanggal_lahir_ayah',
+        'pekerjaan_ayah',
+        'jumlah_tanggungan_ayah',
+        'pendapatan_ayah',
         'agama',
-        'alamat',
-        'pekerjaan',
-        'data_keluargas_id',
+        'alamat'
     ];
+<<<<<<< HEAD
     
     public function dataKeluarga()
+=======
+
+    public function dataKeluarga():BelongsTo
+>>>>>>> 6a332e6a20ab76dbce46b97404f01e443c759720
     {
-        return $this->belongsTo('App\Models\DataKeluarga', 'data_keluargas_id');
+        return $this->belongsTo(DataKeluarga::class);
     }
 }

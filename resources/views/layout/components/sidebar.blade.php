@@ -1,57 +1,4 @@
-<style>
-    /* Warna Icon Menu sidebar */
-    .nav-item .nav-link {
-        color: black;
-    }
-
-
-    /* Bar Menu Sidebar */
-    .nav-sidebar>.nav-item {
-        margin-bottom: 0;
-        transition: 0.1s;
-    }
-
-    .nav-sidebar>.nav-item:hover {
-        background-color: rgb(243, 243, 243);
-        box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
-        transition: 0.1s;
-    }
-
-    .nav-sidebar>.nav-item.active {
-        background-color: rgb(243, 243, 243);
-        box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.4);
-        transition: 0.5s;
-    }
-
-    .nav-sidebar>.nav-item:active {
-        background-color: rgb(243, 243, 243);
-        box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.4);
-        transition: 0.5s;
-    }
-
-
-    /* Logo User Login */
-    .sidebar .info a {
-        text-decoration: none;
-        color: black;
-        font-size: 18px;
-    }
-
-    .sidebar .info a:hover {
-        color: blue;
-    }
-
-
-    /* Logo Sidebar Top */
-    .LogoSidebarTop a {
-        text-decoration: none;
-        color: black;
-    }
-
-    .LogoSidebarTop a:hover {
-        color: rgb(72, 93, 142);
-    }
-</style>
+<link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
 <!-- ... Kode HTML Anda ... -->
 
 <!-- Main Sidebar Container -->
@@ -113,7 +60,7 @@
             </li>
 
             <li class="nav-item nav-item-active">
-            <a href="{{ route('admin.calonanakbinaan') }}" class="nav-link">
+            <a href="{{ route('admin.calonanakbinaanIndex') }}" class="nav-link">
                 <i class="bi bi-person-fill-add"></i>{{-- icon --}}
                 <p class="pl-1">
                     Data Calon Anak Binaan
