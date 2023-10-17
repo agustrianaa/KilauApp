@@ -64,7 +64,7 @@
           <div class="icon">
             <i class="bi bi-person-video3"></i>{{-- icon --}}
           </div>
-          <a href="{{ route('admin.tabeldata') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          <a href="{{ route('admin.AnakBinaan') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
       <!-- ./col -->

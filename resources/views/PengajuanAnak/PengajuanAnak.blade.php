@@ -203,10 +203,10 @@
                                             </div>
                                             <div class="row mb-2">
                                                 <div class="col-12 col-sm-4">
-                                                    <p class="text-sm-end">Wilbin :</p>
+                                                    <p class="text-sm-end">Wilayah Binaan :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="wilbin" name="wilbin" placeholder="Anak ke...">
+                                                    <input type="text" class="form-control" id="wilayah_binaan" name="wilayah_binaan" placeholder="Wilayah Binaan...">
                                                 </div>
                                             </div>
                                             <div class="row mb-2">

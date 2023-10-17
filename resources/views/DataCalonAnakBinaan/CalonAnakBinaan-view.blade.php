@@ -29,7 +29,7 @@
       <div class="container-fluid">
           <div class="card">
             <div class="card-body">
-                <h5 class="card-title ml-2">Nama : {{ $dataKel->nama_lengkap_calon_anak }}</h5>
+                <h5 class="card-title ml-2">Nama : {{ $dataCalonAnak ? $dataCalonAnak->nama_lengkap_calon_anak : 'Kosong' }}</h5>
                 <div class="float-right">
                   <a href="" class="btn btn-info mx-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-badge-fill" viewBox="0 0 16 16">
@@ -75,7 +75,7 @@
                       <div class="cardrounded">
                         <div class="card-body">
                           <div class="list-group">
-                            <p class="list-group-item">{{ $dataKel->nama_lengkap_calon_anak }}</p>
+                            <p class="list-group-item">{{ $dataCalonAnak ? $dataCalonAnak->nama_lengkap_calon_anak : 'Kosong' }}</p>
                 
                             <p class="list-group-item">
                               <i class="bi bi-person-badge-fill"></i>
@@ -121,7 +121,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                   <div class="float-start">
-                                    : {{ $dataKel->nama_lengkap_calon_anak }}
+                                    : {{ $dataKel ? $dataKel->shelter : 'Kosong' }}
                                   </div>
                                 </div>
                               </div>
@@ -133,7 +133,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                   <div class="float-start">
-                                    : {{ $dataKel->nama_panggilan_calon_anak }}
+                                    : {{ $dataCalonAnak ? $dataCalonAnak->nama_panggilan_calon_anak : 'Kosong' }}
                                   </div>
                                 </div>
                               </div>
@@ -146,7 +146,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                   <div class="float-start">
-                                    : {{ $dataKel->tempat_lahir_calon_anak }}, {{ $dataKel->tanggal_lahir_calon_anak }}
+                                    : {{ $dataCalonAnak ? $dataCalonAnak->tempat_lahir_calon_anak : 'Kosong' }}, {{ $dataCalonAnak ? $dataCalonAnak->tanggal_lahir_calon_anak : 'Kosong' }}
                                   </div>
                                 </div>
                               </div>
@@ -159,14 +159,14 @@
                                 </div>
                                 <div class="col-sm-6">
                                   <div class="float-start">
-                                    {{ $dataKel->nama_panggilan_calon_anak }}
+                                    {{ $dataCalonAnak ? $dataCalonAnak->nama_panggilan_calon_anak : 'Kosong' }}
                                   </div>
                                 </div>
                               </div>
                               <div class="row">
                                 <div class="col-sm-12">
                                   <div class="float-end">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_anak" data-id="{{ $dataKel ? $dataKel->id : '' }}"><i class="bi bi-pencil-square"></i>Edit</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_dataKeluarga" data-id="{{ $dataIbu ? $dataKel->id : '' }}"><i class="bi bi-pencil-square"></i>Edit</button>
                                   </div>
                                 </div>
                               </div>
@@ -178,12 +178,12 @@
                               <div class="row">
                                 <div class="col-sm-6">
                                   <div class="float-end">
-                                    Nama Pamggilam :
+                                    Nama Pamggilan :
                                   </div>
                                 </div>
                                 <div class="col-sm-6">
                                   <div class="float-start">
-                                    {{ $dataKel->nama_panggilan_calon_anak }}
+                                    {{ $dataCalonAnak ? $dataCalonAnak->nama_panggilan_calon_anak : 'Kosong' }}
                                   </div>
                                 </div>
                               </div>
@@ -217,49 +217,48 @@
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-                            <h4 class="modal-title" id="LabelKeluarga">Edit Data Ayah</h4>
+                            <h4 class="modal-title" id="LabelKeluarga">Edit Data Keluarga</h4>
                         </div>
                         <div class="modal-body">
                             <!-- Isi konten modal di sini -->
-                            <form >
+                            <form>
                             @csrf
                             @method('PUT')
-                            <input type="hidden" name="id" id="id" value="{{ $dataKel ? $dataAyah->id_ayah : '' }}">
+                            <input type="hidden" name="id" id="id" value="{{ $dataKel ? $dataKel->id : '' }}">
                                 <div class="form-group">
                                     <label for="no_kk" class="control-label">No Kartu Keluarga</label>
                                     <div class="col-sm-12">
-                                        <input type="text" class="form-control" id="nik_ayah" name="nik_ayah" placeholder="Masukkan No KK..." value="{{ $dataKeluarga ? $dataKeluarga->no_kk: 'Data Kosong' }}"  maxlength="50" required="">
+                                        <input type="text" class="form-control" id="no_kk" name="no_kk" placeholder="Masukkan No KK..." value="{{ $dataKel ? $dataKel->no_kk: 'Data Kosong' }}"  maxlength="50" required="">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="name" class="control-label">Kantor Cabang</label>
                                     <div class="col-sm-12">
-                                        <input type="text" class="form-control" id="kacab" name="kacab" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->kacab : 'Data Kosong' }}" maxlength="50" required="">
+                                        <input type="text" class="form-control" id="kacab" name="kacab" placeholder="" value="{{ $dataKel ? $dataKel->kacab : 'Data Kosong' }}" maxlength="50" required="">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="name" class="control-label">Wilayah Binaan</label>
                                     <div class="col-sm-12">
-                                        <input type="text" class="form-control" id="wilbin" name="wilbin" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->wilbin : 'Data Kosong' }}" maxlength="50" required="">
+                                        <input type="text" class="form-control" id="wilbin" name="wilbin" placeholder="" value="{{ $dataKel ? $dataKel->wilbin : 'Data Kosong' }}" maxlength="50" required="">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">Shelter</label>
                                     <div class="col-sm-12">
-                                        <input type="text" class="form-control" id="shelter" name="shelter" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->shelter : 'Data Kosong' }}" required="">
+                                        <input type="text" class="form-control" id="shelter" name="shelter" placeholder="" value="{{ $dataKel ? $dataKel->shelter : 'Data Kosong' }}" required="">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">No Telepon</label>
                                     <div class="col-sm-12">
-                                        <input type="text" class="form-control" id="no_telp" name="no_telp" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->no_telp : 'Data Kosong' }}" required="">
+                                        <input type="text" class="form-control" id="no_telp" name="no_telp" placeholder="" value="{{ $dataKel ? $dataKel->no_telp : 'Data Kosong' }}" required="">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">No Rekening</label>
                                     <div class="col-sm-12">
-                                        <input type="text" class="form-control" id="no_rek" name="no_rek" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->no_rek : 'Data Kosong' }}" required="">
+                                        <input type="text" class="form-control" id="no_rek" name="no_rek" placeholder="" value="{{ $dataKel ? $dataKel->no_rek : 'Data Kosong' }}" required="">
                                     </div>
                                 </div>
                                 
@@ -274,6 +273,56 @@
             </div>
 
               <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+              <script>
+                    $(document).ready(function(){
+                      $.ajaxSetup({
+                          headers: {
+                              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                          }
+                      });
+
+                      // JS DATA KELUARGA
+                      var idKeluarga;
+                      $('#modal_dataKeluarga').on('show.bs.modal', function(event){
+                          var button = $(event.relatedTarget);
+                          idKeluarga = button.data('id');
+                      });
+
+                      function getDataKeluarga(){
+                          var no_kk = $('#no_kk').val();
+                          var kacab = $('#kacab').val();
+                          var wilbin = $('#wilbin').val();
+                          var shelter = $('#shelter').val();
+                          var no_telp = $('#no_telp').val();
+                          var no_rek = $('#no_rek').val();
+
+                          $.ajax({
+                              method : 'PUT',
+                              url : "/admin/calonAnakBinaanUpdate/" + idKeluarga,
+                              data: {
+                                  no_kk : no_kk,
+                                  kacab : kacab,
+                                  wilbin : wilbin,
+                                  shelter : shelter,
+                                  no_telp : no_telp,
+                                  no_rek : no_rek,
+                              },
+                              success: function (data){
+                                  console.log(data);
+                                  $('#modal_dataKeluarga').modal('hide'); 
+                              },
+                              error: function (error){
+                                  console.log('Error', error)
+                              }
+                          })
+                      }
+                      $('#btn-simpan-keluarga').on('click', function(){
+                          getDataKeluarga();
+                      });
+                      
+                    });
+              </script>
 
               <script>
                 // Mengambil semua elemen dengan class "card tampilan"

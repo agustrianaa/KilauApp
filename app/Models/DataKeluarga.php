@@ -11,14 +11,14 @@ class DataKeluarga extends Model
     use HasFactory;
 
     public $tabel = 'data_keluargas';
-
     protected $primaryKey = 'id';
     protected $fillable = [
         'kacab',
         'no_kk',
+        'anak_ke',
         'alamat_kk',
         'kepala_keluarga',
-        'wilbin',
+        'wilayah_binaan',
         'shelter',
         'jarak_ke_shelter',
         'no_telp',
@@ -34,9 +34,9 @@ class DataKeluarga extends Model
     {
         return $this->hasOne(Ibu::class);
     }
-    public function dataCalonAnakBinaan():HasOne
+    public function dataAnak():HasOne
     {
-        return $this->hasOne(CalonAnakBinaan::class);
+        return $this->hasOne(Anak::class);
     }
     public function dataWali():HasOne
     {

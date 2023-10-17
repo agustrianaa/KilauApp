@@ -6,21 +6,28 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Wali extends Model
+class anak extends Model
 {
+
     use HasFactory;
-    public $tabel = 'walis';
-    protected $primaryKey = 'id_walis';
+    public $tabel = 'anaks';
+
+    protected $primaryKey = 'id_anaks';
+
     protected $fillable = [
-        'no_ktp',
+        'data_keluarga_id',
         'nama_lengkap',
         'nama_panggilan',
         'tempat_lahir',
         'tanggal_lahir',
-        'pekerjaan',
-        'jumlah_tanggungan',
-        'pendapatan',
-        'data_keluarga_id'
+        'nama_sekolah',
+        'kelas_sekolah',
+        'nama_madrasah',
+        'kelas_madrasah',
+        'hobby',
+        'cita_cita',
+        'status_binaan',
+        'status_validasi',
     ];
 
     public function dataKeluarga():BelongsTo

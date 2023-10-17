@@ -7,34 +7,22 @@ class Ayah extends Model
 {
     use HasFactory;
 
-    // protected $table = 'ayah';
-    // protected $primaryKey = 'id_ayah';
-
-    // protected $fillable = [  'nik_ayah', 'nama_ayah', 'tempat_lahir', 'tanggal_lahir','agama', 'alamat', 'pekerjaan', 'data_keluargas_id'];
-
     public $tabel = 'ayahs';
-  
-    protected $primaryKey = 'id';
-  
+    protected $primaryKey = 'id_ayahs';
     protected $fillable = [
         'data_keluarga_id',
-        'nik_ayah',
-        'nama_ayah',
-        'tempat_lahir_ayah',
-        'tanggal_lahir_ayah',
-        'pekerjaan_ayah',
-        'jumlah_tanggungan_ayah',
-        'pendapatan_ayah',
+        'nik',
+        'nama',
+        'tempat_lahir',
+        'tanggal_lahir',
+        'pekerjaan',
+        'jumlah_tanggungan',
+        'pendapatan',
         'agama',
         'alamat'
     ];
-<<<<<<< HEAD
-    
-    public function dataKeluarga()
-=======
 
     public function dataKeluarga():BelongsTo
->>>>>>> 6a332e6a20ab76dbce46b97404f01e443c759720
     {
         return $this->belongsTo(DataKeluarga::class);
     }

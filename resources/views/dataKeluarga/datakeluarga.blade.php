@@ -355,9 +355,6 @@
 
     //menampilkan detail data keluarga
     function detailDatakeluarga(id){
-        // $.get('admin/detail-keluarga/'+ id, function(data){
-        //     $('#detail-container').html(data);
-        // });
         // Mendapatkan URL dengan menggunakan route() function dari Laravel
         var url = "{{ route('admin.detail-datakeluarga', ':id') }}";
         url = url.replace(':id', id);
