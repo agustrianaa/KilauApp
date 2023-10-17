@@ -14,20 +14,15 @@ return new class extends Migration
         Schema::create('ibus', function (Blueprint $table) {
             $table->id('id_ibus');
             $table->foreignId('data_keluarga_id')->references('id')->on('data_keluargas')->onDelete('cascade');
-            $table->string('nik_ibu');
-            $table->string('nama_ibu');
-            $table->string('tempat_lahir_ibu');
-            $table->date('tanggal_lahir_ibu');
-            $table->string('pekerjaan_ibu');
-            $table->string('pendapatan_ibu');
+            $table->string('nik');
+            $table->string('nama');
+            $table->string('tempat_lahir');
+            $table->date('tanggal_lahir');
+            $table->string('pekerjaan');
+            $table->string('pendapatan');
             $table->string('agama');
             $table->string('alamat');
             $table->timestamps();
-
-            // Menambahkan kunci asing (foreign key) ke tabel 'data_keluargas'
-            // $table->foreignId('data_keluargas_id')->references('id')->on('data_keluargas')->unique();
-            // $table->unsignedBigInteger('data_keluargas_id');
-            // $table->foreign('data_keluargas_id')->references('id')->on('data_keluargas')->onDelete('cascade');
 
         });
     }

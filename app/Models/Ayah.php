@@ -9,20 +9,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Ayah extends Model
 {
     use HasFactory;
-
     public $tabel = 'ayahs';
-  
     protected $primaryKey = 'id_ayahs';
-  
     protected $fillable = [
         'data_keluarga_id',
-        'nik_ayah',
-        'nama_ayah',
-        'tempat_lahir_ayah',
-        'tanggal_lahir_ayah',
-        'pekerjaan_ayah',
-        'jumlah_tanggungan_ayah',
-        'pendapatan_ayah',
+        'nik',
+        'nama',
+        'tempat_lahir',
+        'tanggal_lahir',
+        'pekerjaan',
+        'jumlah_tanggungan',
+        'pendapatan',
         'agama',
         'alamat'
     ];

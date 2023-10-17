@@ -13,23 +13,17 @@ return new class extends Migration
     {
         Schema::create('ayahs', function (Blueprint $table) {
             $table->id('id_ayahs');
-            // $table->unsignedBigInteger('data_keluargas_id');
             $table->foreignId('data_keluarga_id')->references('id')->on('data_keluargas')->onDelete('cascade');
-            $table->string('nik_ayah');
-            $table->string('nama_ayah');
-            $table->string('tempat_lahir_ayah');
-            $table->date('tanggal_lahir_ayah');
-            $table->string('pekerjaan_ayah');
-            $table->string('jumlah_tanggungan_ayah');
-            $table->string('pendapatan_ayah');
+            $table->string('nik');
+            $table->string('nama');
+            $table->string('tempat_lahir');
+            $table->date('tanggal_lahir');
+            $table->string('pekerjaan');
+            $table->string('jumlah_tanggungan');
+            $table->string('pendapatan');
             $table->string('agama');
             $table->string('alamat');
             $table->timestamps();
-
-            // Menambahkan kunci asing (foreign key) ke tabel 'data_keluargas'
-            // $table->foreignId('data_keluargas_id')->constrained('data_keluargas')->unique();
-            // $table->foreign('data_keluargas_id')->constraint('id')->on('data_keluargas')->onDelete('cascade');
-
         });
     }
 

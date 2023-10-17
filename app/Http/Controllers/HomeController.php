@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use App\Models\tabeldata;
+use App\Models\Anak;
 use App\Models\DataKeluarga;
 
 class HomeController extends Controller
@@ -19,7 +19,7 @@ class HomeController extends Controller
     public function dashboard()
 {
     // Hitung jumlah total data tabel yang Anda butuhkan
-    $totalData = tabeldata::count();
+    $totalData = Anak::count();
 
     $totaldatakeluarga = DataKeluarga::count();
 
