@@ -120,17 +120,17 @@
           <div class="card">
             <div class="card-body">
               <div class="table-responsive text-nowrap">
-                <table class="table table-bordered" id="tabeldata">
+                <table class="table table-bordered" id="AnakBinaan">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Nama</th>
-                            <th>Agama</th>
+                            <th>Nama Lengkap</th>
+                            <th>Nama Panggilan</th>
                             <th>TTL</th>
-                            <th>Jenis Kelamin</th>
-                            <th>Anak Ke</th>
-                            <th>Kepala Keluarga</th>
-                            <th>Status Binaan</th>
+                            <th>Nama Sekolah</th>
+                            <th>Nama Madrasah</th>
+                            <th>Hobby</th>
+                            <th>Cita-cita</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -149,26 +149,18 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="javascript:void(0)" id="tabeldataForm" name="tabeldataForm" class="form-horizontal" method="POST" enctype="multipart/form-data">
+                        <form action="javascript:void(0)" id="AnakBinaanForm" name="AnakBinaanForm" class="form-horizontal" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="id" id="id">
                             <div class="form-group">
-                                <label for="name" class="col-sm-2 control-label">Nama</label>
+                                <label for="name" class="col-sm-2 control-label">Nama Lengkap</label>
                                 <div class="col-sm-12">
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Nama..." maxlength="50" required="">
+                                    <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" placeholder="Nama..." maxlength="50" required="">
                                 </div>
                             </div>
                             <div class="form-group">
-                              <label for="name" class="col-sm-2 control-label">Agama</label>
+                              <label for="name" class="col-sm-2 control-label">Nama Panggilan</label>
                               <div class="col-sm-12">
-                                  <select class="form-select" id="agama" name="agama" required="">
-                                    <option value="" disabled selected>-Pilih-</option>
-                                    <option value="Islam">Islam</option>
-                                    <option value="Kristen Protestan">Kristen Protestan</option>
-                                    <option value="Kristen Katolik">Kristen Katolik</option>
-                                    <option value="Hindu">Hindu</option>
-                                    <option value="Buddha"> Buddha</option>
-                                    <option value="Konghucu">Konghucu</option>
-                                  </select>
+                                  <input type="text" class="form-control" id="nama_panggilan" name="nama_panggilan" placeholder="Nama..." maxlength="50" required="">
                               </div>
                             </div>
                             <div class="form-group">
@@ -176,46 +168,36 @@
                               <div class="col-sm-12">
                                 <div class="row">
                                   <div class="col-md-6">
-                                      <input type="text" class="form-control" id="teml" name="teml" placeholder="Tempat Lahir..." required="">
+                                      <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="Tempat Lahir..." required="">
                                   </div>
                                   <div class="col-md-6">
-                                      <input type="date" class="form-control" id="tgll" name="tgll" required="">
+                                      <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" required="">
                                   </div>
                                 </div>
                               </div>
                             </div>
                             <div class="form-group">
-                              <label for="name" class="col-sm-2 control-label text-nowrap">Jenis Kelamin</label>
+                              <label for="name" class="col-sm-2 control-label">Nama Sekolah</label>
                               <div class="col-sm-12">
-                                  <select class="form-select" id="jenis_kelamin" name="jenis_kelamin" required="">
-                                    <option value="" disabled selected>-Pilih-</option>
-                                      <option value="Laki-Laki">Laki-Laki</option>
-                                      <option value="Perempuan">Perempuan</option>
-                                  </select>
+                                  <input type="text" class="form-control" id="nama_sekolah" name="nama_sekolah" placeholder="Nama..." maxlength="50" required="">
                               </div>
                             </div>
                             <div class="form-group">
-                              <label for="name" class="col-sm-2 control-label">Anak Ke</label>
+                              <label for="name" class="col-sm-2 control-label">Nama Madrasah</label>
                               <div class="col-sm-12">
-                                  <input type="number" class="form-control" id="anak_ke" name="anak_ke" placeholder="Anak Ke..." required="">
+                                  <input type="text" class="form-control" id="nama_madrasah" name="nama_madrasah" placeholder="Anak Ke..." required="">
                               </div>
                             </div>
                             <div class="form-group">
-                              <label for="name" class="col-sm-2 control-label text-nowrap">Kepala Keluarga</label>
+                              <label for="name" class="col-sm-2 control-label text-nowrap">Hobby</label>
                               <div class="col-sm-12">
-                                  <input type="text" class="form-control" id="kepala_keluarga" name="kepala_keluarga" placeholder="Kepala Keluarga..." required="">
+                                  <input type="text" class="form-control" id="hobby" name="hobby" placeholder="Kepala Keluarga..." required="">
                               </div>
                             </div>
                             <div class="form-group">
-                              <label for="name" class="col-sm-2 control-label text-nowrap">Status Binaan</label>
+                              <label for="name" class="col-sm-2 control-label text-nowrap">Cita Cita</label>
                               <div class="col-sm-12">
-                                  <select class="form-select" id="status_binaan" name="status_binaan" required="">
-                                    <option value="" disabled selected>-Pilih-</option>
-                                    <option value="PB">PB</option>
-                                    <option value="NPB">NPB</option>
-                                    <option value="CPB">CPB</option>
-                                    <option value="BCPB">BCPB</option>
-                                  </select>
+                                  <input type="text" class="form-control" id="cita_cita" name="cita_cita" placeholder="Kepala Keluarga..." required="">
                               </div>
                             </div>
                             <div class="col-sm-offset-2 col-sm-10"><br/>
@@ -249,79 +231,28 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        selectedAgama = getSelectedValues('#fagama');
-        selectedJenisKelamin = getSelectedValues('#fjenis_kelamin');
-        selectedStatusBinaan = getSelectedValues('#fstatus_binaan');
 
-        load_data(selectedAgama, selectedJenisKelamin, selectedStatusBinaan);
-      
-
-        function load_data(){
-          var fagama = $('#fagama').val();
-          var fjenis_kelamin = $('#fjenis_kelamin').val();
-          var fstatus_binaan = $('#fstatus_binaan').val();
-
-          $('#tabeldata').DataTable({
+          $('#AnakBinaan').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
-              url : "{{ url('admin/tabeldata') }}",
-              data: {
-                agama : fagama,
-                jenis_kelamin : fjenis_kelamin,
-                status_binaan : fstatus_binaan,
-              }
+              url : "{{ url('admin/AnakBinaan') }}",
             },
             columns: [
-                { data: 'id', name: 'id'},
-                { data: 'name', name: 'name'},
-                { data: 'agama', name: 'agama'},
+                { data: 'id_anaks', name: 'id'},
+                { data: 'nama_lengkap_anak', name: 'nama_lengkap_anak'},
+                { data: 'nama_panggilan_anak', name: 'nama_panggilan_anak'},
                 { data: 'ttl', name: 'ttl'},
-                { data: 'jenis_kelamin', name: 'jenis_kelamin'},
-                { data: 'anak_ke', name: 'anak_ke'},
-                { data: 'kepala_keluarga', name: 'kepala_keluarga'},
-                { data: 'status_binaan', name: 'status_binaan'},
+                { data: 'nama_sekolah_anak', name: 'nama_sekolah_anak'},
+                { data: 'nama_madrasah_anak', name: 'nama_madrasah_anak'},
+                { data: 'hobby_anak', name: 'hobby_anak'},
+                { data: 'cita_cita_anak', name: 'cita_cita_anak'},
                 { data: 'action', name: 'action', orderable: false},
             ],
             order: [[0, 'asc']],
             paging: true,
             pageLength: 10 // Menyeting jumlah entri yang ditampilkan menjadi 10
         });
-        }
-
-        function getSelectedValues(selectId) {
-          var selectedValues = [];
-          $(selectId + ' option:selected').each(function () {
-              selectedValues.push($(this).val());
-          });
-          return selectedValues;
-        }
-        
-        // Tombol "Filter" ditekan
-        $('#filters').click(function () {
-            // Mengambil nilai-nilai select yang telah dipilih sebelumnya
-            var fagama = selectedAgama;
-            var fjenis_kelamin = selectedJenisKelamin;
-            var fstatus_binaan = selectedStatusBinaan;
-        
-            // Mengambil nilai-nilai checkbox yang dicentang
-            var checkedCheckboxes = $('.checkbox-filter:checked');
-            var checkedValues = [];
-        
-            checkedCheckboxes.each(function () {
-                checkedValues.push($(this).val());
-            });
-          
-            // Menambahkan nilai-nilai checkbox yang dicentang ke dalam filter
-            fagama = fagama.concat(checkedValues);
-          
-            // Meng-"destroy" tabel lama
-            $('#tabeldata').DataTable().destroy();
-          
-            // Memuat data dengan filter
-            load_data(fagama, fjenis_kelamin, fstatus_binaan);
-        });
-
 
         $('#resetfilters').click(function() {
             // Mengatur nilai-nilai semua elemen select ke nilai kosong
@@ -330,57 +261,52 @@
             $('#fstatus_binaan').val('');
 
             // Memuat ulang data dengan filter kosong
-            $('#tabeldata').DataTable().destroy();
+            $('#AnakBinaan').DataTable().destroy();
             load_data();
         });
     });
 
-    
-
     function add(){
-        $('#tabeldataForm').trigger("reset");
-        $('#TambahModal').html("Tambah Data");
-        $('#tambah-modal').modal('show');
-        $('#id').val('');
-        // Reset nilai-nilai input tambahan seperti Agama, TTL, Jenis Kelamin, Anak Ke, Kepala Keluarga, dan Status Binaan
-        $('#agama').val('');
-        $('#teml').val('');
-        $('#tgll').val('');
-        $('#jenis_kelamin').val('');
-        $('#anak_ke').val('');
-        $('#kepala_keluarga').val('');
-        $('#status_binaan').val('');
+      $('#AnakBinaanForm').trigger("reset");
+      $('#TambahModal').html("Tambah Data");
+      $('#tambah-modal').modal('show');
+      $('#id').val('');
+      $('#nama_lengkap').val('');
+      $('#nama_panggilan').val('');
+      $('#tempat_lahir').val('');
+      $('#tanggal_lahir').val('');
+      $('#nama_sekolah').val('');
+      $('#nama_madrasah').val('');
+      $('#hobby').val('');
+      $('#cita_cita').val('');
     }
 
     function viewFunc(id) {
       // Navigate to the view page with the record's ID as a query parameter
-      window.location.href = "{{ url('admin/tabeldataview/') }}/" + id;
+      window.location.href = "{{ url('admin/AnakBinaanview/') }}/" + id;
     }
 
     function editFunc(id){
-        $.ajax({
-            type: "POST",
-            url: "{{ url('admin/tabeldataedit') }}",
-            data: { id: id},
-            dataType: 'json',
-            success: function(res){
-                console.log(res);
-                $('#TambahModal').html("Edit Data");
-                $('#tambah-modal').modal('show');
-                $('#id').val(res.id);
-                $('#name').val(res.name);
-                $('#address').val(res.address);
-                $('#email').val(res.email);
-                // Isi nilai-nilai input tambahan seperti Agama, TTL, Jenis Kelamin, Anak Ke, Kepala Keluarga, dan Status Binaan
-                $('#agama').val(res.agama);
-                $('#teml').val(res.teml);
-                $('#tgll').val(res.tgll);
-                $('#jenis_kelamin').val(res.jenis_kelamin);
-                $('#anak_ke').val(res.anak_ke);
-                $('#kepala_keluarga').val(res.kepala_keluarga);
-                $('#status_binaan').val(res.status_binaan);
-            }
-        });
+      $.ajax({
+          type: "POST",
+          url: "{{ url('admin/AnakBinaanedit') }}",
+          data: { id: id},
+          dataType: 'json',
+          success: function(res){
+              console.log(res);
+              $('#TambahModal').html("Edit Data");
+              $('#tambah-modal').modal('show');
+              $('#id').val(res.id);
+              $('#nama_lengkap').val(res.nama_lengkap);
+              $('#nama_panggilan').val(res.nama_panggilan);
+              $('#tempat_lahir').val(res.tempat_lahir);
+              $('#tanggal_lahir').val(res.tanggal_lahir);
+              $('#nama_sekolah').val(res.nama_sekolah);
+              $('#nama_madrasah').val(res.nama_madrasah);
+              $('#hobby').val(res.hobby);
+              $('#cita_cita').val(res.cita_cita);
+          }
+      });
     }
 
     function deleteFunc(id){
@@ -389,7 +315,7 @@
             //ajax
             $.ajax({
                 type: "POST",
-                url: "{{ url('admin/tabeldatadelete') }}",
+                url: "{{ url('admin/AnakBinaandelete') }}",
                 data: { id: id },
                 dataType: 'json',
                 success: function(res){
@@ -399,19 +325,19 @@
                       'success'
                   );
 
-                    var oTable = $('#tabeldata').dataTable();
+                    var oTable = $('#AnakBinaan').dataTable();
                     oTable.fnDraw(false);
                 }
             });
         }
     }
 
-    $('#tabeldataForm').submit(function(e) {
+    $('#AnakBinaanForm').submit(function(e) {
         e.preventDefault();
         var formData = new FormData(this);
         $.ajax({
             type: 'POST',
-            url: "{{ url('admin/tabeldatastore') }}",
+            url: "{{ url('admin/AnakBinaanstore') }}",
             data: formData,
             cache: false,
             contentType: false,
@@ -426,7 +352,7 @@
               });
 
               $("#tambah-modal").modal('hide');
-              var oTable = $('#tabeldata').dataTable();
+              var oTable = $('#AnakBinaan').dataTable();
               oTable.fnDraw(false);
               $("#btn-save").html('Submit');
               $("#btn-save"). attr("disabled", false);

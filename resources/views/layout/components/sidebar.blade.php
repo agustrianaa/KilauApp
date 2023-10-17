@@ -69,7 +69,7 @@
             </li>
 
             <li class="nav-item">
-            <a href="{{ route('admin.tabeldata') }}" class="nav-link">
+            <a href="{{ route('admin.AnakBinaan') }}" class="nav-link">
                 <i class="bi bi-person-video3"></i>{{-- icon --}}
                 <p class="pl-1">
                     Data Anak Binaan
