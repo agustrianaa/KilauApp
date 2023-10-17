@@ -49,26 +49,24 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <table class="table table-info table-striped text-nowrap" id="calonAnakBinaan">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nama</th>
-                                    <th>TTL</th>
-                                    <th>Shelter</th>
-                                    <th>No KK</th>
-                                    <th>Kepala Keluarga</th>
-                                    <th>Anak Ke</th>
-                                    <th>Status Binaan</th>
-                                    <th>Status Validasi</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                        </table>
+                        <div class="table-responsive text-nowrap">
+                            <table class="table table-info table-striped" id="calonAnakBinaan">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nama</th>
+                                        <th>TTL</th>
+                                        <th>Shelter</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </section>
 </div>
 
@@ -79,33 +77,35 @@
 
 <script type="text/javascript">
         $(document).ready( function () {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+                $('#calonAnakBinaan').DataTable({
+                processing: true,
+                serverSide: true,
+                url : "{{ url('admin/calonAnakBinaan') }}",
+                columns: [
+                    { data: 'id', name: 'id' },
+                    { data: 'nama_lengkap_calon_anak', name: 'nama_lengkap_calon_anak' },
+                    { data: 'TTL', name: 'TTL' },
+                    { data: 'shelter', name: 'shelter' },
+                    { data: 'action', name: 'action', orderable: false },
+                ],
+                order: [[0, 'asc']],
+                paging: true,
+                pageLength: 10 // Menyeting jumlah entri yang ditampilkan menjadi 10
+            });
+
+            
         });
 
-            $('#calonAnakBinaan').DataTable({
-            processing: true,
-            serverSide: true,
-            url : "{{ url('admin/calonAnakBinaan') }}",
-            columns: [
-                { data: 'id', name: 'id' },
-                { data: 'nama_calon_anak', name: 'nama_calon_anak' },
-                { data: 'TTL', name: 'TTL' },
-                { data: 'shelter', name: 'shelter' },
-                { data: 'no_kk', name: 'no_kk' },
-                { data: 'nama_ayah', name: 'nama_ayah' },
-                { data: 'anak_ke', name: 'anak_ke' },
-                { data: 'status_binaan', name: 'status_binaan' },
-                { data: 'status_validasi', name: 'status_validasi' },
-                { data: 'action', name: 'action', orderable: false },
-            ],
-            order: [[0, 'asc']],
-            paging: true,
-            pageLength: 10 // Menyeting jumlah entri yang ditampilkan menjadi 10
-        });
-    });
+        function detailFunction(id) {
+            // Navigate to the view page with the record's ID as a query parameter
+            window.location.href = "{{ url('admin/calonAnakBinaanDetail/') }}/" + id;
+        }
 </script>
 
 @endsection
