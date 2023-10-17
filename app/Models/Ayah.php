@@ -23,11 +23,7 @@ class Ayah extends Model
         'alamat'
     ];
 
-<<<<<<< HEAD
-    public function dataKeluarga()
-=======
     public function dataKeluarga():BelongsTo
->>>>>>> main
     {
         return $this->belongsTo(DataKeluarga::class);
     }

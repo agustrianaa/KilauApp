@@ -8,14 +8,11 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 // use App\Http\Controllers\PostController;
 use App\Http\Controllers\PengajuanAnakController;
-<<<<<<< HEAD
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\dataSurveyController;
 use App\Http\Controllers\tabeldataController;
 use App\Http\Controllers\ValidasiBeasiswaController;
-=======
 use App\Http\Controllers\AnakBinaanController;
->>>>>>> main
 use Illuminate\Support\Facades\Route;
 
 /*

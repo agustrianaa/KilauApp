@@ -21,7 +21,7 @@
                         <tr>
                             <th style="width: 10px"> No </th>
                             <th> Nama</th>
-                            <th> Agama </th>
+                            <th> Kelas Sekolah </th>
                             <th> Action </th>
                         </tr>
                     </thead>
@@ -47,9 +47,9 @@
             serverSide: true,
             ajax: "{{ route('admin.validasi-beasiswa')}}",
             columns: [
-                { data: 'id', name: 'id'},
-                { data: 'name', name: 'name'},
-                { data: 'agama', name: 'agama'},
+                { data: 'id_anaks', name: 'id_anaks'},
+                { data: 'nama_lengkap', name: 'nama_lengkap'},
+                { data: 'kelas_sekolah', name: 'kelas_sekolah'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ],
             order: [[0, 'desc']]

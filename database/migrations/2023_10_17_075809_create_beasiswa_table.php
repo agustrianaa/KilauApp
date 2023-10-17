@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('beasiswa', function (Blueprint $table) {
             $table->id();
-            $table->varchar('status_binaan');
+            $table->foreignId('anak_id')->references('id_anaks')->on('anaks')->onDelete('cascade');
+            $table->string('status_binaan');
             $table->timestamps();
         });
     }

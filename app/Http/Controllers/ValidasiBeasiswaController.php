@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\tabeldata;
+use App\Models\Anak;
+use App\Models\Beasiswa;
 use Illuminate\Http\Request;
 
 class ValidasiBeasiswaController extends Controller
@@ -13,10 +14,10 @@ class ValidasiBeasiswaController extends Controller
     public function index()
     {
         if(request()->ajax()){
-            return datatables()->of(tabeldata::select('*'))
+            return datatables()->of(Anak::select('*'))
             ->addIndexColumn()
             ->addColumn('action', function($row){
-                $id = $row->id; // Ambil ID dari baris data
+                $id = $row->id_anaks; // Ambil ID dari baris data
                 $beasiswaAct = '<a href="javascript:void(0)" onClick="validFunc(' . $id . ')" data-original-title="View" class="aktivasi btn btn-success btn-sm">Aktivasi</a>';
                 return $beasiswaAct; })
             ->rawColumns(['action'])
@@ -27,7 +28,7 @@ class ValidasiBeasiswaController extends Controller
 
     public function validation(Request $request, $id)
     {
-        $validasi = tabeldata::find($id);
+        $validasi = Anak::find($id);
 
         return view('validasiBeasiswa.validasi', compact('id', 'validasi'));
     }
@@ -51,7 +52,7 @@ class ValidasiBeasiswaController extends Controller
 
         if($request->has('id')) {
             $id = $request->input('id');
-            $status_binaan = tabeldata::findOrFail($id);
+            $status_binaan = Beasiswa::findOrFail($id);
             $status_binaan->update($validasi);
             return redirect()->route('admin.validasi',['id' => $id])->with('success', 'Data berhasil diperbarui');
         // } else {

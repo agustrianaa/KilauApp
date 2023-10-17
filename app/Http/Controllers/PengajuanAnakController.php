@@ -83,7 +83,6 @@ class PengajuanAnakController extends Controller
 
         return redirect()->route('admin.dashboard');
     }
-<<<<<<< HEAD
 
 }
     // public function pengajuanFormStore(Request $request) {
@@ -152,7 +151,3 @@ class PengajuanAnakController extends Controller
     //         "pendapatan_wali" => $request->pendapatan_wali,
     //     ]);
     // }
-}
-=======
-}
->>>>>>> main

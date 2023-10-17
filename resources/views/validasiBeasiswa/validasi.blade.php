@@ -30,7 +30,7 @@
                                     <b>Shelter</b> <a class="float-right">Banyuasih</a>
                                 </li>
                             </ul>
-                            <a href="{{ route('admin.tabeldataview', ['id' => $id]) }}" class="btn btn-primary btn-block"><b>Detail</b></a>
+                            <a href="{{ route('admin.AnakBinaanview', ['id' => $id]) }}" class="btn btn-primary btn-block"><b>Detail</b></a>
                                 
                         </div>
                     </div>
