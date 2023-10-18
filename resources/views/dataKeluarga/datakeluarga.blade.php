@@ -313,7 +313,7 @@
                     { data: 'id', name: 'id'},
                     { data: 'no_kk', name: 'no_kk'},
                     { data: 'kepala_keluarga', name: 'kepala_keluarga'},
-                    { data: 'wilbin', name: 'wilbin'},
+                    { data: 'wilayah_binaan', name: 'wilayah_binaan'},
                     { data: 'action', name: 'action', orderable: false},
                 ],
                 order: [[0, 'asc']],
