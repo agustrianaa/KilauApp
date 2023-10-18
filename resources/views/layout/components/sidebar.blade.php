@@ -59,15 +59,6 @@
             </a>
             </li>
 
-            <li class="nav-item">
-            <a href="{{ route('admin.datakeluarga') }}" class="nav-link">
-                <i class="bi bi-people-fill"></i>{{-- icon --}}
-                <p class="pl-1">
-                    Data Keluarga
-                </p>
-            </a>
-            </li>
-
             <li class="nav-item nav-item-active">
             <a href="{{ route('admin.calonanakbinaanIndex') }}" class="nav-link">
                 <i class="bi bi-person-fill-add"></i>{{-- icon --}}
@@ -82,6 +73,24 @@
                 <i class="bi bi-person-video3"></i>{{-- icon --}}
                 <p class="pl-1">
                     Data Anak Binaan
+                </p>
+            </a>
+            </li>
+
+            <li class="nav-item">
+            <a href="{{ route('admin.validasi-beasiswa') }}" class="nav-link">
+                <i class="bi bi-person-vcard"></i>{{-- icon --}}
+                <p class="pl-1">
+                    Validasi Beasiswa
+                </p>
+            </a>
+            </li>
+
+            <li class="nav-item">
+            <a href="{{ route('admin.datakeluarga') }}" class="nav-link">
+                <i class="bi bi-people-fill"></i>{{-- icon --}}
+                <p class="pl-1">
+                    Data Keluarga
                 </p>
             </a>
             </li>

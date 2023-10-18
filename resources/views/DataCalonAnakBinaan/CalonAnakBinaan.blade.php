@@ -54,7 +54,7 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Nama</th>
+                                        <th>Nama Lengkap</th>
                                         <th>TTL</th>
                                         <th>Shelter</th>
                                         <th>Action</th>
@@ -96,7 +96,10 @@
                 ],
                 order: [[0, 'asc']],
                 paging: true,
-                pageLength: 10 // Menyeting jumlah entri yang ditampilkan menjadi 10
+                pageLength: 10, // Menyeting jumlah entri yang ditampilkan menjadi 10
+                language: {
+                    emptyTable: "Tidak ada data dalam database", // Pesan yang akan ditampilkan ke TABEL jika database kosong
+                }
             });
 
 

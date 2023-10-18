@@ -117,14 +117,24 @@
       <!-- right col (We are only adding the ID to make the widgets sortable)-->
       <section class="col-lg-6 connectedSortable">
 
-        
-
   
       </section>
       <!-- right col -->
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
+      @if(session('alert'))
+      <script>
+          Swal.fire({
+              title: '{{ session('alert.title') }}',
+              text: '{{ session('alert.text') }}',
+              icon: '{{ session('alert.icon') }}',
+          });
+      </script>
+      @endif
     </div>
     <!-- /.row (main row) -->
   </div><!-- /.container-fluid -->
+
+
 </section>
 <!-- /.content -->
   <div>
