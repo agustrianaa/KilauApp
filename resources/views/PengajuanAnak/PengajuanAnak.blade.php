@@ -46,7 +46,8 @@
 
                                 <form action="{{ route('admin.pengajuanFormStore') }}" method="POST">
                                     @csrf
-                                <!--Form Anak-->
+                                    <div class="row">
+                                        <!--Form Anak-->
                                 <div class="col-12 col-sm-6">
                                     <div class="card">
                                         <div class="card-title">
@@ -92,7 +93,7 @@
                                                     <p class="text-sm-end">Anak Ke :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="anak_ke" name="anak_ke" placeholder="Tanggal Lahir...">
+                                                    <input type="number" class="form-control" id="anak_ke" name="anak_ke" placeholder="Anak ke...">
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -146,7 +147,7 @@
                                                     <p class="text-sm-end">Status Binaan :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="status_binaan" name="status_binaan" placeholder="Tanggal Lahir...">
+                                                    <input type="text" class="form-control" id="status_binaan" name="status_binaan" placeholder="Status Binaan...">
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -154,7 +155,7 @@
                                                     <p class="text-sm-end">Status Validasi :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="status_validasi" name="status_validasi" placeholder="Tanggal Lahir...">
+                                                    <input type="text" class="form-control" id="status_validasi" name="status_validasi" placeholder="Status Validasi...">
                                                 </div>
                                             </div>
                                         </div>
@@ -174,15 +175,15 @@
                                                     <p class="text-sm-end">Kacab :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="kacab" name="kacab" placeholder="No. KK">
+                                                    <input type="text" class="form-control" id="kacab" name="kacab" placeholder="Kantor Cabang...">
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
                                                 <div class="col-12 col-sm-4">
-                                                    <p class="text-sm-end">No. Kartu Keluarga :</p>
+                                                    <p class="text-sm-end">No. KK :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="no_kk" name="no_kk" placeholder="No. KK">
+                                                    <input type="text" class="form-control" id="no_kk" name="no_kk" placeholder="No. Kartu Keluarga...">
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -190,7 +191,7 @@
                                                     <p class="text-sm-end">Alamat Lengkap :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <textarea class="form-control" id="alamat_kk" name="alamat_kk" rows="4"></textarea>
+                                                    <textarea class="form-control" id="alamat_kk" name="alamat_kk" rows="4" placeholder="Alamat Lengkap..."></textarea>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -214,7 +215,7 @@
                                                     <p class="text-sm-end">Shelter :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="shelter" name="shelter" placeholder="Anak ke...">
+                                                    <input type="text" class="form-control" id="shelter" name="shelter" placeholder="Selter...">
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -223,17 +224,17 @@
                                                 </div>
                                                 <div class="col-12 col-sm-2">
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" id="jarak_ke_shelter" name="jarak_ke_shelter" placeholder="Anak ke...">
+                                                        <input type="text" class="form-control" id="jarak_ke_shelter" name="jarak_ke_shelter" placeholder="">
                                                         <span class="input-group-text">KM</span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
                                                 <div class="col-12 col-sm-4">
-                                                    <p class="text-sm-end">No Telepon :</p>
+                                                    <p class="text-sm-end">No HP :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="no_telp" name="no_telp" placeholder="Anak ke...">
+                                                    <input type="number" class="form-control" id="no_telp" name="no_telp" placeholder="No. HP">
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -241,13 +242,16 @@
                                                     <p class="text-sm-end">No Rekening :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="no_rek" name="no_rek" placeholder="Anak ke...">
+                                                    <input type="text" class="form-control" id="no_rek" name="no_rek" placeholder="No. Rekening...">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                    </div>
+                                
 
+                                    <div class="row">
                                 <!--Form Ayah-->
                                 <div class="col-12 col-sm-4">
                                     <div class="card">
@@ -261,7 +265,7 @@
                                                     <p class="text-sm-end">Nik Ayah :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="nik_ayah" name="nik_ayah" placeholder="Nama Lengkap...">
+                                                    <input type="text" class="form-control" id="nik_ayah" name="nik_ayah" placeholder="NIK KTP...">
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -277,7 +281,7 @@
                                                     <p class="text-sm-end">Tempat Lahir :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="tempat_lahir_ayah" name="tempat_lahir_ayah" placeholder="Nama Lengkap...">
+                                                    <input type="text" class="form-control" id="tempat_lahir_ayah" name="tempat_lahir_ayah" placeholder="Tempat Lahir(Kota)...">
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -285,7 +289,7 @@
                                                     <p class="text-sm-end">Tanggal Lahir :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="date" class="form-control" id="tanggal_lahir_ayah" name="tanggal_lahir_ayah" placeholder="Nama Lengkap...">
+                                                    <input type="date" class="form-control" id="tanggal_lahir_ayah" name="tanggal_lahir_ayah" placeholder="Tanggal Lahir...">
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -293,7 +297,7 @@
                                                     <p class="text-sm-end">Pekerjaan :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="pekerjaan_ayah" name="pekerjaan_ayah" placeholder="Nama Lengkap...">
+                                                    <input type="text" class="form-control" id="pekerjaan_ayah" name="pekerjaan_ayah" placeholder="Pekerjaan...">
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -325,7 +329,15 @@
                                                     <p class="text-sm-end">Agama :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="agama" name="agama" placeholder="Nama Lengkap...">
+                                                    <select class="form-select" id="agama" name="agama" required="">
+                                                        <option value="" disabled selected>Pilih Agama</option>
+                                                        <option value="Islam">Islam</option>
+                                                        <option value="Kristen">Kristen</option>
+                                                        <option value="Katolik">Katolik</option>
+                                                        <option value="Hindu">Hindu</option>
+                                                        <option value="Buddha">Buddha</option>
+                                                        <option value="Konghucu">Konghucu</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -333,7 +345,7 @@
                                                     <p class="text-sm-end">Alamat :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Nama Lengkap...">
+                                                    <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat Lengkap...">
                                                 </div>
                                             </div>
                                         </div>
@@ -353,7 +365,7 @@
                                                     <p class="text-sm-end">Nik Ibu :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="nik_ibu" name="nik_ibu" placeholder="Nama Lengkap...">
+                                                    <input type="text" class="form-control" id="nik_ibu" name="nik_ibu" placeholder="NIK KTP...">
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -369,7 +381,7 @@
                                                     <p class="text-sm-end">Tempat Lahir :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="tempat_lahir_ibu" name="tempat_lahir_ibu" placeholder="Nama Lengkap...">
+                                                    <input type="text" class="form-control" id="tempat_lahir_ibu" name="tempat_lahir_ibu" placeholder="Tempat Lahir(Kota)...">
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -377,7 +389,7 @@
                                                     <p class="text-sm-end">Tanggal Lahir :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="date" class="form-control" id="tanggal_lahir_ibu" name="tanggal_lahir_ibu" placeholder="Nama Lengkap...">
+                                                    <input type="date" class="form-control" id="tanggal_lahir_ibu" name="tanggal_lahir_ibu" placeholder="Tanggal Lahir...">
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -385,7 +397,7 @@
                                                     <p class="text-sm-end">Pekerjaan :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="pekerjaan_ibu" name="pekerjaan_ibu" placeholder="Nama Lengkap...">
+                                                    <input type="text" class="form-control" id="pekerjaan_ibu" name="pekerjaan_ibu" placeholder="Pekerjaan...">
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -405,7 +417,15 @@
                                                     <p class="text-sm-end">Agama :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="agama" name="agama" placeholder="Nama Lengkap...">
+                                                    <select class="form-select" id="agama" name="agama" required="">
+                                                        <option value="" disabled selected>Pilih Agama</option>
+                                                        <option value="Islam">Islam</option>
+                                                        <option value="Kristen">Kristen</option>
+                                                        <option value="Katolik">Katolik</option>
+                                                        <option value="Hindu">Hindu</option>
+                                                        <option value="Buddha">Buddha</option>
+                                                        <option value="Konghucu">Konghucu</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -413,7 +433,7 @@
                                                     <p class="text-sm-end">Alamat :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Nama Lengkap...">
+                                                    <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat Lengkap...">
                                                 </div>
                                             </div>
                                         </div>
@@ -433,7 +453,7 @@
                                                     <p class="text-sm-end">No. KTP :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="no_ktp_wali" name="no_ktp_wali" placeholder="Nama Lengkap...">
+                                                    <input type="text" class="form-control" id="no_ktp_wali" name="no_ktp_wali" placeholder="NO. KTP...">
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -457,7 +477,7 @@
                                                     <p class="text-sm-end">Tempat Lahir :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="tempat_lahir_wali" name="tempat_lahir_wali" placeholder="Kota">
+                                                    <input type="text" class="form-control" id="tempat_lahir_wali" name="tempat_lahir_wali" placeholder="Tempat Lahir(Kota)...">
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -473,7 +493,7 @@
                                                     <p class="text-sm-end">Pekerjaan :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="pekerjaan_wali" name="pekerjaan_wali" placeholder="Nama Lengkap...">
+                                                    <input type="text" class="form-control" id="pekerjaan_wali" name="pekerjaan_wali" placeholder="Pekerjaan...">
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -503,6 +523,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                    </div>
 
                             </div>
                         </div>

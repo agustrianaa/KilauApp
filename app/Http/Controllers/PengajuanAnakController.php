@@ -81,6 +81,13 @@ class PengajuanAnakController extends Controller
             "pendapatan" => $request->pendapatan_wali
         ]);
 
-        return redirect()->route('admin.dashboard');
+        // Tambahkan kode SweetAlert2 sebelum redirect
+        $alert = [
+            'title' => 'Sukses!',
+            'text' => 'Data anak binaan berhasil disimpan.',
+            'icon' => 'success',
+        ];
+
+        return redirect()->route('admin.dashboard')->with('alert', $alert);
     }
 }

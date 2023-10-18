@@ -54,7 +54,7 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Nama</th>
+                                        <th>Nama Lengkap</th>
                                         <th>TTL</th>
                                         <th>Shelter</th>
                                         <th>Action</th>
@@ -89,22 +89,30 @@
                 url : "{{ url('admin/calonAnakBinaan') }}",
                 columns: [
                     { data: 'id', name: 'id' },
-                    { data: 'nama_lengkap_calon_anak', name: 'nama_lengkap_calon_anak' },
-                    { data: 'TTL', name: 'TTL' },
+                    { data: 'nama_lengkap_anak', name: 'nama_lengkap_anak' },
+                    { data: 'ttla', name: 'ttla' },
                     { data: 'shelter', name: 'shelter' },
                     { data: 'action', name: 'action', orderable: false },
                 ],
                 order: [[0, 'asc']],
                 paging: true,
-                pageLength: 10 // Menyeting jumlah entri yang ditampilkan menjadi 10
+                pageLength: 10, // Menyeting jumlah entri yang ditampilkan menjadi 10
+                language: {
+                    emptyTable: "Tidak ada data dalam database", // Pesan yang akan ditampilkan ke TABEL jika database kosong
+                }
             });
 
             
         });
 
-        function detailFunction(id) {
-            // Navigate to the view page with the record's ID as a query parameter
-            window.location.href = "{{ url('admin/calonAnakBinaanDetail/') }}/" + id;
+        //menampilkan detail data keluarga
+        function showDetail(id){
+            // Mendapatkan URL dengan menggunakan route() function dari Laravel
+            var url = "{{ route('admin.calonAnakBinaanView', ':id') }}";
+            url = url.replace(':id', id);
+            
+            // Redirect ke halaman baru
+            window.location.href = url;
         }
 </script>
 
