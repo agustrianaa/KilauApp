@@ -29,7 +29,7 @@ class IbuController extends Controller
 
 
     // Update data ibu Secara Manual
-    //VARIBLE -> FIELD DATABASE = $REQUEST -> MENGINPUT DATA ('SESUAI DENGAN ID DI FORM)
+    //VARIBLE -> FIELD DATABASE = $REQUEST -> MENGINPUT DATA ('SESUAI DENGAN ID DI FORM')
     $dataIbu->nik_ibu = $request->input('nik_ibu');
     $dataIbu->nama_ibu = $request->input('nama_ibu');
     $dataIbu->tempat_lahir = $request->input('tempat_lahir');

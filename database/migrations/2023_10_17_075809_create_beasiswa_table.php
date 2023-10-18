@@ -7,15 +7,14 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
- * Run the migrations
+     * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('tabeldatas', function (Blueprint $table) {
+        Schema::create('beasiswa', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->string('address');
+            $table->foreignId('anak_id')->references('id_anaks')->on('anaks')->onDelete('cascade');
+            $table->string('status_binaan');
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tabeldatas');
+        Schema::dropIfExists('beasiswa');
     }
 };

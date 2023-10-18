@@ -23,7 +23,7 @@
                                 </li>
                             </ul>
                             <!-- Untuk ke data lengkap anak -->
-                            <a href="#" class="btn btn-primary btn-block"><b>Detail</b></a> 
+                            
                         </div>
                     </div>
                 </div>
@@ -208,13 +208,13 @@
                                                             <label class="control-label">Agama</label>
                                                             <div class="col-sm-12">
                                                                 <select class="form-control" id="agamaAyah" name="agamaAyah" aria-placeholder="pilih agama" required>
-                                                                    <option value="" disabled selected>Pilih Agama</option>
-                                                                    <option value="Islam">Islam</option>
-                                                                    <option value="Kristen">Kristen</option>
-                                                                    <option value="Katolik">Katolik</option>
-                                                                    <option value="Hindu">Hindu</option>
-                                                                    <option value="Buddha">Buddha</option>
-                                                                    <option value="Konghucu">Konghucu</option>
+                                                                    <option value="" disabled {{ $dataAyah->agama == '' ? 'selected' : '' }}>Pilih Agama</option>
+                                                                    <option value="Islam" {{ $dataAyah->agama == 'Islam' ? 'selected' : '' }}>Islam</option>
+                                                                    <option value="Kristen" {{ $dataAyah->agama == 'Kristen' ? 'selected' : '' }}>Kristen</option>
+                                                                    <option value="Katolik" {{ $dataAyah->agama == 'Katolik' ? 'selected' : '' }}>Katolik</option>
+                                                                    <option value="Hindu" {{ $dataAyah->agama == 'Hindu' ? 'selected' : '' }}>Hindu</option>
+                                                                    <option value="Buddha" {{ $dataAyah->agama == 'Buddha' ? 'selected' : '' }}>Buddha</option>
+                                                                    <option value="Konghucu" {{ $dataAyah->agama == 'Konghucu' ? 'selected' : '' }}>Konghucu</option>
                                                                 </select>
                                                             </div>
                                                         </div>
