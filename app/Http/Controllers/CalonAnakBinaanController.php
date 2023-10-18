@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ayah;
-use App\Models\calonAnakBinaan;
+use App\Models\Anak;
 use App\Models\DataKeluarga;
 use App\Models\Ibu;
 use App\Models\Wali;
@@ -17,14 +17,29 @@ class CalonAnakBinaanController extends Controller
     public function calonanakbinaanIndex(Request $request)
     {
         if (request()->ajax()) {
-            $data = DataKeluarga::select('data_keluargas.*', 'ayahs.*', 'calon_anak_binaans.*')
-                ->leftJoin('ayahs', 'data_keluargas.id', '=', 'ayahs.data_keluarga_id')
-                ->leftJoin('ibus', 'data_keluargas.id', '=', 'ibus.data_keluarga_id')
-                ->leftJoin('calon_anak_binaans', 'data_keluargas.id', '=', 'calon_anak_binaans.data_keluarga_id'); 
+            $data = DataKeluarga::select(
+                'data_keluargas.*',
+                'anaks.id_anaks as id_anaks',
+                'anaks.nama_lengkap as nama_lengkap_anak',
+                'anaks.nama_panggilan as nama_panggilan_anak',
+                'anaks.tempat_lahir as tempat_lahir_anak',
+                'anaks.tanggal_lahir as tanggal_lahir_anak',
+                'anaks.nama_sekolah as nama_sekolah_anak',
+                'anaks.nama_madrasah as nama_madrasah_anak',
+                'anaks.hobby as hobby_anak',
+                'anaks.cita_cita as cita_cita_anak',
+                'ayahs.*',
+                'ibus.*',
+                'walis.*',
+                )
+            ->leftJoin('ayahs', 'data_keluargas.id', '=', 'ayahs.data_keluarga_id')
+            ->leftJoin('ibus', 'data_keluargas.id', '=', 'ibus.data_keluarga_id')
+            ->leftJoin('walis', 'data_keluargas.id', '=', 'walis.data_keluarga_id')
+            ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id');
 
             return datatables($data)
-                ->addColumn('TTL', function ($data) {
-                    return $data->tempat_lahir_calon_anak . ', ' . $data->tanggal_lahir_calon_anak;
+                ->addColumn('ttla', function ($data) {
+                    return $data->tempat_lahir_anak . ', ' . $data->tanggal_lahir_anak;
                 })
                 ->addColumn('action', 'DataCalonAnakBinaan.CalonAnakBinaan-action')
                 ->rawColumns(['action'])
@@ -35,23 +50,42 @@ class CalonAnakBinaanController extends Controller
         return view('DataCalonAnakBinaan.CalonAnakBinaan');
     }
 
-    public function showDetail(string $id)
+    public function showDetail(string $id):View
     {
-        $dataKel = DataKeluarga::find($id);
+        $dataKel = DataKeluarga::select(
+            'data_keluargas.*',
+            'anaks.id_anaks as id_anaks',
+            'anaks.nama_lengkap as nama_lengkap_anak',
+            'anaks.nama_panggilan as nama_panggilan_anak',
+            'anaks.tempat_lahir as tempat_lahir_anak',
+            'anaks.tanggal_lahir as tanggal_lahir_anak',
+            'anaks.nama_sekolah as nama_sekolah_anak',
+            'anaks.nama_madrasah as nama_madrasah_anak',
+            'anaks.hobby as hobby_anak',
+            'anaks.cita_cita as cita_cita_anak',
+            'ayahs.*',
+            'ibus.*',
+            'walis.*',
+            )
+        ->leftJoin('ayahs', 'data_keluargas.id', '=', 'ayahs.data_keluarga_id')
+        ->leftJoin('ibus', 'data_keluargas.id', '=', 'ibus.data_keluarga_id')
+        ->leftJoin('walis', 'data_keluargas.id', '=', 'walis.data_keluarga_id')
+        ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')->find($id);
 
-        $dataCalonAnak = calonAnakBinaan::where('data_keluarga_id', $id)->first();
+        $dataAnak = Anak::where('data_keluarga_id', $id)->first();
         $dataIbu = Ibu::where('data_keluarga_id', $id)->first();
         $dataAyah = Ayah::where('data_keluarga_id', $id)->first();
         $dataWali = Wali::where('data_keluarga_id', $id)->first();
 
         return view('DataCalonAnakBinaan.CalonAnakBinaan-view',
-        [
-            'dataKeluarga' => $dataKel,
-            'dataIbu' => $dataIbu,
-            'dataAyah' => $dataAyah,
-            'dataCalonAnakBinaan' => $dataCalonAnak,
-            'dataWali' => $dataWali
-        ]);
+                    compact(
+                        'dataKel',
+                        'dataIbu',
+                        'dataAyah',
+                        'dataAnak',
+                        'dataWali'
+                        )
+                    );
     }
     
     public function updated(Request $request, $id)
