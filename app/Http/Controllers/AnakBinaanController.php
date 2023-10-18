@@ -90,8 +90,4 @@ class AnakBinaanController extends Controller
 
         return Response()->json($anak);
     }
-
-    public function b() {
-        return view('b');
-    }
 }
