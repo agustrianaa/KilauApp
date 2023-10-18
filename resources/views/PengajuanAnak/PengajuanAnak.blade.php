@@ -146,7 +146,7 @@
                                                     <p class="text-sm-end">Status Binaan :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="status_binaan" name="status_binaan" placeholder="Tanggal Lahir...">
+                                                    <input type="hidden" class="form-control" id="status_binaan" name="status_binaan" value="{{ 0 }}">
                                                 </div>
                                             </div>
                                             <div class="row mb-2">

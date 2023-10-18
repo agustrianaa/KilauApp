@@ -35,8 +35,10 @@ class AnakBinaanController extends Controller
             ->leftJoin('ayahs', 'data_keluargas.id', '=', 'ayahs.data_keluarga_id')
             ->leftJoin('ibus', 'data_keluargas.id', '=', 'ibus.data_keluarga_id')
             ->leftJoin('walis', 'data_keluargas.id', '=', 'walis.data_keluarga_id')
-            ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id'); 
-    
+            ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
+            ->where('anaks.status_binaan', 1)
+            ->get();
+
             return datatables($data)
                 ->addColumn('action', 'DataAnakBinaan.dataanakbinaan-action')
                 ->addColumn('ttl', function ($data) {
@@ -46,7 +48,7 @@ class AnakBinaanController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-    
+
         return view('DataAnakBinaan.dataanakbinaan');
     }
 
@@ -77,7 +79,7 @@ class AnakBinaanController extends Controller
 
         return view('DataAnakBinaan.dataanakbinaan-view', compact('record'));
     }
-    
+
     public function edit(Request $request) {
         $where = array('id' => $request->id);
         $anak = Anak::where($where)->first();
