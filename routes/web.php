@@ -66,6 +66,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     
     Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], function(){
     Route::get('/calonAnakBinaan', [CalonAnakBinaanController::class, 'calonanakbinaanIndex'])->name('calonanakbinaanIndex');
+    Route::put('/calonAnakBinaan/{data_keluarga_id}', [CalonAnakBinaanController::class, 'update'])->name('calonanakbinaanValidasi');
     Route::get('/calonAnakBinaanDetail/{id}', [CalonAnakBinaanController::class, 'showDetail'])->name('calonAnakBinaanView');
     Route::get('/calonAnakBinaanStore', [CalonAnakBinaanController::class, 'updated'])->name('calonAnakBinaanStore');
     Route::get('/calonAnakBinaanEdit', [CalonAnakBinaanController::class, 'edited'])->name('calonAnakBinaanEdit');

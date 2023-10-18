@@ -37,7 +37,7 @@
                         <div class="col-lg-6 mt-2">
                             <h5 class="float-end mt-3">
                                 <a class="" href="{{ route('admin.dashboard') }}">Home</a>
-                                    / 
+                                    /
                                 <a href="">Data Calon Anak Binaan</a>
                             </h5>
                         </div>
@@ -89,8 +89,8 @@
                 url : "{{ url('admin/calonAnakBinaan') }}",
                 columns: [
                     { data: 'id', name: 'id' },
-                    { data: 'nama_lengkap_anak', name: 'nama_lengkap_anak' },
-                    { data: 'ttla', name: 'ttla' },
+                    { data: 'nama_lengkap', name: 'nama_lengkap' },
+                    { data: 'TTL', name: 'TTL' },
                     { data: 'shelter', name: 'shelter' },
                     { data: 'action', name: 'action', orderable: false },
                 ],
@@ -102,17 +102,24 @@
                 }
             });
 
-            
+
         });
 
-        //menampilkan detail data keluarga
-        function showDetail(id){
-            // Mendapatkan URL dengan menggunakan route() function dari Laravel
-            var url = "{{ route('admin.calonAnakBinaanView', ':id') }}";
-            url = url.replace(':id', id);
-            
-            // Redirect ke halaman baru
-            window.location.href = url;
+        function editFunction(data_keluarga_id) {
+            $.ajax({
+              url: "calonAnakBinaan/" + data_keluarga_id,
+              type: 'PUT',
+              data: data_keluarga_id,
+              success: function() {
+                var oTable = $('#calonAnakBinaan').DataTable();
+                oTable.ajax.reload(false);
+              }
+          })
+        }
+
+        function detailFunction(id) {
+            // Navigate to the view page with the record's ID as a query parameter
+            window.location.href = "{{ url('admin/calonAnakBinaanDetail/') }}/" + id;
         }
 </script>
 

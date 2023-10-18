@@ -2,124 +2,67 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\anak;
 use App\Models\Ayah;
-use App\Models\Anak;
+use App\Models\calonAnakBinaan;
 use App\Models\DataKeluarga;
 use App\Models\Ibu;
 use App\Models\Wali;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use RealRashid\SweetAlert\Facades\Alert; 
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CalonAnakBinaanController extends Controller
 {
     public function calonanakbinaanIndex(Request $request)
     {
         if (request()->ajax()) {
-            $data = DataKeluarga::select(
-                'data_keluargas.*',
-                'anaks.id_anaks as id_anaks',
-                'anaks.nama_lengkap as nama_lengkap_anak',
-                'anaks.nama_panggilan as nama_panggilan_anak',
-                'anaks.tempat_lahir as tempat_lahir_anak',
-                'anaks.tanggal_lahir as tanggal_lahir_anak',
-                'anaks.nama_sekolah as nama_sekolah_anak',
-                'anaks.nama_madrasah as nama_madrasah_anak',
-                'anaks.hobby as hobby_anak',
-                'anaks.cita_cita as cita_cita_anak',
-                'ayahs.*',
-                'ibus.*',
-                'walis.*',
-                )
-            ->leftJoin('ayahs', 'data_keluargas.id', '=', 'ayahs.data_keluarga_id')
-            ->leftJoin('ibus', 'data_keluargas.id', '=', 'ibus.data_keluarga_id')
-            ->leftJoin('walis', 'data_keluargas.id', '=', 'walis.data_keluarga_id')
-            ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id');
+            $data = DataKeluarga::select('data_keluargas.*','anaks.tempat_lahir as tempat_lahir_calon_anak', 'anaks.tanggal_lahir as tanggal_lahir_calon_anak', 'ayahs.*', 'anaks.*')
+                ->leftJoin('ayahs', 'data_keluargas.id', '=', 'ayahs.data_keluarga_id')
+                ->leftJoin('ibus', 'data_keluargas.id', '=', 'ibus.data_keluarga_id')
+                ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
+                ->where('anaks.status_binaan', 0)
+                ->get();;
 
             return datatables($data)
-                ->addColumn('ttla', function ($data) {
-                    return $data->tempat_lahir_anak . ', ' . $data->tanggal_lahir_anak;
+                ->addColumn('TTL', function ($data) {
+                    return $data->tempat_lahir_calon_anak . ', ' . $data->tanggal_lahir_calon_anak;
                 })
                 ->addColumn('action', 'DataCalonAnakBinaan.CalonAnakBinaan-action')
                 ->rawColumns(['action'])
                 ->addIndexColumn()
                 ->make(true);
-        }   
+        }
 
         return view('DataCalonAnakBinaan.CalonAnakBinaan');
     }
 
-    public function showDetail(string $id):View
+    public function showDetail(string $id)
     {
-        $dataKel = DataKeluarga::select(
-            'data_keluargas.*',
-            'anaks.*',
-            'anaks.id_anaks as id_anaks',
-            'anaks.nama_lengkap as nama_lengkap_anak',
-            'anaks.nama_panggilan as nama_panggilan_anak',
-            'anaks.tempat_lahir as tempat_lahir_anak',
-            'anaks.tanggal_lahir as tanggal_lahir_anak',
-            'anaks.nama_sekolah as nama_sekolah_anak',
-            'anaks.nama_madrasah as nama_madrasah_anak',
-            'anaks.hobby as hobby_anak',
-            'anaks.cita_cita as cita_cita_anak',
-            'ayahs.*',
-            'ibus.*',
-            'walis.*',
-            )
-        ->leftJoin('ayahs', 'data_keluargas.id', '=', 'ayahs.data_keluarga_id')
-        ->leftJoin('ibus', 'data_keluargas.id', '=', 'ibus.data_keluarga_id')
-        ->leftJoin('walis', 'data_keluargas.id', '=', 'walis.data_keluarga_id')
-        ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')->find($id);
 
-        $dataAnak = Anak::where('data_keluarga_id', $id)->first();
+        $dataKel = DataKeluarga::find($id);
+
+        $dataCalonAnak = anak::where('data_keluarga_id', $id)->first();
+
         $dataIbu = Ibu::where('data_keluarga_id', $id)->first();
         $dataAyah = Ayah::where('data_keluarga_id', $id)->first();
         $dataWali = Wali::where('data_keluarga_id', $id)->first();
 
         return view('DataCalonAnakBinaan.CalonAnakBinaan-view',
-                    compact(
-                        'dataKel',
-                        'dataIbu',
-                        'dataAyah',
-                        'dataAnak',
-                        'dataWali'
-                        )
-                    );
-    }
-
-    // public function updated(Request $request, $id) {
-    //     $dataKeluarga = DataKeluarga::find($id);
-
-    //     $dataKeluarga->update($request->all());
-
-    //     return response()->json(['success' => true]);
-    // }
-
-    public function edited(Request $request) {
-        $where = array('id' => $request->id);
-        $tabelKel = DataKeluarga::where($where)->first();
-        $tabeldata = Anak::where('data_keluarga_id', $where)->first();
-
-        return Response()->json($tabelKel, $tabeldata);
-    }
-    
-    public function updated(Request $request) {
-        $dataKeluarga = DataKeluarga::updateOrCreate([
-            // "kacab" => $request->kacab,
-            // "no_kk" => $request->no_kk,
-            // "anak_ke" => $request->anak_ke,
-            // "alamat_kk" => $request->alamat_kk,
-            // "kepala_keluarga" => $request->kepala_keluarga,
-            // "wilayah_binaan" => $request->wilayah_binaan,
-            // "shelter" => $request->shelter,
-            // "jarak_ke_shelter" => $request->jarak_ke_shelter,
-            // "no_telp" => $request->no_telp,
-            // "no_rek" => $request->no_rek
+        [
+            'dataKeluarga' => $dataKel,
+            'dataIbu' => $dataIbu,
+            'dataAyah' => $dataAyah,
+            'dataCalonAnakBinaan' => $dataCalonAnak,
+            'dataWali' => $dataWali
         ]);
+    }
 
-        $keluargaID = $dataKeluarga->id;
+
+    public function updated(Request $request, $id)
+    {
+        $dataKel = DataKeluarga::find($id);
 
         Anak::updateOrCreate([
             "data_keluarga_id" => $keluargaID,
@@ -179,6 +122,15 @@ class CalonAnakBinaanController extends Controller
         ];
 
         return redirect()->route('admin.calonanakbinaanIndex')->with('alert', $alert);
+    }
+
+    public function update(Request $request, $data_keluarga_id)
+    {
+        $data = anak::find($data_keluarga_id);
+
+        $data->status_binaan = 1;
+
+        $data->save();
     }
 
 }
