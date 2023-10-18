@@ -29,7 +29,7 @@
       <div class="container-fluid">
           <div class="card">
             <div class="card-body">
-                <h5 class="card-title ml-2">Nama : {{ $dataKel ? $dataKel->nama_lengkap_anak : 'Kosong' }}</h5>
+                <h5 class="card-title ml-2">Nama : {{ $dataCalonAnak ? $dataCalonAnak->nama_lengkap_calon_anak : 'Kosong' }}</h5>
                 <div class="float-right">
                   <a href="" class="btn btn-info mx-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-badge-fill" viewBox="0 0 16 16">
@@ -75,7 +75,7 @@
                       <div class="cardrounded">
                         <div class="card-body">
                           <div class="list-group">
-                            <p class="list-group-item">{{ $dataKel ? $dataKel->nama_lengkap_anak : 'Kosong' }}</p>
+                            <p class="list-group-item">{{ $dataCalonAnak ? $dataCalonAnak->nama_lengkap_calon_anak : 'Kosong' }}</p>
                 
                             <p class="list-group-item">
                               <i class="bi bi-person-badge-fill"></i>
@@ -121,19 +121,19 @@
                                 </div>
                                 <div class="col-sm-6">
                                   <div class="float-start">
-                                    : {{ $dataKel ? $dataKel->nama_lengkap_anak : 'Kosong' }}
+                                    : {{ $dataKel ? $dataKel->shelter : 'Kosong' }}
                                   </div>
                                 </div>
                               </div>
                               <div class="row">
                                 <div class="col-sm-6">
                                   <div class="float-end">
-                                    Nama Panggilan
+                                    Nama Pamggilan
                                   </div>
                                 </div>
                                 <div class="col-sm-6">
                                   <div class="float-start">
-                                    : {{ $dataKel ? $dataKel->nama_panggilan_anak : 'Kosong' }}
+                                    : {{ $dataCalonAnak ? $dataCalonAnak->nama_panggilan_calon_anak : 'Kosong' }}
                                   </div>
                                 </div>
                               </div>
@@ -146,7 +146,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                   <div class="float-start">
-                                    : {{ $dataKel ? $dataKel->tempat_lahir_anak : 'Kosong' }}, {{ $dataKel ? $dataKel->tanggal_lahir_anak : 'Kosong' }}
+                                    : {{ $dataCalonAnak ? $dataCalonAnak->tempat_lahir_calon_anak : 'Kosong' }}, {{ $dataCalonAnak ? $dataCalonAnak->tanggal_lahir_calon_anak : 'Kosong' }}
                                   </div>
                                 </div>
                               </div>
@@ -154,12 +154,12 @@
                               <div class="row">
                                 <div class="col-sm-6">
                                   <div class="float-end">
-                                    Nama Sekolah :
+                                    Nama Pamggilan :
                                   </div>
                                 </div>
                                 <div class="col-sm-6">
                                   <div class="float-start">
-                                    {{ $dataKel ? $dataKel->nama_sekolah_anak : 'Kosong' }}
+                                    {{ $dataCalonAnak ? $dataCalonAnak->nama_panggilan_calon_anak : 'Kosong' }}
                                   </div>
                                 </div>
                               </div>
@@ -178,12 +178,12 @@
                               <div class="row">
                                 <div class="col-sm-6">
                                   <div class="float-end">
-                                    Hobby :
+                                    Nama Pamggilan :
                                   </div>
                                 </div>
                                 <div class="col-sm-6">
                                   <div class="float-start">
-                                    {{ $dataKel ? $dataKel->hobby_anak : 'Kosong' }}
+                                    {{ $dataCalonAnak ? $dataCalonAnak->nama_panggilan_calon_anak : 'Kosong' }}
                                   </div>
                                 </div>
                               </div>
@@ -207,7 +207,7 @@
                             </div>
                           </div>
                           <div class="container" style="display: flex; justify-content: center;">
-                              <a href="{{ route('admin.AnakBinaan') }}" class="btn btn-primary">Kembali</a>
+                              <a href="{{ route('admin.tabeldata') }}" class="btn btn-primary">Kembali</a>
                           </div>
                       </div>
                   </div>

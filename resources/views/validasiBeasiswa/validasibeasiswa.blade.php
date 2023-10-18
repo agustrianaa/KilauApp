@@ -52,7 +52,7 @@
                 { data: 'kelas_sekolah', name: 'kelas_sekolah'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ],
-            order: [[0, 'desc']]
+            order: [[0, 'asc']]
         })
 
         function validFunc(id){

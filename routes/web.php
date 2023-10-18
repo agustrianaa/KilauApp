@@ -67,7 +67,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], function(){
     Route::get('/calonAnakBinaan', [CalonAnakBinaanController::class, 'calonanakbinaanIndex'])->name('calonanakbinaanIndex');
     Route::get('/calonAnakBinaanDetail/{id}', [CalonAnakBinaanController::class, 'showDetail'])->name('calonAnakBinaanView');
-    Route::get('/calonAnakBinaanUpdate/{idKeluarga}', [CalonAnakBinaanController::class, 'updated'])->name('calonAnakBinaanUpdate');
+    Route::get('/calonAnakBinaanStore', [CalonAnakBinaanController::class, 'updated'])->name('calonAnakBinaanStore');
+    Route::get('/calonAnakBinaanEdit', [CalonAnakBinaanController::class, 'edited'])->name('calonAnakBinaanEdit');
 
     Route::get('/datakeluarga',[DatakeluargaController::class,'index'])->name('datakeluarga');
     Route::post('/save-datakeluarga',[DatakeluargaController::class,'store'])->name('save-datakeluarga');
