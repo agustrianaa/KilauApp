@@ -50,15 +50,25 @@ class ValidasiBeasiswaController extends Controller
             'status_binaan' => 'required|in:PB,BCPB,NPB',
         ]);
 
-        if($request->has('id')) {
-            $id = $request->input('id');
-            $status_binaan = Beasiswa::findOrFail($id);
+        
+        $idBeasiswa = $request->input('id');
+        $id_anak = Beasiswa::findOrFail('anak_id');
+
+        if($id_anak) {
+            $status_binaan = Beasiswa ::findOrFail($id_anak);
             $status_binaan->update($validasi);
-            return redirect()->route('admin.validasi',['id' => $id])->with('success', 'Data berhasil diperbarui');
+            return redirect()->route('admin.validasi',['id' => $idBeasiswa])->with('success', 'Data berhasil diperbarui');
         // } else {
-        //     tabeldata::create($validasi);
+        //     $beasiswa = new Beasiswa([
+        //         'id' => $idBeasiswa,
+        //         'status_binaan' => $validasi['status_binaan'],
+        //         'anak_id' => $id_anak->id, // Sesuaikan dengan nama kolom yang digunakan sebagai foreign key
+                
+        //     ]);
             
-        //     return redirect()->route('admin.validasi, $id')->with('success', 'Data berhasil diperbarui');
+            // $beasiswa->save();
+
+        // return redirect()->route('admin.validasi', ['id' => $beasiswa->id])->with('success', 'Data berhasil disimpan');
         }
 
     }

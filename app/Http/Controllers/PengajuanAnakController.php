@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Beasiswa;
 use App\Models\DataKeluarga;
 use App\Models\Ayah;
 use App\Models\Anak;
@@ -31,7 +32,7 @@ class PengajuanAnakController extends Controller
 
         $keluargaID = $dataKeluarga->id;
 
-        Anak::create([
+        $anak = Anak::create([
             "data_keluarga_id" => $keluargaID,
             "nama_lengkap" => $request->nama_lengkap_calon_anak,
             "nama_panggilan" => $request->nama_panggilan_calon_anak,
@@ -80,6 +81,11 @@ class PengajuanAnakController extends Controller
             "jumlah_tanggungan" => $request->jumlah_tanggungan_wali,
             "pendapatan" => $request->pendapatan_wali
         ]);
+        Beasiswa::create([
+            "anak_id" => $anak->id,
+            "status_binaan" => $request->status_binaan,
+        ]);
+
 
         return redirect()->route('admin.dashboard');
     }

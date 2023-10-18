@@ -21,7 +21,7 @@
                             <p class="text-muted text-center">Perempuan</p>
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>Nama</b><a class="float-right">{{$validasi->name}}</a>
+                                    <b>Nama</b><a class="float-right">{{$validasi->nama_lengkap}}</a>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Kelas</b> <a class="float-right">1</a>
@@ -43,7 +43,7 @@
                         </div> -->
                         <div class="card-body">
                             <h4>Apakah anak binaan ini telah memenuhi kriteria penerimaan beasiswa?</h4> <hr>
-                            <form method="POST" action="{{ route('admin.save-validasi') }}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('admin.save-validasi', ['id' => $id]) }}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="form-group">

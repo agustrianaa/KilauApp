@@ -8,6 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Beasiswa extends Model
 {
     use HasFactory;
-    public $tabel = 'beasiswa';
-    protected $fillable = ['status_binaan'];
+    protected $table = 'beasiswa';
+    protected $fillable = [
+        'anak_id',
+        'status_binaan'
+    ];
+
+    public function dataAnak()
+    {
+        return $this->hasOne('App\Models\Anak', 'anak_id', 'id');
+    }
 }

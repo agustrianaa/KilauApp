@@ -84,7 +84,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     // Validasi Beasiswa
     Route::get('/validasi-beasiswa', [ValidasiBeasiswaController::class, 'index'])->name('validasi-beasiswa');
     Route::get('/validasi/{id}', [ValidasiBeasiswaController::class, 'validation'])->name('validasi');
-    Route::put('/save-validasi', [ValidasiBeasiswaController::class, 'store'])->name('save-validasi');
+    Route::put('/save-validasi/{id}', [ValidasiBeasiswaController::class, 'store'])->name('save-validasi');
     Route::resource('/posts', \App\Http\Controllers\PostController::class);
     Route::resource('/acc', \App\Http\Controllers\AccController::class);
 });
