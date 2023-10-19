@@ -36,41 +36,33 @@ class ValidasiBeasiswaController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($anakId)
     {
-        //
+        $anak = Anak::find($anakId);
+        return view('validasiBeasiswa.validasi', compact('anak'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
+        
         $validasi = $request->validate([
             'status_binaan' => 'required|in:PB,BCPB,NPB',
         ]);
 
-        
         $idBeasiswa = $request->input('id');
-        $id_anak = Beasiswa::findOrFail('anak_id');
 
-        if($id_anak) {
-            $status_binaan = Beasiswa ::findOrFail($id_anak);
-            $status_binaan->update($validasi);
-            return redirect()->route('admin.validasi',['id' => $idBeasiswa])->with('success', 'Data berhasil diperbarui');
-        // } else {
-        //     $beasiswa = new Beasiswa([
-        //         'id' => $idBeasiswa,
-        //         'status_binaan' => $validasi['status_binaan'],
-        //         'anak_id' => $id_anak->id, // Sesuaikan dengan nama kolom yang digunakan sebagai foreign key
-                
-        //     ]);
-            
-            // $beasiswa->save();
+        $beasiswa = new Beasiswa([
+            'id' => $idBeasiswa,
+            'status_binaan' => $validasi['status_binaan'],
+            'anak_id' => $id,
+        ]);
 
-        // return redirect()->route('admin.validasi', ['id' => $beasiswa->id])->with('success', 'Data berhasil disimpan');
-        }
+        $beasiswa->save();
 
+        return redirect()->back()->with('success', 'Data beasiswa berhasil disimpan.');
     }
 
     /**
@@ -84,17 +76,31 @@ class ValidasiBeasiswaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit( $beasiswaAnakId, $anakId)
     {
-        //
+        $anak = Anak::find($anakId);
+        $beasiswaAnak = Beasiswa::find($beasiswaAnakId);
+        $beasiswaAnak = $anak->status_binaan;
+
+        $validasi = Beasiswa::all();
+        return view('validasiBeasiswa.validasi', compact('anak'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $anak = Beasiswa::find($id);
+
+        $request->validate([
+            'status_binaan' => 'required|in:PB,BCPB,NPB',
+        ]);
+    
+        $anak->status_binaan = $request->input('status_binaan');
+        $anak->save();
+    
+        return redirect()->back()->with('success', 'Data beasiswa berhasil diupdate.');
     }
 
     /**

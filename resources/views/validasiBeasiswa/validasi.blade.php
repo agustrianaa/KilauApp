@@ -43,9 +43,18 @@
                         </div> -->
                         <div class="card-body">
                             <h4>Apakah anak binaan ini telah memenuhi kriteria penerimaan beasiswa?</h4> <hr>
-                            <form method="POST" action="{{ route('admin.save-validasi', ['id' => $id]) }}" enctype="multipart/form-data">
-                                @csrf
+                            @php 
+
+                                $beasiswaAnak = \App\Models\Beasiswa::where('anak_id',$id)->first();
+                                $anak = App\Models\Anak::find('id_anaks');
+                            @endphp
+                            @if(isset($beasiswaAnak) && $beasiswaAnak->id)
+                                <form method="POST" action="{{ route('admin.update-validasi', ['id' => $beasiswaAnak->id]) }}" enctype="multipart/form-data">
                                 @method('PUT')
+                                @else
+                                <form method="POST" action="{{ route('admin.save-validasi', ['id' => $id])}}" enctype="multipart/form-data">
+                                @endif
+                                @csrf
                                 <div class="form-group">
                                     <div class="form-check">
                                         <input type="radio" name="status_binaan" class="form-check-input" id="pb" value="PB">
@@ -61,8 +70,12 @@
                                         <input type="radio" name="status_binaan" class="form-check-input" id="npb" value="NPB">
                                         <label for="" class="form-check-label" checked><h5>Tidak, tidak dapat menerima Beasiswa</h5> 'Non Penerima Beasiswa (NPB)'</label>
                                     </div>
-                                    <button type="submit" class="btn btn-success btn-sm">Validasi</button>
                                 </div>
+                                @if(isset($beasiswaAnak))
+                                    <button type="submit" class="btn btn-success btn-sm">Validasi</button>
+                                @else
+                                    <button type="submit" class="btn btn-success btn-sm">Validasi</button>
+                                @endif
                             </form>
                         </div>
                         
