@@ -74,6 +74,18 @@
                                             </div>
                                             <div class="row mb-2">
                                                 <div class="col-12 col-sm-4">
+                                                    <p class="text-sm-end">Jenis Kelamin :</p>
+                                                </div>
+                                                <div class="col-12 col-sm-8">
+                                                    <select class="form-select" id="jenis_kelamin_calon_anak" name="jenis_kelamin_calon_anak" required="">
+                                                            <option value="" disabled selected>-Pilih-</option>
+                                                            <option value="Laki-Laki">Laki-Laki</option>
+                                                            <option value="Perempuan">Perempuan</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-12 col-sm-4">
                                                     <p class="text-sm-end">Tempat Lahir :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
@@ -142,22 +154,8 @@
                                                     <input type="text" class="form-control" id="cita_cita" name="cita_cita" placeholder="Cita-cita...">
                                                 </div>
                                             </div>
-                                            <div class="row mb-2">
-                                                <div class="col-12 col-sm-4">
-                                                    <p class="text-sm-end">Status Binaan :</p>
-                                                </div>
-                                                <div class="col-12 col-sm-8">
-                                                    <input type="hidden" class="form-control" id="status_binaan" name="status_binaan" value="{{ 0 }}">
-                                                </div>
-                                            </div>
-                                            <div class="row mb-2">
-                                                <div class="col-12 col-sm-4">
-                                                    <p class="text-sm-end">Status Validasi :</p>
-                                                </div>
-                                                <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="status_validasi" name="status_validasi" placeholder="Status Validasi...">
-                                                </div>
-                                            </div>
+                                            <input type="hidden" class="form-control" id="status_binaan_anak" name="status_binaan_anak" value="{{ 0 }}">
+                                            <input type="hidden" class="form-control" id="status_beasiswa_anak" name="status_beasiswa_anak" value="{{ 'Belum Validasi' }}">
                                         </div>
                                     </div>
                                 </div>

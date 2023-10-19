@@ -130,7 +130,7 @@
                             <th>Nama Sekolah</th>
                             <th>Nama Madrasah</th>
                             <th>Hobby</th>
-                            <th>Cita-cita</th>
+                            <th>Status Beasiswa</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -246,12 +246,15 @@
                 { data: 'nama_sekolah_anak', name: 'nama_sekolah_anak'},
                 { data: 'nama_madrasah_anak', name: 'nama_madrasah_anak'},
                 { data: 'hobby_anak', name: 'hobby_anak'},
-                { data: 'cita_cita_anak', name: 'cita_cita_anak'},
+                { data: 'status_beasiswa', name: 'status_beasiswa'},
                 { data: 'action', name: 'action', orderable: false},
             ],
             order: [[0, 'asc']],
             paging: true,
-            pageLength: 10 // Menyeting jumlah entri yang ditampilkan menjadi 10
+            pageLength: 10, // Menyeting jumlah entri yang ditampilkan menjadi 10
+            language: {
+                "emptyTable": "Tabel database kosong..."
+            }
         });
 
         $('#resetfilters').click(function() {
@@ -284,6 +287,21 @@
     function viewFunc(id) {
       // Navigate to the view page with the record's ID as a query parameter
       window.location.href = "{{ url('admin/AnakBinaanview/') }}/" + id;
+    }
+
+    function ValidasiBeasiswa(id) {
+      // Navigate to the view page with the record's ID as a query parameter
+      window.location.href = "{{ url('admin/validasi-beasiswa') }}";
+    }
+
+    //menampilkan detail data keluarga
+    function detailDatakeluarga(id){
+      // Mendapatkan URL dengan menggunakan route() function dari Laravel
+      var url = "{{ route('admin.calonAnakBinaanDetail', ':id') }}";
+      url = url.replace(':id', id);
+      
+      // Redirect ke halaman baru
+      window.location.href = url;
     }
 
     function editFunc(id){

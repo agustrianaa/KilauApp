@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Anak;
-use App\Models\Beasiswa;
+use App\Models\StatusAnak;
 use Illuminate\Http\Request;
 
 class ValidasiBeasiswaController extends Controller
@@ -52,7 +52,7 @@ class ValidasiBeasiswaController extends Controller
 
         if($request->has('id')) {
             $id = $request->input('id');
-            $status_binaan = Beasiswa::findOrFail($id);
+            $status_binaan = StatusAnak::findOrFail($id);
             $status_binaan->update($validasi);
             return redirect()->route('admin.validasi',['id' => $id])->with('success', 'Data berhasil diperbarui');
         // } else {

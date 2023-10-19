@@ -42,23 +42,13 @@ Route::post('/register-proses',[LoginController::class,'register_proses'])->name
 
 Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], function(){
     Route::get('/menu',[HomeController::class,'menu'])->name('menu');
-
     Route::get('/dashboard',[HomeController::class,'dashboard'])->name('dashboard');
-
     Route::get('/user',[HomeController::class,'index'])->name('index');
-
     Route::get('/create',[HomeController::class,'create'])->name('user.create');
     Route::post('/store',[HomeController::class,'store'])->name('user.store');
-
     Route::get('/edit/{id}',[HomeController::class,'edit'])->name('user.edit');
     Route::put('/update/{id}',[HomeController::class,'update'])->name('user.update');
     Route::delete('/delete/{id}',[HomeController::class,'delete'])->name('user.delete');
-
-    Route::get('/a',[HomeController::class,'a'])->name('a');
-
-    Route::get('/b',[AnakBinaanController::class,'totaldata'])->name('b');
-
-    Route::get('/b',[AnakBinaanController::class,'b'])->name('b');
 
     Route::get('/PengajuanForm',[PengajuanAnakController::class,'pengajuanForm'])->name('pengajuanForm');
     Route::post('/PengajuanFormStore',[PengajuanAnakController::class, 'pengajuanFormStore'])->name('pengajuanFormStore');
@@ -66,16 +56,18 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     
     Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], function(){
     Route::get('/calonAnakBinaan', [CalonAnakBinaanController::class, 'calonanakbinaanIndex'])->name('calonanakbinaanIndex');
-    Route::put('/calonAnakBinaan/{data_keluarga_id}', [CalonAnakBinaanController::class, 'update'])->name('calonanakbinaanValidasi');
-    Route::get('/calonAnakBinaanDetail/{id}', [CalonAnakBinaanController::class, 'showDetail'])->name('calonAnakBinaanView');
-    Route::get('/calonAnakBinaanStore', [CalonAnakBinaanController::class, 'updated'])->name('calonAnakBinaanStore');
-    Route::get('/calonAnakBinaanEdit', [CalonAnakBinaanController::class, 'edited'])->name('calonAnakBinaanEdit');
+    Route::post('/save-calonAnakBinaan',[CalonAnakBinaanController::class,'store'])->name('save-calonAnakBinaan');
+    Route::put('/calonAnakBinaan/{anak_id}', [CalonAnakBinaanController::class, 'update'])->name('calonanakbinaanValidasi');
+    Route::get('/calonAnakBinaanDetail/{id}', [CalonAnakBinaanController::class, 'showDetail'])->name('calonAnakBinaanDetail');
+    Route::put('/calonAnakBinaanEdit/{idKeluarga}', [CalonAnakBinaanController::class, 'updated'])->name('calonAnakBinaanStore');
+    Route::put('/calonAnakBinaanAyah/{idAyah}', [CalonAnakBinaanController::class, 'updatedAyah'])->name('calonAnakBinaanAyah');
+    Route::post('/calonAnakBinaanDelete', [CalonAnakBinaanController::class, 'destroyd'])->name('calonAnakBinaanDelete');
 
-    Route::get('/datakeluarga',[DatakeluargaController::class,'index'])->name('datakeluarga');
-    Route::post('/save-datakeluarga',[DatakeluargaController::class,'store'])->name('save-datakeluarga');
-    Route::post('/delete-datakeluarga',[DatakeluargaController::class,'destroy'])->name('delete-datakeluarga');
-    Route::get('/detail-datakeluarga/{id}',[DatakeluargaController::class,'show'])->name('detail-datakeluarga');
-    Route::put('/updatekeluarga/{idKeluarga}',[DatakeluargaController::class,'update'])->name('updatekeluarga');
+    // Route::get('/datakeluarga',[DatakeluargaController::class,'index'])->name('datakeluarga');
+    // Route::post('/save-datakeluarga',[DatakeluargaController::class,'store'])->name('save-datakeluarga');
+    // Route::post('/delete-datakeluarga',[DatakeluargaController::class,'destroy'])->name('delete-datakeluarga');
+    // Route::get('/detail-datakeluarga/{id}',[DatakeluargaController::class,'show'])->name('detail-datakeluarga');
+    // Route::put('/updatekeluarga/{idKeluarga}',[DatakeluargaController::class,'update'])->name('updatekeluarga');
 
     Route::get('/AnakBinaan', [AnakBinaanController::class, 'index'])->name('AnakBinaan');
     Route::post('/AnakBinaanstore', [AnakBinaanController::class, 'store'])->name('AnakBinaanstore');
