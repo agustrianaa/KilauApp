@@ -1,397 +1,483 @@
 @extends('layout.main')
 @section('content')
-
-<link rel="stylesheet" href="{{ asset('css/calonAnakBinaan-view.css') }}">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <div class="content-header">
-      <div class="container-fluid">
-          <div class="row mb-2">
-              <div class="col-sm-6">
-                  <h1 class="m-0">Detail Anak</h1>
-              </div>
-              <div class="col-sm-6">
-                  <ol class="breadcrumb float-sm-right">
-                      <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                      <li class="breadcrumb-item active">Detail Anak</li>
-                  </ol>
-              </div>
-          </div><!-- End row -->
-      </div><!-- End container-fluid -->
-  </div>
-  <!-- End content-header -->
-
-  <!-- Main content -->
-  <section class="content">
-      <div class="container-fluid">
-          <div class="card">
-            <div class="card-body">
-                <h5 class="card-title ml-2">Nama : {{ $dataCalonAnak ? $dataCalonAnak->nama_lengkap_calon_anak : 'Kosong' }}</h5>
-                <div class="float-right">
-                  <a href="" class="btn btn-info mx-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-badge-fill" viewBox="0 0 16 16">
-                      <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm4.5 0a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm5 2.755C12.146 12.825 10.623 12 8 12s-4.146.826-5 1.755V14a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-.245z"/>
-                    </svg>
-                    Tombol 1
-                  </a>
-                  <a href="" class="btn btn-warning mx-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hammer" viewBox="0 0 16 16">
-                      <path d="M9.972 2.508a.5.5 0 0 0-.16-.556l-.178-.129a5.009 5.009 0 0 0-2.076-.783C6.215.862 4.504 1.229 2.84 3.133H1.786a.5.5 0 0 0-.354.147L.146 4.567a.5.5 0 0 0 0 .706l2.571 2.579a.5.5 0 0 0 .708 0l1.286-1.29a.5.5 0 0 0 .146-.353V5.57l8.387 8.873A.5.5 0 0 0 14 14.5l1.5-1.5a.5.5 0 0 0 .017-.689l-9.129-8.63c.747-.456 1.772-.839 3.112-.839a.5.5 0 0 0 .472-.334z"/>
-                    </svg>
-                    Tombol 2
-                  </a>
-                  <a href="" class="btn btn-success mx-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
-                      <path fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0z"/>
-                      <path d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1h-.003zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195l.054.012z"/>
-                      <path d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083c.058-.344.145-.678.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1H1z"/>
-                      <path d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 5.982 5.982 0 0 1 3.13-1.567z"/>
-                    </svg>
-                    Tombol 3
-                  </a>
+    <div class="content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <h2 class="text-center">DATA DETAIL KELUARGA YA WOI</h2>
+                <hr>
+                <!-- CARD DATA ANAK -->
+                <div class="col-md-3">
+                    <div class="card card-primary card-outline">
+                        <div class="card-body box-profile">
+                            <div class="text-center">
+                                <img class="profile-user-img img-fluid img-circle" src="https://i.pinimg.com/564x/69/87/1f/69871fc9c6ddf63be8262c48297d7136.jpg" alt="User profile picture">
+                            </div>
+                            <p class="text-muted text-center">Perempuan</p>
+                            <ul class="list-group list-group-unbordered mb-3">
+                                <li class="list-group-item">
+                                    <b>Kelas</b> <a class="float-right">{{ $dataAnak ? $dataAnak->nama_lengkap : 'Data Kosong' }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Shelter</b> <a class="float-right">Banyuasih</a>
+                                </li>
+                            </ul>
+                            <!-- Untuk ke data lengkap anak -->
+                            
+                        </div>
+                    </div>
                 </div>
 
-              <hr class="ml-1 mr-1 mt-5">
-              <div class="containera">
-                <div class="left-boxa">
-
-                  <div class="container-fluid">
-                    <div class="top-lefta">
-                      <div class="cardrounded">
-                        <div class="card-body">
-                          <div class="gambar">
-                            <img src="{{ asset('images/LogoKilau2.png') }}" alt="">
-                          </div>
+                <!-- Data Keluarga, Ayah, Ibu -->
+                <div class="col-md-9">
+                    <div class="card" >
+                        <div class="card-body text-center">
+                            <h3>Data Keluarga </h3>
+                            <h6>No KK : {{$dataKeluarga->no_kk}}</h6>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="container-fluid">
-                    <div class="bottom-lefta">
-                      <div class="cardrounded">
-                        <div class="card-body">
-                          <div class="list-group">
-                            <p class="list-group-item">{{ $dataCalonAnak ? $dataCalonAnak->nama_lengkap_calon_anak : 'Kosong' }}</p>
-                
-                            <p class="list-group-item">
-                              <i class="bi bi-person-badge-fill"></i>
-                              SD</p>
-                
-                            <p class="list-group-item">
-                              <i class="bi bi-hammer"></i>
-                              SDN</p>
-                
-                            <p class="list-group-item">
-                              <i class="bi bi-cash-coin"></i>
-                              Kelas 5</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-                
-                <div class="right-boxa">
-                  <div class="">
-                      <div class="">
-                          <div class="row">
-                              <div class="col-md-2">
-                                  <div class="tombol" data-target="#card-data-anak" id="data-anak" onclick="showTable('card-data-anak')">Data Anak</div>
-                              </div>
-                              <div class="col-md-2">
-                                  <div class="tombol" id="data-pendidikan" onclick="showTable('card-data-pendidikan')">Data Pendidikan</div>
-                              </div>
-                              <div class="col-md-2">
-                                  <div class="tombol" id="data-keluarga" onclick="showTable('card-data-keluarga')">Data Keluarga</div>
-                              </div>
-                          </div>
-
-                          <div class="card tampilan" id="card-data-anak" style="display: none;">
-                            <div class="card-body">
-                              <div class="row">
-                                <div class="col-sm-6">
-                                  <div class="float-end">
-                                    Nama
-                                  </div>
-                                </div>
-                                <div class="col-sm-6">
-                                  <div class="float-start">
-                                    : {{ $dataKel ? $dataKel->shelter : 'Kosong' }}
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-sm-6">
-                                  <div class="float-end">
-                                    Nama Pamggilan
-                                  </div>
-                                </div>
-                                <div class="col-sm-6">
-                                  <div class="float-start">
-                                    : {{ $dataCalonAnak ? $dataCalonAnak->nama_panggilan_calon_anak : 'Kosong' }}
-                                  </div>
-                                </div>
-                              </div>
-                              <hr>
-                              <div class="row">
-                                <div class="col-sm-6">
-                                  <div class="float-end">
-                                    Tempat tanggal lahir
-                                  </div>
-                                </div>
-                                <div class="col-sm-6">
-                                  <div class="float-start">
-                                    : {{ $dataCalonAnak ? $dataCalonAnak->tempat_lahir_calon_anak : 'Kosong' }}, {{ $dataCalonAnak ? $dataCalonAnak->tanggal_lahir_calon_anak : 'Kosong' }}
-                                  </div>
-                                </div>
-                              </div>
-                              <hr>
-                              <div class="row">
-                                <div class="col-sm-6">
-                                  <div class="float-end">
-                                    Nama Pamggilan :
-                                  </div>
-                                </div>
-                                <div class="col-sm-6">
-                                  <div class="float-start">
-                                    {{ $dataCalonAnak ? $dataCalonAnak->nama_panggilan_calon_anak : 'Kosong' }}
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-sm-12">
-                                  <div class="float-end">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_dataKeluarga" data-id="{{ $dataIbu ? $dataKel->id : '' }}"><i class="bi bi-pencil-square"></i>Edit</button>
-                                  </div>
-                                </div>
-                              </div>
+                        <div class="card card-primary card-tabs">
+                            <div class="card-header p-0 pt-1">
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#tab_dataKeluarga" data-toggle="pill" role="tab" aria-selected="true" >Data Keluarga</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#tab_dataAyah" data-toggle="pill" role="tab" aria-selected="false">Data Ayah</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#tab_dataIbu" data-toggle="pill" role="tab" aria-selected="false">Data Ibu</a>
+                                    </li>
+                                </ul> 
                             </div>
-                          </div>
+                            <div class="card-body" >
+                                <div class="tab-content" >
+                                    <!-- Data Keluarga -->
+                                    <div class="tab-pane fade show active" id="tab_dataKeluarga" aria-labelledby="custom-tabs-two-home-tab">
+                                        <div class="post">
+                                            <div class="user-block">
+                                                <p>Ini adalah data keluarga yang lengkap</p>
+                                                <ul class="list-group list-group-unbordered mb-3">
+                                                <li class="list-group-item">
+                                                        <b>Kantor Cabang</b> <a id="kantor_cabang" name="kantor_cabang" class="float-right">{{ $dataKeluarga ? $dataKeluarga->kacab : 'Data Kosong' }}</a>
+                                                    </li>
+                                                    <li class="list-group-item">
+                                                        <b>Wilayah Binaan</b> <a id="wilayah_binaan_anak" name="wilayah_binaan_anak" class="float-right">{{ $dataKeluarga ? $dataKeluarga->wilayah_binaan : 'Data Kosong' }}</a>
+                                                    </li>
+                                                    <li class="list-group-item">
+                                                        <b>Shelter</b> <a id="shelter_anak" name="shelter_anak" class="float-right">{{ $dataKeluarga ? $dataKeluarga->shelter : 'Data Kosong' }}</a>
+                                                    </li>
+                                                    <li class="list-group-item">
+                                                        <b>No Telp</b> <a id="nomor_telepon" name="nomor_telepon" class="float-right">{{ $dataKeluarga ? $dataKeluarga->no_telp : 'Data Kosong' }}</a>
+                                                    </li>
+                                                    <li class="list-group-item">
+                                                        <b>No Rek</b> <a id="nomor_rekening" name="nomor_rekening" class="float-right">{{ $dataKeluarga ? $dataKeluarga->no_rek : 'Data Kosong' }}</a>
+                                                    </li>
+                                                </ul>
+                                                <button type="button" class="btn btn-primary float-right btn-lg" data-toggle="modal" data-target="#modal_dataKeluarga" data-id="{{ $dataIbu ? $dataKeluarga->id : '' }}"><i class="fas fa-edit"></i>Edit</button>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                          <div class="card tampilan" id="card-data-pendidikan" style="display: none;">
-                            <div class="card-body">
-                              <div class="row">
-                                <div class="col-sm-6">
-                                  <div class="float-end">
-                                    Nama Pamggilan :
-                                  </div>
+                                    <!-- Modal Data Keluarga -->
+                                    <div class="modal fade" id="modal_dataKeluarga" tabindex="-1" role="dialog" aria-labelledby="LabelKeluarga">
+                                        <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+                                                    <h4 class="modal-title" id="LabelKeluarga">Edit Data Ayah</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <!-- Isi konten modal di sini -->
+                                                    <form >
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <input type="hidden" name="id" id="id" value="{{ $dataAyah ? $dataAyah->id_ayah : '' }}">
+                                                        <div class="form-group">
+                                                            <label for="no_kk" class="control-label">No Kartu Keluarga</label>
+                                                            <div class="col-sm-12">
+                                                                <input type="text" class="form-control" id="no_kk" name="no_kk" placeholder="Masukkan No KK..." value="{{ $dataKeluarga ? $dataKeluarga->no_kk: 'Data Kosong' }}"  maxlength="50" required="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="name" class="control-label">Kantor Cabang</label>
+                                                            <div class="col-sm-12">
+                                                                <input type="text" class="form-control" id="kacab" name="kacab" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->kacab : 'Data Kosong' }}" maxlength="50" required="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="name" class="control-label">Wilayah Binaan</label>
+                                                            <div class="col-sm-12">
+                                                                <input type="text" class="form-control" id="wilayah_binaan" name="wilayah_binaan" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->wilayah_binaan : 'Data Kosong' }}" maxlength="50" required="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="control-label">Shelter</label>
+                                                            <div class="col-sm-12">
+                                                                <input type="text" class="form-control" id="shelter" name="shelter" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->shelter : 'Data Kosong' }}" required="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="control-label">No Telepon</label>
+                                                            <div class="col-sm-12">
+                                                                <input type="text" class="form-control" id="no_telp" name="no_telp" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->no_telp : 'Data Kosong' }}" required="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="control-label">No Rekening</label>
+                                                            <div class="col-sm-12">
+                                                                <input type="text" class="form-control" id="no_rek" name="no_rek" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->no_rek : 'Data Kosong' }}" required="">
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                                                    <button type="button" data-dismiss="modal" class="btn btn-primary" id="btn-simpan-keluarga">Simpan</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+
+                                    <!-- Data Ayah -->
+                                    <div class="tab-pane fade" id="tab_dataAyah">
+                                        <p>Ini adalah data Ayah yang lengkap</p>
+                                        <ul class="list-group list-group-unbordered mb-3">
+                                            <li class="list-group-item">
+                                                <b>NIK</b> <a class="float-right">{{ $dataAyah ? $dataAyah->nik_ayah : 'Data Kosong' }}</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>Nama Lengkap</b> <a class="float-right">{{ $dataAyah ? $dataAyah->nama_ayah : 'Data Kosong' }}</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>Tempat, Tanggal Lahir</b> <a class="float-right">{{ $dataAyah ? $dataAyah->tempat_lahir : 'Data Kosong' }}, {{ $dataAyah ? $dataAyah->tanggal_lahir : 'Data Kosong' }}</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>Agama</b> <a class="float-right">{{ $dataAyah ? $dataAyah->agama : 'Data Kosong' }}</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>Alamat</b> <a class="float-right">{{ $dataAyah ? $dataAyah->alamat : 'Data Kosong' }}</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>Penghasilan</b> <a class="float-right">Field masih kosong</a>
+                                            </li>
+                                        </ul>
+                                        <button type="button" class="btn btn-primary float-right btn-lg" data-toggle="modal" data-target="#modal_dataAyah"><i class="fas fa-edit"></i>Edit</button>
+                                    </div>
+                                    
+                                    <!-- Modal Data Ayah -->
+                                    <div class="modal fade" id="modal_dataAyah" tabindex="-1" role="dialog" aria-labelledby="LabelAyah">
+                                        <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+                                                    <h4 class="modal-title" id="LabelAyah">Edit Data Ayah</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <!-- Isi konten modal di sini -->
+                                                    <form >
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <input type="hidden" name="id_ayah" id="id_ayah" value="{{ $dataAyah ? $dataAyah->id_ayah : '' }}">
+                                                        <div class="form-group">
+                                                            <label for="no_kk" class="control-label">NIK</label>
+                                                            <div class="col-sm-12">
+                                                                <input type="text" class="form-control" id="nik_ayah" name="nik_ayah" placeholder="Masukkan NIK..." value="{{ $dataAyah ? $dataAyah->nik_ayah : 'Data Kosong' }}"  maxlength="50" required="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="name" class="control-label">Nama Lengkap</label>
+                                                            <div class="col-sm-12">
+                                                                <input type="text" class="form-control" id="nama_ayah" name="nama_ayah" placeholder="" value="{{ $dataAyah ? $dataAyah->nama_ayah : 'Data Kosong' }}" maxlength="50" required="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <label class="control-label">Tempat, Tanggal Lahir</label>
+                                                                <div class="col-sm-8">
+                                                                    <input type="text" class="form-control" id="tempat_lahirAyah" name="tempat_lahirAyah" placeholder=""value="{{ $dataAyah ? $dataAyah->tempat_lahir : 'Data Kosong' }}" required="">
+                                                                </div>
+                                                                <div class="col-psm-4">
+                                                                    <input type="date" class="form-control" id="tanggal_lahirAyah" name="tanggal_lahirAyah" placeholder="" value="{{ $dataAyah ? $dataAyah->tanggal_lahir : 'Data Kosong' }}" required="">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="control-label">Agama</label>
+                                                            <div class="col-sm-12">
+                                                                <select class="form-control" id="agamaAyah" name="agamaAyah" aria-placeholder="pilih agama" required>
+                                                                    <option value="" disabled {{ $dataAyah->agama == '' ? 'selected' : '' }}>Pilih Agama</option>
+                                                                    <option value="Islam" {{ $dataAyah->agama == 'Islam' ? 'selected' : '' }}>Islam</option>
+                                                                    <option value="Kristen" {{ $dataAyah->agama == 'Kristen' ? 'selected' : '' }}>Kristen</option>
+                                                                    <option value="Katolik" {{ $dataAyah->agama == 'Katolik' ? 'selected' : '' }}>Katolik</option>
+                                                                    <option value="Hindu" {{ $dataAyah->agama == 'Hindu' ? 'selected' : '' }}>Hindu</option>
+                                                                    <option value="Buddha" {{ $dataAyah->agama == 'Buddha' ? 'selected' : '' }}>Buddha</option>
+                                                                    <option value="Konghucu" {{ $dataAyah->agama == 'Konghucu' ? 'selected' : '' }}>Konghucu</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="control-label">Alamat</label>
+                                                            <div class="col-sm-12">
+                                                                <input type="text" class="form-control" id="alamatAyah" name="alamatAyah" placeholder="" value="{{ $dataAyah ? $dataAyah->alamat : 'Data Kosong' }}" required="">
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                                                    <button type="button" data-dismiss="modal" class="btn btn-primary" id="btn-simpan-ayah">Simpan</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!----------------------------------------------------------------------------------  ------------------------------------------------------------------------------------------------------------------------->
+
+                                    <!-- Data Ibu -->
+                                    <div class="tab-pane fade" id="tab_dataIbu">
+                                        <p>Ini adalah data Ibu yang lengkap</p>
+                                        <ul class="list-group list-group-unbordered mb-3">
+                                            <li class="list-group-item">
+                                                <b>NIK</b> <a class="float-right">{{ $dataIbu ? $dataIbu->nik_ibu : 'Data Kosong' }}</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>Nama Lengkap</b> <a class="float-right">{{ $dataIbu ? $dataIbu->nama_ibu : 'Data Kosong' }}</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>Tempat, Tanggal Lahir</b> <a class="float-right">{{ $dataIbu ? $dataIbu->tempat_lahir : 'Data Kosong' }}, {{ $dataIbu ? $dataIbu->tanggal_lahir : 'Data Kosong' }}</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>Agama</b> <a class="float-right">{{ $dataIbu ? $dataIbu->agama : 'Data Kosong' }}</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>Alamat</b> <a class="float-right">{{ $dataIbu ? $dataIbu->alamat : 'Data Kosong' }}</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>Penghasilan</b> <a class="float-right">Field Belum ada</a>
+                                            </li>
+                                        </ul>
+                                        <button type="button" class="btn btn-primary float-right btn-lg" data-toggle="modal" data-target="#modal_dataIbu" data-id="{{ $dataIbu ? $dataIbu->id_ibu : '' }}"><i class="fas fa-edit"></i>Edit</button>
+                                    </div>
+
+                                    <!-- Modal Data Ibu -->
+                                    <div class="modal fade" id="modal_dataIbu" tabindex="-1" role="dialog" aria-labelledby="LabelIbu">
+                                        <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+                                                    <h4 class="modal-title" id="LabelIbu">Edit Data Ibu</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <!-- Isi konten modal di sini -->
+                                                    <form >
+                                                        @csrf
+                                                        @method('PUT')
+                                                    <input type="hidden" name="id_ibu" id="id_ibu" value="{{ $dataIbu ? $dataIbu->id_ibu : '' }}">
+                                                        <div class="form-group">
+                                                            <label for="no_kk" class="control-label">NIK</label>
+                                                            <div class="col-sm-12">
+                                                                <input type="text" class="form-control" id="nik_ibu" name="nik_ibu" placeholder="Masukkan NIK..." value="{{ $dataIbu ? $dataIbu->nik_ibu : 'Data Kosong' }}"  maxlength="50" required="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="name" class="control-label">Nama Lengkap</label>
+                                                            <div class="col-sm-12">
+                                                                <input type="text" class="form-control" id="nama_ibu" name="nama_ibu" placeholder="" value="{{ $dataIbu ? $dataIbu->nama_ibu : 'Data Kosong' }}" maxlength="50" required="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <label class="control-label">Tempat, Tanggal Lahir</label>
+                                                                <div class="col-sm-8">
+                                                                    <input type="text" class="form-control" id="tempat_lahirIbu" name="tempat_lahirIbu" placeholder=""value="{{ $dataIbu ? $dataIbu->tempat_lahir : 'Data Kosong' }}" required="">
+                                                                </div>
+                                                                <div class="col-psm-4">
+                                                                    <input type="date" class="form-control" id="tanggal_lahirIbu" name="tanggal_lahirIbu" placeholder="" value="{{ $dataIbu ? $dataIbu->tanggal_lahir : 'Data Kosong' }}" required="">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="control-label">Agama</label>
+                                                            <div class="col-sm-12">
+                                                                <select class="form-control" id="agamaIbu" name="agamaIbu" aria-placeholder="pilih agama" required>
+                                                                    <option value="" disabled selected>Pilih Agama</option>
+                                                                    <option value="Islam">Islam</option>
+                                                                    <option value="Kristen">Kristen</option>
+                                                                    <option value="Katolik">Katolik</option>
+                                                                    <option value="Hindu">Hindu</option>
+                                                                    <option value="Buddha">Buddha</option>
+                                                                    <option value="Konghucu">Konghucu</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="control-label">Alamat</label>
+                                                            <div class="col-sm-12">
+                                                                <input type="text" class="form-control" id="alamatIbu" name="alamatIbu" placeholder="" value="{{ $dataIbu ? $dataIbu->alamat : 'Data Kosong' }}" required="">
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                                                    <button type="button" data-dismiss="modal" class="btn btn-primary" id="btn-simpan-ibu">Simpan</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
-                                <div class="col-sm-6">
-                                  <div class="float-start">
-                                    {{ $dataCalonAnak ? $dataCalonAnak->nama_panggilan_calon_anak : 'Kosong' }}
-                                  </div>
-                                </div>
-                              </div>
                             </div>
-                          </div>
-
-                          <div class="card tampilan" id="card-data-keluarga" style="display: none;">
-                            <div class="card-body">
-                              <div class="row">
-                                <div class="col-sm-6">
-                                  <div class="float-end">
-                                    Test3 :
-                                  </div>
-                                </div>
-                                <div class="col-sm-6">
-                                  <div class="float-start">
-                                    test3
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="container" style="display: flex; justify-content: center;">
-                              <a href="{{ route('admin.tabeldata') }}" class="btn btn-primary">Kembali</a>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-
-              <div class="modal fade" id="modal_dataKeluarga" tabindex="-1" role="dialog" aria-labelledby="LabelKeluarga">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title" id="LabelKeluarga">Edit Data Keluarga</h4>
-                        </div>
-                        <div class="modal-body">
-                            <!-- Isi konten modal di sini -->
-                            <form>
-                            @csrf
-                            @method('PUT')
-                            <input type="hidden" name="id" id="id" value="{{ $dataKel ? $dataKel->id : '' }}">
-                                <div class="form-group">
-                                    <label for="no_kk" class="control-label">No Kartu Keluarga</label>
-                                    <div class="col-sm-12">
-                                        <input type="text" class="form-control" id="no_kk" name="no_kk" placeholder="Masukkan No KK..." value="{{ $dataKel ? $dataKel->no_kk: 'Data Kosong' }}"  maxlength="50" required="">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="name" class="control-label">Kantor Cabang</label>
-                                    <div class="col-sm-12">
-                                        <input type="text" class="form-control" id="kacab" name="kacab" placeholder="" value="{{ $dataKel ? $dataKel->kacab : 'Data Kosong' }}" maxlength="50" required="">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="name" class="control-label">Wilayah Binaan</label>
-                                    <div class="col-sm-12">
-                                        <input type="text" class="form-control" id="wilbin" name="wilbin" placeholder="" value="{{ $dataKel ? $dataKel->wilbin : 'Data Kosong' }}" maxlength="50" required="">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">Shelter</label>
-                                    <div class="col-sm-12">
-                                        <input type="text" class="form-control" id="shelter" name="shelter" placeholder="" value="{{ $dataKel ? $dataKel->shelter : 'Data Kosong' }}" required="">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">No Telepon</label>
-                                    <div class="col-sm-12">
-                                        <input type="text" class="form-control" id="no_telp" name="no_telp" placeholder="" value="{{ $dataKel ? $dataKel->no_telp : 'Data Kosong' }}" required="">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">No Rekening</label>
-                                    <div class="col-sm-12">
-                                        <input type="text" class="form-control" id="no_rek" name="no_rek" placeholder="" value="{{ $dataKel ? $dataKel->no_rek : 'Data Kosong' }}" required="">
-                                    </div>
-                                </div>
-                                
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-                            <button type="button" data-dismiss="modal" class="btn btn-primary" id="btn-simpan-keluarga">Simpan</button>
                         </div>
                     </div>
                 </div>
             </div>
-
-              <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-
-              <script>
-                    $(document).ready(function(){
-                      $.ajaxSetup({
-                          headers: {
-                              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                          }
-                      });
-
-                      // JS DATA KELUARGA
-                      var idKeluarga;
-                      $('#modal_dataKeluarga').on('show.bs.modal', function(event){
-                          var button = $(event.relatedTarget);
-                          idKeluarga = button.data('id');
-                      });
-
-                      function getDataKeluarga(){
-                          var no_kk = $('#no_kk').val();
-                          var kacab = $('#kacab').val();
-                          var wilbin = $('#wilbin').val();
-                          var shelter = $('#shelter').val();
-                          var no_telp = $('#no_telp').val();
-                          var no_rek = $('#no_rek').val();
-
-                          $.ajax({
-                              method : 'PUT',
-                              url : "/admin/calonAnakBinaanUpdate/" + idKeluarga,
-                              data: {
-                                  no_kk : no_kk,
-                                  kacab : kacab,
-                                  wilbin : wilbin,
-                                  shelter : shelter,
-                                  no_telp : no_telp,
-                                  no_rek : no_rek,
-                              },
-                              success: function (data){
-                                  console.log(data);
-                                  $('#modal_dataKeluarga').modal('hide'); 
-                              },
-                              error: function (error){
-                                  console.log('Error', error)
-                              }
-                          })
-                      }
-                      $('#btn-simpan-keluarga').on('click', function(){
-                          getDataKeluarga();
-                      });
-                      
-                    });
-              </script>
-
-              <script>
-                // Mengambil semua elemen dengan class "card tampilan"
-                var cards = document.querySelectorAll('.card.tampilan');
-              
-                // Menyembunyikan semua elemen card tampilan
-                function hideAllCards() {
-                  cards.forEach(function(card) {
-                    card.style.display = 'none';
-                  });
-                }
-              
-                // Menampilkan elemen card sesuai dengan ID yang di klik
-                function showTable(cardId) {
-                  hideAllCards(); // Terlebih dahulu sembunyikan semua card
-                  var card = document.getElementById(cardId);
-                  if (card) {
-                    card.style.display = 'block';
-                  }
-                }
-              
-                // Menampilkan card pertama saat halaman dimuat
-                var firstCard = cards[0];
-                if (firstCard) {
-                  firstCard.style.display = 'block';
-                }
-              </script>
-              
-
-              <script>
-                $(document).ready(function () {
-                  // Ambil URL saat ini
-                  var currentUrl = window.location.href;
-              
-                  // Loop melalui setiap tautan di sidebar
-                  $(".col-md-2 .tombol").each(function () {
-                    // Jika URL saat ini cocok dengan tautan ini, tandai sebagai aktif
-                    if (currentUrl === $(this).attr("data-target")) {
-                      $(this).closest(".tombol").addClass("active");
-                    }
-                  });
-              
-                  // Tambahkan event handler saat tautan di sidebar diklik
-                  $(".col-md-2 .tombol").on("click", function () {
-                    // Hapus kelas "active" dari semua item
-                    $(".col-md-2 .tombol").removeClass("active");
-              
-                    // Tambahkan kembali kelas "active" ke item yang sedang diklik
-                    $(this).closest(".tombol").addClass("active");
-                  });
-                });
-              </script>
-              
-              
-            </div>
-            </div>
-          </div>
         </div>
+    </div>
 
-  </section><!-- End Main content -->
-</div><!-- End content-wrapper -->
-<!-- /.content-wrapper -->
+<script>
+    $(document).ready(function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
-<!-- Control Sidebar -->
-<aside class="control-sidebar control-sidebar-dark">
-  <!-- Control sidebar content goes here -->
-</aside>
-<!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
+        // JS DATA KELUARGA
+        var idKeluarga;
+        $('#modal_dataKeluarga').on('show.bs.modal', function(event){
+            var button = $(event.relatedTarget);
+            idKeluarga = button.data('id');
+        });
+
+        function getDataKeluarga(){
+            var no_kk = $('#no_kk').val();
+            var kacab = $('#kacab').val();
+            var wilayah_binaan = $('#wilayah_binaan').val();
+            var shelter = $('#shelter').val();
+            var no_telp = $('#no_telp').val();
+            var no_rek = $('#no_rek').val();
+
+            $.ajax({
+                method : 'PUT',
+                url : "/admin/calonAnakBinaanEdit/" + idKeluarga,
+                data: {
+                    no_kk : no_kk,
+                    kacab : kacab,
+                    wilayah_binaan : wilayah_binaan,
+                    shelter : shelter,
+                    no_telp : no_telp,
+                    no_rek : no_rek,
+                },
+                success: function (data) {
+                    console.log(data);
+                    $('#modal_dataKeluarga').modal('hide');
+                    // Memuat ulang halaman
+                    location.reload();
+                },
+                error: function (error){
+                    console.log('Error', error)
+                }
+            })
+        }
+        $('#btn-simpan-keluarga').on('click', function(){
+            getDataKeluarga();
+        });
+
+        /* -------------------------------------------------------------------------------------------------------------------------------- */
+        //JS AYAH
+        var idAyah;
+
+        $('#modal_dataAyah').on('show.bs.modal', function(event){
+            var button = $(event.relatedTarget);
+            idAyah = button.data('id');
+        });
+
+        function getDataAyah(){
+            var idAyah = $('#id_ayah').val();
+            var nik_ayah = $('#nik_ayah').val();
+            var nama_ayah = $('#nama_ayah').val();
+            var tempat_lahir = $('#tempat_lahirAyah').val();
+            var tanggal_lahir = $('#tanggal_lahirAyah').val();
+            var agama = $('#agamaAyah').val();
+            var alamat = $('#alamatAyah').val();
+
+            $.ajax({
+                method: 'PUT',
+                url: "/admin/calonAnakBinaanEdit/" + idAyah,
+                data: {
+                    nik_ayah : nik_ayah,
+                    nama_ayah : nama_ayah,
+                    tempat_lahir :tempat_lahir,
+                    tanggal_lahir : tanggal_lahir,
+                    agama : agama,
+                    alamat :alamat,
+                },
+                success: function (data){
+                    console.log(data);
+                    $('#modal_dataAyah').modal('hide');
+                    // Memuat ulang halaman
+                    location.reload();
+                },
+                error: function (error){
+                    console.log('Error', error)
+                }
+            });
+        }
+
+        $('#btn-simpan-ayah').on('click', function(){
+            getDataAyah();
+        });
+
+        /* -------------------------------------------------------------------------------------------------------------------------------- */
+        // JS IBU
+        var idIbu;
+
+        $('#modal_dataIbu').on('show.bs.modal', function(event){
+            var button = $(event.relatedTarget);
+            idIbu = button.data('id');
+        });
+
+        // Bisa dibilang mengambil data yaa ges yaa
+        function getDataIbu(){
+            var idIbu = $('#id_ibu').val();
+            var nik_ibu = $('#nik_ibu').val();
+            var nama_ibu = $('#nama_ibu').val();
+            var tempat_lahir = $('#tempat_lahirIbu').val();
+            var tanggal_lahir = $('#tanggal_lahirIbu').val();
+            var agama = $('#agamaIbu').val();
+            var alamat = $('#alamatIbu').val();
+
+            $.ajax({
+                method: 'PUT',
+                url: "/admin/calonAnakBinaanEdit/" + idIbu,
+                data: {
+                    nik_ibu : nik_ibu,
+                    nama_ibu : nama_ibu,
+                    tempat_lahir : tempat_lahir,
+                    tanggal_lahir : tanggal_lahir,
+                    agama : agama,
+                    alamat : alamat
+                },
+                success: function (data){
+                    console.log(data);
+                    $('#modal_dataIbu').modal('hide'); 
+                },
+                error: function (error){
+                    console.log('Error', error)
+                }
+            });
+        }
+
+        // fungsi tombol simpan dalam model
+        $('#btn-simpan-ibu').on('click', function(){
+            getDataIbu();
+        });
+    });
+</script>
 
 @endsection
