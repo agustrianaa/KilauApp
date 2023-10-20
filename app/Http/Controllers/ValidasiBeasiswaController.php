@@ -57,7 +57,7 @@ class ValidasiBeasiswaController extends Controller
             return redirect()->route('admin.validasi',['id' => $id])->with('success', 'Data berhasil diperbarui');
         // } else {
         //     tabeldata::create($validasi);
-            
+
         //     return redirect()->route('admin.validasi, $id')->with('success', 'Data berhasil diperbarui');
         }
 
@@ -82,10 +82,34 @@ class ValidasiBeasiswaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
+    public function update(Request $request, $id_anaks)
+{
+    // Gunakan first() untuk mengembalikan satu objek
+    $validasi = StatusAnak::where('anak_id', $id_anaks)->first();
+
+    // Pastikan objek ditemukan sebelum memproses pembaruan
+    if ($validasi) {
+        $validasi->update([
+            'status_beasiswa' => $request->status_beasiswa
+        ]);
     }
+
+    return redirect()->route('admin.dashboard');
+}
+// public function update(Request $request, $id_anaks)
+//     {
+//         $validasi = StatusAnak::where( 'anak_id', $id_anaks)->get();
+
+//         $validasi->update([
+//             'anak_id' => $validasi->anak_id,
+//             'status_binaan' => $validasi->status_binaan,
+//             'status_beasiswa' => $request->status_beasiswa
+//         ]);
+
+
+
+//         return redirect()->route('admin.dashboard');
+//     }
 
     /**
      * Remove the specified resource from storage.

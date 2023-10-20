@@ -30,12 +30,12 @@
                                     <b>Shelter</b> <a class="float-right">Banyuasih</a>
                                 </li>
                             </ul>
-                            <a href="{{ route('admin.AnakBinaanview', ['id' => $id]) }}" class="btn btn-primary btn-block"><b>Detail</b></a>
-                                
+                            {{-- <a href="{{ route('admin.AnakBinaanview', ['id' => $id]) }}" class="btn btn-primary btn-block"><b>Detail</b></a> --}}
+
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-md-9">
                     <div class="card card-primary">
                         <!-- <div class="card-header p-2">
@@ -43,34 +43,43 @@
                         </div> -->
                         <div class="card-body">
                             <h4>Apakah anak binaan ini telah memenuhi kriteria penerimaan beasiswa?</h4> <hr>
-                            <form method="POST" action="{{ route('admin.save-validasi') }}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('admin.save', $validasi->id_anaks) }}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
+
+                                {{-- <input type="text" id="bacot" value="{{ $validasi->id_anaks }}"> --}}
                                 <div class="form-group">
+                                    <label for="status_beasiswa" id="status_beasiswa"></label>
                                     <div class="form-check">
-                                        <input type="radio" name="status_binaan" class="form-check-input" id="pb" value="PB">
-                                        <label class="form-check-label" checked><h5>Ya, Layak Menerima Beasiswa</h5> 'Penerimaan Beasiswa(PB)'</label>
+                                        <input type="radio" name="status_beasiswa" class="form-check-input" id="pb" value="PB"><h5>Ya, Layak Menerima Beasiswa</h5> 'Penerimaan Beasiswa(PB)'
                                     </div>
                                     <br>
                                     <div class="form-check">
-                                        <input type="radio" name="status_binaan" class="form-check-input" id="bcpb" value="BCPB">
-                                        <label for="" class="form-check-label" checked><h5>Ditangguhkan, Data Belum Lengkap</h5> 'Calon Bakal Penerimaan Beasiswa (CBPB)'</label>
+                                        <input type="radio" name="status_beasiswa" class="form-check-input" id="bcpb" value="BCPB"><h5>Ditangguhkan, Data Belum Lengkap</h5> 'Calon Bakal Penerimaan Beasiswa (CBPB)'
                                     </div>
                                     <br>
                                     <div class="form-check">
-                                        <input type="radio" name="status_binaan" class="form-check-input" id="npb" value="NPB">
-                                        <label for="" class="form-check-label" checked><h5>Tidak, tidak dapat menerima Beasiswa</h5> 'Non Penerima Beasiswa (NPB)'</label>
+                                        <input type="radio" name="status_beasiswa" class="form-check-input" id="npb" value="NPB"><h5>Tidak, tidak dapat menerima Beasiswa</h5> 'Non Penerima Beasiswa (NPB)'
                                     </div>
+
+                                    {{-- <input type="hidden" name="anak_id" id="anak_id" value="{{ old('anak_id', $validasi->anak_id) }}">
+                                    <input type="hidden" name="status_binaan" id="status_binaan" value="{{ old('status_binaan', $validasi->status_binaan) }}"> --}}
                                     <button type="submit" class="btn btn-success btn-sm">Validasi</button>
                                 </div>
                             </form>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
         </div>
     </section>
 </div>
+
+{{-- <script>
+    var bacot = $("#bacot").val();
+
+    console.log(bacot);
+</script> --}}
 
 @endsection
