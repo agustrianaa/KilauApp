@@ -92,6 +92,8 @@ class PengajuanAnakController extends Controller
             'title' => 'Berhasil disimpan!',
             'text' => 'Data disimpan pada tabel Calon Anak Binaan!',
             'icon' => 'success',
+            'timer' => '2000',
+            'showConfirmButton' => 'false',
         ];
 
         return redirect()->route('admin.dashboard')->with('alert', $alert);

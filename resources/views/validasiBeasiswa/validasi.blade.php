@@ -21,16 +21,19 @@
                             <p class="text-muted text-center">Perempuan</p>
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>Nama</b><a class="float-right">{{$validasi->name}}</a>
+                                    <b>Nama</b><a class="float-right">{{$validasi->nama_lengkap_anak}}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Kelas</b> <a class="float-right">1</a>
+                                    <b>Sekolah</b> <a class="float-right">{{$validasi->nama_sekolah}}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Shelter</b> <a class="float-right">Banyuasih</a>
+                                    <b>Kelas</b> <a class="float-right">{{$validasi->kelas_sekolah}}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Shelter</b> <a class="float-right">{{$validasi->shelter}}</a>
                                 </li>
                             </ul>
-                            <a href="{{ route('admin.AnakBinaanview', ['id' => $id]) }}" class="btn btn-primary btn-block"><b>Detail</b></a>
+                            <a href="{{ route('admin.calonAnakBinaanDetail', ['id' => $id]) }}" class="btn btn-primary btn-block"><b>Detail</b></a>
                                 
                         </div>
                     </div>
