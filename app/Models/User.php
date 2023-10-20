@@ -62,4 +62,10 @@ class User extends Authenticatable
     public function orangtua(){
         return $this->hasOne('App\Models\Orangtua');
     }
+
+    public function dataAnak()
+    {
+        return $this->hasOne(Anak::class);
+    }
+
 }

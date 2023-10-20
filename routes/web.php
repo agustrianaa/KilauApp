@@ -6,7 +6,7 @@ use App\Http\Controllers\CalonAnakBinaanController;
 use App\Http\Controllers\DatakeluargaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
-// use App\Http\Controllers\PostController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\PengajuanAnakController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\dataSurveyController;
@@ -80,6 +80,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::get('/validasi/{id}', [ValidasiBeasiswaController::class, 'validation'])->name('validasi');
     Route::put('/save-validasi', [ValidasiBeasiswaController::class, 'store'])->name('save-validasi');
     Route::put('/save/{id_anaks}', [ValidasiBeasiswaController::class, 'update'])->name('save');
+    Route::post('validasi/{id}/save-validasi', [ValidasiBeasiswaController::class, 'store'])->name('save-validasi');
+    Route::put('/update-validasi/{id}', [ValidasiBeasiswaController::class, 'update'])->name('update-validasi');
     Route::resource('/posts', \App\Http\Controllers\PostController::class);
     Route::resource('/acc', \App\Http\Controllers\AccController::class);
 });
