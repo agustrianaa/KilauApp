@@ -12,13 +12,22 @@
                             <div class="text-center">
                                 <img class="profile-user-img img-fluid img-circle" src="https://i.pinimg.com/564x/69/87/1f/69871fc9c6ddf63be8262c48297d7136.jpg" alt="User profile picture">
                             </div>
-                            <p class="text-muted text-center">Perempuan</p>
+                            <p class="text-muted text-center">{{ $dataAnak ? $dataAnak->nama_lengkap : 'Data Kosong' }}</p>
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>Kelas</b> <a class="float-right">{{ $dataAnak ? $dataAnak->nama_lengkap : 'Data Kosong' }}</a>
+                                    <b>Kelamin</b> <a class="float-right">{{ $dataAnak ? $dataAnak->jenis_kelamin : 'Data Kosong' }}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Shelter</b> <a class="float-right">Banyuasih</a>
+                                    <b>TTL</b> <a class="float-right">{{ $dataAnak ? $dataAnak->tempat_lahir : 'Data Kosong' }}, {{ $dataAnak ? $dataAnak->tanggal_lahir : 'Data Kosong' }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Sekolah</b> <a class="float-right">{{ $dataAnak ? $dataAnak->nama_sekolah : 'Data Kosong' }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Kelas</b> <a class="float-right">{{ $dataAnak ? $dataAnak->kelas_sekolah : 'Data Kosong' }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Shelter</b> <a class="float-right">{{ $dataAnak ? $dataAnak->nama_lengkap : 'Data Kosong' }}</a>
                                 </li>
                             </ul>
                             <!-- Untuk ke data lengkap anak -->

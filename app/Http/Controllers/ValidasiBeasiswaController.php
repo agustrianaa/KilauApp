@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Anak;
+use App\Models\DataKeluarga;
 use App\Models\StatusAnak;
 use Illuminate\Http\Request;
 
@@ -28,7 +29,25 @@ class ValidasiBeasiswaController extends Controller
 
     public function validation(Request $request, $id)
     {
-        $validasi = Anak::find($id);
+        $validasi = DataKeluarga::select(
+            'data_keluargas.*',
+            'anaks.nama_lengkap as nama_lengkap_anak', 
+            'anaks.tempat_lahir as tempat_lahir_anak', 
+            'anaks.tanggal_lahir as tanggal_lahir_anak', 
+            'ayahs.*',
+            'ayahs.nama as nama_ayah', 
+            'anaks.*',
+            'ibus.*', 
+            'walis.*',
+            'status_anaks.*',
+            )
+            ->leftJoin('ayahs', 'data_keluargas.id', '=', 'ayahs.data_keluarga_id')
+            ->leftJoin('ibus', 'data_keluargas.id', '=', 'ibus.data_keluarga_id')
+            ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
+            ->leftJoin('walis', 'data_keluargas.id', '=', 'walis.data_keluarga_id')
+            ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
+            ->get()
+            ->find($id);
 
         return view('validasiBeasiswa.validasi', compact('id', 'validasi'));
     }
@@ -62,6 +81,20 @@ class ValidasiBeasiswaController extends Controller
         }
 
     }
+
+    public function saveValidasi(Request $request) {
+        // Lakukan validasi data yang diterima dari request
+        // Simpan data sesuai dengan nilai yang diterima ($request->status_binaan)
+        
+        // Contoh: Simpan ke database
+        $id = $request->id_anaks; // Ambil ID dari baris data
+        $dataKeluarga = StatusAnak::find($id); // Gantilah ini dengan cara yang sesuai untuk mendapatkan objek DataKeluarga
+        $dataKeluarga->status_binaan = $request->status_binaan;
+        $dataKeluarga->save();
+        
+        return response()->json(['message' => 'Data berhasil disimpan.']);
+    }
+    
 
     /**
      * Display the specified resource.
