@@ -15,7 +15,26 @@ class ValidasiBeasiswaController extends Controller
     public function index()
     {
         if(request()->ajax()){
-            return datatables()->of(Anak::select('*'))
+            return datatables()->of(DataKeluarga::select(
+                'data_keluargas.*',
+                'anaks.nama_lengkap as nama_lengkap_anak', 
+                'anaks.tempat_lahir as tempat_lahir_anak', 
+                'anaks.tanggal_lahir as tanggal_lahir_anak', 
+                'ayahs.*',
+                'ayahs.nama as nama_ayah', 
+                'anaks.*',
+                'ibus.*', 
+                'walis.*',
+                'status_anaks.*',
+                )
+                ->leftJoin('ayahs', 'data_keluargas.id', '=', 'ayahs.data_keluarga_id')
+                ->leftJoin('ibus', 'data_keluargas.id', '=', 'ibus.data_keluarga_id')
+                ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
+                ->leftJoin('walis', 'data_keluargas.id', '=', 'walis.data_keluarga_id')
+                ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
+                ->where('status_anaks.status_beasiswa', 'Belum Validasi')
+                ->get()
+                )
             ->addIndexColumn()
             ->addColumn('action', function($row){
                 $id = $row->id_anaks; // Ambil ID dari baris data
@@ -50,6 +69,21 @@ class ValidasiBeasiswaController extends Controller
             ->find($id);
 
         return view('validasiBeasiswa.validasi', compact('id', 'validasi'));
+    }
+
+    public function update(Request $request, $id_anaks)
+    {
+        // Gunakan first() untuk mengembalikan satu objek
+        $validasi = StatusAnak::where('anak_id', $id_anaks)->first();
+    
+        // Pastikan objek ditemukan sebelum memproses pembaruan
+        if ($validasi) {
+            $validasi->update([
+                'status_beasiswa' => $request->status_beasiswa
+            ]);
+        }
+    
+        return redirect()->route('admin.AnakBinaan');
     }
 
     /**
@@ -111,38 +145,6 @@ class ValidasiBeasiswaController extends Controller
     {
         //
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id_anaks)
-{
-    // Gunakan first() untuk mengembalikan satu objek
-    $validasi = StatusAnak::where('anak_id', $id_anaks)->first();
-
-    // Pastikan objek ditemukan sebelum memproses pembaruan
-    if ($validasi) {
-        $validasi->update([
-            'status_beasiswa' => $request->status_beasiswa
-        ]);
-    }
-
-    return redirect()->route('admin.dashboard');
-}
-// public function update(Request $request, $id_anaks)
-//     {
-//         $validasi = StatusAnak::where( 'anak_id', $id_anaks)->get();
-
-//         $validasi->update([
-//             'anak_id' => $validasi->anak_id,
-//             'status_binaan' => $validasi->status_binaan,
-//             'status_beasiswa' => $request->status_beasiswa
-//         ]);
-
-
-
-//         return redirect()->route('admin.dashboard');
-//     }
 
     /**
      * Remove the specified resource from storage.

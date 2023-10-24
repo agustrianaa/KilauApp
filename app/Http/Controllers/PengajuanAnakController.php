@@ -57,7 +57,7 @@ class PengajuanAnakController extends Controller
             "jumlah_tanggungan" => $request->jumlah_tanggungan_ayah,
             "pendapatan" => $request->pendapatan_ayah,
             "agama" => $request->agama,
-            "alamat" => $request->alamat
+            "alamat" => $request->alamat_ayah
         ]);
         Ibu::create([
             "data_keluarga_id" => $keluargaID,
@@ -68,7 +68,7 @@ class PengajuanAnakController extends Controller
             "pekerjaan" => $request->pekerjaan_ibu,
             "pendapatan" => $request->pendapatan_ibu,
             "agama" => $request->agama,
-            "alamat" => $request->alamat
+            "alamat" => $request->alamat_ibu
         ]);
         Wali::create([
             "data_keluarga_id" => $keluargaID,
