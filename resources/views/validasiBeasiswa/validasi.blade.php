@@ -21,7 +21,7 @@
                             <p class="text-muted text-center">Perempuan</p>
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>Nama</b><a class="float-right">{{$validasi->nama_lengkap_anak}}</a>
+                                    <b>Nama</b><a class="float-right">{{$validasi->nama_lengkap}}</a>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Sekolah</b> <a class="float-right">{{$validasi->nama_sekolah}}</a>
@@ -47,9 +47,18 @@
                         </div> -->
                         <div class="card-body">
                             <h4>Apakah anak binaan ini telah memenuhi kriteria penerimaan beasiswa?</h4> <hr>
-                            <form method="POST" action="{{ route('admin.save', $validasi->id_anaks) }}" enctype="multipart/form-data">
-                                @csrf
+                            @php 
+
+                                $beasiswaAnak = \App\Models\Beasiswa::where('anak_id',$id)->first();
+                                $anak = App\Models\Anak::find('id_anaks');
+                            @endphp
+                            @if(isset($beasiswaAnak) && $beasiswaAnak->id)
+                                <form method="POST" action="{{ route('admin.update-validasi', ['id' => $beasiswaAnak->id]) }}" enctype="multipart/form-data">
                                 @method('PUT')
+                                @else
+                                <form method="POST" action="{{ route('admin.save-validasi', ['id' => $id])}}" enctype="multipart/form-data">
+                                @endif
+                                @csrf
 
                                 <div class="form-group">
                                     <label for="status_beasiswa" id="status_beasiswa"></label>
@@ -64,9 +73,15 @@
                                     <div class="form-check">
                                         <input type="radio" name="status_beasiswa" class="form-check-input" id="npb" value="NPB"><h5>Tidak, tidak dapat menerima Beasiswa</h5> 'Non Penerima Beasiswa (NPB)'
                                     </div>
-
-                                    <button type="submit" class="btn btn-success btn-sm">Validasi</button>
+                                    
+                              <button type="submit" class="btn btn-success btn-sm">Validasi</button>
+                              
                                 </div>
+                                @if(isset($beasiswaAnak))
+                                    <button type="submit" class="btn btn-success btn-sm">Validasi</button>
+                                @else
+                                    <button type="submit" class="btn btn-success btn-sm">Validasi</button>
+                                @endif
                             </form>
                         </div>
 

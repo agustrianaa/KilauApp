@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Anak;
-use App\Models\DataKeluarga;
-use App\Models\StatusAnak;
+use App\Models\Beasiswa;
 use Illuminate\Http\Request;
 
 class ValidasiBeasiswaController extends Controller
@@ -48,25 +47,7 @@ class ValidasiBeasiswaController extends Controller
 
     public function validation(Request $request, $id)
     {
-        $validasi = DataKeluarga::select(
-            'data_keluargas.*',
-            'anaks.nama_lengkap as nama_lengkap_anak', 
-            'anaks.tempat_lahir as tempat_lahir_anak', 
-            'anaks.tanggal_lahir as tanggal_lahir_anak', 
-            'ayahs.*',
-            'ayahs.nama as nama_ayah', 
-            'anaks.*',
-            'ibus.*', 
-            'walis.*',
-            'status_anaks.*',
-            )
-            ->leftJoin('ayahs', 'data_keluargas.id', '=', 'ayahs.data_keluarga_id')
-            ->leftJoin('ibus', 'data_keluargas.id', '=', 'ibus.data_keluarga_id')
-            ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
-            ->leftJoin('walis', 'data_keluargas.id', '=', 'walis.data_keluarga_id')
-            ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
-            ->get()
-            ->find($id);
+        $validasi = Anak::find($id);
 
         return view('validasiBeasiswa.validasi', compact('id', 'validasi'));
     }
@@ -89,46 +70,34 @@ class ValidasiBeasiswaController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($anakId)
     {
-        //
+        $anak = Anak::find($anakId);
+        return view('validasiBeasiswa.validasi', compact('anak'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
+        
         $validasi = $request->validate([
             'status_binaan' => 'required|in:PB,BCPB,NPB',
         ]);
 
-        if($request->has('id')) {
-            $id = $request->input('id');
-            $status_binaan = StatusAnak::findOrFail($id);
-            $status_binaan->update($validasi);
-            return redirect()->route('admin.validasi',['id' => $id])->with('success', 'Data berhasil diperbarui');
-        // } else {
-        //     tabeldata::create($validasi);
+        $idBeasiswa = $request->input('id');
 
-        //     return redirect()->route('admin.validasi, $id')->with('success', 'Data berhasil diperbarui');
-        }
+        $beasiswa = new Beasiswa([
+            'id' => $idBeasiswa,
+            'status_binaan' => $validasi['status_binaan'],
+            'anak_id' => $id,
+        ]);
 
+        $beasiswa->save();
+
+        return redirect()->back()->with('success', 'Data beasiswa berhasil disimpan.');
     }
-
-    public function saveValidasi(Request $request) {
-        // Lakukan validasi data yang diterima dari request
-        // Simpan data sesuai dengan nilai yang diterima ($request->status_binaan)
-        
-        // Contoh: Simpan ke database
-        $id = $request->id_anaks; // Ambil ID dari baris data
-        $dataKeluarga = StatusAnak::find($id); // Gantilah ini dengan cara yang sesuai untuk mendapatkan objek DataKeluarga
-        $dataKeluarga->status_binaan = $request->status_binaan;
-        $dataKeluarga->save();
-        
-        return response()->json(['message' => 'Data berhasil disimpan.']);
-    }
-    
 
     /**
      * Display the specified resource.
@@ -141,9 +110,31 @@ class ValidasiBeasiswaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit( $beasiswaAnakId, $anakId)
     {
-        //
+        $anak = Anak::find($anakId);
+        $beasiswaAnak = Beasiswa::find($beasiswaAnakId);
+        $beasiswaAnak = $anak->status_binaan;
+
+        $validasi = Beasiswa::all();
+        return view('validasiBeasiswa.validasi', compact('anak'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, $id)
+    {
+        $anak = Beasiswa::find($id);
+
+        $request->validate([
+            'status_binaan' => 'required|in:PB,BCPB,NPB',
+        ]);
+    
+        $anak->status_binaan = $request->input('status_binaan');
+        $anak->save();
+    
+        return redirect()->back()->with('success', 'Data beasiswa berhasil diupdate.');
     }
 
     /**

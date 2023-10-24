@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Beasiswa;
 use App\Models\DataKeluarga;
 use App\Models\Ayah;
 use App\Models\Anak;
@@ -86,6 +87,11 @@ class PengajuanAnakController extends Controller
             "status_binaan" => $request->status_binaan_anak,
             "status_beasiswa" => $request->status_beasiswa_anak
         ]);
+        Beasiswa::create([
+            "anak_id" => $dataAnak->id,
+            "status_binaan" => $request->status_binaan,
+        ]);
+
 
         // Tambahkan kode SweetAlert2 sebelum redirect
         $alert = [

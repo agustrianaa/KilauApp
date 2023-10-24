@@ -34,9 +34,13 @@ class anak extends Model
     {
         return $this->belongsTo(DataKeluarga::class);
     }
-
     public function dataStatusAnak():HasOne
     {
         return $this->hasOne(StatusAnak::class);
+    }
+
+    public function beasiswa():BelongsTo
+    {
+        return $this->belongsTo('App\Models\Beasiswa', 'id');
     }
 }
