@@ -87,6 +87,15 @@
             </li>
 
             <li class="nav-item">
+                <a href="{{ route('admin.surveyAnak') }}" class="nav-link">
+                    <i class="bi bi-input-cursor-text"></i>{{-- icon --}}
+                    <p class="pl-1">
+                        Survey Anak
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a href="{{ url('datasurvey') }}" class="nav-link">
                     <i class="bi bi-clipboard2-plus-fill"></i>{{-- icon --}}
                     <p class="pl-1">

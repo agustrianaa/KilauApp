@@ -21,11 +21,7 @@
                             <p class="text-muted text-center">Perempuan</p>
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-<<<<<<< HEAD
-                                    <b>Nama</b><a class="float-right">{{$validasi->nama_lengkap_anak}}</a>
-=======
                                     <b>Nama</b><a class="float-right">{{$validasi->nama_lengkap}}</a>
->>>>>>> rita
                                 </li>
                                 <li class="list-group-item">
                                     <b>Sekolah</b> <a class="float-right">{{$validasi->nama_sekolah}}</a>
@@ -51,13 +47,6 @@
                         </div> -->
                         <div class="card-body">
                             <h4>Apakah anak binaan ini telah memenuhi kriteria penerimaan beasiswa?</h4> <hr>
-<<<<<<< HEAD
-                            <form method="POST" action="{{ route('admin.save', $validasi->id_anaks) }}" enctype="multipart/form-data">
-                                @csrf
-                                @method('PUT')
-
-                                {{-- <input type="text" id="bacot" value="{{ $validasi->id_anaks }}"> --}}
-=======
                             @php 
 
                                 $beasiswaAnak = \App\Models\Beasiswa::where('anak_id',$id)->first();
@@ -70,7 +59,7 @@
                                 <form method="POST" action="{{ route('admin.save-validasi', ['id' => $id])}}" enctype="multipart/form-data">
                                 @endif
                                 @csrf
->>>>>>> rita
+
                                 <div class="form-group">
                                     <label for="status_beasiswa" id="status_beasiswa"></label>
                                     <div class="form-check">
@@ -84,13 +73,9 @@
                                     <div class="form-check">
                                         <input type="radio" name="status_beasiswa" class="form-check-input" id="npb" value="NPB"><h5>Tidak, tidak dapat menerima Beasiswa</h5> 'Non Penerima Beasiswa (NPB)'
                                     </div>
-<<<<<<< HEAD
-
-                                    {{-- <input type="hidden" name="anak_id" id="anak_id" value="{{ old('anak_id', $validasi->anak_id) }}">
-                                    <input type="hidden" name="status_binaan" id="status_binaan" value="{{ old('status_binaan', $validasi->status_binaan) }}"> --}}
-                                    <button type="submit" class="btn btn-success btn-sm">Validasi</button>
-=======
->>>>>>> rita
+                                    
+                              <button type="submit" class="btn btn-success btn-sm">Validasi</button>
+                              
                                 </div>
                                 @if(isset($beasiswaAnak))
                                     <button type="submit" class="btn btn-success btn-sm">Validasi</button>
@@ -107,10 +92,5 @@
     </section>
 </div>
 
-{{-- <script>
-    var bacot = $("#bacot").val();
-
-    console.log(bacot);
-</script> --}}
 
 @endsection

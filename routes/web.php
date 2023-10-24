@@ -8,11 +8,11 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PengajuanAnakController;
-use App\Http\Controllers\StudentController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\dataSurveyController;
-use App\Http\Controllers\tabeldataController;
 use App\Http\Controllers\ValidasiBeasiswaController;
 use App\Http\Controllers\AnakBinaanController;
+use App\Http\Controllers\SurveyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -63,11 +63,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::put('/calonAnakBinaanAyah/{idAyah}', [CalonAnakBinaanController::class, 'updatedAyah'])->name('calonAnakBinaanAyah');
     Route::post('/calonAnakBinaanDelete', [CalonAnakBinaanController::class, 'destroyd'])->name('calonAnakBinaanDelete');
 
-    // Route::get('/datakeluarga',[DatakeluargaController::class,'index'])->name('datakeluarga');
-    // Route::post('/save-datakeluarga',[DatakeluargaController::class,'store'])->name('save-datakeluarga');
-    // Route::post('/delete-datakeluarga',[DatakeluargaController::class,'destroy'])->name('delete-datakeluarga');
-    // Route::get('/detail-datakeluarga/{id}',[DatakeluargaController::class,'show'])->name('detail-datakeluarga');
-    // Route::put('/updatekeluarga/{idKeluarga}',[DatakeluargaController::class,'update'])->name('updatekeluarga');
+    Route::get('/surveyAnak', [SurveyController::class, 'indexSurvey'])->name('surveyAnak');
+    Route::get('/surveyForm', [SurveyController::class, 'surveyForm'])->name('surveyForm');
 
     Route::get('/AnakBinaan', [AnakBinaanController::class, 'index'])->name('AnakBinaan');
     Route::post('/AnakBinaanstore', [AnakBinaanController::class, 'store'])->name('AnakBinaanstore');

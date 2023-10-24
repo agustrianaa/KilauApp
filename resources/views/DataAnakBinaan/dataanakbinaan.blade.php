@@ -253,7 +253,7 @@
             paging: true,
             pageLength: 10, // Menyeting jumlah entri yang ditampilkan menjadi 10
             language: {
-                "emptyTable": "Tabel database kosong..."
+                "emptyTable": "Data Kosong..."
             }
         });
 

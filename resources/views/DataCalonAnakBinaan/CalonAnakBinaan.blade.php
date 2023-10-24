@@ -307,7 +307,7 @@
                 ],
                 order: [[0, 'asc']],
                 language: {
-                    "emptyTable": "Tabel database kosong..."
+                    "emptyTable": "Data Kosong..."
                 }
             });
         }
