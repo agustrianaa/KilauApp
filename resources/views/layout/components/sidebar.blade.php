@@ -87,19 +87,10 @@
             </li>
 
             <li class="nav-item">
-            <a href="{{ route('admin.datakeluarga') }}" class="nav-link">
-                <i class="bi bi-people-fill"></i>{{-- icon --}}
-                <p class="pl-1">
-                    Data Keluarga
-                </p>
-            </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{{ route('admin.a') }}" class="nav-link">
-                    <i class="bi bi-gear"></i>{{-- icon --}}
+                <a href="{{ route('admin.surveyAnak') }}" class="nav-link">
+                    <i class="bi bi-input-cursor-text"></i>{{-- icon --}}
                     <p class="pl-1">
-                        Halaman Prototype
+                        Survey Anak
                     </p>
                 </a>
             </li>

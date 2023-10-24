@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('beasiswa', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('anak_id')->references('id_anaks')->on('anaks')->onDelete('cascade');
-            $table->string('status_binaan');
+            $table->unsignedBigInteger('anak_id')->nullable();
+            $table->string('status_binaan')->nullable();
             $table->timestamps();
+
+            $table->foreign('anak_id')->references('id_anaks')->on('anaks')->onDelete('cascade');
         });
     }
 

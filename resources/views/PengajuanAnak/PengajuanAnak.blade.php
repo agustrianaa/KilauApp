@@ -74,6 +74,18 @@
                                             </div>
                                             <div class="row mb-2">
                                                 <div class="col-12 col-sm-4">
+                                                    <p class="text-sm-end">Jenis Kelamin :</p>
+                                                </div>
+                                                <div class="col-12 col-sm-8">
+                                                    <select class="form-select" id="jenis_kelamin_calon_anak" name="jenis_kelamin_calon_anak" required="">
+                                                            <option value="" disabled selected>-Pilih-</option>
+                                                            <option value="Laki-Laki">Laki-Laki</option>
+                                                            <option value="Perempuan">Perempuan</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-12 col-sm-4">
                                                     <p class="text-sm-end">Tempat Lahir :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
@@ -142,22 +154,8 @@
                                                     <input type="text" class="form-control" id="cita_cita" name="cita_cita" placeholder="Cita-cita...">
                                                 </div>
                                             </div>
-                                            <div class="row mb-2">
-                                                <div class="col-12 col-sm-4">
-                                                    <p class="text-sm-end">Status Binaan :</p>
-                                                </div>
-                                                <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="status_binaan" name="status_binaan" placeholder="Status Binaan...">
-                                                </div>
-                                            </div>
-                                            <div class="row mb-2">
-                                                <div class="col-12 col-sm-4">
-                                                    <p class="text-sm-end">Status Validasi :</p>
-                                                </div>
-                                                <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="status_validasi" name="status_validasi" placeholder="Status Validasi...">
-                                                </div>
-                                            </div>
+                                            <input type="hidden" class="form-control" id="status_binaan_anak" name="status_binaan_anak" value="{{ 0 }}">
+                                            <input type="hidden" class="form-control" id="status_beasiswa_anak" name="status_beasiswa_anak" value="{{ 'Belum Validasi' }}">
                                         </div>
                                     </div>
                                 </div>
@@ -172,10 +170,16 @@
                                         <div class="card-body">
                                             <div class="row mb-2">
                                                 <div class="col-12 col-sm-4">
-                                                    <p class="text-sm-end">Kacab :</p>
+                                                    <p class="text-sm-end">Kantor Cabang :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="kacab" name="kacab" placeholder="Kantor Cabang...">
+                                                    <select class="form-select" id="kacab" name="kacab">
+                                                        <option disabled selected>Kantor Cabang...</option>
+                                                        <option value="Indramayu">Indramayu</option>
+                                                        <option value="Bandung">Bandung</option>
+                                                        <option value="Sumedang">Sumedang</option>
+                                                        <option value="Bogor">Bogor</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -191,7 +195,7 @@
                                                     <p class="text-sm-end">Alamat Lengkap :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <textarea class="form-control" id="alamat_kk" name="alamat_kk" rows="4" placeholder="Alamat Lengkap..."></textarea>
+                                                    <textarea class="form-control" id="alamat_kk" name="alamat_kk" rows="3" placeholder="Alamat Lengkap..."></textarea>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -207,7 +211,13 @@
                                                     <p class="text-sm-end">Wilayah Binaan :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="wilayah_binaan" name="wilayah_binaan" placeholder="Wilayah Binaan...">
+                                                    <select class="form-select" id="wilayah_binaan" name="wilayah_binaan">
+                                                        <option disabled selected>Wilayah Binaan...</option>
+                                                        <option value="Indramayu">Indramayu</option>
+                                                        <option value="Bandung">Bandung</option>
+                                                        <option value="Sumedang">Sumedang</option>
+                                                        <option value="Bogor">Bogor</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -215,7 +225,13 @@
                                                     <p class="text-sm-end">Shelter :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="shelter" name="shelter" placeholder="Selter...">
+                                                    <select class="form-select" id="shelter" name="shelter">
+                                                        <option disabled selected>Pilih Shelter...</option>
+                                                        <option value="Indramayu">Indramayu</option>
+                                                        <option value="Bandung">Bandung</option>
+                                                        <option value="Sumedang">Sumedang</option>
+                                                        <option value="Bogor">Bogor</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -297,18 +313,36 @@
                                                     <p class="text-sm-end">Pekerjaan :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="pekerjaan_ayah" name="pekerjaan_ayah" placeholder="Pekerjaan...">
+                                                    <select class="form-select" id="pekerjaan_ayah" name="pekerjaan_ayah">
+                                                        <option disabled selected>Pilih Pekerjaan...</option>
+                                                        <option value="Petani">Petani</option>
+                                                        <option value="Nelayan">Nelayan</option>
+                                                        <option value="Peternak">Peternak</option>
+                                                        <option value="PNS NON Dosen/Guru">PNS NON Dosen/Guru</option>
+                                                        <option value="Guru PNS">Guru PNS</option>
+                                                        <option value="Guru NON PNS">Guru NON PNS</option>
+                                                        <option value="PNS/TNI/POLRI">PNS/TNI/POLRI</option>
+                                                        <option value="Guru NON PNS">Karyawan Swasta</option>
+                                                        <option value="Buruh">Buruh</option>
+                                                        <option value="Wiraswasta">Wiraswasta</option>
+                                                        <option value="Wirausaha">Wirausaha</option>
+                                                        <option value="Pedagang Kecil">Pedagang Kecil</option>
+                                                        <option value="Pedagang Besar">Pedagang Besar</option>
+                                                        <option value="Pensiunan">Pensiunan</option>
+                                                        <option value="Tidak Bekerja">Tidak Bekerja</option>
+                                                        <option value="Sudah Meninggal">Sudah Meninggal</option>
+                                                        <option value="">Lainnya</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
                                                 <div class="col-12 col-sm-4">
                                                     <p class="text-sm-end">Jumlah Tanggungan :</p>
                                                 </div>
-                                                <div class="col-12 col-sm-8">
+                                                <div class="col-12 col-sm-4">
                                                     <div class="input-group mb-3">
-                                                        <span class="input-group-text">Rp.</span>
-                                                        <input type="text" class="form-control" id="jumlah_tanggungan_ayah" name="jumlah_tanggungan_ayah">
-                                                        <span class="input-group-text">,-</span>
+                                                        <input type="number" class="form-control" id="jumlah_tanggungan_ayah" name="jumlah_tanggungan_ayah" placeholder="">
+                                                        <span class="input-group-text">Jiwa</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -318,9 +352,17 @@
                                                 </div>
                                                 <div class="col-12 col-sm-8">
                                                     <div class="input-group mb-3">
-                                                        <span class="input-group-text">Rp.</span>
-                                                        <input type="text" class="form-control" id="pendapatan_ayah" name="pendapatan_ayah">
-                                                        <span class="input-group-text">,-</span>
+                                                        <select class="form-select" id="pendapatan_ayah" name="pendapatan_ayah">
+                                                            <option disabled selected>Pilih Penghasilan...</option>
+                                                            <option value="Dibawah Rp.500.000,-">Dibawah Rp.500.000,-</option>
+                                                            <option value="Rp.500.000,- s/d Rp.1.500.000,-">Rp.500.000,- s/d Rp.1.500.000,-</option>
+                                                            <option value="Rp.1.500.000,- s/d Rp.2.500.000,-">Rp.1.500.000,- s/d Rp.2.500.000,-</option>
+                                                            <option value="Rp.2.500.000,- s/d Rp.3.500.000,-">Rp.2.500.000,- s/d Rp.3.500.000,-</option>
+                                                            <option value="Rp.3.000.000,- s/d Rp.5.000.000,-">Rp.3.000.000,- s/d Rp.5.000.000,-</option>
+                                                            <option value="Rp.5.000.000,- s/d Rp.7.000.000,-">Rp.5.000.000,- s/d Rp.7.000.000,-</option>
+                                                            <option value="Rp.7.000.000,- s/d Rp.10.000.000,-">Rp.7.000.000,- s/d Rp.10.000.000,-</option>
+                                                            <option value="Diatas Rp.10.000.000,-">Diatas Rp.10.000.000,-</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -345,7 +387,7 @@
                                                     <p class="text-sm-end">Alamat :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat Lengkap...">
+                                                    <textarea class="form-control" id="alamat_ayah" name="alamat_ayah" rows="3" placeholder="Alamat Lengkap..."></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -397,7 +439,26 @@
                                                     <p class="text-sm-end">Pekerjaan :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="pekerjaan_ibu" name="pekerjaan_ibu" placeholder="Pekerjaan...">
+                                                    <select class="form-select" id="pekerjaan_ibu" name="pekerjaan_ibu">
+                                                        <option disabled selected>Pilih Pekerjaan...</option>
+                                                        <option value="Petani">Petani</option>
+                                                        <option value="Nelayan">Nelayan</option>
+                                                        <option value="Peternak">Peternak</option>
+                                                        <option value="PNS NON Dosen/Guru">PNS NON Dosen/Guru</option>
+                                                        <option value="Guru PNS">Guru PNS</option>
+                                                        <option value="Guru NON PNS">Guru NON PNS</option>
+                                                        <option value="PNS/TNI/POLRI">PNS/TNI/POLRI</option>
+                                                        <option value="Guru NON PNS">Karyawan Swasta</option>
+                                                        <option value="Buruh">Buruh</option>
+                                                        <option value="Wiraswasta">Wiraswasta</option>
+                                                        <option value="Wirausaha">Wirausaha</option>
+                                                        <option value="Pedagang Kecil">Pedagang Kecil</option>
+                                                        <option value="Pedagang Besar">Pedagang Besar</option>
+                                                        <option value="Pensiunan">Pensiunan</option>
+                                                        <option value="Tidak Bekerja">Tidak Bekerja</option>
+                                                        <option value="Sudah Meninggal">Sudah Meninggal</option>
+                                                        <option value="">Lainnya</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -406,9 +467,17 @@
                                                 </div>
                                                 <div class="col-12 col-sm-8">
                                                     <div class="input-group mb-3">
-                                                        <span class="input-group-text">Rp.</span>
-                                                        <input type="text" class="form-control" id="pendapatan_ibu" name="pendapatan_ibu">
-                                                        <span class="input-group-text">,-</span>
+                                                        <select class="form-select" id="pendapatan_ibu" name="pendapatan_ibu">
+                                                            <option disabled selected>Pilih Penghasilan...</option>
+                                                            <option value="Dibawah Rp.500.000,-">Dibawah Rp.500.000,-</option>
+                                                            <option value="Rp.500.000,- s/d Rp.1.500.000,-">Rp.500.000,- s/d Rp.1.500.000,-</option>
+                                                            <option value="Rp.1.500.000,- s/d Rp.2.500.000,-">Rp.1.500.000,- s/d Rp.2.500.000,-</option>
+                                                            <option value="Rp.2.500.000,- s/d Rp.3.500.000,-">Rp.2.500.000,- s/d Rp.3.500.000,-</option>
+                                                            <option value="Rp.3.000.000,- s/d Rp.5.000.000,-">Rp.3.000.000,- s/d Rp.5.000.000,-</option>
+                                                            <option value="Rp.5.000.000,- s/d Rp.7.000.000,-">Rp.5.000.000,- s/d Rp.7.000.000,-</option>
+                                                            <option value="Rp.7.000.000,- s/d Rp.10.000.000,-">Rp.7.000.000,- s/d Rp.10.000.000,-</option>
+                                                            <option value="Diatas Rp.10.000.000,-">Diatas Rp.10.000.000,-</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -433,7 +502,7 @@
                                                     <p class="text-sm-end">Alamat :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat Lengkap...">
+                                                    <textarea class="form-control" id="alamat_ibu" name="alamat_ibu" rows="3" placeholder="Alamat Lengkap..."></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -493,18 +562,36 @@
                                                     <p class="text-sm-end">Pekerjaan :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="pekerjaan_wali" name="pekerjaan_wali" placeholder="Pekerjaan...">
+                                                    <select class="form-select" id="pekerjaan_wali" name="pekerjaan_wali">
+                                                        <option disabled selected>Pilih Pekerjaan...</option>
+                                                        <option value="Petani">Petani</option>
+                                                        <option value="Nelayan">Nelayan</option>
+                                                        <option value="Peternak">Peternak</option>
+                                                        <option value="PNS NON Dosen/Guru">PNS NON Dosen/Guru</option>
+                                                        <option value="Guru PNS">Guru PNS</option>
+                                                        <option value="Guru NON PNS">Guru NON PNS</option>
+                                                        <option value="PNS/TNI/POLRI">PNS/TNI/POLRI</option>
+                                                        <option value="Guru NON PNS">Karyawan Swasta</option>
+                                                        <option value="Buruh">Buruh</option>
+                                                        <option value="Wiraswasta">Wiraswasta</option>
+                                                        <option value="Wirausaha">Wirausaha</option>
+                                                        <option value="Pedagang Kecil">Pedagang Kecil</option>
+                                                        <option value="Pedagang Besar">Pedagang Besar</option>
+                                                        <option value="Pensiunan">Pensiunan</option>
+                                                        <option value="Tidak Bekerja">Tidak Bekerja</option>
+                                                        <option value="Sudah Meninggal">Sudah Meninggal</option>
+                                                        <option value="">Lainnya</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
                                                 <div class="col-12 col-sm-4">
                                                     <p class="text-sm-end">Jumlah Tanggungan :</p>
                                                 </div>
-                                                <div class="col-12 col-sm-8">
+                                                <div class="col-12 col-sm-4">
                                                     <div class="input-group mb-3">
-                                                        <span class="input-group-text">Rp.</span>
-                                                        <input type="text" class="form-control" id="jumlah_tanggungan_wali" name="jumlah_tanggungan_wali">
-                                                        <span class="input-group-text">,-</span>
+                                                        <input type="number" class="form-control" id="jumlah_tanggungan_wali" name="jumlah_tanggungan_wali" placeholder="">
+                                                        <span class="input-group-text">Jiwa</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -514,9 +601,17 @@
                                                 </div>
                                                 <div class="col-12 col-sm-8">
                                                     <div class="input-group mb-3">
-                                                        <span class="input-group-text">Rp.</span>
-                                                        <input type="text" class="form-control" id="pendapatan_wali" name="pendapatan_wali">
-                                                        <span class="input-group-text">,-</span>
+                                                        <select class="form-select" id="pendapatan_wali" name="pendapatan_wali">
+                                                            <option disabled selected>Pilih Penghasilan...</option>
+                                                            <option value="Dibawah Rp.500.000,-">Dibawah Rp.500.000,-</option>
+                                                            <option value="Rp.500.000,- s/d Rp.1.500.000,-">Rp.500.000,- s/d Rp.1.500.000,-</option>
+                                                            <option value="Rp.1.500.000,- s/d Rp.2.500.000,-">Rp.1.500.000,- s/d Rp.2.500.000,-</option>
+                                                            <option value="Rp.2.500.000,- s/d Rp.3.500.000,-">Rp.2.500.000,- s/d Rp.3.500.000,-</option>
+                                                            <option value="Rp.3.000.000,- s/d Rp.5.000.000,-">Rp.3.000.000,- s/d Rp.5.000.000,-</option>
+                                                            <option value="Rp.5.000.000,- s/d Rp.7.000.000,-">Rp.5.000.000,- s/d Rp.7.000.000,-</option>
+                                                            <option value="Rp.7.000.000,- s/d Rp.10.000.000,-">Rp.7.000.000,- s/d Rp.10.000.000,-</option>
+                                                            <option value="Diatas Rp.10.000.000,-">Diatas Rp.10.000.000,-</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -529,7 +624,7 @@
                         </div>
                         <div class="card-footer">
                             <div class="text-center">
-                                <button type="submit" class="btn btn-outline-primary" id="tombol-save">Submit</button>
+                                <button type="submit" class="btn btn-outline-primary" id="tombol-save"><i class="bi bi-send-fill"></i> Submit</button>
                             </div>
                         </div>
                     </form>
