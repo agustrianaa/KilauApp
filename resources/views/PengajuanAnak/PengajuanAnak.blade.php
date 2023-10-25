@@ -7,6 +7,10 @@
         justify-content: center;
         align-content: center;
     }
+
+    .row.mb-2.pekerjaanibu{
+        display: none;
+    }
 </style>
 
 <div class="content-wrapper background">
@@ -439,7 +443,7 @@
                                                     <p class="text-sm-end">Pekerjaan :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <select class="form-select" id="pekerjaan_ibu" name="pekerjaan_ibu">
+                                                    <select class="form-select pekerjaanibuselect" id="pekerjaan_ibu" name="pekerjaan_ibu">
                                                         <option disabled selected>Pilih Pekerjaan...</option>
                                                         <option value="Petani">Petani</option>
                                                         <option value="Nelayan">Nelayan</option>
@@ -459,6 +463,13 @@
                                                         <option value="Sudah Meninggal">Sudah Meninggal</option>
                                                         <option value="">Lainnya</option>
                                                     </select>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2 pekerjaanibu" id="pekerjaanibuinput">
+                                                <div class="col-12 col-sm-4">
+                                                </div>
+                                                <div class="col-12 col-sm-8">
+                                                    <input type="text" name="pekerjaan_ibu" class="form-control pekerjaanibulainnya" placeholder="isi Pekerjaan 'Lainnya'">
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -648,6 +659,24 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.18/dist/sweetalert2.all.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Ketika elemen "select" dengan ID "pekerjaan_ibu" berubah
+        $("#pekerjaan_ibu").change(function () {
+            var selectedValue = $(this).val(); // Mendapatkan nilai yang dipilih    
+
+            if (selectedValue === "") {
+                // Jika "Lainnya" dipilih, hapus class "pekerjaanibu" pada elemen "row mb-2 pekerjaanibu"
+                $("#pekerjaanibuinput").removeClass("pekerjaanibu");
+            } else {
+                // Jika selain "Lainnya" dipilih, tambahkan kembali class "pekerjaanibu" pada elemen "row mb-2 pekerjaanibu"
+                $("#pekerjaanibuinput").addClass("pekerjaanibu");
+            }
+        });
+    });
+
+</script>
 
 
 @endsection
