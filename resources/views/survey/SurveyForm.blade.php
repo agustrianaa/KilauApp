@@ -64,8 +64,8 @@
                                                     <div class="col-sm-1">
                                                         <div class="text-center"><b>:</b></div>
                                                     </div>
-                                                    <div class="col-sm-4">
-                                                        <select class="form-select form-select-sm" aria-label="Small select example">
+                                                    <div class="col-sm-3">
+                                                        <select class="form-select form-select-md" aria-label="Small select example">
                                                             <option disabled selected>Pilih Kepemilikan Rumah...</option>
                                                             <option value="Hak Milik">Hak Milik</option>
                                                             <option value="Sewa">Sewa</option>

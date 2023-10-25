@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('anak_id')->references('id_anaks')->on('anaks')->onDelete('cascade');
             $table->boolean('status_binaan');
             $table->string('status_beasiswa');
-            
+            $table->timestamps();
         });
     }
 

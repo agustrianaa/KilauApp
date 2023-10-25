@@ -18,13 +18,73 @@ class HomeController extends Controller
 
     public function dashboard()
 {
-    // Hitung jumlah total data tabel yang Anda butuhkan
-    $totalData = Anak::count();
+    // Hitung jumlah total data tabel
+    $totalCalonAnakBinaan = DataKeluarga::select(
+        'data_keluargas.*',
+        'ayahs.*',
+        'anaks.*',
+        'ibus.*', 
+        'walis.*',
+        'status_anaks.*',
+        )
+        ->leftJoin('ayahs', 'data_keluargas.id', '=', 'ayahs.data_keluarga_id')
+        ->leftJoin('ibus', 'data_keluargas.id', '=', 'ibus.data_keluarga_id')
+        ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
+        ->leftJoin('walis', 'data_keluargas.id', '=', 'walis.data_keluarga_id')
+        ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
+        ->where('status_anaks.status_binaan', 0)
+        ->count();
 
-    $totaldatakeluarga = DataKeluarga::count();
+    $totalAnakBinaan = DataKeluarga::select(
+        'data_keluargas.*',
+        'ayahs.*',
+        'anaks.*',
+        'ibus.*', 
+        'walis.*',
+        'status_anaks.*',
+        )
+        ->leftJoin('ayahs', 'data_keluargas.id', '=', 'ayahs.data_keluarga_id')
+        ->leftJoin('ibus', 'data_keluargas.id', '=', 'ibus.data_keluarga_id')
+        ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
+        ->leftJoin('walis', 'data_keluargas.id', '=', 'walis.data_keluarga_id')
+        ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
+        ->where('status_anaks.status_binaan', 1)
+        ->count();
+
+    $totalBelumValidasi = DataKeluarga::select(
+        'data_keluargas.*',
+        'ayahs.*',
+        'anaks.*',
+        'ibus.*', 
+        'walis.*',
+        'status_anaks.*',
+        )
+        ->leftJoin('ayahs', 'data_keluargas.id', '=', 'ayahs.data_keluarga_id')
+        ->leftJoin('ibus', 'data_keluargas.id', '=', 'ibus.data_keluarga_id')
+        ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
+        ->leftJoin('walis', 'data_keluargas.id', '=', 'walis.data_keluarga_id')
+        ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
+        ->where('status_anaks.status_beasiswa', 'Belum Validasi')
+        ->count();
+
+    $totalSudahValidasi = DataKeluarga::select(
+        'data_keluargas.*',
+        'ayahs.*',
+        'anaks.*',
+        'ibus.*', 
+        'walis.*',
+        'status_anaks.*',
+        )
+        ->leftJoin('ayahs', 'data_keluargas.id', '=', 'ayahs.data_keluarga_id')
+        ->leftJoin('ibus', 'data_keluargas.id', '=', 'ibus.data_keluarga_id')
+        ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
+        ->leftJoin('walis', 'data_keluargas.id', '=', 'walis.data_keluarga_id')
+        ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
+        ->where('status_anaks.status_beasiswa', '!=' , 'Belum Validasi')
+        ->count();
 
     if (auth()->user()->role == 'admin' || auth()->user()->role == 'adminpusat' || auth()->user()->role == 'admincabang' || auth()->user()->role == 'shelter' || auth()->user()->role == 'donatur' || auth()->user()->role == 'orangtua') {
-        return view('dashboard', compact('totalData', 'totaldatakeluarga'));
+        return view('dashboard', compact('totalAnakBinaan', 'totalCalonAnakBinaan', 'totalBelumValidasi', 'totalSudahValidasi'));
     } else {
         return view('dashboard'); // Tambahkan logika lain jika diperlukan
     }
