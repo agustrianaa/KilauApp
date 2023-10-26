@@ -21,7 +21,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    {{-- <tr>
                                         <th scope="row">1</th>
                                         <td>Contoh</td>
                                         <td>contoh...</td>
@@ -41,7 +41,7 @@
                                         <td>contoh...</td>
                                         <td>contoh...</td>
                                         <td>@include('survey.SurveyTabel-action')</td>
-                                    </tr>
+                                    </tr> --}}
                                 </tbody>
                             </table>
                         </div>
@@ -52,5 +52,45 @@
     </section>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script>
+    $(document).ready( function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $('#tabelsurvey').DataTable({
+                searching: true,
+                serverSide: true,
+                // ajax: "{{ url('data') }}",
+                ajax: {
+                    url: 'surveyAnak',
+                    type: 'GET',
+                },
+                columns: [
+                        {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
+                        {data: 'kepala_keluarga', name: 'kepala_keluarga'},
+                        {data: 'shelter', name: 'shelter'},
+                        {data: 'wilayah_binaan', name: 'wilayah_binaan'},
+                        {data: 'action', name: 'action'}
+                    ],
+                // order: [],
+                    ordering: false,
+                paging: true,
+                pageLength: 10
+            });
+
+
+
+
+            // $('body').on('click', '#button', function() {
+            //     var id = $(this).data('id');
+            //     window.location.href = `{{ url('surveyForm') }}`;
+            //     // console.log(id);
+
+            //     $.ajax
+            // })
+        });
+</script>
 
 @endsection
