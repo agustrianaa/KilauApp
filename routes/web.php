@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PengajuanAnakController;
 use App\Http\Controllers\dataSurveyController;
+use App\Http\Controllers\surveyDataController;
 use App\Http\Controllers\ValidasiBeasiswaController;
 use App\Http\Controllers\AnakBinaanController;
 use App\Http\Controllers\SurveyController;
@@ -61,7 +62,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::post('/calonAnakBinaanDelete', [CalonAnakBinaanController::class, 'destroyd'])->name('calonAnakBinaanDelete');
 
     Route::get('/surveyAnak', [SurveyController::class, 'indexSurvey'])->name('surveyAnak');
-    Route::get('/surveyForm', [SurveyController::class, 'surveyForm'])->name('surveyForm');
+    Route::get('/surveyForm/{id}', [SurveyController::class, 'surveyForm'])->name('surveyForm');
+    Route::post('/surveyStore', [SurveyController::class, 'store'])->name('surveyStore');
 
     Route::get('/AnakBinaan', [AnakBinaanController::class, 'index'])->name('AnakBinaan');
     Route::post('/AnakBinaanstore', [AnakBinaanController::class, 'store'])->name('AnakBinaanstore');
