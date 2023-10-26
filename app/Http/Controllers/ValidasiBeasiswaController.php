@@ -132,19 +132,19 @@ class ValidasiBeasiswaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
-    {
-        $anak = Beasiswa::find($id);
+    // public function update(Request $request, $id)
+    // {
+    //     $anak = Beasiswa::find($id);
 
-        $request->validate([
-            'status_binaan' => 'required|in:PB,BCPB,NPB',
-        ]);
+    //     $request->validate([
+    //         'status_binaan' => 'required|in:PB,BCPB,NPB',
+    //     ]);
     
-        $anak->status_binaan = $request->input('status_binaan');
-        $anak->save();
+    //     $anak->status_binaan = $request->input('status_binaan');
+    //     $anak->save();
     
-        return redirect()->back()->with('success', 'Data beasiswa berhasil diupdate.');
-    }
+    //     return redirect()->back()->with('success', 'Data beasiswa berhasil diupdate.');
+    // }
 
     /**
      * Remove the specified resource from storage.
