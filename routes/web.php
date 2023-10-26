@@ -3,16 +3,14 @@
 use App\Http\Controllers\IbuController;
 use App\Http\Controllers\AyahController;
 use App\Http\Controllers\CalonAnakBinaanController;
-use App\Http\Controllers\DatakeluargaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\PostController;
 use App\Http\Controllers\PengajuanAnakController;
-use App\Http\Controllers\StudentController;
 use App\Http\Controllers\dataSurveyController;
-use App\Http\Controllers\tabeldataController;
+use App\Http\Controllers\surveyDataController;
 use App\Http\Controllers\ValidasiBeasiswaController;
 use App\Http\Controllers\AnakBinaanController;
+use App\Http\Controllers\SurveyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,38 +40,30 @@ Route::post('/register-proses',[LoginController::class,'register_proses'])->name
 
 Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], function(){
     Route::get('/menu',[HomeController::class,'menu'])->name('menu');
-
     Route::get('/dashboard',[HomeController::class,'dashboard'])->name('dashboard');
-
     Route::get('/user',[HomeController::class,'index'])->name('index');
-
     Route::get('/create',[HomeController::class,'create'])->name('user.create');
     Route::post('/store',[HomeController::class,'store'])->name('user.store');
-
     Route::get('/edit/{id}',[HomeController::class,'edit'])->name('user.edit');
     Route::put('/update/{id}',[HomeController::class,'update'])->name('user.update');
     Route::delete('/delete/{id}',[HomeController::class,'delete'])->name('user.delete');
 
-    Route::get('/a',[HomeController::class,'a'])->name('a');
-
-    Route::get('/b',[AnakBinaanController::class,'totaldata'])->name('b');
-
-    Route::get('/b',[AnakBinaanController::class,'b'])->name('b');
-
     Route::get('/PengajuanForm',[PengajuanAnakController::class,'pengajuanForm'])->name('pengajuanForm');
     Route::post('/PengajuanFormStore',[PengajuanAnakController::class, 'pengajuanFormStore'])->name('pengajuanFormStore');
 });
-    
+
     Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], function(){
     Route::get('/calonAnakBinaan', [CalonAnakBinaanController::class, 'calonanakbinaanIndex'])->name('calonanakbinaanIndex');
-    Route::get('/calonAnakBinaanDetail/{id}', [CalonAnakBinaanController::class, 'showDetail'])->name('calonAnakBinaanView');
-    Route::get('/calonAnakBinaanUpdate/{idKeluarga}', [CalonAnakBinaanController::class, 'updated'])->name('calonAnakBinaanUpdate');
+    Route::post('/save-calonAnakBinaan',[CalonAnakBinaanController::class,'store'])->name('save-calonAnakBinaan');
+    Route::put('/calonAnakBinaan/{anak_id}', [CalonAnakBinaanController::class, 'update'])->name('calonanakbinaanValidasi');
+    Route::get('/calonAnakBinaanDetail/{id}', [CalonAnakBinaanController::class, 'showDetail'])->name('calonAnakBinaanDetail');
+    Route::put('/calonAnakBinaanEdit/{idKeluarga}', [CalonAnakBinaanController::class, 'updated'])->name('calonAnakBinaanStore');
+    Route::put('/calonAnakBinaanAyah/{idAyah}', [CalonAnakBinaanController::class, 'updatedAyah'])->name('calonAnakBinaanAyah');
+    Route::post('/calonAnakBinaanDelete', [CalonAnakBinaanController::class, 'destroyd'])->name('calonAnakBinaanDelete');
 
-    Route::get('/datakeluarga',[DatakeluargaController::class,'index'])->name('datakeluarga');
-    Route::post('/save-datakeluarga',[DatakeluargaController::class,'store'])->name('save-datakeluarga');
-    Route::post('/delete-datakeluarga',[DatakeluargaController::class,'destroy'])->name('delete-datakeluarga');
-    Route::get('/detail-datakeluarga/{id}',[DatakeluargaController::class,'show'])->name('detail-datakeluarga');
-    Route::put('/updatekeluarga/{idKeluarga}',[DatakeluargaController::class,'update'])->name('updatekeluarga');
+    Route::get('/surveyAnak', [SurveyController::class, 'indexSurvey'])->name('surveyAnak');
+    Route::get('/surveyForm/{id}', [SurveyController::class, 'surveyForm'])->name('surveyForm');
+    Route::post('/surveyStore', [SurveyController::class, 'store'])->name('surveyStore');
 
     Route::get('/AnakBinaan', [AnakBinaanController::class, 'index'])->name('AnakBinaan');
     Route::post('/AnakBinaanstore', [AnakBinaanController::class, 'store'])->name('AnakBinaanstore');
@@ -84,6 +74,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     // Validasi Beasiswa
     Route::get('/validasi-beasiswa', [ValidasiBeasiswaController::class, 'index'])->name('validasi-beasiswa');
     Route::get('/validasi/{id}', [ValidasiBeasiswaController::class, 'validation'])->name('validasi');
+    Route::put('/save-validasi', [ValidasiBeasiswaController::class, 'store'])->name('save-validasi');
+    Route::put('/save/{id_anaks}', [ValidasiBeasiswaController::class, 'update'])->name('save');
     Route::post('validasi/{id}/save-validasi', [ValidasiBeasiswaController::class, 'store'])->name('save-validasi');
     Route::put('/update-validasi/{id}', [ValidasiBeasiswaController::class, 'update'])->name('update-validasi');
     Route::resource('/posts', \App\Http\Controllers\PostController::class);
@@ -95,7 +87,6 @@ Route::resource('/calon', CalonAnakBinaanController::class);
 Route::resource('/datasurvey', \App\http\Controllers\dataSurveyController::class);
 
 Route::get('/kembali', [dataSurveyController::class, 'back']);
-Route::post('/upload', [PostController::class, 'upload'])->name('posts.upload');
 
 // Data Ayah
 Route::put('/updateayah/{idAyah}',[AyahController::class,'update'])->name('updateayah');

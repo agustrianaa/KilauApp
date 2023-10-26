@@ -19,6 +19,7 @@ class AnakBinaanController extends Controller
         if (request()->ajax()) {
             $data = DataKeluarga::select(
                 'data_keluargas.*',
+                'anaks.*',
                 'anaks.id_anaks as id_anaks',
                 'anaks.nama_lengkap as nama_lengkap_anak',
                 'anaks.nama_panggilan as nama_panggilan_anak',
@@ -31,12 +32,16 @@ class AnakBinaanController extends Controller
                 'ayahs.*',
                 'ibus.*',
                 'walis.*',
+                'status_anaks.*',
                 )
             ->leftJoin('ayahs', 'data_keluargas.id', '=', 'ayahs.data_keluarga_id')
             ->leftJoin('ibus', 'data_keluargas.id', '=', 'ibus.data_keluarga_id')
             ->leftJoin('walis', 'data_keluargas.id', '=', 'walis.data_keluarga_id')
-            ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id'); 
-    
+            ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
+            ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
+            ->where('status_anaks.status_binaan', 1)
+            ->get();
+
             return datatables($data)
                 ->addColumn('action', 'DataAnakBinaan.dataanakbinaan-action')
                 ->addColumn('ttl', function ($data) {
@@ -46,7 +51,7 @@ class AnakBinaanController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-    
+
         return view('DataAnakBinaan.dataanakbinaan');
     }
 
@@ -77,7 +82,7 @@ class AnakBinaanController extends Controller
 
         return view('DataAnakBinaan.dataanakbinaan-view', compact('record'));
     }
-    
+
     public function edit(Request $request) {
         $where = array('id' => $request->id);
         $anak = Anak::where($where)->first();
@@ -86,7 +91,7 @@ class AnakBinaanController extends Controller
     }
 
     public function destroy(Request $request) {
-        $anak = Anak::where('id', $request->id)->delete();
+        $anak = DataKeluarga::where('id', $request->id)->delete();
 
         return Response()->json($anak);
     }

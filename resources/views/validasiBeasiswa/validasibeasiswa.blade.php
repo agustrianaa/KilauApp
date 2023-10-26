@@ -55,7 +55,7 @@
                 {data: 'kelayakan', name: 'kelayakan', orderable: false, searchable: false},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ],
-            order: [[0, 'desc']]
+            order: [[0, 'asc']]
         })
 
         function validFunc(id){
