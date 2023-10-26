@@ -11,6 +11,14 @@
     .row.mb-2.pekerjaanibu{
         display: none;
     }
+
+    .row.mb-2.pekerjaanayah{
+        display: none;
+    }
+
+    .row.mb-2.pekerjaanwali{
+        display: none;
+    }
 </style>
 
 <div class="content-wrapper background">
@@ -339,6 +347,19 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            <div class="row mb-2 pekerjaanayah" id="pekerjaanayahinput">
+                                                <div class="col-12 col-sm-4">
+                                                </div>
+                                                <div class="col-12 col-sm-8">
+                                                    <!-- Input untuk menangkap Mengisi Value "Lainnya" -->
+                                                    <input type="text" id="pekerjaan_ayah_lainnya" name="pekerjaan_ayah" class="form-control" placeholder="isi Pekerjaan 'Lainnya'">
+                                                    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+                                                    <!-- Input untuk menangkap Value Select Option -->
+                                                    <input type="hidden" id="pekerjaan_ayah_selected" name="pekerjaan_ayah">
+                                                    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+                                                </div>
+                                            </div>
                                             <div class="row mb-2">
                                                 <div class="col-12 col-sm-4">
                                                     <p class="text-sm-end">Jumlah Tanggungan :</p>
@@ -443,7 +464,7 @@
                                                     <p class="text-sm-end">Pekerjaan :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <select class="form-select pekerjaanibuselect" id="pekerjaan_ibu" name="pekerjaan_ibu">
+                                                    <select class="form-select" id="pekerjaan_ibu" name="pekerjaan_ibu">
                                                         <option disabled selected>Pilih Pekerjaan...</option>
                                                         <option value="Petani">Petani</option>
                                                         <option value="Nelayan">Nelayan</option>
@@ -469,7 +490,13 @@
                                                 <div class="col-12 col-sm-4">
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" name="pekerjaan_ibu" class="form-control pekerjaanibulainnya" placeholder="isi Pekerjaan 'Lainnya'">
+                                                    <!-- Input untuk menangkap Mengisi Value "Lainnya" -->
+                                                    <input type="text" id="pekerjaan_ibu_lainnya" name="pekerjaan_ibu" class="form-control" placeholder="isi Pekerjaan 'Lainnya'">
+                                                    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+                                                    <!-- Input untuk menangkap Value Select Option -->
+                                                    <input type="hidden" id="pekerjaan_ibu_selected" name="pekerjaan_ibu">
+                                                    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -595,6 +622,19 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            <div class="row mb-2 pekerjaanwali" id="pekerjaanwaliinput">
+                                                <div class="col-12 col-sm-4">
+                                                </div>
+                                                <div class="col-12 col-sm-8">
+                                                    <!-- Input untuk menangkap Mengisi Value "Lainnya" -->
+                                                    <input type="text" id="pekerjaan_wali_lainnya" name="pekerjaan_wali" class="form-control" placeholder="isi Pekerjaan 'Lainnya'">
+                                                    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+                                                    <!-- Input untuk menangkap Value Select Option -->
+                                                    <input type="hidden" id="pekerjaan_wali_selected" name="pekerjaan_wali">
+                                                    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+                                                </div>
+                                            </div>
                                             <div class="row mb-2">
                                                 <div class="col-12 col-sm-4">
                                                     <p class="text-sm-end">Jumlah Tanggungan :</p>
@@ -661,6 +701,28 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.18/dist/sweetalert2.all.min.js"></script>
 
 <script type="text/javascript">
+
+    // Kondisi "Lainnya" dari input pekerjaan_ayah
+    $(document).ready(function () {
+        $("#pekerjaan_ayah").change(function () {
+            var selectedValue = $(this).val(); // Mendapatkan nilai yang dipilih    
+
+            if (selectedValue === "") {
+                $("#pekerjaanayahinput").removeClass("pekerjaanayah");
+            } else {
+                $("#pekerjaanayahinput").addClass("pekerjaanayah");
+                $("#pekerjaan_ayah_selected").val(selectedValue);
+            }
+        });
+
+        $("#pekerjaan_ayah_lainnya").on('input', function() {
+            var lainnyaValue = $(this).val();
+            // Update the hidden input value when the user types in "Lainnya"
+            $("#pekerjaan_ayah_selected").val(lainnyaValue);
+        });
+    });
+
+    // Kondisi "Lainnya" dari input pekerjaan_ibu
     $(document).ready(function () {
         // Ketika elemen "select" dengan ID "pekerjaan_ibu" berubah
         $("#pekerjaan_ibu").change(function () {
@@ -672,10 +734,36 @@
             } else {
                 // Jika selain "Lainnya" dipilih, tambahkan kembali class "pekerjaanibu" pada elemen "row mb-2 pekerjaanibu"
                 $("#pekerjaanibuinput").addClass("pekerjaanibu");
+                $("#pekerjaan_ibu_selected").val(selectedValue);
             }
+        });
+
+        $("#pekerjaan_ibu_lainnya").on('input', function() {
+            var lainnyaValue = $(this).val();
+            // Update the hidden input value when the user types in "Lainnya"
+            $("#pekerjaan_ibu_selected").val(lainnyaValue);
         });
     });
 
+    // Kondisi "Lainnya" dari input pekerjaan_wali
+    $(document).ready(function () {
+        $("#pekerjaan_wali").change(function () {
+            var selectedValue = $(this).val(); // Mendapatkan nilai yang dipilih    
+
+            if (selectedValue === "") {
+                $("#pekerjaanwaliinput").removeClass("pekerjaanwali");
+            } else {
+                $("#pekerjaanwaliinput").addClass("pekerjaanwali");
+                $("#pekerjaan_wali_selected").val(selectedValue);
+            }
+        });
+
+        $("#pekerjaan_wali_lainnya").on('input', function() {
+            var lainnyaValue = $(this).val();
+            // Update the hidden input value when the user types in "Lainnya"
+            $("#pekerjaan_wali_selected").val(lainnyaValue);
+        });
+    });
 </script>
 
 

@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('walis', function (Blueprint $table) {
             $table->id('id_walis');
             $table->foreignId('data_keluarga_id')->references('id')->on('data_keluargas')->onDelete('cascade');
-            $table->string('no_ktp');
-            $table->string('nama_lengkap');
-            $table->string('nama_panggilan');
-            $table->string('tempat_lahir');
-            $table->date('tanggal_lahir');
-            $table->string('pekerjaan');
-            $table->string('jumlah_tanggungan');
-            $table->string('pendapatan');
+            $table->string('no_ktp')->nullable();
+            $table->string('nama_lengkap')->nullable();
+            $table->string('nama_panggilan')->nullable();
+            $table->string('tempat_lahir')->nullable();
+            $table->date('tanggal_lahir')->nullable();
+            $table->string('pekerjaan')->nullable();
+            $table->string('jumlah_tanggungan')->nullable();
+            $table->string('pendapatan')->nullable();
             $table->timestamps();
 
         });
