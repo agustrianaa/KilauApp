@@ -19,8 +19,14 @@ class ValidasiBeasiswaController extends Controller
             ->addColumn('action', function($row){
                 $id = $row->id_anaks; // Ambil ID dari baris data
                 $beasiswaAct = '<a href="javascript:void(0)" onClick="validFunc(' . $id . ')" data-original-title="View" class="aktivasi btn btn-success btn-sm">Aktivasi</a>';
-                return $beasiswaAct; })
-            ->rawColumns(['action'])
+                return $beasiswaAct;
+            })
+            ->addColumn('kelayakan', function($row){
+                $id = $row->id_anaks; // Ambil ID dari baris data
+                $kelayakanAct = '<a href="javascript:void(0)" onClick="kelayakanFunc(' . $id . ')" data-original-title="View Kelayakan" class="kelayakan btn btn-info btn-sm">Kelayakan</a>';
+                return $kelayakanAct;
+            })
+            ->rawColumns(['action', 'kelayakan'])
             ->make(true);
         }
         return view('validasiBeasiswa.validasibeasiswa');
