@@ -38,11 +38,6 @@
     </section>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.18/dist/sweetalert2.all.min.js"></script>
-
 <script type="text/javascript">
     $(document).ready( function () {
         $.ajaxSetup({
@@ -70,16 +65,35 @@
             language: {
                 "emptyTable": "Data Kosong..."
             }
-        })
+        });
 
-        // function kelayakanFunc(id){
-        //     window.location.href = "{{ url('admin/validasi') }}/" + id;
-        // }
-
-        function tambahKelayakan(id){
-            window.location.href = "{{ url('admin/layak') }}/" + id;
-        }
     });
 
+    function deleteFunc(id){
+        if (confirm("Ingin Mengahapus Data?") == true) {
+            var id = id;
+            //ajax
+            $.ajax({
+                type: "POST",
+                url: "{{ url('admin/survey-delete') }}",
+                data: { id: id },
+                dataType: 'json',
+                success: function(res){
+                    Swal.fire(
+                        'Terhapus!',
+                        'Data berhasil dihapus.',
+                        'success'
+                    );
+
+                    var oTable = $('#validasiSurvey').dataTable();
+                    oTable.fnDraw(false);
+                }
+            });
+        }
+    }
+
+    function tambahKelayakan(id) {
+            window.location.href = "{{ url('admin/validasi') }}/" + id;
+        }
 </script>
 @endsection

@@ -74,8 +74,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
 
     // Validasi Survey
     Route::get('/validasi-survey', [ValidasiSurveyController::class, 'index'])->name('validasi-survey');
-    Route::get('/validasi/{id}', [ValidasiSurveyController::class, 'validation'])->name('layak');
-
+    Route::get('/validasi/{id}', [ValidasiSurveyController::class, 'validation'])->name('validasi');
+    Route::post('/survey-delete', [ValidasiSurveyController::class, 'destroy'])->name('survey-delete');
 
     Route::put('/save-validasi', [ValidasiBeasiswaController::class, 'store'])->name('save-validasi');
     Route::put('/save/{id_anaks}', [ValidasiBeasiswaController::class, 'update'])->name('save');

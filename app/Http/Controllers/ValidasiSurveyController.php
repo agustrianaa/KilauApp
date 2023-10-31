@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\anak;
+use App\Models\Ayah;
 use App\Models\DataKeluarga;
+use App\Models\Ibu;
 use App\Models\SurveyKeluarga;
+use App\Models\Wali;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -40,7 +43,7 @@ class ValidasiSurveyController extends Controller
                 if ($row->kelayakan_diisi) {
                     $kelayakanAct = '<a href="javascript:void(0)" onClick="kelayakanFunc(' . $id . ')" data-original-title="View Kelayakan" class="kelayakan btn btn-info btn-sm"><i class="fas fa-check-circle"></i> Lihat Kelayakan</a>';
                 } else {
-                    $kelayakanAct = '<a href="javascript:void(0)" onClick="tambahKelayakan(' . $id . ')" data-original-title="Tambahkan Kelayakan" class="tambahkan-kelayakan btn btn-success btn-sm"><i class="fas fa-plus-circle"></i> Tambahkan Kelayakan</a>';
+                    $kelayakanAct = '<a href="javascript:void(0)" onClick="tambahKelayakan('. $id .')" data-original-title="Tambahkan Kelayakan" class="tambahkan-kelayakan btn btn-success btn-sm"><i class="fas fa-plus-circle"></i> Tambahkan Kelayakan</a>';
                 }
                 return $kelayakanAct;
             })
@@ -55,8 +58,13 @@ class ValidasiSurveyController extends Controller
     public function validation(Request $request, $id)
     {
         $validasi = SurveyKeluarga::find($id);
+        $dataKeluarga = DataKeluarga::find($id);
+        $dataAyah = Ayah::where('data_keluarga_id', $id)->first();
+        $dataIbu = Ibu::where('data_keluarga_id', $id)->first();
+        $dataWali = Wali::where('data_keluarga_id', $id)->first();
 
-        return view('validasiSurvey.validasi-survey', compact('id', 'validasi-survey'));
+        return view('validasiSurvey.validasi-survey', compact('id', 'validasi', 'dataKeluarga', 'dataIbu', 'dataAyah', 'dataWali'));
+
     }
 
     /**
@@ -102,8 +110,10 @@ class ValidasiSurveyController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        $survey = SurveyKeluarga::where('id',$request->id)->delete();
+       
+        return Response()->json($survey);
     }
 }
