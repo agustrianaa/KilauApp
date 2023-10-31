@@ -78,21 +78,21 @@
             </li>
 
             <li class="nav-item">
-            <a href="{{ route('admin.validasi-beasiswa') }}" class="nav-link">
-                <i class="bi bi-person-vcard"></i>{{-- icon --}}
-                <p class="pl-1">
-                    Validasi Beasiswa
-                </p>
-            </a>
-            </li>
-
-            <li class="nav-item">
                 <a href="{{ route('admin.surveyAnak') }}" class="nav-link">
                     <i class="bi bi-input-cursor-text"></i>{{-- icon --}}
                     <p class="pl-1">
                         Survey Anak
                     </p>
                 </a>
+            </li>
+
+            <li class="nav-item">
+            <a href="{{ route('admin.validasi-survey') }}" class="nav-link">
+                <i class="bi bi-person-vcard"></i>{{-- icon --}}
+                <p class="pl-1">
+                    Validasi Survey
+                </p>
+            </a>
             </li>
 
             <li class="nav-item">
