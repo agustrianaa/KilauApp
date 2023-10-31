@@ -76,11 +76,11 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::get('/validasi-survey', [ValidasiSurveyController::class, 'index'])->name('validasi-survey');
     Route::get('/validasi/{id}', [ValidasiSurveyController::class, 'validation'])->name('validasi');
     Route::post('/survey-delete', [ValidasiSurveyController::class, 'destroy'])->name('survey-delete');
+    Route::put('/update-validasi/{id}', [ValidasiSurveyController::class, 'update'])->name('save-validasi');
 
-    Route::put('/save-validasi', [ValidasiBeasiswaController::class, 'store'])->name('save-validasi');
-    Route::put('/save/{id_anaks}', [ValidasiBeasiswaController::class, 'update'])->name('save');
-    Route::post('validasi/{id}/save-validasi', [ValidasiBeasiswaController::class, 'store'])->name('save-validasi');
-    Route::put('/update-validasi/{id}', [ValidasiBeasiswaController::class, 'update'])->name('update-validasi');
+    // Route::put('/save/{id_anaks}', [ValidasiBeasiswaController::class, 'update'])->name('save');
+    // Route::post('validasi/{id}/save-validasi', [ValidasiBeasiswaController::class, 'store'])->name('save-validasi');
+    // Route::put('/update-validasi/{id}', [ValidasiBeasiswaController::class, 'update'])->name('update-validasi');
     Route::resource('/posts', \App\Http\Controllers\PostController::class);
     Route::resource('/acc', \App\Http\Controllers\AccController::class);
 });

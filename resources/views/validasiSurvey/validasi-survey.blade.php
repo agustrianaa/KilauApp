@@ -265,25 +265,29 @@
                     </div>
                     <div class="card-body">
                         <h5> Hasil Survey   *</h5> <hr>
-                        <form method="POST" action="#" enctype="multipart/form-data">
+                        @php
+                            $survery = \App\Models\SurveyKeluarga::where('keluarga_id', $id)->first();
+                        @endphp
+                        <form method="POST" action="{{ route('admin.save-validasi', ['id' => $id] )}}" enctype="multipart/form-data">
+                        @method('PUT')
+                        @csrf
                             <div class="form-group">
-                                <!-- <label for="status_beasiswa" id="status_beasiswa"></label> -->
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" name="status_beasiswa" class="form-check-input" id="pb" value="PB">
+                                    <input type="radio" name="status" class="form-check-input" id="layak" value="layak" @if ($status === 'layak') checked @endif>
                                     <label class="form-check-label" for="pb" style="margin-right: 10px;"><h5>Layak</h5> 'Penerimaan Beasiswa(PB) dan Anak Binaan'</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" name="status_beasiswa" class="form-check-input" id="pb" value="PB">
+                                    <input type="radio" name="status" class="form-check-input" id="ditangguhkan" value="Ditangguhkan" @if ($status === 'Ditangguhkan') checked @endif>
                                     <label class="form-check-label" for="pb" ><h5>Tidak Mencukupi</h5> 'Ditangguhkan'</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" name="status_beasiswa" class="form-check-input" id="pb" value="PB">
-                                    <label class="form-check-label" for="pb" ><h5>Tidak Layak</h5> 'Non Penerimaan Beasiswa(PB) dan Anak Binaan'</label>
+                                    <input type="radio" name="status" class="form-check-input" id="tdk_layak" value="tidak layak" @if ($status === 'tidak layak') checked @endif>
+                                    <label class="form-check-label" for="pb" ><h5>Tidak Layak</h5> 'Non Penerimaan Beasiswa(NPB) dan Anak Binaan'</label>
                                 </div>
                                 
                                 <br><br>               
                                 <label for="ketSurvey">Keterangan Hasil Survey</label>
-                                <textarea name="ket" id="" class="form-control" cols="30" rows="6"></textarea>
+                                <textarea name="ket" id="ket" class="form-control" cols="30" rows="6">{{ $ket }}</textarea>
 
                                 <br>
                                 <button type="submit" class="btn btn-success btn-sm">Validasi</button>

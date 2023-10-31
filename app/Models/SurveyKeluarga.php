@@ -43,6 +43,7 @@ class SurveyKeluarga extends Model
 
         // data survey
         'resume',
-        'petugas_survey'
+        'petugas_survey',
+        'hsurvey',
     ];
 }

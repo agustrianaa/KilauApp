@@ -40,7 +40,7 @@ class ValidasiSurveyController extends Controller
             })
             ->addColumn('kelayakan', function($row){
                 $id = $row->id; // Ambil ID dari baris data
-                if ($row->kelayakan_diisi) {
+                if ($row->hsurvey === null) {
                     $kelayakanAct = '<a href="javascript:void(0)" onClick="kelayakanFunc(' . $id . ')" data-original-title="View Kelayakan" class="kelayakan btn btn-info btn-sm"><i class="fas fa-check-circle"></i> Lihat Kelayakan</a>';
                 } else {
                     $kelayakanAct = '<a href="javascript:void(0)" onClick="tambahKelayakan('. $id .')" data-original-title="Tambahkan Kelayakan" class="tambahkan-kelayakan btn btn-success btn-sm"><i class="fas fa-plus-circle"></i> Tambahkan Kelayakan</a>';
@@ -63,7 +63,10 @@ class ValidasiSurveyController extends Controller
         $dataIbu = Ibu::where('data_keluarga_id', $id)->first();
         $dataWali = Wali::where('data_keluarga_id', $id)->first();
 
-        return view('validasiSurvey.validasi-survey', compact('id', 'validasi', 'dataKeluarga', 'dataIbu', 'dataAyah', 'dataWali'));
+        $status = $validasi->hsurvey;
+        $ket = $validasi->resume;
+
+        return view('validasiSurvey.validasi-survey', compact('id', 'validasi', 'dataKeluarga', 'dataIbu', 'dataAyah', 'dataWali', 'status', 'ket'));
 
     }
 
@@ -78,9 +81,19 @@ class ValidasiSurveyController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        $survey = SurveyKeluarga::find($id);
+        $status = $request->input('status');
+        $ket = $request->input('ket');
+
+        
+        SurveyKeluarga::create([
+            'resume' => $ket,
+            'hsurvey' => $status,
+        ]);
+
+        return redirect()->back()->with('success', 'Data berhasil disimpan.');
     }
 
     /**
@@ -102,10 +115,26 @@ class ValidasiSurveyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
+    public function update(Request $request, $id)
+{
+    $survey = SurveyKeluarga::find($id);
+
+    if (!$survey) {
+        return redirect()->back()->with('error', 'Data tidak ditemukan.');
     }
+
+    $status = $request->input('status');
+    $ket = $request->input('ket');
+
+    // Menggunakan metode update untuk memperbarui record yang sudah ada
+    $survey->update([
+        'resume' => $ket,
+        'hsurvey' => $status,
+    ]);
+
+    return redirect()->back()->with('success', 'Data berhasil diperbarui.');
+}
+
 
     /**
      * Remove the specified resource from storage.
