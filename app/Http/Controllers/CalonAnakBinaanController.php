@@ -25,6 +25,7 @@ class CalonAnakBinaanController extends Controller
                 'anaks.tanggal_lahir as tanggal_lahir_calon_anak', 
                 'ayahs.*',
                 'ayahs.nama as nama_ayah', 
+                'ayahs.nik as nik_ayah', 
                 'anaks.*',
                 'ibus.*', 
                 'walis.*',
@@ -65,10 +66,10 @@ class CalonAnakBinaanController extends Controller
         // ini untuk detail data keluarga
         // Ambil data keluarga berdasarkan $id dari database
         $dataKeluarga = DataKeluarga::find($id);
-        $dataIbu = Ibu::where('data_keluarga_id', $id)->first();
-        $dataAyah = Ayah::where('data_keluarga_id', $id)->first();
-        $dataAnak = Anak::where('data_keluarga_id', $id)->first();
-        $dataWali = Wali::where('data_keluarga_id', $id)->first();
+        $dataIbu = Ibu::where('data_keluarga_id', $dataKeluarga->id)->first();
+        $dataAyah = Ayah::where('data_keluarga_id', $dataKeluarga->id)->first();
+        $dataAnak = Anak::where('data_keluarga_id', $dataKeluarga->id)->first();
+        $dataWali = Wali::where('data_keluarga_id', $dataKeluarga->id)->first();
         // Tampilkan halaman detail data keluarga (misalnya, menggunakan view 'detail_datakeluarga.blade.php')
         return view('DataCalonAnakBinaan.CalonAnakBinaan-view', [
             'dataKeluarga' => $dataKeluarga, 
@@ -79,51 +80,96 @@ class CalonAnakBinaanController extends Controller
         ]);
     }
 
+    // Update Data Keluarga~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     public function updated(Request $request, string $id)
     {
-        // Cari data keluarga
         $dataKeluarga = DataKeluarga::find($id);    
 
         if (!$dataKeluarga) {
-            return response()->json(['success' => false, 'message' => 'Data Keluarga tidak ditemukan'], 404);
+            return response()->json(['success' => false, 'message' => 'Data Keluarga tidak ditemukan']);
         }   
 
-        // Update data keluarga
-        $dataKeluarga->update($request->all()); 
+        // Lakukan update data keluarga
+        $dataKeluarga->update($request->only([
+            'kacab', 'nomorkk', 'anak_ke', 'alamat_kk', 'kepala_keluarga', 'wilayah_binaan', 'shelter', 'jarak_ke_shelter', 'no_telp', 'no_rek'
+        ]));    
 
-        // Update model Ayah jika ada data Ayah yang dikirimkan dalam request
-        if ($request->has('ayah')) {
-            $dataKeluarga->dataAyah->update($request->input('ayah'));
-        }   
-
-        // Update model Ibu jika ada data Ibu yang dikirimkan dalam request
-        if ($request->has('ibu')) {
-            $dataKeluarga->dataIbu->update($request->input('ibu'));
-        }   
-
-        // Update model Anak jika ada data Anak yang dikirimkan dalam request
-        if ($request->has('anak')) {
-            $dataKeluarga->dataAnak->update($request->input('anak'));
-        }   
-
-        // Update model Wali jika ada data Wali yang dikirimkan dalam request
-        if ($request->has('wali')) {
-            $dataKeluarga->dataWali->update($request->input('wali'));
-        }   
-
-        return response()->json(['success' => true, 'message' => 'Data diperbarui']);
+        return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui']);
     }
 
-    // public function updatedAyah(Request $request, string $id_ayahs)
-    // {
-    //     $dataKeluarga = Ayah::find($id_ayahs);
 
-    //     $dataKeluarga->update($request->all());
+    // Update Data Ayah~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    public function updatedAnak(Request $request, string $id)
+    {
+        $dataKeluarga = DataKeluarga::find($id);
 
-    //     return response()->json(['success' => true]);
+        if (!$dataKeluarga) {
+            return response()->json(['success' => false, 'message' => 'Data Keluarga tidak ditemukan']);
+        }
 
-    // }
+        // Lakukan update data ayah
+        $dataKeluarga->dataAnak->update($request->only([
+            'nama_lengkap', 'nama_panggilan', 'jenis_kelamin', 'tempat_lahir', 'tanggal_lahir', 'nama_sekolah', 'kelas_sekolah', 'nama_madrasah', 'kelas_madrasah', 'hobby', 'cita_cita'
+        ]));    
 
+        return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui']);
+    }
+
+
+    // Update Data Ayah~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    public function updatedAyah(Request $request, string $id)
+    {
+        $dataKeluarga = DataKeluarga::find($id);
+
+        if (!$dataKeluarga) {
+            return response()->json(['success' => false, 'message' => 'Data Keluarga tidak ditemukan']);
+        }
+
+        // Lakukan update data ayah
+        $dataKeluarga->dataAyah->update($request->only([
+            'nik', 'nama', 'tempat_lahir', 'tanggal_lahir', 'pekerjaan', 'jumlah_tanggungan', 'pendapatan', 'agama', 'alamat'
+        ]));    
+
+        return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui']);
+    }
+
+
+    // Update Data Ibu~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    public function updatedIbu(Request $request, string $id)
+    {
+        $dataKeluarga = DataKeluarga::find($id);
+
+        if (!$dataKeluarga) {
+            return response()->json(['success' => false, 'message' => 'Data Keluarga tidak ditemukan']);
+        }
+
+        // Lakukan update data ibu
+        $dataKeluarga->dataIbu->update($request->only([
+            'nik', 'nama', 'tempat_lahir', 'tanggal_lahir', 'pekerjaan', 'pendapatan', 'agama', 'alamat'
+        ]));    
+
+        return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui']);
+    }
+
+    // Update Data Wali~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    public function updatedWali(Request $request, string $id)
+    {
+        $dataKeluarga = DataKeluarga::find($id);
+
+        if (!$dataKeluarga) {
+            return response()->json(['success' => false, 'message' => 'Data Keluarga tidak ditemukan']);
+        }
+
+        // Lakukan update data wali
+        $dataKeluarga->dataWali->update($request->only([
+            'no_ktp', 'nama_lengkap', 'nama_panggilan', 'tempat_lahir', 'tanggal_lahir', 'pekerjaan', 'jumlah_tanggungan', 'pendapatan', 'data_keluarga_id'
+        ]));    
+
+        return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui']);
+    }
+
+
+    // Hapus Data
     public function destroyd(Request $request)
     {
         $datakeluarga = DataKeluarga::where('id', $request->id)->delete();

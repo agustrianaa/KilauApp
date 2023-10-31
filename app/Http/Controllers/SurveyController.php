@@ -34,35 +34,35 @@ class SurveyController extends Controller
 
     public function store(Request $request)
     {
-        SurveyKeluarga::create($request->all());
-        // SurveyKeluarga::create([
-        //     'keluarga_id' => $request->keluarga_id,
-        //     'kep_tanah' => $request->kep_tanah,
-        //     'kep_rumah' => $request->kep_rumah,
-        //     'lantai' => $request->lantai,
-        //     'dinding' => $request->dinding,
-        //     'kep_kendaraan' => $request->kep_kendaraan,
-        //     'kep_elektronik' => $request->kep_elektronik,
-        //     'sumber_air' => $request->sumber_air,
-        //     'jamban' => $request->jamban,
-        //     'tempat_sampah' => $request->tempat_sampah,
-        //     'perokok' => $request->perokok,
-        //     'miras' => $request->miras,
-        //     'p3k' => $request->p3k,
-        //     'makan_sayur' => $request->makan_sayur,
-        //     'sholat' => $request->sholat,
-        //     'baca_quran' => $request->baca_quran,
-        //     'majelis_taklim' => $request->majelis_taklim,
-        //     'pengurus_organisasi' => $request->pengurus_organisasi,
-        //     'status_anak' => $request->status_anak,
-        //     'biaya_pendidikan' => $request->biaya_pendidikan,
-        //     'bantuan_lembaga_formal' => $request->bantuan_lembaga_formal,
-        //     'resume' => $request->resume,
-        //     'petugas_survey' => $request->petugas_survey,
-        // ]);
+        // Mengambil semua nilai yang dipilih dari checkbox "kep_kendaraan" sebagai array
+        $resultText = $request->input('kep_kendaraan');  
+
+        // Mengganti input "kep_kendaraan" dengan string yang berisi nilai yang dipilih
+        $request->merge(['kep_kendaraan' => $resultText]); 
+
+        SurveyKeluarga::create($request->all());    
 
         return redirect()->route('admin.surveyAnak');
     }
+
+    
+    
+//     public function storae(Request $request)
+// {
+//     // Mengambil semua nilai yang dipilih dari checkbox "kep_kendaraan" sebagai array
+//     $selectedKendaraan = $request->input('kep_kendaraan');
+
+//     // Menggabungkan array menjadi satu string dengan koma sebagai pemisah
+//     $kendaraanString = implode(', ', $selectedKendaraan);
+
+//     // Mengganti input "kep_kendaraan" dengan string yang berisi nilai yang dipilih
+//     $request->merge(['kep_kendaraan' => $kendaraanString]);
+
+//     SurveyKeluarga::create($request->all());
+
+//     return redirect()->route('admin.surveyAnak');
+// }
+
 
     public function show(SurveyController $surveyController)
     {

@@ -11,8 +11,8 @@ class Ibu extends Model
     use HasFactory;
     protected $tabel = 'ibus';
     protected $primaryKey = 'id_ibus';
-
     protected $fillable = [
+        'data_keluarga_id',
         'nik',
         'nama',
         'tempat_lahir',
@@ -20,8 +20,7 @@ class Ibu extends Model
         'pekerjaan',
         'pendapatan',
         'agama',
-        'alamat',
-        'data_keluarga_id'
+        'alamat'
     ];
 
     public function dataKeluarga():BelongsTo

@@ -11,6 +11,11 @@ class SurveyKeluarga extends Model
     protected $tabel = 'survey_keluargas';
     protected $primaryKey = 'id';
 
+    protected $casts = [
+        'kep_kendaraan' => 'array',
+    ];
+    
+
     protected $fillable = [
         'keluarga_id',
         // assett

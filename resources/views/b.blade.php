@@ -3,48 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dropdown dengan Checkbox</title>
-    <!-- Menggunakan Bootstrap CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Form Survey</title>
 </head>
 <body>
-
-<div class="container mt-5">
-    <h2>Dropdown dengan Checkbox</h2>
-    <div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Pilih Item
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <form class="px-4 py-3">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="checkbox1" id="checkbox1">
-                    <label class="form-check-label" for="checkbox1">
-                        Checkbox 1
-                    </label>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-title">
+                <div class="text-center">
+                    Form Survey
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="checkbox2" id="checkbox2">
-                    <label class="form-check-label" for="checkbox2">
-                        Checkbox 2
-                    </label>
+            </div>
+            <form action="{{ route('admin.surveyStore') }}" method="post" enctype="multipart/form-data">
+            @csrf
+                <div class="card-body">
+                    <div class="col-12">
+                        <input type="text" class="form-control" name="kep_tanah">
+                        <input type="text" class="form-control" name="kep_rumah">
+                        <input type="text" class="form-control" name="lantai">
+                        <input type="text" class="form-control" name="dinding">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="kep_kendaraan" id="opsiSepeda" value="Sepeda">
+                            <label class="form-check-label" for="opsiSepeda">Sepeda</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="kep_kendaraan" id="opsiMotor" value="Motor">
+                            <label class="form-check-label" for="opsiMotor">Motor</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="kep_kendaraan" id="opsiMobil" value="Mobil">
+                            <label class="form-check-label" for="opsiMobil">Mobil</label>
+                        </div>
+                        <input type="text" class="form-control" name="kep_elektronik">
+                    </div>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="checkbox3" id="checkbox3">
-                    <label class="form-check-label" for="checkbox3">
-                        Checkbox 3
-                    </label>
+                <div class="card-footer">
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-info">Simpan</button>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Simpan</button>
             </form>
         </div>
     </div>
-</div>
-
-<!-- Menggunakan Bootstrap JavaScript -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 </body>
 </html>
