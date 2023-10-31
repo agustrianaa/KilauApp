@@ -1,352 +1,715 @@
 @extends('layout.main')
 @section('content')
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <div class="content-wrapper">
-        <div class="container-fluid">
-            <div class="row">
-                <h2 class="text-center">DATA DETAIL KELUARGA YA WOI</h2>
-                <hr>
-                <!-- CARD DATA ANAK -->
-                <div class="col-md-3">
-                    <div class="card card-primary card-outline">
-                        <div class="card-body box-profile">
-                            <div class="text-center">
-                                <img class="profile-user-img img-fluid img-circle" src="https://i.pinimg.com/564x/69/87/1f/69871fc9c6ddf63be8262c48297d7136.jpg" alt="User profile picture">
+        <section class="content">
+
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Detail Anak <i>{{ $dataAnak ? $dataAnak->nama_lengkap : 'Data Kosong' }}</i></h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                                <li class="breadcrumb-item active">Detail Anak</li>
+                            </ol>
+                        </div>
+                    </div><!-- End row -->
+                </div><!-- End container-fluid -->
+            </div>
+            <!-- End content-header -->
+            
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- CARD DATA ANAK -->
+                    <div class="col-md-3">
+                        <div class="card card-primary card-outline">
+                            <div class="card-body box-profile">
+                                <div class="text-center">
+                                    <img class="profile-user-img img-fluid img-circle" src="https://i.pinimg.com/564x/69/87/1f/69871fc9c6ddf63be8262c48297d7136.jpg" alt="User profile picture">
+                                </div>
+                                <p class="text-center">{{ $dataAnak ? $dataAnak->nama_lengkap : 'Data Kosong' }}</p>
+                                <ul class="list-group list-group-unbordered mb-3">
+                                    <li class="list-group-item">
+                                        <b>Kelamin</b> <div class="float-right">{{ $dataAnak ? $dataAnak->jenis_kelamin : 'Data Kosong' }}</div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>TTL</b> <div class="float-right">{{ $dataAnak ? $dataAnak->tempat_lahir : 'Data Kosong' }}, {{ $dataAnak ? $dataAnak->tanggal_lahir : 'Data Kosong' }}</div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Sekolah</b> <div class="float-right">{{ $dataAnak ? $dataAnak->nama_sekolah : 'Data Kosong' }}</div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Kelas</b> <div class="float-right">{{ $dataAnak ? $dataAnak->kelas_sekolah : 'Data Kosong' }}</div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Shelter</b> <div class="float-right">{{ $dataAnak ? $dataAnak->nama_lengkap : 'Data Kosong' }}</div>
+                                    </li>
+                                </ul>
+                                <div class="float-end">
+                                    <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#modal_dataAnak" data-id="{{ $dataAnak ? $dataAnak->id_anaks : '' }}"><i class="bi bi-pencil-square"></i> Edit</button>
+                                </div>
+                                <!-- Untuk ke data lengkap anak -->
+
+                                <!-- Modal Data Anak -->
+                                <div class="modal fade" id="modal_dataAnak" tabindex="-1" role="dialog" aria-labelledby="LabelAnak">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="col-12 text-center mt-3">
+                                                <h3>Edit Data Anak</h3>
+                                            </div>
+                                            <hr class="text-body-tertiary">
+                                            <div class="modal-body">
+                                                <!-- Isi konten modal di sini -->
+                                                <form>
+                                                @csrf
+                                                @method('PUT')
+                                                <input type="hidden" name="id_anaks" id="id_anaks" value="{{ $dataAnak ? $dataAnak->id_anaks : '' }}">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Nama Lengkap</label>
+                                                        <div class="col-sm-12">
+                                                            <input type="text" class="form-control" id="namaLengkapAnak" name="namaLengkapAnak" placeholder="" value="{{ $dataAnak ? $dataAnak->nama_lengkap : 'Data Kosong' }}" maxlength="50" required="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label">Nama Panggilan</label>
+                                                        <div class="col-sm-12">
+                                                            <input type="text" class="form-control" id="namaPanggilanAnak" name="namaPanggilanAnak" placeholder="" value="{{ $dataAnak ? $dataAnak->nama_panggilan : 'Data Kosong' }}" maxlength="50" required="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label">Jenis Kelamin</label>
+                                                        <div class="col-sm-12">
+                                                            <input type="text" class="form-control" id="jenisKelaminAnak" name="jenisKelaminAnak" placeholder="" value="{{ $dataAnak ? $dataAnak->jenis_kelamin : 'Data Kosong' }}" maxlength="50" required="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label">Tempat, Tanggal Lahir</label>
+                                                        <div class="col-12">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <input type="text" class="form-control" id="tempat_lahirAnak" name="tempat_lahirAnak" placeholder=""value="{{ $dataAnak ? $dataAnak->tempat_lahir : 'Data Kosong' }}" required="">
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <input type="date" class="form-control" id="tanggal_lahirAnak" name="tanggal_lahirAnak" placeholder="" value="{{ $dataAnak ? $dataAnak->tanggal_lahir : 'Data Kosong' }}" required="">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-12">
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <label class="control-label">Nama Sekolah</label>
+                                                                    <input type="text" class="form-control" id="namaSekolah" name="namaSekolah" placeholder="" value="{{ $dataAnak ? $dataAnak->nama_sekolah : 'Data Kosong' }}" maxlength="50" required="">
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <label class="control-label">Kelas</label>
+                                                                    <input type="text" class="form-control" id="kelasSekolah" name="kelasSekolah" placeholder="" value="{{ $dataAnak ? $dataAnak->kelas_sekolah : 'Data Kosong' }}" maxlength="50" required="">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-12">
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <label class="control-label">Nama Madrasah</label>
+                                                                    <input type="text" class="form-control" id="namaMadrasah" name="namaMadrasah" placeholder="" value="{{ $dataAnak ? $dataAnak->nama_madrasah : 'Data Kosong' }}" maxlength="50" required="">
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <label class="control-label">Kelas</label>
+                                                                    <input type="text" class="form-control" id="kelasMadrasah" name="kelasMadrasah" placeholder="" value="{{ $dataAnak ? $dataAnak->kelas_madrasah : 'Data Kosong' }}" maxlength="50" required="">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label">Hobby</label>
+                                                        <div class="col-sm-12">
+                                                            <input type="text" class="form-control" id="hobbyAnak" name="hobbyAnak" placeholder="" value="{{ $dataAnak ? $dataAnak->hobby : 'Data Kosong' }}" maxlength="50" required="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label">Cita - cita</label>
+                                                        <div class="col-sm-12">
+                                                            <input type="text" class="form-control" id="citaCitaAnak" name="citaCitaAnak" placeholder="" value="{{ $dataAnak ? $dataAnak->cita_cita : 'Data Kosong' }}" maxlength="50" required="">
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                                                <button type="button" data-dismiss="modal" class="btn btn-primary" id="btn-simpan-anak">Simpan</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
                             </div>
-                            <p class="text-muted text-center">{{ $dataAnak ? $dataAnak->nama_lengkap : 'Data Kosong' }}</p>
-                            <ul class="list-group list-group-unbordered mb-3">
-                                <li class="list-group-item">
-                                    <b>Kelamin</b> <a class="float-right">{{ $dataAnak ? $dataAnak->jenis_kelamin : 'Data Kosong' }}</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>TTL</b> <a class="float-right">{{ $dataAnak ? $dataAnak->tempat_lahir : 'Data Kosong' }}, {{ $dataAnak ? $dataAnak->tanggal_lahir : 'Data Kosong' }}</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Sekolah</b> <a class="float-right">{{ $dataAnak ? $dataAnak->nama_sekolah : 'Data Kosong' }}</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Kelas</b> <a class="float-right">{{ $dataAnak ? $dataAnak->kelas_sekolah : 'Data Kosong' }}</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Shelter</b> <a class="float-right">{{ $dataAnak ? $dataAnak->nama_lengkap : 'Data Kosong' }}</a>
-                                </li>
-                            </ul>
-                            <!-- Untuk ke data lengkap anak -->
-                            
                         </div>
                     </div>
-                </div>
-
-                <!-- Data Keluarga, Ayah, Ibu -->
-                <div class="col-md-9">
-                    <div class="card" >
-                        <div class="card-body text-center">
-                            <h3>Data Keluarga </h3>
-                            <h6>No KK : {{$dataKeluarga->no_kk}}</h6>
-                        </div>
-                        <div class="card card-primary card-tabs">
-                            <div class="card-header p-0 pt-1">
-                                <ul class="nav nav-tabs">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" href="#tab_dataKeluarga" data-toggle="pill" role="tab" aria-selected="true" >Data Keluarga</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#tab_dataAyah" data-toggle="pill" role="tab" aria-selected="false">Data Ayah</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#tab_dataIbu" data-toggle="pill" role="tab" aria-selected="false">Data Ibu</a>
-                                    </li>
-                                </ul> 
+    
+                    <!-- Data Keluarga, Ayah, Ibu -->
+                    <div class="col-md-9">
+                        <div class="card" >
+                            
+                            <div class="card-body">
+                                <div class="float-start m-1">
+                                    <a href="{{ route('admin.calonanakbinaanIndex') }}" class="btn btn-outline-warning shadow-sm"><i class="bi bi-arrow-left"></i> Kembali</a>
+                                </div>
+                                <div class="text-center">
+                                    <h3>Data Keluarga </h3>
+                                <h6>No KK : {{$dataKeluarga->nomorkk}}</h6>
+                                </div>
                             </div>
-                            <div class="card-body" >
-                                <div class="tab-content" >
-                                    <!-- Data Keluarga -->
-                                    <div class="tab-pane fade show active" id="tab_dataKeluarga" aria-labelledby="custom-tabs-two-home-tab">
-                                        <div class="post">
-                                            <div class="user-block">
-                                                <p>Ini adalah data keluarga yang lengkap</p>
-                                                <ul class="list-group list-group-unbordered mb-3">
-                                                <li class="list-group-item">
-                                                        <b>Kantor Cabang</b> <a id="kantor_cabang" name="kantor_cabang" class="float-right">{{ $dataKeluarga ? $dataKeluarga->kacab : 'Data Kosong' }}</a>
-                                                    </li>
-                                                    <li class="list-group-item">
-                                                        <b>Wilayah Binaan</b> <a id="wilayah_binaan_anak" name="wilayah_binaan_anak" class="float-right">{{ $dataKeluarga ? $dataKeluarga->wilayah_binaan : 'Data Kosong' }}</a>
-                                                    </li>
-                                                    <li class="list-group-item">
-                                                        <b>Shelter</b> <a id="shelter_anak" name="shelter_anak" class="float-right">{{ $dataKeluarga ? $dataKeluarga->shelter : 'Data Kosong' }}</a>
-                                                    </li>
-                                                    <li class="list-group-item">
-                                                        <b>No Telp</b> <a id="nomor_telepon" name="nomor_telepon" class="float-right">{{ $dataKeluarga ? $dataKeluarga->no_telp : 'Data Kosong' }}</a>
-                                                    </li>
-                                                    <li class="list-group-item">
-                                                        <b>No Rek</b> <a id="nomor_rekening" name="nomor_rekening" class="float-right">{{ $dataKeluarga ? $dataKeluarga->no_rek : 'Data Kosong' }}</a>
-                                                    </li>
-                                                </ul>
-                                                <button type="button" class="btn btn-primary float-right btn-lg" data-toggle="modal" data-target="#modal_dataKeluarga" data-id="{{ $dataIbu ? $dataKeluarga->id : '' }}"><i class="fas fa-edit"></i>Edit</button>
-                                            </div>
+                            <div class="card card-primary card-tabs">
+                                <div class="card-header p-0 pt-1">
+                                    <ul class="nav nav-tabs">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" href="#tab_dataKeluarga" data-toggle="pill" role="tab" aria-selected="true" >Data Keluarga</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#tab_dataAyah" data-toggle="pill" role="tab" aria-selected="false">Data Ayah</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#tab_dataIbu" data-toggle="pill" role="tab" aria-selected="false">Data Ibu</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#tab_dataWali" data-toggle="pill" role="tab" aria-selected="false">Data Wali</a>
+                                        </li>
+                                    </ul> 
+                                </div>
+                                <div class="card-body" >
+                                    <div class="tab-content" >
+                                        <!-- Data Keluarga -->
+                                        <div class="tab-pane fade show active" id="tab_dataKeluarga" aria-labelledby="custom-tabs-two-home-tab">
+                                                <div class="post">
+                                                    <div class="user-block">
+                                                        <ul class="list-group list-group-unbordered mb-3">
+                                                        <li class="list-group-item">
+                                                                <b>Kantor Cabang</b> <div class="float-right">{{ $dataKeluarga ? $dataKeluarga->kacab : 'Data Kosong' }}</div>
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <b>No Kartu Keluarga</b> <div class="float-right">{{ $dataKeluarga ? $dataKeluarga->nomorkk : 'Data Kosong' }}</div>
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <b>Anak Ke</b> <div class="float-right">{{ $dataKeluarga ? $dataKeluarga->anak_ke : 'Data Kosong' }}</div>
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <b>Alamat KK</b> <div class="float-right">{{ $dataKeluarga ? $dataKeluarga->alamat_kk : 'Data Kosong' }}</div>
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <b>Wilayah Binaan</b> <div class="float-right">{{ $dataKeluarga ? $dataKeluarga->wilayah_binaan : 'Data Kosong' }}</div>
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <b>Shelter</b> <div class="float-right">{{ $dataKeluarga ? $dataKeluarga->shelter : 'Data Kosong' }}</div>
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <b>Jarak ke Shelter</b> <div class="float-right">{{ $dataKeluarga ? $dataKeluarga->jarak_ke_shelter : 'Data Kosong' }}</div>
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <b>No. Telephone</b> <div class="float-right">{{ $dataKeluarga ? $dataKeluarga->no_telp : 'Data Kosong' }}</div>
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <b>No. Rekening</b> <div class="float-right">{{ $dataKeluarga ? $dataKeluarga->no_rek : 'Data Kosong' }}</div>
+                                                            </li>
+                                                        </ul>
+                                                        <button type="button" class="btn btn-success float-right btn-md" data-toggle="modal" data-target="#modal_dataKeluarga" data-id="{{ $dataKeluarga ? $dataKeluarga->id : '' }}"><i class="bi bi-pencil-square"></i> Edit</button>
+                                                    </div>
+                                                </div>
                                         </div>
-                                    </div>
-
-                                    <!-- Modal Data Keluarga -->
-                                    <div class="modal fade" id="modal_dataKeluarga" tabindex="-1" role="dialog" aria-labelledby="LabelKeluarga">
-                                        <div class="modal-dialog modal-lg" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-                                                    <h4 class="modal-title" id="LabelKeluarga">Edit Data Ayah</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <!-- Isi konten modal di sini -->
-                                                    <form >
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <input type="hidden" name="id" id="id" value="{{ $dataAyah ? $dataAyah->id_ayah : '' }}">
-                                                        <div class="form-group">
-                                                            <label for="no_kk" class="control-label">No Kartu Keluarga</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="text" class="form-control" id="no_kk" name="no_kk" placeholder="Masukkan No KK..." value="{{ $dataKeluarga ? $dataKeluarga->no_kk: 'Data Kosong' }}"  maxlength="50" required="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="name" class="control-label">Kantor Cabang</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="text" class="form-control" id="kacab" name="kacab" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->kacab : 'Data Kosong' }}" maxlength="50" required="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="name" class="control-label">Wilayah Binaan</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="text" class="form-control" id="wilayah_binaan" name="wilayah_binaan" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->wilayah_binaan : 'Data Kosong' }}" maxlength="50" required="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label">Shelter</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="text" class="form-control" id="shelter" name="shelter" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->shelter : 'Data Kosong' }}" required="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label">No Telepon</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="text" class="form-control" id="no_telp" name="no_telp" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->no_telp : 'Data Kosong' }}" required="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label">No Rekening</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="text" class="form-control" id="no_rek" name="no_rek" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->no_rek : 'Data Kosong' }}" required="">
-                                                            </div>
-                                                        </div>
-                                                        
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-                                                    <button type="button" data-dismiss="modal" class="btn btn-primary" id="btn-simpan-keluarga">Simpan</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
-
-                                    <!-- Data Ayah -->
-                                    <div class="tab-pane fade" id="tab_dataAyah">
-                                        <p>Ini adalah data Ayah yang lengkap</p>
-                                        <ul class="list-group list-group-unbordered mb-3">
-                                            <li class="list-group-item">
-                                                <b>NIK</b> <a class="float-right">{{ $dataAyah ? $dataAyah->nik_ayah : 'Data Kosong' }}</a>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <b>Nama Lengkap</b> <a class="float-right">{{ $dataAyah ? $dataAyah->nama_ayah : 'Data Kosong' }}</a>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <b>Tempat, Tanggal Lahir</b> <a class="float-right">{{ $dataAyah ? $dataAyah->tempat_lahir : 'Data Kosong' }}, {{ $dataAyah ? $dataAyah->tanggal_lahir : 'Data Kosong' }}</a>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <b>Agama</b> <a class="float-right">{{ $dataAyah ? $dataAyah->agama : 'Data Kosong' }}</a>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <b>Alamat</b> <a class="float-right">{{ $dataAyah ? $dataAyah->alamat : 'Data Kosong' }}</a>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <b>Penghasilan</b> <a class="float-right">Field masih kosong</a>
-                                            </li>
-                                        </ul>
-                                        <button type="button" class="btn btn-primary float-right btn-lg" data-toggle="modal" data-target="#modal_dataAyah"><i class="fas fa-edit"></i>Edit</button>
-                                    </div>
-                                    
-                                    <!-- Modal Data Ayah -->
-                                    <div class="modal fade" id="modal_dataAyah" tabindex="-1" role="dialog" aria-labelledby="LabelAyah">
-                                        <div class="modal-dialog modal-lg" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-                                                    <h4 class="modal-title" id="LabelAyah">Edit Data Ayah</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <!-- Isi konten modal di sini -->
-                                                    <form >
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <input type="hidden" name="id_ayah" id="id_ayah" value="{{ $dataAyah ? $dataAyah->id_ayah : '' }}">
-                                                        <div class="form-group">
-                                                            <label for="no_kk" class="control-label">NIK</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="text" class="form-control" id="nik_ayah" name="nik_ayah" placeholder="Masukkan NIK..." value="{{ $dataAyah ? $dataAyah->nik_ayah : 'Data Kosong' }}"  maxlength="50" required="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="name" class="control-label">Nama Lengkap</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="text" class="form-control" id="nama_ayah" name="nama_ayah" placeholder="" value="{{ $dataAyah ? $dataAyah->nama_ayah : 'Data Kosong' }}" maxlength="50" required="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <div class="row">
-                                                                <label class="control-label">Tempat, Tanggal Lahir</label>
-                                                                <div class="col-sm-8">
-                                                                    <input type="text" class="form-control" id="tempat_lahirAyah" name="tempat_lahirAyah" placeholder=""value="{{ $dataAyah ? $dataAyah->tempat_lahir : 'Data Kosong' }}" required="">
-                                                                </div>
-                                                                <div class="col-psm-4">
-                                                                    <input type="date" class="form-control" id="tanggal_lahirAyah" name="tanggal_lahirAyah" placeholder="" value="{{ $dataAyah ? $dataAyah->tanggal_lahir : 'Data Kosong' }}" required="">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label">Agama</label>
-                                                            <div class="col-sm-12">
-                                                                <select class="form-control" id="agamaAyah" name="agamaAyah" aria-placeholder="pilih agama" required>
-                                                                    <option value="" disabled {{ $dataAyah->agama == '' ? 'selected' : '' }}>Pilih Agama</option>
-                                                                    <option value="Islam" {{ $dataAyah->agama == 'Islam' ? 'selected' : '' }}>Islam</option>
-                                                                    <option value="Kristen" {{ $dataAyah->agama == 'Kristen' ? 'selected' : '' }}>Kristen</option>
-                                                                    <option value="Katolik" {{ $dataAyah->agama == 'Katolik' ? 'selected' : '' }}>Katolik</option>
-                                                                    <option value="Hindu" {{ $dataAyah->agama == 'Hindu' ? 'selected' : '' }}>Hindu</option>
-                                                                    <option value="Buddha" {{ $dataAyah->agama == 'Buddha' ? 'selected' : '' }}>Buddha</option>
-                                                                    <option value="Konghucu" {{ $dataAyah->agama == 'Konghucu' ? 'selected' : '' }}>Konghucu</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label">Alamat</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="text" class="form-control" id="alamatAyah" name="alamatAyah" placeholder="" value="{{ $dataAyah ? $dataAyah->alamat : 'Data Kosong' }}" required="">
-                                                            </div>
-                                                        </div>
-                                                        
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-                                                    <button type="button" data-dismiss="modal" class="btn btn-primary" id="btn-simpan-ayah">Simpan</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!----------------------------------------------------------------------------------  ------------------------------------------------------------------------------------------------------------------------->
-
-                                    <!-- Data Ibu -->
-                                    <div class="tab-pane fade" id="tab_dataIbu">
-                                        <p>Ini adalah data Ibu yang lengkap</p>
-                                        <ul class="list-group list-group-unbordered mb-3">
-                                            <li class="list-group-item">
-                                                <b>NIK</b> <a class="float-right">{{ $dataIbu ? $dataIbu->nik_ibu : 'Data Kosong' }}</a>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <b>Nama Lengkap</b> <a class="float-right">{{ $dataIbu ? $dataIbu->nama_ibu : 'Data Kosong' }}</a>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <b>Tempat, Tanggal Lahir</b> <a class="float-right">{{ $dataIbu ? $dataIbu->tempat_lahir : 'Data Kosong' }}, {{ $dataIbu ? $dataIbu->tanggal_lahir : 'Data Kosong' }}</a>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <b>Agama</b> <a class="float-right">{{ $dataIbu ? $dataIbu->agama : 'Data Kosong' }}</a>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <b>Alamat</b> <a class="float-right">{{ $dataIbu ? $dataIbu->alamat : 'Data Kosong' }}</a>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <b>Penghasilan</b> <a class="float-right">Field Belum ada</a>
-                                            </li>
-                                        </ul>
-                                        <button type="button" class="btn btn-primary float-right btn-lg" data-toggle="modal" data-target="#modal_dataIbu" data-id="{{ $dataIbu ? $dataIbu->id_ibu : '' }}"><i class="fas fa-edit"></i>Edit</button>
-                                    </div>
-
-                                    <!-- Modal Data Ibu -->
-                                    <div class="modal fade" id="modal_dataIbu" tabindex="-1" role="dialog" aria-labelledby="LabelIbu">
-                                        <div class="modal-dialog modal-lg" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-                                                    <h4 class="modal-title" id="LabelIbu">Edit Data Ibu</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <!-- Isi konten modal di sini -->
-                                                    <form >
+    
+                                        <!-- Modal Data Keluarga -->
+                                        <div class="modal fade" id="modal_dataKeluarga" tabindex="-1" role="dialog" aria-labelledby="LabelKeluarga">
+                                            <div class="modal-dialog modal-lg" role="document">
+                                                <div class="modal-content">
+                                                    <div class="col-12 text-center mt-3">
+                                                        <h3>Edit Data Keluarga</h3>
+                                                    </div>
+                                                    <hr class="text-body-tertiary">
+                                                    <div class="modal-body">
+                                                        <!-- Isi konten modal di sini -->
+                                                        <form >
                                                         @csrf
                                                         @method('PUT')
-                                                    <input type="hidden" name="id_ibu" id="id_ibu" value="{{ $dataIbu ? $dataIbu->id_ibu : '' }}">
-                                                        <div class="form-group">
-                                                            <label for="no_kk" class="control-label">NIK</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="text" class="form-control" id="nik_ibu" name="nik_ibu" placeholder="Masukkan NIK..." value="{{ $dataIbu ? $dataIbu->nik_ibu : 'Data Kosong' }}"  maxlength="50" required="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="name" class="control-label">Nama Lengkap</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="text" class="form-control" id="nama_ibu" name="nama_ibu" placeholder="" value="{{ $dataIbu ? $dataIbu->nama_ibu : 'Data Kosong' }}" maxlength="50" required="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <div class="row">
-                                                                <label class="control-label">Tempat, Tanggal Lahir</label>
-                                                                <div class="col-sm-8">
-                                                                    <input type="text" class="form-control" id="tempat_lahirIbu" name="tempat_lahirIbu" placeholder=""value="{{ $dataIbu ? $dataIbu->tempat_lahir : 'Data Kosong' }}" required="">
-                                                                </div>
-                                                                <div class="col-psm-4">
-                                                                    <input type="date" class="form-control" id="tanggal_lahirIbu" name="tanggal_lahirIbu" placeholder="" value="{{ $dataIbu ? $dataIbu->tanggal_lahir : 'Data Kosong' }}" required="">
+                                                        <input type="hidden" name="id" id="id" value="{{ $dataKeluarga ? $dataKeluarga->id : '' }}">
+                                                            <div class="form-group">
+                                                                <label class="control-label">Kantor Cabang</label>
+                                                                <div class="col-sm-12">
+                                                                    <input type="text" class="form-control" id="kacab" name="kacab" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->kacab : 'Data Kosong' }}" maxlength="50" required="">
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label">Agama</label>
-                                                            <div class="col-sm-12">
-                                                                <select class="form-control" id="agamaIbu" name="agamaIbu" aria-placeholder="pilih agama" required>
-                                                                    <option value="" disabled selected>Pilih Agama</option>
-                                                                    <option value="Islam">Islam</option>
-                                                                    <option value="Kristen">Kristen</option>
-                                                                    <option value="Katolik">Katolik</option>
-                                                                    <option value="Hindu">Hindu</option>
-                                                                    <option value="Buddha">Buddha</option>
-                                                                    <option value="Konghucu">Konghucu</option>
-                                                                </select>
+                                                            <div class="form-group">
+                                                                <label class="control-label">No KK</label>
+                                                                <div class="col-sm-12">
+                                                                    <input type="text" class="form-control" id="nomorkk" name="nomorkk" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->nomorkk : 'Data Kosong' }}" maxlength="50" required="">
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label">Alamat</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="text" class="form-control" id="alamatIbu" name="alamatIbu" placeholder="" value="{{ $dataIbu ? $dataIbu->alamat : 'Data Kosong' }}" required="">
+                                                            <div class="form-group">
+                                                                <label class="control-label">Wilayah Binaan</label>
+                                                                <div class="col-sm-12">
+                                                                    <input type="text" class="form-control" id="wilayah_binaan" name="wilayah_binaan" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->wilayah_binaan : 'Data Kosong' }}" maxlength="50" required="">
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-                                                    <button type="button" data-dismiss="modal" class="btn btn-primary" id="btn-simpan-ibu">Simpan</button>
+                                                            <div class="form-group">
+                                                                <label class="control-label">Shelter</label>
+                                                                <div class="col-sm-12">
+                                                                    <input type="text" class="form-control" id="shelter" name="shelter" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->shelter : 'Data Kosong' }}" required="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="control-label">No Telepon</label>
+                                                                <div class="col-sm-12">
+                                                                    <input type="text" class="form-control" id="no_telp" name="no_telp" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->no_telp : 'Data Kosong' }}" required="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="control-label">No Rekening</label>
+                                                                <div class="col-sm-12">
+                                                                    <input type="text" class="form-control" id="no_rek" name="no_rek" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->no_rek : 'Data Kosong' }}" required="">
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                                                        <button type="button" data-dismiss="modal" class="btn btn-primary" id="btn-simpan-keluarga">Simpan</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+    
+                                        <!-- Data Ayah -->
+                                        <div class="tab-pane fade" id="tab_dataAyah">
+                                            <ul class="list-group list-group-unbordered mb-3">
+                                                <li class="list-group-item">
+                                                    <b>NIK</b> <div class="float-right">{{ $dataAyah ? $dataAyah->nik : 'Data Kosong' }}</div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <b>Nama Lengkap</b> <div class="float-right">{{ $dataAyah ? $dataAyah->nama : 'Data Kosong' }}</div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <b>Tempat, Tanggal Lahir</b> <div class="float-right">{{ $dataAyah ? $dataAyah->tempat_lahir : 'Data Kosong' }}, {{ $dataAyah ? $dataAyah->tanggal_lahir : 'Data Kosong' }}</div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <b>Pekerjaan</b> <div class="float-right">{{ $dataAyah ? $dataAyah->pekerjaan : 'Data Kosong' }}</div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <b>Jumlah Tanggungan</b> <div class="float-right">{{ $dataAyah ? $dataAyah->jumlah_tanggungan : 'Data Kosong' }} Anak</div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <b>Pendapatan</b> <div class="float-right">{{ $dataAyah ? $dataAyah->pendapatan : 'Data Kosong' }}</div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <b>Agama</b> <div class="float-right">{{ $dataAyah ? $dataAyah->agama : 'Data Kosong' }}</div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <b>Alamat</b> <div class="float-right">{{ $dataAyah ? $dataAyah->alamat : 'Data Kosong' }}</div>
+                                                </li>
+                                            </ul>
+                                            <button type="button" class="btn btn-success float-right btn-md" data-toggle="modal" data-target="#modal_dataAyah" data-id="{{ $dataAyah ? $dataAyah->id_ayahs : '' }}"><i class="bi bi-pencil-square"></i> Edit</button>
+                                        </div>
+                                        
+                                        <!-- Modal Data Ayah -->
+                                        <div class="modal fade" id="modal_dataAyah" tabindex="-1" role="dialog" aria-labelledby="LabelAyah">
+                                            <div class="modal-dialog modal-lg" role="document">
+                                                <div class="modal-content">
+                                                    <div class="col-12 text-center mt-3">
+                                                        <h3>Edit Data Ayah</h3>
+                                                    </div>
+                                                    <hr class="text-body-tertiary">
+                                                    <div class="modal-body">
+                                                        <!-- Isi konten modal di sini -->
+                                                        <form>
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <input type="hidden" name="id_ayahs" id="id_ayahs" value="{{ $dataAyah ? $dataAyah->id_ayahs : '' }}">
+                                                            <div class="form-group">
+                                                                <label for="nik" class="control-label">NIK</label>
+                                                                <div class="col-sm-12">
+                                                                    <input type="text" class="form-control" id="nikAyah" name="nikAyah" placeholder="Masukkan NIK..." value="{{ $dataAyah ? $dataAyah->nik : 'Data Kosong' }}"  maxlength="50" required="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="control-label">Nama Lengkap</label>
+                                                                <div class="col-sm-12">
+                                                                    <input type="text" class="form-control" id="namaAyah" name="namaAyah" placeholder="" value="{{ $dataAyah ? $dataAyah->nama : 'Data Kosong' }}" maxlength="50" required="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="control-label">Tempat, Tanggal Lahir</label>
+                                                                <div class="col-12">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <input type="text" class="form-control" id="tempat_lahirAyah" name="tempat_lahirAyah" placeholder=""value="{{ $dataAyah ? $dataAyah->tempat_lahir : 'Data Kosong' }}" required="">
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <input type="date" class="form-control" id="tanggal_lahirAyah" name="tanggal_lahirAyah" placeholder="" value="{{ $dataAyah ? $dataAyah->tanggal_lahir : 'Data Kosong' }}" required="">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="control-label">Pekerjaan</label>
+                                                                <div class="col-sm-12">
+                                                                    <select class="form-select" id="pekerjaanAyah" name="pekerjaanAyah">
+                                                                        <option disabled selected {{ $dataAyah->pekerjaan == '' ? 'selected' : '' }}>Pilih Pekerjaan...</option>
+                                                                        <option value="Petani" {{ $dataAyah->pekerjaan == 'Petani' ? 'selected' : '' }}>Petani</option>
+                                                                        <option value="Nelayan" {{ $dataAyah->pekerjaan == 'Nelayan' ? 'selected' : '' }}>Nelayan</option>
+                                                                        <option value="Peternak" {{ $dataAyah->pekerjaan == 'Peternak' ? 'selected' : '' }}>Peternak</option>
+                                                                        <option value="PNS NON Dosen/Guru" {{ $dataAyah->pekerjaan == 'PNS NON Dosen/Guru' ? 'selected' : '' }}>PNS NON Dosen/Guru</option>
+                                                                        <option value="Guru PNS" {{ $dataAyah->pekerjaan == 'Guru PNS' ? 'selected' : '' }}>Guru PNS</option>
+                                                                        <option value="Guru NON PNS" {{ $dataAyah->pekerjaan == 'Guru NON PNS' ? 'selected' : '' }}>Guru NON PNS</option>
+                                                                        <option value="PNS/TNI/POLRI" {{ $dataAyah->pekerjaan == 'PNS/TNI/POLRI' ? 'selected' : '' }}>PNS/TNI/POLRI</option>
+                                                                        <option value="Guru NON PNS" {{ $dataAyah->pekerjaan == 'Guru NON PNS' ? 'selected' : '' }}>Karyawan Swasta</option>
+                                                                        <option value="Buruh" {{ $dataAyah->pekerjaan == 'Buruh' ? 'selected' : '' }}>Buruh</option>
+                                                                        <option value="Wiraswasta" {{ $dataAyah->pekerjaan == 'Wiraswasta' ? 'selected' : '' }}>Wiraswasta</option>
+                                                                        <option value="Wirausaha" {{ $dataAyah->pekerjaan == 'Wirausaha' ? 'selected' : '' }}>Wirausaha</option>
+                                                                        <option value="Pedagang Kecil" {{ $dataAyah->pekerjaan == 'Pedagang Kecil' ? 'selected' : '' }}>Pedagang Kecil</option>
+                                                                        <option value="Pedagang Besar" {{ $dataAyah->pekerjaan == 'Pedagang Besar' ? 'selected' : '' }}>Pedagang Besar</option>
+                                                                        <option value="Pensiunan" {{ $dataAyah->pekerjaan == 'Pensiunan' ? 'selected' : '' }}>Pensiunan</option>
+                                                                        <option value="Tidak Bekerja" {{ $dataAyah->pekerjaan == 'Tidak Bekerja' ? 'selected' : '' }}>Tidak Bekerja</option>
+                                                                        <option value="Sudah Meninggal" {{ $dataAyah->pekerjaan == 'Sudah Meninggal' ? 'selected' : '' }}>Sudah Meninggal</option>
+                                                                        {{-- <option value="">Lainnya</option> --}}
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="control-label">Jumlah Tanggungan</label>
+                                                                <div class="col-12">
+                                                                    <div class="row">
+                                                                        <div class="col-md-2">
+                                                                            <input type="text" class="form-control" id="tanggunganAyah" name="tanggunganAyah" placeholder="" value="{{ $dataAyah ? $dataAyah->jumlah_tanggungan : 'Data Kosong' }}" maxlength="50" required="">
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            Anak
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="control-label">Pendapatan</label>
+                                                                <div class="col-sm-12">
+                                                                    <select class="form-select" id="pendapatanAyah" name="pendapatanAyah">
+                                                                        <option disabled selected {{ $dataAyah->pendapatan == '' ? 'selected' : '' }}>Pilih Penghasilan...</option>
+                                                                        <option value="Dibawah Rp.500.000,-" {{ $dataAyah->pendapatan == 'Dibawah Rp.500.000,-' ? 'selected' : '' }}>Dibawah Rp.500.000,-</option>
+                                                                        <option value="Rp.500.000,- s/d Rp.1.500.000,-" {{ $dataAyah->pendapatan == 'Rp.500.000,- s/d Rp.1.500.000,-' ? 'selected' : '' }}>Rp.500.000,- s/d Rp.1.500.000,-</option>
+                                                                        <option value="Rp.1.500.000,- s/d Rp.2.500.000,-" {{ $dataAyah->pendapatan == 'Rp.1.500.000,- s/d Rp.2.500.000,-' ? 'selected' : '' }}>Rp.1.500.000,- s/d Rp.2.500.000,-</option>
+                                                                        <option value="Rp.2.500.000,- s/d Rp.3.500.000,-" {{ $dataAyah->pendapatan == 'Rp.2.500.000,- s/d Rp.3.500.000,-' ? 'selected' : '' }}>Rp.2.500.000,- s/d Rp.3.500.000,-</option>
+                                                                        <option value="Rp.3.000.000,- s/d Rp.5.000.000,-" {{ $dataAyah->pendapatan == 'Rp.3.000.000,- s/d Rp.5.000.000,-' ? 'selected' : '' }}>Rp.3.000.000,- s/d Rp.5.000.000,-</option>
+                                                                        <option value="Rp.5.000.000,- s/d Rp.7.000.000,-" {{ $dataAyah->pendapatan == 'Rp.5.000.000,- s/d Rp.7.000.000,-' ? 'selected' : '' }}>Rp.5.000.000,- s/d Rp.7.000.000,-</option>
+                                                                        <option value="Rp.7.000.000,- s/d Rp.10.000.000,-" {{ $dataAyah->pendapatan == 'Rp.7.000.000,- s/d Rp.10.000.000,-' ? 'selected' : '' }}>Rp.7.000.000,- s/d Rp.10.000.000,-</option>
+                                                                        <option value="Diatas Rp.10.000.000,-" {{ $dataAyah->pendapatan == 'Diatas Rp.10.000.000,-' ? 'selected' : '' }}>Diatas Rp.10.000.000,-</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="control-label">Agama</label>
+                                                                <div class="col-sm-12">
+                                                                    <select class="form-select" id="agamaAyah" name="agamaAyah" aria-placeholder="pilih agama" required>
+                                                                        <option value="" disabled {{ $dataAyah->agama == '' ? 'selected' : '' }}>Pilih Agama</option>
+                                                                        <option value="Islam" {{ $dataAyah->agama == 'Islam' ? 'selected' : '' }}>Islam</option>
+                                                                        <option value="Kristen" {{ $dataAyah->agama == 'Kristen' ? 'selected' : '' }}>Kristen</option>
+                                                                        <option value="Katolik" {{ $dataAyah->agama == 'Katolik' ? 'selected' : '' }}>Katolik</option>
+                                                                        <option value="Hindu" {{ $dataAyah->agama == 'Hindu' ? 'selected' : '' }}>Hindu</option>
+                                                                        <option value="Buddha" {{ $dataAyah->agama == 'Buddha' ? 'selected' : '' }}>Buddha</option>
+                                                                        <option value="Konghucu" {{ $dataAyah->agama == 'Konghucu' ? 'selected' : '' }}>Konghucu</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="control-label">Alamat</label>
+                                                                <div class="col-sm-12">
+                                                                    {{-- <input type="text" class="form-control" id="alamatAyah" name="alamatAyah" placeholder="" value="{{ $dataAyah ? $dataAyah->alamat : 'Data Kosong' }}" required=""> --}}
+                                                                    <textarea class="form-control" id="alamatAyah" name="alamatAyah" rows="3">{{ $dataAyah ? $dataAyah->alamat : 'Data Kosong' }}</textarea>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                                                        <button type="button" data-dismiss="modal" class="btn btn-primary" id="btn-simpan-ayah">Simpan</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
 
+                                        <!-- Data Ibu -->
+                                        <div class="tab-pane fade" id="tab_dataIbu">
+                                            <ul class="list-group list-group-unbordered mb-3">
+                                                <li class="list-group-item">
+                                                    <b>NIK</b> <div class="float-right">{{ $dataIbu ? $dataIbu->nik : 'Data Kosong' }}</div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <b>Nama Lengkap</b> <div class="float-right">{{ $dataIbu ? $dataIbu->nama : 'Data Kosong' }}</div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <b>Tempat, Tanggal Lahir</b> <div class="float-right">{{ $dataIbu ? $dataIbu->tempat_lahir : 'Data Kosong' }}, {{ $dataIbu ? $dataIbu->tanggal_lahir : 'Data Kosong' }}</div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <b>Pekerjaan</b> <div class="float-right">{{ $dataIbu ? $dataIbu->pekerjaan : 'Data Kosong' }}</div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <b>Pendapatan</b> <div class="float-right">{{ $dataIbu ? $dataIbu->pendapatan : 'Data Kosong' }}</div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <b>Agama</b> <div class="float-right">{{ $dataIbu ? $dataIbu->agama : 'Data Kosong' }}</div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <b>Alamat</b> <div class="float-right">{{ $dataIbu ? $dataIbu->alamat : 'Data Kosong' }}</div>
+                                                </li>
+                                            </ul>
+                                            <button type="button" class="btn btn-success float-right btn-md" data-toggle="modal" data-target="#modal_dataIbu" data-id="{{ $dataIbu ? $dataIbu->id_ibus : '' }}"><i class="bi bi-pencil-square"></i> Edit</button>
+                                        </div>
+    
+                                        <!-- Modal Data Ibu -->
+                                        <div class="modal fade" id="modal_dataIbu" tabindex="-1" role="dialog" aria-labelledby="LabelIbu">
+                                            <div class="modal-dialog modal-lg" role="document">
+                                                <div class="modal-content">
+                                                    <div class="col-12 text-center mt-3">
+                                                        <h3>Edit Data Ibu</h3>
+                                                    </div>
+                                                    <hr class="text-body-tertiary">
+                                                    <div class="modal-body">
+                                                        <!-- Isi konten modal di sini -->
+                                                        <form >
+                                                            @csrf
+                                                            @method('PUT')
+                                                        <input type="hidden" name="id_ibus" id="id_ibus" value="{{ $dataIbu ? $dataIbu->id_ibus : '' }}">
+                                                            <div class="form-group">
+                                                                <label for="nomor_kk" class="control-label">NIK</label>
+                                                                <div class="col-sm-12">
+                                                                    <input type="text" class="form-control" id="nikIbu" name="nikIbu" placeholder="Masukkan NIK..." value="{{ $dataIbu ? $dataIbu->nik : 'Data Kosong' }}"  maxlength="50" required="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="control-label">Nama Lengkap</label>
+                                                                <div class="col-sm-12">
+                                                                    <input type="text" class="form-control" id="namaIbu" name="namaIbu" placeholder="" value="{{ $dataIbu ? $dataIbu->nama : 'Data Kosong' }}" maxlength="50" required="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="control-label">Tempat, Tanggal Lahir</label>
+                                                                <div class="col-12">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <input type="text" class="form-control" id="tempat_lahirIbu" name="tempat_lahirIbu" placeholder=""value="{{ $dataIbu ? $dataIbu->tempat_lahir : 'Data Kosong' }}" required="">
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <input type="date" class="form-control" id="tanggal_lahirIbu" name="tanggal_lahirIbu" placeholder="" value="{{ $dataIbu ? $dataIbu->tanggal_lahir : 'Data Kosong' }}" required="">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="control-label">Pekerjaan</label>
+                                                                <div class="col-sm-12">
+                                                                    <select class="form-select" id="pekerjaanIbu" name="pekerjaanIbu">
+                                                                        <option disabled selected {{ $dataIbu->pekerjaan == '' ? 'selected' : '' }}>Pilih Pekerjaan...</option>
+                                                                        <option value="Petani" {{ $dataIbu->pekerjaan == 'Petani' ? 'selected' : '' }}>Petani</option>
+                                                                        <option value="Nelayan" {{ $dataIbu->pekerjaan == 'Nelayan' ? 'selected' : '' }}>Nelayan</option>
+                                                                        <option value="Peternak" {{ $dataIbu->pekerjaan == 'Peternak' ? 'selected' : '' }}>Peternak</option>
+                                                                        <option value="PNS NON Dosen/Guru" {{ $dataIbu->pekerjaan == 'PNS NON Dosen/Guru' ? 'selected' : '' }}>PNS NON Dosen/Guru</option>
+                                                                        <option value="Guru PNS" {{ $dataIbu->pekerjaan == 'Guru PNS' ? 'selected' : '' }}>Guru PNS</option>
+                                                                        <option value="Guru NON PNS" {{ $dataIbu->pekerjaan == 'Guru NON PNS' ? 'selected' : '' }}>Guru NON PNS</option>
+                                                                        <option value="PNS/TNI/POLRI" {{ $dataIbu->pekerjaan == 'PNS/TNI/POLRI' ? 'selected' : '' }}>PNS/TNI/POLRI</option>
+                                                                        <option value="Guru NON PNS" {{ $dataIbu->pekerjaan == 'Guru NON PNS' ? 'selected' : '' }}>Karyawan Swasta</option>
+                                                                        <option value="Buruh" {{ $dataIbu->pekerjaan == 'Buruh' ? 'selected' : '' }}>Buruh</option>
+                                                                        <option value="Wiraswasta" {{ $dataIbu->pekerjaan == 'Wiraswasta' ? 'selected' : '' }}>Wiraswasta</option>
+                                                                        <option value="Wirausaha" {{ $dataIbu->pekerjaan == 'Wirausaha' ? 'selected' : '' }}>Wirausaha</option>
+                                                                        <option value="Pedagang Kecil" {{ $dataIbu->pekerjaan == 'Pedagang Kecil' ? 'selected' : '' }}>Pedagang Kecil</option>
+                                                                        <option value="Pedagang Besar" {{ $dataIbu->pekerjaan == 'Pedagang Besar' ? 'selected' : '' }}>Pedagang Besar</option>
+                                                                        <option value="Pensiunan" {{ $dataIbu->pekerjaan == 'Pensiunan' ? 'selected' : '' }}>Pensiunan</option>
+                                                                        <option value="Tidak Bekerja" {{ $dataIbu->pekerjaan == 'Tidak Bekerja' ? 'selected' : '' }}>Tidak Bekerja</option>
+                                                                        <option value="Sudah Meninggal" {{ $dataIbu->pekerjaan == 'Sudah Meninggal' ? 'selected' : '' }}>Sudah Meninggal</option>
+                                                                        {{-- <option value="">Lainnya</option> --}}
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="control-label">Pendapatan</label>
+                                                                <div class="col-sm-12">
+                                                                    <select class="form-select" id="pendapatanIbu" name="pendapatanIbu">
+                                                                        <option disabled selected {{ $dataIbu->pendapatan == '' ? 'selected' : '' }}>Pilih Penghasilan...</option>
+                                                                        <option value="Dibawah Rp.500.000,-" {{ $dataIbu->pendapatan == 'Dibawah Rp.500.000,-' ? 'selected' : '' }}>Dibawah Rp.500.000,-</option>
+                                                                        <option value="Rp.500.000,- s/d Rp.1.500.000,-" {{ $dataIbu->pendapatan == 'Rp.500.000,- s/d Rp.1.500.000,-' ? 'selected' : '' }}>Rp.500.000,- s/d Rp.1.500.000,-</option>
+                                                                        <option value="Rp.1.500.000,- s/d Rp.2.500.000,-" {{ $dataIbu->pendapatan == 'Rp.1.500.000,- s/d Rp.2.500.000,-' ? 'selected' : '' }}>Rp.1.500.000,- s/d Rp.2.500.000,-</option>
+                                                                        <option value="Rp.2.500.000,- s/d Rp.3.500.000,-" {{ $dataIbu->pendapatan == 'Rp.2.500.000,- s/d Rp.3.500.000,-' ? 'selected' : '' }}>Rp.2.500.000,- s/d Rp.3.500.000,-</option>
+                                                                        <option value="Rp.3.000.000,- s/d Rp.5.000.000,-" {{ $dataIbu->pendapatan == 'Rp.3.000.000,- s/d Rp.5.000.000,-' ? 'selected' : '' }}>Rp.3.000.000,- s/d Rp.5.000.000,-</option>
+                                                                        <option value="Rp.5.000.000,- s/d Rp.7.000.000,-" {{ $dataIbu->pendapatan == 'Rp.5.000.000,- s/d Rp.7.000.000,-' ? 'selected' : '' }}>Rp.5.000.000,- s/d Rp.7.000.000,-</option>
+                                                                        <option value="Rp.7.000.000,- s/d Rp.10.000.000,-" {{ $dataIbu->pendapatan == 'Rp.7.000.000,- s/d Rp.10.000.000,-' ? 'selected' : '' }}>Rp.7.000.000,- s/d Rp.10.000.000,-</option>
+                                                                        <option value="Diatas Rp.10.000.000,-" {{ $dataIbu->pendapatan == 'Diatas Rp.10.000.000,-' ? 'selected' : '' }}>Diatas Rp.10.000.000,-</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="control-label">Agama</label>
+                                                                <div class="col-sm-12">
+                                                                    <select class="form-control" id="agamaIbu" name="agamaIbu" aria-placeholder="pilih agama" required>
+                                                                        <option value="" disabled {{ $dataIbu->agama == '' ? 'selected' : '' }}>Pilih Agama</option>
+                                                                        <option value="Islam" {{ $dataIbu->agama == 'Islam' ? 'selected' : '' }}>Islam</option>
+                                                                        <option value="Kristen" {{ $dataIbu->agama == 'Kristen' ? 'selected' : '' }}>Kristen</option>
+                                                                        <option value="Katolik" {{ $dataIbu->agama == 'Katolik' ? 'selected' : '' }}>Katolik</option>
+                                                                        <option value="Hindu" {{ $dataIbu->agama == 'Hindu' ? 'selected' : '' }}>Hindu</option>
+                                                                        <option value="Buddha" {{ $dataIbu->agama == 'Buddha' ? 'selected' : '' }}>Buddha</option>
+                                                                        <option value="Konghucu" {{ $dataIbu->agama == 'Konghucu' ? 'selected' : '' }}>Konghucu</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="control-label">Alamat</label>
+                                                                <div class="col-sm-12">
+                                                                    <input type="text" class="form-control" id="alamatIbu" name="alamatIbu" placeholder="" value="{{ $dataIbu ? $dataIbu->alamat : 'Data Kosong' }}" required="">
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                                                        <button type="button" data-dismiss="modal" class="btn btn-primary" id="btn-simpan-ibu">Simpan</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+                                        
+                                        <!-- Data Wali -->
+                                        <div class="tab-pane fade" id="tab_dataWali">
+                                            <ul class="list-group list-group-unbordered mb-3">
+                                                <li class="list-group-item">
+                                                    <b>No. KTP</b> <div class="float-right">{{ $dataWali ? $dataWali->no_ktp : 'Data Kosong' }}</div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <b>Nama Lengkap</b> <div class="float-right">{{ $dataWali ? $dataWali->nama_lengkap : 'Data Kosong' }}</div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <b>Nama Panggilan</b> <div class="float-right">{{ $dataWali ? $dataWali->nama_panggilan : 'Data Kosong' }}</div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <b>Tempat, Tanggal Lahir</b> <div class="float-right">{{ $dataWali ? $dataWali->tempat_lahir : 'Data Kosong' }}, {{ $dataWali ? $dataWali->tanggal_lahir : 'Data Kosong' }}</div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <b>Pekerjaan</b> <div class="float-right">{{ $dataWali ? $dataWali->pekerjaan : 'Data Kosong' }}</div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <b>Jumlah Tanggungan</b> <div class="float-right">{{ $dataWali ? $dataWali->jumlah_tanggungan : 'Data Kosong' }} Anak</div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <b>Pendapatan</b> <div class="float-right">{{ $dataWali ? $dataWali->pendapatan : 'Data Kosong' }}</div>
+                                                </li>
+                                            </ul>
+                                            <button type="button" class="btn btn-success float-right btn-md" data-toggle="modal" data-target="#modal_dataWali" data-id="{{ $dataWali ? $dataWali->id_walis : '' }}"><i class="bi bi-pencil-square"></i> Edit</button>
+                                        </div>
+    
+                                        <!-- Modal Data Wali -->
+                                        <div class="modal fade" id="modal_dataWali" tabindex="-1" role="dialog" aria-labelledby="LabelIbu">
+                                            <div class="modal-dialog modal-lg" role="document">
+                                                <div class="modal-content">
+                                                    <div class="col-12 text-center mt-3">
+                                                        <h3>Edit Data Wali</h3>
+                                                    </div>
+                                                    <hr class="text-body-tertiary">
+                                                    <div class="modal-body">
+                                                        <!-- Isi konten modal di sini -->
+                                                        <form >
+                                                            @csrf
+                                                            @method('PUT')
+                                                        <input type="hidden" name="id_walis" id="id_walis" value="{{ $dataWali ? $dataWali->id_walis : '' }}">
+                                                            <div class="form-group">
+                                                                <label for="nomor_kk" class="control-label">No. KTP</label>
+                                                                <div class="col-sm-12">
+                                                                    <input type="text" class="form-control" id="noKtpWali" name="noKtpWali" placeholder="Masukkan NIK..." value="{{ $dataWali ? $dataWali->no_ktp : 'Data Kosong' }}"  maxlength="50" required="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="control-label">Nama Lengkap</label>
+                                                                <div class="col-sm-12">
+                                                                    <input type="text" class="form-control" id="namaLengkapWali" name="namaLengkapWali" placeholder="" value="{{ $dataWali ? $dataWali->nama_lengkap : 'Data Kosong' }}" maxlength="50" required="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="control-label">Nama Panggilan</label>
+                                                                <div class="col-sm-12">
+                                                                    <input type="text" class="form-control" id="namaPanggilanWali" name="namaPanggilanWali" placeholder="" value="{{ $dataWali ? $dataWali->nama_panggilan : 'Data Kosong' }}" maxlength="50" required="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="control-label">Tempat, Tanggal Lahir</label>
+                                                                <div class="col-12">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <input type="text" class="form-control" id="tempat_lahirWali" name="tempat_lahirWali" placeholder=""value="{{ $dataWali ? $dataWali->tempat_lahir : 'Data Kosong' }}" required="">
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <input type="date" class="form-control" id="tanggal_lahirWali" name="tanggal_lahirWali" placeholder="" value="{{ $dataWali ? $dataWali->tanggal_lahir : 'Data Kosong' }}" required="">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            {{-- <div class="form-group">
+                                                                <label class="control-label">Agama</label>
+                                                                <div class="col-sm-12">
+                                                                    <select class="form-control" id="agamaIbu" name="agamaIbu" aria-placeholder="pilih agama" required>
+                                                                        <option value="" disabled {{ $dataWali->agama == '' ? 'selected' : '' }}>Pilih Agama</option>
+                                                                        <option value="Islam" {{ $dataWali->agama == 'Islam' ? 'selected' : '' }}>Islam</option>
+                                                                        <option value="Kristen" {{ $dataWali->agama == 'Kristen' ? 'selected' : '' }}>Kristen</option>
+                                                                        <option value="Katolik" {{ $dataWali->agama == 'Katolik' ? 'selected' : '' }}>Katolik</option>
+                                                                        <option value="Hindu" {{ $dataWali->agama == 'Hindu' ? 'selected' : '' }}>Hindu</option>
+                                                                        <option value="Buddha" {{ $dataWali->agama == 'Buddha' ? 'selected' : '' }}>Buddha</option>
+                                                                        <option value="Konghucu" {{ $dataWali->agama == 'Konghucu' ? 'selected' : '' }}>Konghucu</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div> --}}
+                                                            <div class="form-group">
+                                                                <label class="control-label">Pekerjaan</label>
+                                                                <div class="col-sm-12">
+                                                                    <input type="text" class="form-control" id="pekerjaanWali" name="pekerjaanWali" placeholder="" value="{{ $dataWali ? $dataWali->pekerjaan : 'Data Kosong' }}" required="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="control-label">Jumlah Tanggungan</label>
+                                                                <div class="col-sm-12">
+                                                                    <input type="text" class="form-control" id="jumlahTanggunganWali" name="jumlahTanggunganWali" placeholder="" value="{{ $dataWali ? $dataWali->jumlah_tanggungan : 'Data Kosong' }}" required="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="control-label">Pendapatan</label>
+                                                                <div class="col-sm-12">
+                                                                    <input type="text" class="form-control" id="pendapatanWali" name="pendapatanWali" placeholder="" value="{{ $dataWali ? $dataWali->pendapatan : 'Data Kosong' }}" required="">
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                                                        <button type="button" data-dismiss="modal" class="btn btn-primary" id="btn-simpan-wali">Simpan</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
 <script>
     $(document).ready(function(){
@@ -356,6 +719,75 @@
             }
         });
 
+        var idAnak;
+        $('#modal_dataAnak').on('show.bs.modal', function(event){
+            var button = $(event.relatedTarget);
+            idAnak = button.data('id_anaks');
+        });
+
+        function getDataAnak(){
+            var idAnak = $('#id_anaks').val();
+            var namaLengkapAnak = $('#namaLengkapAnak').val();
+            var namaPanggilanAnak = $('#namaPanggilanAnak').val();
+            var jenisKelaminAnak = $('#jenisKelaminAnak').val();
+            var tempat_lahirAnak = $('#tempat_lahirAnak').val();
+            var tanggal_lahirAnak = $('#tanggal_lahirAnak').val();
+            var namaSekolah = $('#namaSekolah').val();
+            var kelasSekolah = $('#kelasSekolah').val();
+            var namaMadrasah = $('#namaMadrasah').val();
+            var kelasMadrasah = $('#kelasMadrasah').val();
+            var hobbyAnak = $('#hobbyAnak').val();
+            var citaCitaAnak = $('#citaCitaAnak').val();
+
+            $.ajax({
+                method : 'PUT',
+                url : "/admin/calonAnakBinaanEditAnak/" + idAnak,
+                data: {
+                    nama_lengkap : namaLengkapAnak,
+                    nama_panggilan : namaPanggilanAnak,
+                    jenis_kelamin : jenisKelaminAnak,
+                    tempat_lahir : tempat_lahirAnak,
+                    tanggal_lahir : tanggal_lahirAnak,
+                    nama_sekolah : namaSekolah,
+                    kelas_sekolah : kelasSekolah,
+                    nama_madrasah : namaMadrasah,
+                    kelas_madrasah : kelasMadrasah,
+                    hobby : hobbyAnak,
+                    cita_cita : citaCitaAnak,
+                },
+                success: function (data) {
+                    console.log(data);
+                    $('#modal_dataAnak').modal('hide');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Update!',
+                        // text: 'Data berhasil diperbarui',
+                        showConfirmButton: false,
+                        timer: 800
+                    });
+                    // Memuat ulang halaman
+                    // Menunggu 1 detik (1000 ms) sebelum memuat ulang halaman
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1000); // Ganti 1000 dengan jumlah milidetik yang Anda inginkan.
+                },
+                error: function (error){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Terjadi Kesalahan!',
+                        // text: 'Terjadi kesalahan saat memperbarui data',
+                        showConfirmButton: false,
+                        timer: 900
+                    });
+                    console.log('Error', error);
+                }
+            })
+        }
+        $('#btn-simpan-anak').on('click', function(){
+            getDataAnak();
+        });
+
+
         // JS DATA KELUARGA
         var idKeluarga;
         $('#modal_dataKeluarga').on('show.bs.modal', function(event){
@@ -364,8 +796,9 @@
         });
 
         function getDataKeluarga(){
-            var no_kk = $('#no_kk').val();
             var kacab = $('#kacab').val();
+            var nomor_kk = $('#nomor_kk').val();
+            var nomorkk = $('#nomorkk').val();
             var wilayah_binaan = $('#wilayah_binaan').val();
             var shelter = $('#shelter').val();
             var no_telp = $('#no_telp').val();
@@ -375,7 +808,7 @@
                 method : 'PUT',
                 url : "/admin/calonAnakBinaanEdit/" + idKeluarga,
                 data: {
-                    no_kk : no_kk,
+                    nomorkk : nomorkk,
                     kacab : kacab,
                     wilayah_binaan : wilayah_binaan,
                     shelter : shelter,
@@ -384,12 +817,30 @@
                 },
                 success: function (data) {
                     console.log(data);
+                    
                     $('#modal_dataKeluarga').modal('hide');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Update!',
+                        // text: 'Data berhasil diperbarui',
+                        showConfirmButton: false,
+                        timer: 800
+                    });
                     // Memuat ulang halaman
-                    location.reload();
+                    // Menunggu 1 detik (1000 ms) sebelum memuat ulang halaman
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1000); // Ganti 1000 dengan jumlah milidetik yang Anda inginkan.
                 },
                 error: function (error){
-                    console.log('Error', error)
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Terjadi Kesalahan!',
+                        // text: 'Terjadi kesalahan saat memperbarui data',
+                        showConfirmButton: false,
+                        timer: 900
+                    });
+                    console.log('Error', error);
                 }
             })
         }
@@ -397,96 +848,248 @@
             getDataKeluarga();
         });
 
-        /* -------------------------------------------------------------------------------------------------------------------------------- */
-        //JS AYAH
+ //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         var idAyah;
-
         $('#modal_dataAyah').on('show.bs.modal', function(event){
             var button = $(event.relatedTarget);
-            idAyah = button.data('id');
+            idAyah = button.data('id_ayahs');
         });
 
         function getDataAyah(){
-            var idAyah = $('#id_ayah').val();
-            var nik_ayah = $('#nik_ayah').val();
-            var nama_ayah = $('#nama_ayah').val();
-            var tempat_lahir = $('#tempat_lahirAyah').val();
-            var tanggal_lahir = $('#tanggal_lahirAyah').val();
-            var agama = $('#agamaAyah').val();
-            var alamat = $('#alamatAyah').val();
+            var idAyah = $('#id_ayahs').val();
+            var nikAyah = $('#nikAyah').val();
+            var namaAyah = $('#namaAyah').val();
+            var tempat_lahirAyah = $('#tempat_lahirAyah').val();
+            var tanggal_lahirAyah = $('#tanggal_lahirAyah').val();
+            var pekerjaanAyah = $('#pekerjaanAyah').val();
+            var tanggunganAyah = $('#tanggunganAyah').val();
+            var pendapatanAyah = $('#pendapatanAyah').val();
+            var agamaAyah = $('#agamaAyah').val();
+            var alamatAyah = $('#alamatAyah').val();
 
             $.ajax({
-                method: 'PUT',
-                url: "/admin/calonAnakBinaanEdit/" + idAyah,
+                method : 'PUT',
+                url : "/admin/calonAnakBinaanEditAyah/" + idAyah,
                 data: {
-                    nik_ayah : nik_ayah,
-                    nama_ayah : nama_ayah,
-                    tempat_lahir :tempat_lahir,
-                    tanggal_lahir : tanggal_lahir,
-                    agama : agama,
-                    alamat :alamat,
+                    nik : nikAyah,
+                    nama : namaAyah,
+                    tempat_lahir : tempat_lahirAyah,
+                    tanggal_lahir : tanggal_lahirAyah,
+                    pekerjaan : pekerjaanAyah,
+                    jumlah_tanggungan : tanggunganAyah,
+                    pendapatan : pendapatanAyah,
+                    agama : agamaAyah,
+                    alamat : alamatAyah,
                 },
-                success: function (data){
+                success: function (data) {
                     console.log(data);
                     $('#modal_dataAyah').modal('hide');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Update!',
+                        // text: 'Data berhasil diperbarui',
+                        showConfirmButton: false,
+                        timer: 800
+                    });
                     // Memuat ulang halaman
-                    location.reload();
+                    // Menunggu 1 detik (1000 ms) sebelum memuat ulang halaman
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1000); // Ganti 1000 dengan jumlah milidetik yang Anda inginkan.
                 },
                 error: function (error){
-                    console.log('Error', error)
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Terjadi Kesalahan!',
+                        // text: 'Terjadi kesalahan saat memperbarui data',
+                        showConfirmButton: false,
+                        timer: 900
+                    });
+                    console.log('Error', error);
                 }
-            });
+            })
         }
-
         $('#btn-simpan-ayah').on('click', function(){
             getDataAyah();
         });
 
-        /* -------------------------------------------------------------------------------------------------------------------------------- */
-        // JS IBU
         var idIbu;
-
         $('#modal_dataIbu').on('show.bs.modal', function(event){
             var button = $(event.relatedTarget);
-            idIbu = button.data('id');
+            idIbu = button.data('id_ibus');
         });
 
-        // Bisa dibilang mengambil data yaa ges yaa
         function getDataIbu(){
-            var idIbu = $('#id_ibu').val();
-            var nik_ibu = $('#nik_ibu').val();
-            var nama_ibu = $('#nama_ibu').val();
-            var tempat_lahir = $('#tempat_lahirIbu').val();
-            var tanggal_lahir = $('#tanggal_lahirIbu').val();
-            var agama = $('#agamaIbu').val();
-            var alamat = $('#alamatIbu').val();
+            var idIbu = $('#id_ibus').val();
+            var nikIbu = $('#nikIbu').val();
+            var namaIbu = $('#namaIbu').val();
+            var tempat_lahirIbu = $('#tempat_lahirIbu').val();
+            var tanggal_lahirIbu = $('#tanggal_lahirIbu').val();
+            var pekerjaanIbu = $('#pekerjaanIbu').val();
+            var pendapatanIbu = $('#pendapatanIbu').val();
+            var agamaIbu = $('#agamaIbu').val();
+            var alamatIbu = $('#alamatIbu').val();
 
             $.ajax({
-                method: 'PUT',
-                url: "/admin/calonAnakBinaanEdit/" + idIbu,
+                method : 'PUT',
+                url : "/admin/calonAnakBinaanEditIbu/" + idIbu,
                 data: {
-                    nik_ibu : nik_ibu,
-                    nama_ibu : nama_ibu,
-                    tempat_lahir : tempat_lahir,
-                    tanggal_lahir : tanggal_lahir,
-                    agama : agama,
-                    alamat : alamat
+                    nik : nikIbu,
+                    nama : namaIbu,
+                    tempat_lahir : tempat_lahirIbu,
+                    tanggal_lahir : tanggal_lahirIbu,
+                    pekerjaan : pekerjaanIbu,
+                    pendapatan : pendapatanIbu,
+                    agama : agamaIbu,
+                    alamat : alamatIbu,
                 },
-                success: function (data){
+                success: function (data) {
                     console.log(data);
-                    $('#modal_dataIbu').modal('hide'); 
+                    $('#modal_dataIbu').modal('hide');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Update!',
+                        // text: 'Data berhasil diperbarui',
+                        showConfirmButton: false,
+                        timer: 800
+                    });
+                    // Memuat ulang halaman
+                    // Menunggu 1 detik (1000 ms) sebelum memuat ulang halaman
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1000); // Ganti 1000 dengan jumlah milidetik yang Anda inginkan.
                 },
                 error: function (error){
-                    console.log('Error', error)
+                    console.log('Error', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Terjadi Kesalahan!',
+                        // text: 'Terjadi kesalahan saat memperbarui data',
+                        showConfirmButton: false,
+                        timer: 900
+                    });
                 }
-            });
+            })
         }
-
-        // fungsi tombol simpan dalam model
         $('#btn-simpan-ibu').on('click', function(){
             getDataIbu();
         });
+
+
+        var idWali;
+        $('#modal_dataWali').on('show.bs.modal', function(event){
+            var button = $(event.relatedTarget);
+            idWali = button.data('id_walis');
+        });
+
+        function getDataWali(){
+            var idWali = $('#id_walis').val();
+            var noKtpWali = $('#noKtpWali').val();
+            var namaLengkapWali = $('#namaLengkapWali').val();
+            var namaPanggilanWali = $('#namaPanggilanWali').val();
+            var tempat_lahirWali = $('#tempat_lahirWali').val();
+            var tanggal_lahirWali = $('#tanggal_lahirWali').val();
+            var pekerjaanWali = $('#pekerjaanWali').val();
+            var jumlahTanggunganWali = $('#jumlahTanggunganWali').val();
+            var pendapatanWali = $('#pendapatanWali').val();
+
+            $.ajax({
+                method : 'PUT',
+                url : "/admin/calonAnakBinaanEditWali/" + idWali,
+                data: {
+                    no_ktp : noKtpWali,
+                    nama_lengkap : namaLengkapWali,
+                    nama_panggilan : namaPanggilanWali,
+                    tempat_lahir : tempat_lahirWali,
+                    tanggal_lahir : tanggal_lahirWali,
+                    pekerjaan : pekerjaanWali,
+                    jumlah_tanggungan : jumlahTanggunganWali,
+                    pendapatan : pendapatanWali,
+                },
+                success: function (data) {
+                    console.log(data);
+                    $('#modal_dataWali').modal('hide');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Update!',
+                        // text: 'Data berhasil diperbarui',
+                        showConfirmButton: false,
+                        timer: 800
+                    });
+                    // Memuat ulang halaman
+                    // Menunggu 1 detik (1000 ms) sebelum memuat ulang halaman
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1000); // Ganti 1000 dengan jumlah milidetik yang Anda inginkan.
+                },
+                error: function (error){
+                    console.log('Error', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Terjadi Kesalahan!',
+                        // text: 'Terjadi kesalahan saat memperbarui data',
+                        showConfirmButton: false,
+                        timer: 900
+                    });
+                }
+            })
+        }
+        $('#btn-simpan-wali').on('click', function(){
+            getDataWali();
+        });
+
+
+        /* -------------------------------------------------------------------------------------------------------------------------------- */
+        // JS IBU
+//         var idIbu;
+//         $('#modal_dataIbu').on('show.bs.modal', function(event){
+//             var button = $(event.relatedTarget);
+//             idIbu = button.data('id_ibus');
+//         });
+
+//         // Bisa dibilang mengambil data yaa ges yaa
+//         function getDataIbu(){
+//             var idIbu = $('#id_ibus').val();
+//             var nikIbu = $('#nikIbu').val();
+//             var namaIbu = $('#namaIbu').val();
+//             var tempat_lahirIbu = $('#tempat_lahirIbu').val();
+//             var tanggal_lahirIbu = $('#tanggal_lahirIbu').val();
+//             var agamaIbu = $('#agamaIbu').val();
+//             var alamatIbu = $('#alamatIbu').val();
+
+//             $.ajax({
+//                 method: 'PUT',
+//                 url: "/admin/calonAnakBinaanEdit/" + idIbu,
+//                 data: {
+//                     nik : nikIbu,
+//                     nama : namaIbu,
+//                     tempat_lahir : tempat_lahirIbu,
+//                     tanggal_lahir : tanggal_lahirIbu,
+//                     agama : agamaIbu,
+//                     alamat : alamatIbu,
+//                 },
+//                 success: function (data){
+//                     console.log(data);
+//                     $('#modal_dataIbu').modal('hide');
+//                     // Memuat ulang halaman
+//                     location.reload();
+//                 },
+//                 error: function (error){
+//                     console.log('Error', error)
+//                 }
+//             });
+//         }
+
+//         // fungsi tombol simpan dalam model
+//         $('#btn-simpan-ibu').on('click', function(){
+//             getDataIbu();
+//         });
     });
 </script>
+
+<script>
+
+</script>
+
 
 @endsection

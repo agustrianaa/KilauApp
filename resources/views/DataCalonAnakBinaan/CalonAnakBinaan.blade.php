@@ -375,7 +375,7 @@
                     },
                     { data: 'nama_lengkap_calon_anak', name: 'nama_lengkap_calon_anak'},
                     { data: 'shelter', name: 'shelter'},
-                    { data: 'no_kk', name: 'no_kk'},
+                    { data: 'nomorkk', name: 'nomorkk'},
                     { data: 'nama_ayah', name: 'nama_ayah'},
                     { data: 'anak_ke', name: 'anak_ke'},
                     { data: 'action', name: 'action', orderable: false},

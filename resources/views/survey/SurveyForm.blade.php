@@ -30,7 +30,7 @@
                         </ul>
                     </div>
                     <form action="{{ route('admin.surveyStore') }}" method="post" enctype="multipart/form-data">
-                        @csrf
+                    @csrf
                     <div class="card-body" >
                         <div class="tab-content" >
                             <!-- Data Asset -->
@@ -548,7 +548,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary mx-2">Simpan</button>
+                    <button type="submit" class="btn btn-primary mx-2">Simpan</button>
                     <button type="reset" class="btn btn-warning mx-2">Kembali</button>
                     </div>
                 </div>
@@ -563,8 +563,8 @@
 <script>
     window.addEventListener("load", function () {
         // Mengambil elemen radio buttons
-        var yaRadio = document.getElementById("ya_untuk_lembaga");
-        var tidakRadio = document.getElementById("tidak_untuk_lembaga");
+        var yaRadio = document.getElementById("bantuan_lembaga_formal1");
+        var tidakRadio = document.getElementById("bantuan_lembaga_formal2");
 
         // Mengambil elemen input
         var inputSebesar = document.querySelector(".sebesar");
@@ -653,12 +653,76 @@
 </script>
 
 <script>
+    function simpanData() {
+    // Mengambil nilai-nilai yang dipilih berdasarkan ID
+    var selectedKendaraan = [];
+
+    if (document.getElementById("opsiSepeda").checked) {
+        selectedKendaraan.push(document.getElementById("opsiSepeda").value);
+    }
+
+    if (document.getElementById("opsiMotor").checked) {
+        selectedKendaraan.push(document.getElementById("opsiMotor").value);
+    }
+
+    if (document.getElementById("opsiMobil").checked) {
+        selectedKendaraan.push(document.getElementById("opsiMobil").value);
+    }
+
+    // Menggabungkan nilai-nilai yang dipilih menjadi satu baris teks
+    var resultText = selectedKendaraan.join(", ");
+
+    // Mengirim nilai-nilai yang dipilih ke server (melalui AJAX)
+    $.ajax({
+        type: "POST",
+        url: "/admin/surveyStore",
+        data: {
+            kep_kendaraan: resultText // Mengirim hasil sebagai satu baris teks ke controller
+        },
+        success: function(response) {
+            // Handle respon dari server (jika diperlukan)
+        }
+    });
+}
 
 </script>
 
 
+{{-- <script>
+    // Fungsi untuk menangkap nilai saat semua checkbox dicentang
+    function checkAll() {
+        // Mengambil semua elemen checkbox
+        var checkboxes = document.getElementsByName("kep_kendaraan");
 
+        // Mengambil elemen hasil
+        var result = document.getElementById("result");
 
+        // Memeriksa apakah semua checkbox dicentang
+        var allChecked = true;
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (!checkboxes[i].checked) {
+                allChecked = false;
+                break;
+            }
+        }
 
+        // Jika semua checkbox dicentang, tangkap nilai
+        if (allChecked) {
+            var values = [];
+            for (var i = 0; i < checkboxes.length; i++) {
+                values.push(checkboxes[i].value);
+            }
+            result.textContent = "Dipilih: " + values.join(", ");
+        } else {
+            result.textContent = ""; // Kosongkan nilai jika checkbox tidak dicentang semua
+        }
+    }
+
+    // Menghubungkan fungsi checkAll() dengan setiap checkbox
+    var checkboxes = document.getElementsByName("kep_kendaraan");
+    for (var i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].addEventListener("change", checkAll);
+    }
+</script> --}}
 
 @endsection

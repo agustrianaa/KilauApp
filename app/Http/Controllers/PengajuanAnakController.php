@@ -20,7 +20,7 @@ class PengajuanAnakController extends Controller
     public function pengajuanFormStore(Request $request) {
         $dataKeluarga = DataKeluarga::create([
             "kacab" => $request->kacab,
-            "no_kk" => $request->no_kk,
+            "nomorkk" => $request->nomorkk,
             "anak_ke" => $request->anak_ke,
             "alamat_kk" => $request->alamat_kk,
             "kepala_keluarga" => $request->kepala_keluarga,
