@@ -3,42 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
-    <title>Form Bootstrap</title>
+    <link rel="stylesheet" href="style.css">
+    <title>Background Gradient</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to top right, cyan, rgb(255, 0, 255));
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: white;
+            opacity: 0.5;
+            border-radius: 20px; /* Untuk membuat ujung tumpul */
+            position: absolute;
+            transform: translate(-50%, -50%) rotate(45deg); /* Merotasi 45 derajat */
+        }
+
+        .top {
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .left {
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+        }
+
+        .right {
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+        }
+
+        .diamond {
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    opacity: 0.5;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg); /* Merotasi 45 derajat */
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); /* Bentuk ketupat */
+}
+
+    </style>
 </head>
 <body>
-    <div class="container">
-        <form>
-            <div class="mb-2 row">
-                Nama :
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" id="nama">
-                </div>
-            </div>
-            <div class="mb-2 row">
-                Email :
-                <div class="col-sm-10">
-                    <input type="email" class="form-control" id="email">
-                </div>
-            </div>
-            <div class="mb-2 row">
-                Password :
-                <div class="col-sm-10">
-                    <input type="password" class="form-control" id="password">
-                </div>
-            </div>
-            <div class="mb-2 row">
-                Pesan :
-                <div class="col-sm-10">
-                    <textarea class="form-control" id="pesan" rows="4"></textarea>
-                </div>
-            </div>
-            <div class="mb-2">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </form>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
+    <div class="box top"></div>
+    <div class="box left"></div>
+    <div class="box right"></div>
+    <div class="diamond"></div>
 </body>
 </html>
