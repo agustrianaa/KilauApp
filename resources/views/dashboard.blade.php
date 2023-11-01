@@ -41,9 +41,9 @@
         <!-- small box -->
         <div class="small-box bg-success">
           <div class="inner">
-            <h3>{{ $totaldatakeluarga }}</h3>
+            <h3>{{ $totalCalonAnakBinaan }}</h3>
 
-            <p>Data Keluarga</p>
+            <p>Data Calon Anak Binaan</p>
           </div>
           <div class="icon">
             <i class="bi bi-people-fill"></i>{{-- icon --}}
@@ -57,7 +57,7 @@
         <div class="small-box bg-info">
           <div class="inner">
 
-            <h3>{{ $totalData }}</h3>
+            <h3>{{ $totalAnakBinaan }}</h3>
 
             <p>Data Anak Binaan</p>
           </div>
@@ -72,9 +72,9 @@
         <!-- small box -->
         <div class="small-box bg-warning">
           <div class="inner">
-            <h3>-</h3>
+            <h3 class="text-white">{{ $totalBelumValidasi }}</h3>
 
-            <p>Data Calon Anak Binaan</p>
+            <p class="text-white">Data yang belum Validasi Beasiswa</p>
           </div>
           <div class="icon">
             <i class="bi bi-person-fill-add"></i>{{-- icon --}}
@@ -87,9 +87,9 @@
         <!-- small box -->
         <div class="small-box bg-danger">
           <div class="inner">
-            <h3>65</h3>
+            <h3>{{ $totalSudahValidasi }}</h3>
 
-            <p>Unique Visitors</p>
+            <p>Data yang sudah Validasi Beasiswa</p>
           </div>
           <div class="icon">
             <i class="ion ion-pie-graph"></i>

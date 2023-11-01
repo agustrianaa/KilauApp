@@ -7,6 +7,9 @@
   .content-wrapper.background {
     background-color: rgb(242, 242, 242);
   }
+  .card.filters {
+    display: none
+  }
 </style>
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper background">
@@ -32,84 +35,8 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-12 margin-tb">
-                    <div class="pull-right mb-2">
-                        <a class="btn btn-primary" onClick="add()" href="javascript:void(0)">Tambah Data+</a>
-                    </div>
-                </div>
-                <div class="col-lg-12 mt-4">
-                  <h3>Filter</h3>
-                </div>
                 <div class="col-lg-12">
-                  <div class="row align-items-end">
-                    <div class="col-lg-2 mb-2">
-                      <label class="form-label select-label">Agama</label>
-                        <select class="form-select" id="fagama" multiple="multiple">
-                          <option value="" disabled selected>-Pilih-</option>
-                          <option value="Islam">Islam</option>
-                          <option value="Kristen Protestan">Kristen Protestan</option>
-                          <option value="Kristen Katolik">Kristen Katolik</option>
-                          <option value="Hindu">Hindu</option>
-                          <option value="Buddha"> Buddha</option>
-                          <option value="Konghucu">Konghucu</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-2 mb-2">
-                      <label>Jenis Kelamin</label>
-                        <select class="form-select" id="fjenis_kelamin" multiple>
-                          <option value="" disabled selected>-Pilih-</option>
-                            <option value="Laki-Laki">Laki-Laki</option>
-                            <option value="Perempuan">Perempuan</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-2 mb-2">
-                      <label>Status Binaan</label>
-                        <select class="form-select" id="fstatus_binaan" multiple>
-                          <option value="" disabled selected>-Pilih-</option>
-                          <option value="PB">PB</option>
-                          <option value="NPB">NPB</option>
-                          <option value="CPB">CPB</option>
-                          <option value="BCPB">BCPB</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-2 mb-2">
-                      <button type="button" class="btn btn-outline-info mx-1" id="filters">Filter</button>
-                      <button type="button" class="btn btn-outline-danger mx-1" id="resetfilters">Reset</button>
-                    </div>
-                    <div class="col-lg-2 mb-2">
-                      <div class="dropdown">
-                        <a class="btn btn-info dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Filter Checkbox
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <div class="form-check ml-1">
-                                  <input class="form-check-input checkbox-filter" type="checkbox" value="Islam" id="checkboxIslam">
-                                  <label class="form-check-label" for="checkboxIslam">
-                                      Islam
-                                  </label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="form-check ml-1">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Default checkbox
-                                    </label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="form-check ml-1">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Default checkbox
-                                    </label>
-                                </div>
-                            </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
+                  <button type="button" class="btn btn-outline-success mx-1 mb-2" id="tombolbukafilter">Buka Filter</button>
                 </div>
             </div>
             @if ($message = Session::get('success'))
@@ -117,6 +44,76 @@
                     <p>{{ $message }}</p>
                 </div>
             @endif
+
+          <!-- Card Untuk Filter ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+          <div class="card filters" id="filterCard">
+            <div class="card-header">
+              <div class="card-title">
+                <h4><b>Filter</b></h4>
+              </div>
+              <div class="card-tools">
+                <ul class="nav nav-pills ml-auto">
+                  <li class="nav-item">
+                    <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
+                  </li>
+                </ul>
+              </div> 
+            </div>
+            <div class="card-body">
+              <div class="col-12">
+                <div class="row">
+                  <div class="col-lg-2">
+                    <label class="form-label select-label">Agama</label>
+                      <select class="form-select" id="fagama" multiple="multiple">
+                        <option value="" disabled selected>-Pilih-</option>
+                        <option value="Islam">Islam</option>
+                        <option value="Kristen Protestan">Kristen Protestan</option>
+                        <option value="Kristen Katolik">Kristen Katolik</option>
+                        <option value="Hindu">Hindu</option>
+                        <option value="Buddha"> Buddha</option>
+                        <option value="Konghucu">Konghucu</option>
+                      </select>
+                  </div>
+                  <div class="col-lg-2">
+                    <label class="form-label select-label">Agama</label>
+                      <select class="form-select" id="fagama" multiple="multiple">
+                        <option value="" disabled selected>-Pilih-</option>
+                        <option value="Islam">Islam</option>
+                        <option value="Kristen Protestan">Kristen Protestan</option>
+                        <option value="Kristen Katolik">Kristen Katolik</option>
+                        <option value="Hindu">Hindu</option>
+                        <option value="Buddha"> Buddha</option>
+                        <option value="Konghucu">Konghucu</option>
+                      </select>
+                  </div>
+                  <div class="col-lg-2">
+                    <label class="form-label select-label">Agama</label>
+                      <select class="form-select" id="fagama" multiple="multiple">
+                        <option value="" disabled selected>-Pilih-</option>
+                        <option value="Islam">Islam</option>
+                        <option value="Kristen Protestan">Kristen Protestan</option>
+                        <option value="Kristen Katolik">Kristen Katolik</option>
+                        <option value="Hindu">Hindu</option>
+                        <option value="Buddha"> Buddha</option>
+                        <option value="Konghucu">Konghucu</option>
+                      </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="text-center">
+                  <button type="button" class="btn btn-outline-info">Filter</button>
+                  <button type="button" class="btn btn-outline-danger">Reset</button>
+              </div>
+            </div>
+          </div>
+          <!-- End card filter~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+          <!-- Card Tabel Anak Binaan ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
           <div class="card">
             <div class="card-body">
               <div class="table-responsive text-nowrap">
@@ -138,6 +135,8 @@
               </div>
             </div>
           </div>
+          <!-- End card Tabel Anak Binaan~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
         </div>
 
         <!-- Modal -->
@@ -239,7 +238,13 @@
               url : "{{ url('admin/AnakBinaan') }}",
             },
             columns: [
-                { data: 'id_anaks', name: 'id'},
+                { 
+                    data: null,
+                    name: 'id',
+                    render: function(data, type, row, meta) {
+                        return meta.row + 1; // Menggunakan nomor baris sebagai nomor urut
+                    }
+                },
                 { data: 'nama_lengkap_anak', name: 'nama_lengkap_anak'},
                 { data: 'nama_panggilan_anak', name: 'nama_panggilan_anak'},
                 { data: 'ttl', name: 'ttl'},
@@ -269,6 +274,21 @@
         });
     });
 
+    $(document).ready(function () {
+      var filterCard = $("#filterCard");
+      
+      // Tombol Buka Filter diklik
+      $("#tombolbukafilter").click(function () {
+          if (filterCard.hasClass("filters")) {
+              // Menghapus class "filters"
+              filterCard.removeClass("filters");
+          } else {
+              // Menambahkan kembali class "filters"
+              filterCard.addClass("filters");
+          }
+      });
+    });
+    
     function add(){
       $('#AnakBinaanForm').trigger("reset");
       $('#TambahModal').html("Tambah Data");

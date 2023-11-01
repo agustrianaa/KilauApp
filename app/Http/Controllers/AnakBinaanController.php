@@ -91,7 +91,7 @@ class AnakBinaanController extends Controller
     }
 
     public function destroy(Request $request) {
-        $anak = Anak::where('id', $request->id)->delete();
+        $anak = DataKeluarga::where('id', $request->id)->delete();
 
         return Response()->json($anak);
     }

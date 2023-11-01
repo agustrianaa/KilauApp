@@ -3,56 +3,127 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
+<style>
+    .card.filters {
+    display: none
+    }
+</style>
 <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Data Calon Anak Binaan</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                        <li class="breadcrumb-item active">Data Calon Anak Binaan</li>
+                    </ol>
+                </div>
+            </div><!-- End row -->
+        </div><!-- End container-fluid -->
+    </div>
+    <!-- End content-header -->
+
     <section class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="card mt-5">
-                <div class="card-body" style="overflow-x:auto;">
-                    <div class="card-title ml-2"><h4>Data Calon Anak Binaan</h4></div>
-                    <div class="float-right">
-                        <button class="btn btn-warning mx-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                            <i class="fas fa-filter"></i> Filter
-                        </button>
+            <div class="col-lg-12">
+                <button type="button" class="btn btn-success mx-1 mb-2" id="tombolbukafilter">Buka Filter</button>
+            </div>
+        </div>
+            <!-- Card Untuk Filter ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div class="card filters" id="filterCard">
+                <div class="card-header">
+                    <div class="card-title">
+                        <h4><b>Filter</b></h4>
                     </div>
-                <hr class="mt-5">
-
-                <div class="collapse" id="collapseExample">
-                    <div class="card card-body">
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <label for="a">Shelter</label>
-                                    <select class="form-select" name="" id="fwilbin">
-                                        <option value="">Seluruh</option>
-                                        <option value="Indramayu">Indramayu</option>
-                                        <option value="Sumedang">Sumedang</option>
-                                        <option value="Bandung">Bandung</option>
-                                        <option value="Bogor">Bogor</option>
-                                    </select>
+                    <div class="card-tools">
+                        <ul class="nav nav-pills ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
+                            </li>
+                        </ul>
+                    </div> 
+                </div>
+                <div class="card-body">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <label class="form-label select-label">Agama</label>
+                                <select class="form-select" id="fagama" multiple="multiple">
+                                    <option value="" disabled selected>-Pilih-</option>
+                                    <option value="Islam">Islam</option>
+                                    <option value="Kristen Protestan">Kristen Protestan</option>
+                                    <option value="Kristen Katolik">Kristen Katolik</option>
+                                    <option value="Hindu">Hindu</option>
+                                    <option value="Buddha"> Buddha</option>
+                                    <option value="Konghucu">Konghucu</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <label class="form-label select-label">Agama</label>
+                                <select class="form-select" id="fagama" multiple="multiple">
+                                    <option value="" disabled selected>-Pilih-</option>
+                                    <option value="Islam">Islam</option>
+                                    <option value="Kristen Protestan">Kristen Protestan</option>
+                                    <option value="Kristen Katolik">Kristen Katolik</option>
+                                    <option value="Hindu">Hindu</option>
+                                    <option value="Buddha"> Buddha</option>
+                                    <option value="Konghucu">Konghucu</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <label class="form-label select-label">Agama</label>
+                                <select class="form-select" id="fagama" multiple="multiple">
+                                    <option value="" disabled selected>-Pilih-</option>
+                                    <option value="Islam">Islam</option>
+                                    <option value="Kristen Protestan">Kristen Protestan</option>
+                                    <option value="Kristen Katolik">Kristen Katolik</option>
+                                    <option value="Hindu">Hindu</option>
+                                    <option value="Buddha"> Buddha</option>
+                                    <option value="Konghucu">Konghucu</option>
+                                </select>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="card-footer">
+                    <div class="text-center">
+                        <button type="button" class="btn btn-outline-info">Filter</button>
+                        <button type="button" class="btn btn-outline-danger">Reset</button>
+                    </div>
+                </div>
+            </div>
+            <!-- End card filter~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
+            <div class="card">
+                <div class="card-body">
                     <div class="table-responsive text-nowrap">
                         <!-- Tabel data keluarga -->
                         <table class="table table-bordered" id="CalonAnakBinaanTable">
-                        <thead>
-                            <tr>
-                                <th style="width: 10px">No</th>
-                                <th>Nama</th>
-                                <th>Jenis Kelamin</th>
-                                <th>Wilayah Binaan</th>
-                                <th style="width: 150px">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
+                            <thead>
+                                <tr>
+                                    <th style="width: 10px">No</th>
+                                    <th>Nama</th>
+                                    <th>Shelter</th>
+                                    <th>No. KK</th>
+                                    <th>Kepala Keluarga</th>
+                                    <th>Anak Ke</th>
+                                    <th style="width: 150px">Action</th>          
+                                </tr>
+                            </thead>
                         </table>
                     </div>
                 </div>
+            </div>
 
-                
+        </div>
 
                 <!-- Modal Data Keluarga -->
                 <div class="modal fade" id="modal-datakeluarga" aria-hidden="true">
@@ -260,10 +331,6 @@
                         </div>
                     </div>
                 </div><!-- End Modal  -->
-
-            </div>
-        </div>
-    </div>
 </section>
 </div>
 
@@ -299,10 +366,18 @@
                 },
 
                 columns : [
-                    { data: 'id', name: 'id'},
+                    { 
+                        data: null,
+                        name: 'id',
+                        render: function(data, type, row, meta) {
+                            return meta.row + 1; // Menggunakan nomor baris sebagai nomor urut
+                        }
+                    },
                     { data: 'nama_lengkap_calon_anak', name: 'nama_lengkap_calon_anak'},
-                    { data: 'jenis_kelamin', name: 'jenis_kelamin'},
-                    { data: 'wilayah_binaan', name: 'wilayah_binaan'},
+                    { data: 'shelter', name: 'shelter'},
+                    { data: 'no_kk', name: 'no_kk'},
+                    { data: 'nama_ayah', name: 'nama_ayah'},
+                    { data: 'anak_ke', name: 'anak_ke'},
                     { data: 'action', name: 'action', orderable: false},
                 ],
                 order: [[0, 'asc']],
@@ -318,6 +393,21 @@
             load_data();
         });
 
+    });
+
+    $(document).ready(function () {
+        var filterCard = $("#filterCard");
+        
+        // Tombol Buka Filter diklik
+        $("#tombolbukafilter").click(function () {
+            if (filterCard.hasClass("filters")) {
+                // Menghapus class "filters"
+                filterCard.removeClass("filters");
+            } else {
+                // Menambahkan kembali class "filters"
+                filterCard.addClass("filters");
+            }
+        });
     });
 
     function validasiAnak(anak_id) {

@@ -6,8 +6,8 @@
 <!-- Brand Logo -->
 <div class="LogoSidebarTop">
     <a href="{{ route('admin.menu') }}" class="brand-link">
-        <img src="{{ asset('images/LogoKilau2.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-2" style="opacity: .8">
-        <span class="brand-text">Kilau Admin</span>
+        <i class="bi bi-house-fill ml-3"></i>
+        <span class="brand-text">Menu</span>
     </a>
 </div>
 
@@ -123,10 +123,10 @@
             </li>
 
             <li class="nav-item">
-            <a href="{{ route('logout') }}" class="nav-link">
-                <i class="bi bi-box-arrow-left"></i>{{-- icon --}}
+            <a href="{{ route('admin.menu') }}" class="nav-link">
+                <i class="bi bi-arrow-bar-left"></i>{{-- icon --}}
                 <p class="pl-1">
-                    Logout
+                    Menu
                 </p>
             </a>
             </li>
