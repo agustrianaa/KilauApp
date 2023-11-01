@@ -3,6 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <title>Log in</title>
+  <style>
+    .section.register.min-vh-100.d-flex.flex-column.align-items-center.justify-content-center.py-4 {
+      /* background-color: aqua; */
+      background: linear-gradient(to top right, yellow, rgb(0, 97, 224));
+    }
+    .d-flex.justify-content-center.py-4 {
+      background: transparent;
+    }
+  </style>
   <link href="../images/LogoKilau.png" rel="icon">
 
   <!-- Google Fonts -->
@@ -25,7 +34,7 @@
 <body>
 
   <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-    <div class="container">
+    <div class="container asd">
       <div class="row justify-content-center">
       <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 

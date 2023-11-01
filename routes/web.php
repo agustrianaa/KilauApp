@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PengajuanAnakController;
 use App\Http\Controllers\dataSurveyController;
+use App\Http\Controllers\reportController;
 use App\Http\Controllers\surveyDataController;
 use App\Http\Controllers\ValidasiSurveyController;
 use App\Http\Controllers\ValidasiBeasiswaController;
@@ -86,6 +87,15 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     // Route::put('/update-validasi/{id}', [ValidasiBeasiswaController::class, 'update'])->name('update-validasi');
     Route::resource('/posts', \App\Http\Controllers\PostController::class);
     Route::resource('/acc', \App\Http\Controllers\AccController::class);
+
+
+    // report
+    Route::get('/report', [reportController::class,'index'])->name('report');
+    Route::get('/table', [reportController::class,'table'])->name('table');
+    Route::get('/wilbin', [reportController::class,'wilbin'])->name('wilbin');
+    // Route::post('/wilbin', [reportController::class,'wilbin'])->name('wilbin');
+    Route::get('/shelter', [reportController::class,'shelter'])->name('shelter');
+    // Route::post('/shelter', [reportController::class,'shelter'])->name('shelter');
 });
 
 Route::resource('/calon', CalonAnakBinaanController::class);
