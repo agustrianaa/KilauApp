@@ -6,6 +6,7 @@ use App\Models\anak;
 use App\Models\Ayah;
 use App\Models\DataKeluarga;
 use App\Models\Ibu;
+use App\Models\StatusAnak;
 use App\Models\SurveyKeluarga;
 use App\Models\Wali;
 use Illuminate\Http\Request;
@@ -40,10 +41,12 @@ class ValidasiSurveyController extends Controller
             })
             ->addColumn('kelayakan', function($row){
                 $id = $row->id; // Ambil ID dari baris data
-                if ($row->hsurvey === null) {
-                    $kelayakanAct = '<a href="javascript:void(0)" onClick="kelayakanFunc(' . $id . ')" data-original-title="View Kelayakan" class="kelayakan btn btn-info btn-sm"><i class="fas fa-check-circle"></i> Lihat Kelayakan</a>';
-                } else {
+                $survey = SurveyKeluarga::find($id);
+                $data = $survey->hsurvey;
+                if ($data === null) {
                     $kelayakanAct = '<a href="javascript:void(0)" onClick="tambahKelayakan('. $id .')" data-original-title="Tambahkan Kelayakan" class="tambahkan-kelayakan btn btn-success btn-sm"><i class="fas fa-plus-circle"></i> Tambahkan Kelayakan</a>';
+                } else {
+                    $kelayakanAct = '<a href="javascript:void(0)" onClick="kelayakanFunc(' . $id . ')" data-original-title="View Kelayakan" class="kelayakan btn btn-info btn-sm"><i class="fas fa-check-circle"></i> Layak</a>';
                 }
                 return $kelayakanAct;
             })
@@ -131,6 +134,19 @@ class ValidasiSurveyController extends Controller
         'resume' => $ket,
         'hsurvey' => $status,
     ]);
+
+    if ($status === 'layak') {
+        $anak = new StatusAnak();
+        $anak->status_beasiswa = 'PB'; // Ganti dengan data anak yang sesuai
+        $anak->status_binaan = true; // Ganti dengan status anak yang sesuai
+        $anak->save();
+    } elseif ($status === 'tidak layak') {
+        $anak = new StatusAnak();
+        $anak->status_beasiswa = 'PB'; // Ganti dengan data anak yang sesuai
+        $anak->status_binaan = true; // Ganti dengan status anak yang sesuai
+        $anak->save();
+    }
+    
 
     return redirect()->back()->with('success', 'Data berhasil diperbarui.');
 }
