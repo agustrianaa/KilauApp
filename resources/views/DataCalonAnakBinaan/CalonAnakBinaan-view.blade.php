@@ -70,31 +70,33 @@
                                                 @method('PUT')
                                                 <input type="hidden" name="id_anaks" id="id_anaks" value="{{ $dataAnak ? $dataAnak->id_anaks : '' }}">
                                                     <div class="form-group">
-                                                        <label class="control-label">Nama Lengkap</label>
                                                         <div class="col-sm-12">
+                                                            <label class="control-label">Nama Lengkap</label>
                                                             <input type="text" class="form-control" id="namaLengkapAnak" name="namaLengkapAnak" placeholder="" value="{{ $dataAnak ? $dataAnak->nama_lengkap : 'Data Kosong' }}" maxlength="50" required="">
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="control-label">Nama Panggilan</label>
                                                         <div class="col-sm-12">
+                                                            <label class="control-label">Nama Panggilan</label>
                                                             <input type="text" class="form-control" id="namaPanggilanAnak" name="namaPanggilanAnak" placeholder="" value="{{ $dataAnak ? $dataAnak->nama_panggilan : 'Data Kosong' }}" maxlength="50" required="">
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="control-label">Jenis Kelamin</label>
                                                         <div class="col-sm-12">
+                                                            <label class="control-label">Jenis Kelamin</label>
                                                             <input type="text" class="form-control" id="jenisKelaminAnak" name="jenisKelaminAnak" placeholder="" value="{{ $dataAnak ? $dataAnak->jenis_kelamin : 'Data Kosong' }}" maxlength="50" required="">
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="control-label">Tempat, Tanggal Lahir</label>
+                                                        
                                                         <div class="col-12">
                                                             <div class="row">
                                                                 <div class="col-md-6">
+                                                                    <label class="control-label">Tempat Lahir</label>
                                                                     <input type="text" class="form-control" id="tempat_lahirAnak" name="tempat_lahirAnak" placeholder=""value="{{ $dataAnak ? $dataAnak->tempat_lahir : 'Data Kosong' }}" required="">
                                                                 </div>
                                                                 <div class="col-md-6">
+                                                                    <label class="control-label">Tanggal Lahir</label>
                                                                     <input type="date" class="form-control" id="tanggal_lahirAnak" name="tanggal_lahirAnak" placeholder="" value="{{ $dataAnak ? $dataAnak->tanggal_lahir : 'Data Kosong' }}" required="">
                                                                 </div>
                                                             </div>
@@ -129,14 +131,14 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="control-label">Hobby</label>
                                                         <div class="col-sm-12">
+                                                            <label class="control-label">Hobby</label>
                                                             <input type="text" class="form-control" id="hobbyAnak" name="hobbyAnak" placeholder="" value="{{ $dataAnak ? $dataAnak->hobby : 'Data Kosong' }}" maxlength="50" required="">
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="control-label">Cita - cita</label>
                                                         <div class="col-sm-12">
+                                                            <label class="control-label">Cita - cita</label>
                                                             <input type="text" class="form-control" id="citaCitaAnak" name="citaCitaAnak" placeholder="" value="{{ $dataAnak ? $dataAnak->cita_cita : 'Data Kosong' }}" maxlength="50" required="">
                                                         </div>
                                                     </div>
@@ -189,14 +191,27 @@
                                     <div class="tab-content" >
                                         <!-- Data Keluarga -->
                                         <div class="tab-pane fade show active" id="tab_dataKeluarga" aria-labelledby="custom-tabs-two-home-tab">
-                                                <div class="post">
-                                                    <div class="user-block">
-                                                        <ul class="list-group list-group-unbordered mb-3">
+                                                {{-- <div class="post">
+                                                    <div class="user-block"> --}}
+                                                        <ul class="list-group list-group-unbordered ">
                                                         <li class="list-group-item">
-                                                                <b>Kantor Cabang</b> <div class="float-right">{{ $dataKeluarga ? $dataKeluarga->kacab : 'Data Kosong' }}</div>
+                                                            <div class="col-sm-12">
+                                                                <div class="row">
+                                                                    <div class="col-sm-6">
+                                                                        <div class="float-end">
+                                                                            <b>Kantor Cabang</b>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6">
+                                                                        <div class="float-start">
+                                                                            <div class="float-right">{{ $dataKeluarga ? $dataKeluarga->kacab : 'Data Kosong' }}</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                             </li>
                                                             <li class="list-group-item">
-                                                                <b>No Kartu Keluarga</b> <div class="float-right">{{ $dataKeluarga ? $dataKeluarga->nomorkk : 'Data Kosong' }}</div>
+                                                                <b>No. Kartu Keluarga</b> <div class="float-right">{{ $dataKeluarga ? $dataKeluarga->nomorkk : 'Data Kosong' }}</div>
                                                             </li>
                                                             <li class="list-group-item">
                                                                 <b>Anak Ke</b> <div class="float-right">{{ $dataKeluarga ? $dataKeluarga->anak_ke : 'Data Kosong' }}</div>
@@ -221,8 +236,8 @@
                                                             </li>
                                                         </ul>
                                                         <button type="button" class="btn btn-success float-right btn-md" data-toggle="modal" data-target="#modal_dataKeluarga" data-id="{{ $dataKeluarga ? $dataKeluarga->id : '' }}"><i class="bi bi-pencil-square"></i> Edit</button>
-                                                    </div>
-                                                </div>
+                                                    {{-- </div>
+                                                </div> --}}
                                         </div>
     
                                         <!-- Modal Data Keluarga -->
@@ -240,38 +255,59 @@
                                                         @method('PUT')
                                                         <input type="hidden" name="id" id="id" value="{{ $dataKeluarga ? $dataKeluarga->id : '' }}">
                                                             <div class="form-group">
-                                                                <label class="control-label">Kantor Cabang</label>
                                                                 <div class="col-sm-12">
-                                                                    <input type="text" class="form-control" id="kacab" name="kacab" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->kacab : 'Data Kosong' }}" maxlength="50" required="">
+                                                                    <label class="control-label">Kantor Cabang</label>
+                                                                    <select class="form-select" id="kacab" name="kacab">
+                                                                        <option disabled selected {{ $dataKeluarga->kacab == '' ? 'selected' : '' }}>Kantor Cabang...</option>
+                                                                        <option value="Indramayu" {{ $dataKeluarga->kacab == 'Indramayu' ? 'selected' : '' }}>Indramayu</option>
+                                                                        <option value="Bandung" {{ $dataKeluarga->kacab == 'Bandung' ? 'selected' : '' }}>Bandung</option>
+                                                                        <option value="Sumedang" {{ $dataKeluarga->kacab == 'Sumedang' ? 'selected' : '' }}>Sumedang</option>
+                                                                        <option value="Bogor" {{ $dataKeluarga->kacab == 'Bogor' ? 'selected' : '' }}>Bogor</option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label">No KK</label>
                                                                 <div class="col-sm-12">
+                                                                    <label class="control-label">No. Kartu Keluarga</label>
                                                                     <input type="text" class="form-control" id="nomorkk" name="nomorkk" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->nomorkk : 'Data Kosong' }}" maxlength="50" required="">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label">Wilayah Binaan</label>
+                                                                <div class="col-sm-2">
+                                                                    <label class="control-label">Anak ke</label>
+                                                                    <input type="text" class="form-control" id="AnakKe" name="AnakKe" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->anak_ke : 'Data Kosong' }}" maxlength="50" required="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
                                                                 <div class="col-sm-12">
+                                                                    <label class="control-label">Wilayah Binaan</label>
                                                                     <input type="text" class="form-control" id="wilayah_binaan" name="wilayah_binaan" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->wilayah_binaan : 'Data Kosong' }}" maxlength="50" required="">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label">Shelter</label>
                                                                 <div class="col-sm-12">
+                                                                    <label class="control-label">Shelter</label>
                                                                     <input type="text" class="form-control" id="shelter" name="shelter" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->shelter : 'Data Kosong' }}" required="">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label">No Telepon</label>
-                                                                <div class="col-sm-12">
-                                                                    <input type="text" class="form-control" id="no_telp" name="no_telp" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->no_telp : 'Data Kosong' }}" required="">
+                                                                <div class="col-sm-3 text-nowrap">
+                                                                    <label class="control-label">Jarak ke Shelter</label>
+                                                                    <div class="input-group">
+                                                                        <input type="text" class="form-control" id="jarakShelter" name="jarakShelter" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->jarak_ke_shelter : 'Data Kosong' }}" required="">
+                                                                        <span class="input-group-text">KM</span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label">No Rekening</label>
                                                                 <div class="col-sm-12">
+                                                                    <label class="control-label">No. Telephone</label>
+                                                                    <input type="number" class="form-control" id="no_telp" name="no_telp" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->no_telp : 'Data Kosong' }}" required="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="col-sm-12">
+                                                                    <label class="control-label">No. Rekening</label>
                                                                     <input type="text" class="form-control" id="no_rek" name="no_rek" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->no_rek : 'Data Kosong' }}" required="">
                                                                 </div>
                                                             </div>
@@ -383,15 +419,11 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label">Jumlah Tanggungan</label>
-                                                                <div class="col-12">
-                                                                    <div class="row">
-                                                                        <div class="col-md-2">
-                                                                            <input type="text" class="form-control" id="tanggunganAyah" name="tanggunganAyah" placeholder="" value="{{ $dataAyah ? $dataAyah->jumlah_tanggungan : 'Data Kosong' }}" maxlength="50" required="">
-                                                                        </div>
-                                                                        <div class="col-md-2">
-                                                                            Anak
-                                                                        </div>
+                                                                <div class="col-sm-3 text-nowrap">
+                                                                    <label class="control-label">Jumlah Tanggungan</label>
+                                                                    <div class="input-group">
+                                                                        <input type="number" class="form-control" id="jarakShelter" name="jarakShelter" placeholder="" value="{{ $dataAyah ? $dataAyah->jumlah_tanggungan : 'Data Kosong' }}" required="">
+                                                                        <span class="input-group-text">Anak</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -797,10 +829,11 @@
 
         function getDataKeluarga(){
             var kacab = $('#kacab').val();
-            var nomor_kk = $('#nomor_kk').val();
             var nomorkk = $('#nomorkk').val();
+            var AnakKe = $('#AnakKe').val();
             var wilayah_binaan = $('#wilayah_binaan').val();
             var shelter = $('#shelter').val();
+            var jarakShelter = $('#jarakShelter').val();
             var no_telp = $('#no_telp').val();
             var no_rek = $('#no_rek').val();
 
@@ -808,10 +841,12 @@
                 method : 'PUT',
                 url : "/admin/calonAnakBinaanEdit/" + idKeluarga,
                 data: {
-                    nomorkk : nomorkk,
                     kacab : kacab,
+                    nomorkk : nomorkk,
+                    anak_ke : AnakKe,
                     wilayah_binaan : wilayah_binaan,
                     shelter : shelter,
+                    jarak_ke_shelter : jarakShelter,
                     no_telp : no_telp,
                     no_rek : no_rek,
                 },
