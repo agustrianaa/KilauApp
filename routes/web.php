@@ -93,9 +93,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::get('/report', [reportController::class,'index'])->name('report');
     Route::get('/table', [reportController::class,'table'])->name('table');
     Route::get('/wilbin', [reportController::class,'wilbin'])->name('wilbin');
-    // Route::post('/wilbin', [reportController::class,'wilbin'])->name('wilbin');
     Route::get('/shelter', [reportController::class,'shelter'])->name('shelter');
-    // Route::post('/shelter', [reportController::class,'shelter'])->name('shelter');
 });
 
 Route::resource('/calon', CalonAnakBinaanController::class);
