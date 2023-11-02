@@ -63,7 +63,10 @@
                     ],
                 order: [[0, 'asc']],
                 paging: true,
-                pageLength: 10
+                pageLength: 10,
+                language: {
+                    "emptyTable": "Data Kosong..."
+                }
             });
         });
 </script>
