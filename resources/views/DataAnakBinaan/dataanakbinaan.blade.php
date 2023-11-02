@@ -128,6 +128,7 @@
                             <th>Nama Madrasah</th>
                             <th>Hobby</th>
                             <th>Status Beasiswa</th>
+                            <th>Status Survey</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -252,6 +253,7 @@
                 { data: 'nama_madrasah_anak', name: 'nama_madrasah_anak'},
                 { data: 'hobby_anak', name: 'hobby_anak'},
                 { data: 'status_beasiswa', name: 'status_beasiswa'},
+                { data: 'survey_status', name: 'survey_status'},
                 { data: 'action', name: 'action', orderable: false},
             ],
             order: [[0, 'asc']],
@@ -309,9 +311,9 @@
       window.location.href = "{{ url('admin/AnakBinaanview/') }}/" + id;
     }
 
-    function ValidasiBeasiswa(id) {
+    function Survey(id) {
       // Navigate to the view page with the record's ID as a query parameter
-      window.location.href = "{{ url('admin/validasi-beasiswa') }}";
+      window.location.href = "{{ url('admin/surveyForm/') }}/" + id;
     }
 
     //menampilkan detail data keluarga

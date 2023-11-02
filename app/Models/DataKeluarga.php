@@ -15,7 +15,7 @@ class DataKeluarga extends Model
     protected $fillable = [
         'kacab',
         'nomor_kk',
-        'nomorkk',
+        'no_kk',
         'anak_ke',
         'alamat_kk',
         'kepala_keluarga',
