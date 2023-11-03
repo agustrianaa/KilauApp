@@ -29,7 +29,7 @@ class ValidasiSurveyController extends Controller
                 'survey_keluargas.created_at as created_at',
                 'survey_keluargas.*',
             )
-            ->leftJoin('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
+            ->join('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
             ->get();
 
             return datatables($data) 
