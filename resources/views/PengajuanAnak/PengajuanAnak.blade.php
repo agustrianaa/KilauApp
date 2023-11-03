@@ -199,7 +199,7 @@
                                                     <p class="text-sm-end">No. KK :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="nomorkk" name="nomorkk" placeholder="No. Kartu Keluarga...">
+                                                    <input type="text" class="form-control" id="no_kk" name="no_kk" placeholder="No. Kartu Keluarga...">
                                                 </div>
                                             </div>
                                             <div class="row mb-2">

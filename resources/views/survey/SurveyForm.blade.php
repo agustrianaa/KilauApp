@@ -547,9 +547,22 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <div class="text-center">
-                    <button type="submit" class="btn btn-primary mx-2">Simpan</button>
-                    <button type="reset" class="btn btn-warning mx-2">Kembali</button>
+                    <div class="col-12 col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="float-start">
+                                    <button type="reset" class="btn btn-danger mx-2"><i class="bi bi-exclamation-circle-fill"></i> Reset Semua Input</button>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="text-center">
+                                    <a href="{{ route('admin.AnakBinaan') }}" class="btn btn-warning mx-2"><i class="bi bi-arrow-left"></i> Kembali</a>
+                                    <button type="submit" class="btn btn-primary mx-2"><i class="bi bi-send-check-fill"></i> Simpan</button>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                            </div>
+                        </div>
                     </div>
                 </div>
                 </form>

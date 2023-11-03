@@ -115,6 +115,7 @@
                                     <th>No. KK</th>
                                     <th>Kepala Keluarga</th>
                                     <th>Anak Ke</th>
+                                    <th>Status Binaan</th>
                                     <th style="width: 150px">Action</th>          
                                 </tr>
                             </thead>
@@ -375,9 +376,16 @@
                     },
                     { data: 'nama_lengkap_calon_anak', name: 'nama_lengkap_calon_anak'},
                     { data: 'shelter', name: 'shelter'},
-                    { data: 'nomorkk', name: 'nomorkk'},
+                    { data: 'no_kk', name: 'no_kk'},
                     { data: 'nama_ayah', name: 'nama_ayah'},
                     { data: 'anak_ke', name: 'anak_ke'},
+                    {
+                        data: 'status_binaan',
+                        name: 'status_binaan',
+                        render: function(data, type, row) {
+                            return data == 1 ? 'Aktif' : 'Belum validasi';
+                        }
+                    },
                     { data: 'action', name: 'action', orderable: false},
                 ],
                 order: [[0, 'asc']],
@@ -420,7 +428,7 @@
                     icon: 'success',
                     title: 'Berhasil Validasi',
                     text: 'Data telah divalidasi.',
-                    timer: 2000,
+                    timer: 900,
                     showConfirmButton: false
                 }).then(function() {
                     var oTable = $('#CalonAnakBinaanTable').DataTable();

@@ -2,25 +2,57 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\DataKeluarga;
 use App\Models\SurveyKeluarga;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class SurveyController extends Controller
 {
     public function indexSurvey()
     {
         if(request()->ajax()){
-            $data = DataKeluarga::latest()->get();
+            // $data = DataKeluarga::latest()->get();
+            $data = DataKeluarga::select(
+                'data_keluargas.*',
+                'anaks.*',
+                'status_anaks.*',
+                'anaks.id_anaks as id_anaks',
+                'anaks.nama_lengkap as nama_lengkap_anak',
+                'anaks.nama_panggilan as nama_panggilan_anak',
+                'anaks.tempat_lahir as tempat_lahir_anak',
+                'anaks.tanggal_lahir as tanggal_lahir_anak',
+                'anaks.nama_sekolah as nama_sekolah_anak',
+                'anaks.nama_madrasah as nama_madrasah_anak',
+                'anaks.hobby as hobby_anak',
+                'anaks.cita_cita as cita_cita_anak',
+                'ayahs.*',
+                'ibus.*',
+                'walis.*',
+                'survey_keluargas.*',
+                )
+            ->leftJoin('ayahs', 'data_keluargas.id', '=', 'ayahs.data_keluarga_id')
+            ->leftJoin('ibus', 'data_keluargas.id', '=', 'ibus.data_keluarga_id')
+            ->leftJoin('walis', 'data_keluargas.id', '=', 'walis.data_keluarga_id')
+            ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
+            ->leftJoin('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
+            ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
+            ->where('status_anaks.status_binaan', 1)
+            ->orderBy('data_keluargas.created_at', 'asc')
+            // ->where(function ($query) {
+            //     $query->where('survey_keluargas.id', '!=', null) // Atau 'IS NOT NULL' tergantung pada DBMS Anda
+            //         ->orWhere('survey_keluargas.id', 'IS NULL');
+            // })
+            ->get();
+
 
             return datatables($data)
             ->addIndexColumn()
             ->addColumn('action', function ($data) {
                 $btn = '<a href="' . url("admin/surveyForm/" . $data->id) . '" data-toggle="tooltip" data-id="' . $data->id . '" data-original-title="View" class="view btn btn-sm btn-info view text-white"><i class="bi bi-clipboard2-plus"></i> Isi Survey</a>';
-
                 return $btn;
             })
-
             ->rawColumns(['action'])
             ->make(true);
         }
@@ -35,18 +67,21 @@ class SurveyController extends Controller
     public function store(Request $request)
     {
         // Mengambil semua nilai yang dipilih dari checkbox "kep_kendaraan" sebagai array
-        $resultText = $request->input('kep_kendaraan');  
+        $resultText = $request->input('kep_kendaraan');
 
         // Mengganti input "kep_kendaraan" dengan string yang berisi nilai yang dipilih
-        $request->merge(['kep_kendaraan' => $resultText]); 
+        $request->merge(['kep_kendaraan' => $resultText]);
 
-        SurveyKeluarga::create($request->all());    
+        SurveyKeluarga::create($request->all());
+
+        // Menampilkan SweetAlert2 setelah data disimpan
+        Alert::success('Tersimpan', 'Data telah berhasil disimpan!')->showConfirmButton(false);
 
         return redirect()->route('admin.surveyAnak');
     }
 
-    
-    
+
+
 //     public function storae(Request $request)
 // {
 //     // Mengambil semua nilai yang dipilih dari checkbox "kep_kendaraan" sebagai array

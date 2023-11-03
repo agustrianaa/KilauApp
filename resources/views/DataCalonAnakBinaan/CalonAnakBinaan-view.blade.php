@@ -84,7 +84,11 @@
                                                     <div class="form-group">
                                                         <div class="col-sm-12">
                                                             <label class="control-label">Jenis Kelamin</label>
-                                                            <input type="text" class="form-control" id="jenisKelaminAnak" name="jenisKelaminAnak" placeholder="" value="{{ $dataAnak ? $dataAnak->jenis_kelamin : 'Data Kosong' }}" maxlength="50" required="">
+                                                            <select class="form-select" id="jenisKelaminAnak" name="jenisKelaminAnak" required="">
+                                                                <option value="" disabled selected {{ $dataAnak->jenis_kelamin == '' ? 'selected' : '' }}>-Pilih-</option>
+                                                                <option value="Laki-Laki" {{ $dataAnak->jenis_kelamin == 'Laki-Laki' ? 'selected' : '' }}>Laki-Laki</option>
+                                                                <option value="Perempuan" {{ $dataAnak->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -111,7 +115,7 @@
                                                                 </div>
                                                                 <div class="col-sm-6">
                                                                     <label class="control-label">Kelas</label>
-                                                                    <input type="text" class="form-control" id="kelasSekolah" name="kelasSekolah" placeholder="" value="{{ $dataAnak ? $dataAnak->kelas_sekolah : 'Data Kosong' }}" maxlength="50" required="">
+                                                                    <input type="number" class="form-control" id="kelasSekolah" name="kelasSekolah" placeholder="" value="{{ $dataAnak ? $dataAnak->kelas_sekolah : 'Data Kosong' }}" maxlength="50" required="">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -125,7 +129,7 @@
                                                                 </div>
                                                                 <div class="col-sm-6">
                                                                     <label class="control-label">Kelas</label>
-                                                                    <input type="text" class="form-control" id="kelasMadrasah" name="kelasMadrasah" placeholder="" value="{{ $dataAnak ? $dataAnak->kelas_madrasah : 'Data Kosong' }}" maxlength="50" required="">
+                                                                    <input type="number" class="form-control" id="kelasMadrasah" name="kelasMadrasah" placeholder="" value="{{ $dataAnak ? $dataAnak->kelas_madrasah : 'Data Kosong' }}" maxlength="50" required="">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -167,7 +171,7 @@
                                 </div>
                                 <div class="text-center">
                                     <h3>Data Keluarga </h3>
-                                <h6>No KK : {{$dataKeluarga->nomorkk}}</h6>
+                                <h6>No KK : {{$dataKeluarga->no_kk}}</h6>
                                 </div>
                             </div>
                             <div class="card card-primary card-tabs">
@@ -193,46 +197,150 @@
                                         <div class="tab-pane fade show active" id="tab_dataKeluarga" aria-labelledby="custom-tabs-two-home-tab">
                                                 {{-- <div class="post">
                                                     <div class="user-block"> --}}
-                                                        <ul class="list-group list-group-unbordered ">
-                                                        <li class="list-group-item">
-                                                            <div class="col-sm-12">
-                                                                <div class="row">
-                                                                    <div class="col-sm-6">
-                                                                        <div class="float-end">
-                                                                            <b>Kantor Cabang</b>
+                                                        <ul class="list-group list-group-unbordered">
+                                                            <li class="list-group-item">
+                                                                <div class="col-sm-12">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-6">
+                                                                            <div class="">
+                                                                                <b>Kantor Cabang</b>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="col-sm-6">
-                                                                        <div class="float-start">
-                                                                            <div class="float-right">{{ $dataKeluarga ? $dataKeluarga->kacab : 'Data Kosong' }}</div>
+                                                                        <div class="col-sm-6">
+                                                                            <div class="float-start">
+                                                                                <b>: </b> {{ $dataKeluarga ? $dataKeluarga->kacab : 'Data Kosong' }}
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
                                                             </li>
                                                             <li class="list-group-item">
-                                                                <b>No. Kartu Keluarga</b> <div class="float-right">{{ $dataKeluarga ? $dataKeluarga->nomorkk : 'Data Kosong' }}</div>
+                                                                <div class="col-sm-12">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-6">
+                                                                            <div class="">
+                                                                                <b>No. Kartu Keluarga</b>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6">
+                                                                            <div class="float-start">
+                                                                                <b>: </b> {{ $dataKeluarga ? $dataKeluarga->no_kk : 'Data Kosong' }}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </li>
                                                             <li class="list-group-item">
-                                                                <b>Anak Ke</b> <div class="float-right">{{ $dataKeluarga ? $dataKeluarga->anak_ke : 'Data Kosong' }}</div>
+                                                                <div class="col-sm-12">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-6">
+                                                                            <div class="">
+                                                                                <b>Anak Ke</b>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6">
+                                                                            <div class="float-start">
+                                                                                <b>: </b> {{ $dataKeluarga ? $dataKeluarga->anak_ke : 'Data Kosong' }}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </li>
                                                             <li class="list-group-item">
-                                                                <b>Alamat KK</b> <div class="float-right">{{ $dataKeluarga ? $dataKeluarga->alamat_kk : 'Data Kosong' }}</div>
+                                                                <div class="col-sm-12">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-6">
+                                                                            <div class="">
+                                                                                <b>Alamat KK</b>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6">
+                                                                            <div class="float-start">
+                                                                                <b>: </b> {{ $dataKeluarga ? $dataKeluarga->alamat_kk : 'Data Kosong' }}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </li>
                                                             <li class="list-group-item">
-                                                                <b>Wilayah Binaan</b> <div class="float-right">{{ $dataKeluarga ? $dataKeluarga->wilayah_binaan : 'Data Kosong' }}</div>
+                                                                <div class="col-sm-12">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-6">
+                                                                            <div class="">
+                                                                                <b>Wilayah Binaan</b>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6">
+                                                                            <div class="float-start">
+                                                                                <b>: </b> {{ $dataKeluarga ? $dataKeluarga->wilayah_binaan : 'Data Kosong' }}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </li>
                                                             <li class="list-group-item">
-                                                                <b>Shelter</b> <div class="float-right">{{ $dataKeluarga ? $dataKeluarga->shelter : 'Data Kosong' }}</div>
+                                                                <div class="col-sm-12">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-6">
+                                                                            <div class="">
+                                                                                <b>Shelter</b>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6">
+                                                                            <div class="float-start">
+                                                                                <b>: </b> {{ $dataKeluarga ? $dataKeluarga->shelter : 'Data Kosong' }}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </li>
                                                             <li class="list-group-item">
-                                                                <b>Jarak ke Shelter</b> <div class="float-right">{{ $dataKeluarga ? $dataKeluarga->jarak_ke_shelter : 'Data Kosong' }}</div>
+                                                                <div class="col-sm-12">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-6">
+                                                                            <div class="">
+                                                                                <b>Jarak ke Shelter</b>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6">
+                                                                            <div class="float-start">
+                                                                                <b>: </b> {{ $dataKeluarga ? $dataKeluarga->jarak_ke_shelter : 'Data Kosong' }} KM
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </li>
                                                             <li class="list-group-item">
-                                                                <b>No. Telephone</b> <div class="float-right">{{ $dataKeluarga ? $dataKeluarga->no_telp : 'Data Kosong' }}</div>
+                                                                <div class="col-sm-12">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-6">
+                                                                            <div class="">
+                                                                                <b>No. Telephone</b>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6">
+                                                                            <div class="float-start">
+                                                                                <b>: </b> {{ $dataKeluarga ? $dataKeluarga->no_telp : 'Data Kosong' }}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </li>
                                                             <li class="list-group-item">
-                                                                <b>No. Rekening</b> <div class="float-right">{{ $dataKeluarga ? $dataKeluarga->no_rek : 'Data Kosong' }}</div>
+                                                                <div class="col-sm-12">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-6">
+                                                                            <div class="">
+                                                                                <b>No. Rekening</b>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6">
+                                                                            <div class="float-start">
+                                                                                <b>: </b> {{ $dataKeluarga ? $dataKeluarga->no_rek : 'Data Kosong' }}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </li>
                                                         </ul>
                                                         <button type="button" class="btn btn-success float-right btn-md" data-toggle="modal" data-target="#modal_dataKeluarga" data-id="{{ $dataKeluarga ? $dataKeluarga->id : '' }}"><i class="bi bi-pencil-square"></i> Edit</button>
@@ -269,32 +377,44 @@
                                                             <div class="form-group">
                                                                 <div class="col-sm-12">
                                                                     <label class="control-label">No. Kartu Keluarga</label>
-                                                                    <input type="text" class="form-control" id="nomorkk" name="nomorkk" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->nomorkk : 'Data Kosong' }}" maxlength="50" required="">
+                                                                    <input type="text" class="form-control" id="nomorkk" name="nomorkk" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->no_kk : 'Data Kosong' }}" maxlength="50" required="">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
                                                                 <div class="col-sm-2">
                                                                     <label class="control-label">Anak ke</label>
-                                                                    <input type="text" class="form-control" id="AnakKe" name="AnakKe" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->anak_ke : 'Data Kosong' }}" maxlength="50" required="">
+                                                                    <input type="number" class="form-control" id="AnakKe" name="AnakKe" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->anak_ke : 'Data Kosong' }}" maxlength="50" required="">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
                                                                 <div class="col-sm-12">
                                                                     <label class="control-label">Wilayah Binaan</label>
-                                                                    <input type="text" class="form-control" id="wilayah_binaan" name="wilayah_binaan" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->wilayah_binaan : 'Data Kosong' }}" maxlength="50" required="">
+                                                                    <select class="form-select" id="wilayah_binaan" name="wilayah_binaan">
+                                                                        <option disabled selected {{ $dataKeluarga->wilayah_binaan == '' ? 'selected' : '' }}>Wilayah Binaan...</option>
+                                                                        <option value="Indramayu" {{ $dataKeluarga->wilayah_binaan == 'Indramayu' ? 'selected' : '' }}>Indramayu</option>
+                                                                        <option value="Bandung" {{ $dataKeluarga->wilayah_binaan == 'Bandung' ? 'selected' : '' }}>Bandung</option>
+                                                                        <option value="Sumedang" {{ $dataKeluarga->wilayah_binaan == 'Sumedang' ? 'selected' : '' }}>Sumedang</option>
+                                                                        <option value="Bogor" {{ $dataKeluarga->wilayah_binaan == 'Bogor' ? 'selected' : '' }}>Bogor</option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
                                                                 <div class="col-sm-12">
                                                                     <label class="control-label">Shelter</label>
-                                                                    <input type="text" class="form-control" id="shelter" name="shelter" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->shelter : 'Data Kosong' }}" required="">
+                                                                    <select class="form-select" id="shelter" name="shelter">
+                                                                        <option disabled selected {{ $dataKeluarga->shelter == '' ? 'selected' : '' }}>Pilih Shelter...</option>
+                                                                        <option value="Indramayu" {{ $dataKeluarga->shelter == 'Indramayu' ? 'selected' : '' }}>Indramayu</option>
+                                                                        <option value="Bandung" {{ $dataKeluarga->shelter == 'Bandung' ? 'selected' : '' }}>Bandung</option>
+                                                                        <option value="Sumedang" {{ $dataKeluarga->shelter == 'Sumedang' ? 'selected' : '' }}>Sumedang</option>
+                                                                        <option value="Bogor" {{ $dataKeluarga->shelter == 'Bogor' ? 'selected' : '' }}>Bogor</option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
                                                                 <div class="col-sm-3 text-nowrap">
                                                                     <label class="control-label">Jarak ke Shelter</label>
                                                                     <div class="input-group">
-                                                                        <input type="text" class="form-control" id="jarakShelter" name="jarakShelter" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->jarak_ke_shelter : 'Data Kosong' }}" required="">
+                                                                        <input type="number" class="form-control" id="jarakShelter" name="jarakShelter" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->jarak_ke_shelter : 'Data Kosong' }}" required="">
                                                                         <span class="input-group-text">KM</span>
                                                                     </div>
                                                                 </div>
@@ -327,28 +447,132 @@
                                         <div class="tab-pane fade" id="tab_dataAyah">
                                             <ul class="list-group list-group-unbordered mb-3">
                                                 <li class="list-group-item">
-                                                    <b>NIK</b> <div class="float-right">{{ $dataAyah ? $dataAyah->nik : 'Data Kosong' }}</div>
+                                                    <div class="col-sm-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="">
+                                                                    <b>NIK</b>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="float-start">
+                                                                    <b>: </b> {{ $dataAyah ? $dataAyah->nik : 'Data Kosong' }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>Nama Lengkap</b> <div class="float-right">{{ $dataAyah ? $dataAyah->nama : 'Data Kosong' }}</div>
+                                                    <div class="col-sm-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="">
+                                                                    <b>Nama Lengkap</b>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="float-start">
+                                                                    <b>: </b> {{ $dataAyah ? $dataAyah->nama : 'Data Kosong' }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>Tempat, Tanggal Lahir</b> <div class="float-right">{{ $dataAyah ? $dataAyah->tempat_lahir : 'Data Kosong' }}, {{ $dataAyah ? $dataAyah->tanggal_lahir : 'Data Kosong' }}</div>
+                                                    <div class="col-sm-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="">
+                                                                    <b>Tempat, Tanggal Lahir</b>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="float-start">
+                                                                    <b>: </b> {{ $dataAyah ? $dataAyah->tempat_lahir : 'Data Kosong' }}, {{ $dataAyah ? $dataAyah->tanggal_lahir : 'Data Kosong' }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>Pekerjaan</b> <div class="float-right">{{ $dataAyah ? $dataAyah->pekerjaan : 'Data Kosong' }}</div>
+                                                    <div class="col-sm-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="">
+                                                                    <b>Pekerjaan</b>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="float-start">
+                                                                    <b>: </b> {{ $dataAyah ? $dataAyah->pekerjaan : 'Data Kosong' }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>Jumlah Tanggungan</b> <div class="float-right">{{ $dataAyah ? $dataAyah->jumlah_tanggungan : 'Data Kosong' }} Anak</div>
+                                                    <div class="col-sm-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="">
+                                                                    <b>Jumlah Tanggungan</b>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="float-start">
+                                                                    <b>: </b> {{ $dataAyah ? $dataAyah->jumlah_tanggungan : 'Data Kosong' }} Anak
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>Pendapatan</b> <div class="float-right">{{ $dataAyah ? $dataAyah->pendapatan : 'Data Kosong' }}</div>
+                                                    <div class="col-sm-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="">
+                                                                    <b>Pendapatan</b>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="float-start">
+                                                                    <b>: </b> {{ $dataAyah ? $dataAyah->pendapatan : 'Data Kosong' }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>Agama</b> <div class="float-right">{{ $dataAyah ? $dataAyah->agama : 'Data Kosong' }}</div>
+                                                    <div class="col-sm-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="">
+                                                                    <b>Agama</b>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="float-start">
+                                                                    <b>: </b> {{ $dataAyah ? $dataAyah->agama : 'Data Kosong' }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>Alamat</b> <div class="float-right">{{ $dataAyah ? $dataAyah->alamat : 'Data Kosong' }}</div>
+                                                    <div class="col-sm-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="">
+                                                                    <b>Alamat</b>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="float-start">
+                                                                    <b>: </b> {{ $dataAyah ? $dataAyah->alamat : 'Data Kosong' }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </li>
                                             </ul>
                                             <button type="button" class="btn btn-success float-right btn-md" data-toggle="modal" data-target="#modal_dataAyah" data-id="{{ $dataAyah ? $dataAyah->id_ayahs : '' }}"><i class="bi bi-pencil-square"></i> Edit</button>
@@ -369,33 +593,34 @@
                                                         @method('PUT')
                                                         <input type="hidden" name="id_ayahs" id="id_ayahs" value="{{ $dataAyah ? $dataAyah->id_ayahs : '' }}">
                                                             <div class="form-group">
-                                                                <label for="nik" class="control-label">NIK</label>
                                                                 <div class="col-sm-12">
+                                                                    <label for="nik" class="control-label">NIK</label>
                                                                     <input type="text" class="form-control" id="nikAyah" name="nikAyah" placeholder="Masukkan NIK..." value="{{ $dataAyah ? $dataAyah->nik : 'Data Kosong' }}"  maxlength="50" required="">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label">Nama Lengkap</label>
                                                                 <div class="col-sm-12">
+                                                                    <label class="control-label">Nama Lengkap</label>
                                                                     <input type="text" class="form-control" id="namaAyah" name="namaAyah" placeholder="" value="{{ $dataAyah ? $dataAyah->nama : 'Data Kosong' }}" maxlength="50" required="">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label">Tempat, Tanggal Lahir</label>
                                                                 <div class="col-12">
                                                                     <div class="row">
                                                                         <div class="col-md-6">
+                                                                            <label class="control-label">Tempat Lahir</label>
                                                                             <input type="text" class="form-control" id="tempat_lahirAyah" name="tempat_lahirAyah" placeholder=""value="{{ $dataAyah ? $dataAyah->tempat_lahir : 'Data Kosong' }}" required="">
                                                                         </div>
                                                                         <div class="col-md-6">
+                                                                            <label class="control-label">Tanggal Lahir</label>
                                                                             <input type="date" class="form-control" id="tanggal_lahirAyah" name="tanggal_lahirAyah" placeholder="" value="{{ $dataAyah ? $dataAyah->tanggal_lahir : 'Data Kosong' }}" required="">
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label">Pekerjaan</label>
                                                                 <div class="col-sm-12">
+                                                                    <label class="control-label">Pekerjaan</label>
                                                                     <select class="form-select" id="pekerjaanAyah" name="pekerjaanAyah">
                                                                         <option disabled selected {{ $dataAyah->pekerjaan == '' ? 'selected' : '' }}>Pilih Pekerjaan...</option>
                                                                         <option value="Petani" {{ $dataAyah->pekerjaan == 'Petani' ? 'selected' : '' }}>Petani</option>
@@ -420,16 +645,16 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <div class="col-sm-3 text-nowrap">
-                                                                    <label class="control-label">Jumlah Tanggungan</label>
                                                                     <div class="input-group">
-                                                                        <input type="number" class="form-control" id="jarakShelter" name="jarakShelter" placeholder="" value="{{ $dataAyah ? $dataAyah->jumlah_tanggungan : 'Data Kosong' }}" required="">
+                                                                        <label class="control-label">Jumlah Tanggungan</label>
+                                                                        <input type="number" class="form-control" id="tanggunganAyah" name="tanggunganAyah" placeholder="" value="{{ $dataAyah ? $dataAyah->jumlah_tanggungan : 'Data Kosong' }}" required="">
                                                                         <span class="input-group-text">Anak</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label">Pendapatan</label>
                                                                 <div class="col-sm-12">
+                                                                    <label class="control-label">Pendapatan</label>
                                                                     <select class="form-select" id="pendapatanAyah" name="pendapatanAyah">
                                                                         <option disabled selected {{ $dataAyah->pendapatan == '' ? 'selected' : '' }}>Pilih Penghasilan...</option>
                                                                         <option value="Dibawah Rp.500.000,-" {{ $dataAyah->pendapatan == 'Dibawah Rp.500.000,-' ? 'selected' : '' }}>Dibawah Rp.500.000,-</option>
@@ -444,8 +669,8 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label">Agama</label>
                                                                 <div class="col-sm-12">
+                                                                    <label class="control-label">Agama</label>
                                                                     <select class="form-select" id="agamaAyah" name="agamaAyah" aria-placeholder="pilih agama" required>
                                                                         <option value="" disabled {{ $dataAyah->agama == '' ? 'selected' : '' }}>Pilih Agama</option>
                                                                         <option value="Islam" {{ $dataAyah->agama == 'Islam' ? 'selected' : '' }}>Islam</option>
@@ -458,9 +683,8 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label">Alamat</label>
                                                                 <div class="col-sm-12">
-                                                                    {{-- <input type="text" class="form-control" id="alamatAyah" name="alamatAyah" placeholder="" value="{{ $dataAyah ? $dataAyah->alamat : 'Data Kosong' }}" required=""> --}}
+                                                                    <label class="control-label">Alamat</label>
                                                                     <textarea class="form-control" id="alamatAyah" name="alamatAyah" rows="3">{{ $dataAyah ? $dataAyah->alamat : 'Data Kosong' }}</textarea>
                                                                 </div>
                                                             </div>
@@ -480,25 +704,117 @@
                                         <div class="tab-pane fade" id="tab_dataIbu">
                                             <ul class="list-group list-group-unbordered mb-3">
                                                 <li class="list-group-item">
-                                                    <b>NIK</b> <div class="float-right">{{ $dataIbu ? $dataIbu->nik : 'Data Kosong' }}</div>
+                                                    <div class="col-sm-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="">
+                                                                    <b>NIK</b>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="float-start">
+                                                                    <b>: </b> {{ $dataIbu ? $dataIbu->nik : 'Data Kosong' }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>Nama Lengkap</b> <div class="float-right">{{ $dataIbu ? $dataIbu->nama : 'Data Kosong' }}</div>
+                                                    <div class="col-sm-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="">
+                                                                    <b>Nama Lengkap</b>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="float-start">
+                                                                    <b>: </b> {{ $dataIbu ? $dataIbu->nama : 'Data Kosong' }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>Tempat, Tanggal Lahir</b> <div class="float-right">{{ $dataIbu ? $dataIbu->tempat_lahir : 'Data Kosong' }}, {{ $dataIbu ? $dataIbu->tanggal_lahir : 'Data Kosong' }}</div>
+                                                    <div class="col-sm-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="">
+                                                                    <b>Tempat, Tanggal Lahir</b>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="float-start">
+                                                                    <b>: </b> {{ $dataIbu ? $dataIbu->tempat_lahir : 'Data Kosong' }}, {{ $dataIbu ? $dataIbu->tanggal_lahir : 'Data Kosong' }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>Pekerjaan</b> <div class="float-right">{{ $dataIbu ? $dataIbu->pekerjaan : 'Data Kosong' }}</div>
+                                                    <div class="col-sm-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="">
+                                                                    <b>Pekerjaan</b>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="float-start">
+                                                                    <b>: </b> {{ $dataIbu ? $dataIbu->pekerjaan : 'Data Kosong' }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>Pendapatan</b> <div class="float-right">{{ $dataIbu ? $dataIbu->pendapatan : 'Data Kosong' }}</div>
+                                                    <div class="col-sm-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="">
+                                                                    <b>Pendapatan</b>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="float-start">
+                                                                    <b>: </b> {{ $dataIbu ? $dataIbu->pendapatan : 'Data Kosong' }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>Agama</b> <div class="float-right">{{ $dataIbu ? $dataIbu->agama : 'Data Kosong' }}</div>
+                                                    <div class="col-sm-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="">
+                                                                    <b>Agama</b>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="float-start">
+                                                                    <b>: </b> {{ $dataIbu ? $dataIbu->agama : 'Data Kosong' }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>Alamat</b> <div class="float-right">{{ $dataIbu ? $dataIbu->alamat : 'Data Kosong' }}</div>
+                                                    <div class="col-sm-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="">
+                                                                    <b>Alamat</b>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="float-start">
+                                                                    <b>: </b> {{ $dataIbu ? $dataIbu->alamat : 'Data Kosong' }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </li>
                                             </ul>
                                             <button type="button" class="btn btn-success float-right btn-md" data-toggle="modal" data-target="#modal_dataIbu" data-id="{{ $dataIbu ? $dataIbu->id_ibus : '' }}"><i class="bi bi-pencil-square"></i> Edit</button>
@@ -519,33 +835,34 @@
                                                             @method('PUT')
                                                         <input type="hidden" name="id_ibus" id="id_ibus" value="{{ $dataIbu ? $dataIbu->id_ibus : '' }}">
                                                             <div class="form-group">
-                                                                <label for="nomor_kk" class="control-label">NIK</label>
                                                                 <div class="col-sm-12">
+                                                                    <label for="nomor_kk" class="control-label">NIK</label>
                                                                     <input type="text" class="form-control" id="nikIbu" name="nikIbu" placeholder="Masukkan NIK..." value="{{ $dataIbu ? $dataIbu->nik : 'Data Kosong' }}"  maxlength="50" required="">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label">Nama Lengkap</label>
                                                                 <div class="col-sm-12">
+                                                                    <label class="control-label">Nama Lengkap</label>
                                                                     <input type="text" class="form-control" id="namaIbu" name="namaIbu" placeholder="" value="{{ $dataIbu ? $dataIbu->nama : 'Data Kosong' }}" maxlength="50" required="">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label">Tempat, Tanggal Lahir</label>
                                                                 <div class="col-12">
                                                                     <div class="row">
                                                                         <div class="col-md-6">
+                                                                            <label class="control-label">Tempat Lahir</label>
                                                                             <input type="text" class="form-control" id="tempat_lahirIbu" name="tempat_lahirIbu" placeholder=""value="{{ $dataIbu ? $dataIbu->tempat_lahir : 'Data Kosong' }}" required="">
                                                                         </div>
                                                                         <div class="col-md-6">
+                                                                            <label class="control-label">Tanggal Lahir</label>
                                                                             <input type="date" class="form-control" id="tanggal_lahirIbu" name="tanggal_lahirIbu" placeholder="" value="{{ $dataIbu ? $dataIbu->tanggal_lahir : 'Data Kosong' }}" required="">
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label">Pekerjaan</label>
                                                                 <div class="col-sm-12">
+                                                                    <label class="control-label">Pekerjaan</label>
                                                                     <select class="form-select" id="pekerjaanIbu" name="pekerjaanIbu">
                                                                         <option disabled selected {{ $dataIbu->pekerjaan == '' ? 'selected' : '' }}>Pilih Pekerjaan...</option>
                                                                         <option value="Petani" {{ $dataIbu->pekerjaan == 'Petani' ? 'selected' : '' }}>Petani</option>
@@ -569,8 +886,8 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label">Pendapatan</label>
                                                                 <div class="col-sm-12">
+                                                                    <label class="control-label">Pendapatan</label>
                                                                     <select class="form-select" id="pendapatanIbu" name="pendapatanIbu">
                                                                         <option disabled selected {{ $dataIbu->pendapatan == '' ? 'selected' : '' }}>Pilih Penghasilan...</option>
                                                                         <option value="Dibawah Rp.500.000,-" {{ $dataIbu->pendapatan == 'Dibawah Rp.500.000,-' ? 'selected' : '' }}>Dibawah Rp.500.000,-</option>
@@ -585,8 +902,8 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label">Agama</label>
                                                                 <div class="col-sm-12">
+                                                                    <label class="control-label">Agama</label>
                                                                     <select class="form-control" id="agamaIbu" name="agamaIbu" aria-placeholder="pilih agama" required>
                                                                         <option value="" disabled {{ $dataIbu->agama == '' ? 'selected' : '' }}>Pilih Agama</option>
                                                                         <option value="Islam" {{ $dataIbu->agama == 'Islam' ? 'selected' : '' }}>Islam</option>
@@ -599,9 +916,9 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label">Alamat</label>
                                                                 <div class="col-sm-12">
-                                                                    <input type="text" class="form-control" id="alamatIbu" name="alamatIbu" placeholder="" value="{{ $dataIbu ? $dataIbu->alamat : 'Data Kosong' }}" required="">
+                                                                    <label class="control-label">Alamat</label>
+                                                                    <textarea class="form-control" id="alamatIbu" name="alamatIbu" rows="3">{{ $dataIbu ? $dataIbu->alamat : 'Data Kosong' }}</textarea>
                                                                 </div>
                                                             </div>
                                                         </form>
@@ -619,30 +936,121 @@
                                         <div class="tab-pane fade" id="tab_dataWali">
                                             <ul class="list-group list-group-unbordered mb-3">
                                                 <li class="list-group-item">
-                                                    <b>No. KTP</b> <div class="float-right">{{ $dataWali ? $dataWali->no_ktp : 'Data Kosong' }}</div>
+                                                    <div class="col-sm-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="">
+                                                                    <b>No. KTP</b>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="float-start">
+                                                                    <b>: </b> {{ $dataWali ? $dataWali->no_ktp : 'Data Kosong' }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>Nama Lengkap</b> <div class="float-right">{{ $dataWali ? $dataWali->nama_lengkap : 'Data Kosong' }}</div>
+                                                    <div class="col-sm-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="">
+                                                                    <b>Nama Lengkap</b>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="float-start">
+                                                                    <b>: </b> {{ $dataWali ? $dataWali->nama_lengkap : 'Data Kosong' }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>Nama Panggilan</b> <div class="float-right">{{ $dataWali ? $dataWali->nama_panggilan : 'Data Kosong' }}</div>
+                                                    <div class="col-sm-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="">
+                                                                    <b>Nama Panggilan</b>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="float-start">
+                                                                    <b>: </b> {{ $dataWali ? $dataWali->nama_panggilan : 'Data Kosong' }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>Tempat, Tanggal Lahir</b> <div class="float-right">{{ $dataWali ? $dataWali->tempat_lahir : 'Data Kosong' }}, {{ $dataWali ? $dataWali->tanggal_lahir : 'Data Kosong' }}</div>
+                                                    <div class="col-sm-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="">
+                                                                    <b>Tempat, Tanggal Lahir</b>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="float-start">
+                                                                    <b>: </b> {{ $dataWali ? $dataWali->tempat_lahir : 'Data Kosong' }}, {{ $dataWali ? $dataWali->tanggal_lahir : 'Data Kosong' }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>Pekerjaan</b> <div class="float-right">{{ $dataWali ? $dataWali->pekerjaan : 'Data Kosong' }}</div>
+                                                    <div class="col-sm-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="">
+                                                                    <b>Pekerjaan</b>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="float-start">
+                                                                    <b>: </b> {{ $dataWali ? $dataWali->pekerjaan : 'Data Kosong' }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>Jumlah Tanggungan</b> <div class="float-right">{{ $dataWali ? $dataWali->jumlah_tanggungan : 'Data Kosong' }} Anak</div>
+                                                    <div class="col-sm-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="">
+                                                                    <b>Jumlah Tanggungan</b>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="float-start">
+                                                                    <b>: </b> {{ $dataWali ? $dataWali->jumlah_tanggungan : 'Data Kosong' }} Anak
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>Pendapatan</b> <div class="float-right">{{ $dataWali ? $dataWali->pendapatan : 'Data Kosong' }}</div>
+                                                    <div class="col-sm-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="">
+                                                                    <b>Pendapatan</b>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="float-start">
+                                                                    <b>: </b> {{ $dataWali ? $dataWali->pendapatan : 'Data Kosong' }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </li>
                                             </ul>
                                             <button type="button" class="btn btn-success float-right btn-md" data-toggle="modal" data-target="#modal_dataWali" data-id="{{ $dataWali ? $dataWali->id_walis : '' }}"><i class="bi bi-pencil-square"></i> Edit</button>
                                         </div>
-    
+
                                         <!-- Modal Data Wali -->
                                         <div class="modal fade" id="modal_dataWali" tabindex="-1" role="dialog" aria-labelledby="LabelIbu">
                                             <div class="modal-dialog modal-lg" role="document">
@@ -658,14 +1066,14 @@
                                                             @method('PUT')
                                                         <input type="hidden" name="id_walis" id="id_walis" value="{{ $dataWali ? $dataWali->id_walis : '' }}">
                                                             <div class="form-group">
-                                                                <label for="nomor_kk" class="control-label">No. KTP</label>
                                                                 <div class="col-sm-12">
+                                                                    <label for="nomor_kk" class="control-label">No. KTP</label>
                                                                     <input type="text" class="form-control" id="noKtpWali" name="noKtpWali" placeholder="Masukkan NIK..." value="{{ $dataWali ? $dataWali->no_ktp : 'Data Kosong' }}"  maxlength="50" required="">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label">Nama Lengkap</label>
                                                                 <div class="col-sm-12">
+                                                                    <label class="control-label">Nama Lengkap</label>
                                                                     <input type="text" class="form-control" id="namaLengkapWali" name="namaLengkapWali" placeholder="" value="{{ $dataWali ? $dataWali->nama_lengkap : 'Data Kosong' }}" maxlength="50" required="">
                                                                 </div>
                                                             </div>
@@ -676,48 +1084,67 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label">Tempat, Tanggal Lahir</label>
                                                                 <div class="col-12">
                                                                     <div class="row">
                                                                         <div class="col-md-6">
+                                                                            <label class="control-label">Tempat Lahir</label>
                                                                             <input type="text" class="form-control" id="tempat_lahirWali" name="tempat_lahirWali" placeholder=""value="{{ $dataWali ? $dataWali->tempat_lahir : 'Data Kosong' }}" required="">
                                                                         </div>
                                                                         <div class="col-md-6">
+                                                                            <label class="control-label">Tanggal Lahir</label>
                                                                             <input type="date" class="form-control" id="tanggal_lahirWali" name="tanggal_lahirWali" placeholder="" value="{{ $dataWali ? $dataWali->tanggal_lahir : 'Data Kosong' }}" required="">
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            {{-- <div class="form-group">
-                                                                <label class="control-label">Agama</label>
+                                                            <div class="form-group">
                                                                 <div class="col-sm-12">
-                                                                    <select class="form-control" id="agamaIbu" name="agamaIbu" aria-placeholder="pilih agama" required>
-                                                                        <option value="" disabled {{ $dataWali->agama == '' ? 'selected' : '' }}>Pilih Agama</option>
-                                                                        <option value="Islam" {{ $dataWali->agama == 'Islam' ? 'selected' : '' }}>Islam</option>
-                                                                        <option value="Kristen" {{ $dataWali->agama == 'Kristen' ? 'selected' : '' }}>Kristen</option>
-                                                                        <option value="Katolik" {{ $dataWali->agama == 'Katolik' ? 'selected' : '' }}>Katolik</option>
-                                                                        <option value="Hindu" {{ $dataWali->agama == 'Hindu' ? 'selected' : '' }}>Hindu</option>
-                                                                        <option value="Buddha" {{ $dataWali->agama == 'Buddha' ? 'selected' : '' }}>Buddha</option>
-                                                                        <option value="Konghucu" {{ $dataWali->agama == 'Konghucu' ? 'selected' : '' }}>Konghucu</option>
+                                                                    <label class="control-label">Pekerjaan</label>
+                                                                    <select class="form-select" id="pekerjaanWali" name="pekerjaanWali">
+                                                                        <option disabled selected {{ $dataWali->pekerjaan == '' ? 'selected' : '' }}>Pilih Pekerjaan...</option>
+                                                                        <option value="Petani" {{ $dataWali->pekerjaan == 'Petani' ? 'selected' : '' }}>Petani</option>
+                                                                        <option value="Nelayan" {{ $dataWali->pekerjaan == 'Nelayan' ? 'selected' : '' }}>Nelayan</option>
+                                                                        <option value="Peternak" {{ $dataWali->pekerjaan == 'Peternak' ? 'selected' : '' }}>Peternak</option>
+                                                                        <option value="PNS NON Dosen/Guru" {{ $dataWali->pekerjaan == 'PNS NON Dosen/Guru' ? 'selected' : '' }}>PNS NON Dosen/Guru</option>
+                                                                        <option value="Guru PNS" {{ $dataWali->pekerjaan == 'Guru PNS' ? 'selected' : '' }}>Guru PNS</option>
+                                                                        <option value="Guru NON PNS" {{ $dataWali->pekerjaan == 'Guru NON PNS' ? 'selected' : '' }}>Guru NON PNS</option>
+                                                                        <option value="PNS/TNI/POLRI" {{ $dataWali->pekerjaan == 'PNS/TNI/POLRI' ? 'selected' : '' }}>PNS/TNI/POLRI</option>
+                                                                        <option value="Guru NON PNS" {{ $dataWali->pekerjaan == 'Guru NON PNS' ? 'selected' : '' }}>Karyawan Swasta</option>
+                                                                        <option value="Buruh" {{ $dataWali->pekerjaan == 'Buruh' ? 'selected' : '' }}>Buruh</option>
+                                                                        <option value="Wiraswasta" {{ $dataWali->pekerjaan == 'Wiraswasta' ? 'selected' : '' }}>Wiraswasta</option>
+                                                                        <option value="Wirausaha" {{ $dataWali->pekerjaan == 'Wirausaha' ? 'selected' : '' }}>Wirausaha</option>
+                                                                        <option value="Pedagang Kecil" {{ $dataWali->pekerjaan == 'Pedagang Kecil' ? 'selected' : '' }}>Pedagang Kecil</option>
+                                                                        <option value="Pedagang Besar" {{ $dataWali->pekerjaan == 'Pedagang Besar' ? 'selected' : '' }}>Pedagang Besar</option>
+                                                                        <option value="Pensiunan" {{ $dataWali->pekerjaan == 'Pensiunan' ? 'selected' : '' }}>Pensiunan</option>
+                                                                        <option value="Tidak Bekerja" {{ $dataWali->pekerjaan == 'Tidak Bekerja' ? 'selected' : '' }}>Tidak Bekerja</option>
+                                                                        <option value="Sudah Meninggal" {{ $dataWali->pekerjaan == 'Sudah Meninggal' ? 'selected' : '' }}>Sudah Meninggal</option>
+                                                                        {{-- <option value="">Lainnya</option> --}}
                                                                     </select>
                                                                 </div>
-                                                            </div> --}}
+                                                            </div>
                                                             <div class="form-group">
-                                                                <label class="control-label">Pekerjaan</label>
-                                                                <div class="col-sm-12">
-                                                                    <input type="text" class="form-control" id="pekerjaanWali" name="pekerjaanWali" placeholder="" value="{{ $dataWali ? $dataWali->pekerjaan : 'Data Kosong' }}" required="">
+                                                                <div class="col-sm-3 text-nowrap">
+                                                                    <div class="input-group">
+                                                                        <label class="control-label">Jumlah Tanggungan</label>
+                                                                        <input type="number" class="form-control" id="jumlahTanggunganWali" name="jumlahTanggunganWali" placeholder="" value="{{ $dataAyah ? $dataAyah->jumlah_tanggungan : 'Data Kosong' }}" required="">
+                                                                        <span class="input-group-text">Anak</span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label">Jumlah Tanggungan</label>
                                                                 <div class="col-sm-12">
-                                                                    <input type="text" class="form-control" id="jumlahTanggunganWali" name="jumlahTanggunganWali" placeholder="" value="{{ $dataWali ? $dataWali->jumlah_tanggungan : 'Data Kosong' }}" required="">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label class="control-label">Pendapatan</label>
-                                                                <div class="col-sm-12">
-                                                                    <input type="text" class="form-control" id="pendapatanWali" name="pendapatanWali" placeholder="" value="{{ $dataWali ? $dataWali->pendapatan : 'Data Kosong' }}" required="">
+                                                                    <label class="control-label">Pendapatan</label>
+                                                                    <select class="form-select" id="pendapatanWali" name="pendapatanWali">
+                                                                        <option disabled selected {{ $dataAyah->pendapatan == '' ? 'selected' : '' }}>Pilih Penghasilan...</option>
+                                                                        <option value="Dibawah Rp.500.000,-" {{ $dataAyah->pendapatan == 'Dibawah Rp.500.000,-' ? 'selected' : '' }}>Dibawah Rp.500.000,-</option>
+                                                                        <option value="Rp.500.000,- s/d Rp.1.500.000,-" {{ $dataAyah->pendapatan == 'Rp.500.000,- s/d Rp.1.500.000,-' ? 'selected' : '' }}>Rp.500.000,- s/d Rp.1.500.000,-</option>
+                                                                        <option value="Rp.1.500.000,- s/d Rp.2.500.000,-" {{ $dataAyah->pendapatan == 'Rp.1.500.000,- s/d Rp.2.500.000,-' ? 'selected' : '' }}>Rp.1.500.000,- s/d Rp.2.500.000,-</option>
+                                                                        <option value="Rp.2.500.000,- s/d Rp.3.500.000,-" {{ $dataAyah->pendapatan == 'Rp.2.500.000,- s/d Rp.3.500.000,-' ? 'selected' : '' }}>Rp.2.500.000,- s/d Rp.3.500.000,-</option>
+                                                                        <option value="Rp.3.000.000,- s/d Rp.5.000.000,-" {{ $dataAyah->pendapatan == 'Rp.3.000.000,- s/d Rp.5.000.000,-' ? 'selected' : '' }}>Rp.3.000.000,- s/d Rp.5.000.000,-</option>
+                                                                        <option value="Rp.5.000.000,- s/d Rp.7.000.000,-" {{ $dataAyah->pendapatan == 'Rp.5.000.000,- s/d Rp.7.000.000,-' ? 'selected' : '' }}>Rp.5.000.000,- s/d Rp.7.000.000,-</option>
+                                                                        <option value="Rp.7.000.000,- s/d Rp.10.000.000,-" {{ $dataAyah->pendapatan == 'Rp.7.000.000,- s/d Rp.10.000.000,-' ? 'selected' : '' }}>Rp.7.000.000,- s/d Rp.10.000.000,-</option>
+                                                                        <option value="Diatas Rp.10.000.000,-" {{ $dataAyah->pendapatan == 'Diatas Rp.10.000.000,-' ? 'selected' : '' }}>Diatas Rp.10.000.000,-</option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                         </form>
@@ -842,7 +1269,7 @@
                 url : "/admin/calonAnakBinaanEdit/" + idKeluarga,
                 data: {
                     kacab : kacab,
-                    nomorkk : nomorkk,
+                    no_kk : nomorkk,
                     anak_ke : AnakKe,
                     wilayah_binaan : wilayah_binaan,
                     shelter : shelter,
