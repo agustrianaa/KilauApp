@@ -89,7 +89,7 @@ class ValidasiSurveyController extends Controller
         $survey = SurveyKeluarga::find($id);
         $status = $request->input('status');
         $ket = $request->input('ket');
-
+        
         
         SurveyKeluarga::create([
             'resume' => $ket,
@@ -128,24 +128,34 @@ class ValidasiSurveyController extends Controller
 
     $status = $request->input('status');
     $ket = $request->input('ket');
-
+    $id_kel = $survey->keluarga_id;
     // Menggunakan metode update untuk memperbarui record yang sudah ada
     $survey->update([
         'resume' => $ket,
         'hsurvey' => $status,
     ]);
 
-    if ($status === 'layak') {
-        $anak = new StatusAnak();
-        $anak->status_beasiswa = 'PB'; // Ganti dengan data anak yang sesuai
-        $anak->status_binaan = true; // Ganti dengan status anak yang sesuai
-        $anak->save();
-    } elseif ($status === 'tidak layak') {
-        $anak = new StatusAnak();
-        $anak->status_beasiswa = 'PB'; // Ganti dengan data anak yang sesuai
-        $anak->status_binaan = true; // Ganti dengan status anak yang sesuai
-        $anak->save();
+    if($status != 'Ditangguhkan'){
+        $stat = $status == 'layak' ? 'CPB' : 'NPB';
+        StatusAnak::whereIn('anak_id', function($query) use($id_kel){
+                                $query->select('id_anaks')
+                                    ->from('anaks')
+                                    ->where('data_keluarga_id', $id_kel);
+                            })
+                            ->update(['status_beasiswa' => $stat, 'status_binaan' => true]);
     }
+
+    // if ($status === 'layak') {
+    //     $anak = new StatusAnak();
+    //     $anak->status_beasiswa = 'PB'; // Ganti dengan data anak yang sesuai
+    //     $anak->status_binaan = true; // Ganti dengan status anak yang sesuai
+    //     $anak->save();
+    // } elseif ($status === 'tidak layak') {
+    //     $anak = new StatusAnak();
+    //     $anak->status_beasiswa = 'PB'; // Ganti dengan data anak yang sesuai
+    //     $anak->status_binaan = true; // Ganti dengan status anak yang sesuai
+    //     $anak->save();
+    // }
     
 
     return redirect()->back()->with('success', 'Data berhasil diperbarui.');
