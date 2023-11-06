@@ -2,13 +2,42 @@
 @section('content')
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<style>
+    .breadcrumb-item a {
+        text-decoration: none;
+        color: black;
+        transition: 0.1s;
+    }
+    .breadcrumb-item a:hover {
+        text-decoration: none;
+        color: rgb(0, 136, 255);
+        font-size: 18px;
+        transition: 0.1s;
+    }
+</style>
 <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Validasi Survey</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                        <li class="breadcrumb-item">Validasi Survey</li>
+                    </ol>
+                </div>
+            </div><!-- End row -->
+        </div><!-- End container-fluid -->
+    </div>
+    <!-- End content-header -->
     <section class="content">
         <div class="container-fluid">
             <div class="card">
-                <div class="card-header">
+                <div class="card-body">
                     <div class="text-center">
-                        <h4> Survey Tabel</h4>
                         <div class="table-responsive text-nowrap">
                             <table class="table table-bordered" id="tabelsurvey">
                                 <thead>

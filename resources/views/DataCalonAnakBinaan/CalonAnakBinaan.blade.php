@@ -5,7 +5,24 @@
 
 <style>
     .card.filters {
-    display: none
+        display: none;
+    }
+    .col-lg-12.bukaFilter {
+        display: none;
+    }
+    .col-lg-12.tutupFilter {
+        display: none;
+    }
+    .breadcrumb-item a {
+        text-decoration: none;
+        color: black;
+        transition: 0.1s;
+    }
+    .breadcrumb-item a:hover {
+        text-decoration: none;
+        color: rgb(0, 136, 255);
+        font-size: 18px;
+        transition: 0.1s;
     }
 </style>
 <div class="content-wrapper">
@@ -30,8 +47,11 @@
     <section class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-12">
-                <button type="button" class="btn btn-success mx-1 mb-2" id="tombolbukafilter">Buka Filter</button>
+            <div class="col-lg-12" id="openFilter">
+                <button type="button" class="btn btn-success mx-1 mb-2" id="tombolbukafilter">Buka Filter <i class="bi bi-funnel-fill"></i></button>
+            </div>
+            <div class="col-lg-12 tutupFilter" id="closeFilter">
+                <button type="button" class="btn btn-danger mx-1 mb-2" id="tombolTutupFilter">Tutup Filter <i class="bi bi-funnel-fill"></i><i class="bi bi-x"></i></button>
             </div>
         </div>
             <!-- Card Untuk Filter ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -403,19 +423,22 @@
 
     });
 
-    $(document).ready(function () {
-        var filterCard = $("#filterCard");
-        
-        // Tombol Buka Filter diklik
-        $("#tombolbukafilter").click(function () {
-            if (filterCard.hasClass("filters")) {
-                // Menghapus class "filters"
-                filterCard.removeClass("filters");
-            } else {
-                // Menambahkan kembali class "filters"
-                filterCard.addClass("filters");
-            }
-        });
+    var filterCard = $("#filterCard");
+    var openFilter = $("#openFilter");
+    var closeFilter = $("#closeFilter");
+    
+    // Tombol Buka Filter diklik
+    $("#tombolbukafilter").click(function () {
+        // Menghapus class "filters"
+        filterCard.removeClass("filters");
+        openFilter.addClass("bukaFilter");
+        closeFilter.removeClass("tutupFilter");
+    });
+    $("#tombolTutupFilter").click(function () {
+        // Menghapus class "filters"
+        filterCard.addClass("filters");
+        openFilter.removeClass("bukaFilter");
+        closeFilter.addClass("tutupFilter");
     });
 
     function validasiAnak(anak_id) {

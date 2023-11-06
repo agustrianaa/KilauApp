@@ -551,7 +551,7 @@
                                 <div class="col-12 col-sm-4">
                                     <div class="card">
                                         <div class="card-title">
-                                            <h4 class="text-center">Form Wali(Jika ada)</h4>
+                                            <h4 class="text-center">Form Wali (Jika ada)</h4>
                                         </div>
                                         <hr>
                                         <div class="card-body">
