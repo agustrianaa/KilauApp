@@ -19,6 +19,7 @@ class AnakBinaanController extends Controller
         if (request()->ajax()) {
             $data = DataKeluarga::select(
                 'data_keluargas.*',
+                'data_keluargas.id as id_kelu',
                 'anaks.*',
                 'anaks.id_anaks as id_anaks',
                 'anaks.nama_lengkap as nama_lengkap_anak',
@@ -45,7 +46,13 @@ class AnakBinaanController extends Controller
             ->get();
 
             return datatables($data)
-                ->addColumn('action', 'DataAnakBinaan.dataanakbinaan-action')
+                // ->addColumn('action', 'DataAnakBinaan.dataanakbinaan-action')
+                ->addColumn('action', function ($data) {
+                    $btn = '<a href="' . url("/admin/calonAnakBinaanDetail/" . $data->id_kelu) . '" data-toggle="tooltip" data-id="' . $data->id_kelu . '" data-original-title="View" class="view btn btn-sm btn-info view text-white me-1"><i class="bi bi-clipboard2-plus"></i> Detail</a>';
+                    $btn = $btn.'<a href="' . url("admin/surveyForm/" . $data->id_kelu) . '" data-toggle="tooltip" data-id="' . $data->id_kelu . '" data-original-title="View" class="view btn btn-sm btn-info view text-white"><i class="bi bi-clipboard2-plus"></i> Isi Survey</a>';
+                    $btn = $btn.'<a href="' . url("admin/AnakBinaandelete/" . $data->id_kelu) . '" data-toggle="tooltip" data-id="' . $data->id_kelu . '" data-original-title="View" class="view btn btn-sm btn-danger view text-white ms-1"><i class="bi bi-clipboard2-plus"></i> Delete</a>';
+                    return $btn;
+                })
                 ->addColumn('survey_status', function ($data) {
                     return $data->survey_keluargas ? 'Sudah Survey' : 'Belum Survey';
                 })
@@ -95,9 +102,10 @@ class AnakBinaanController extends Controller
         return Response()->json($anak);
     }
 
-    public function destroy(Request $request) {
-        $anak = DataKeluarga::where('id', $request->id)->delete();
+    public function destroy($id) {
+        // $anak =
+        DataKeluarga::where('id', $id)->delete();
 
-        return Response()->json($anak);
+        // return Response()->json($anak);
     }
 }
