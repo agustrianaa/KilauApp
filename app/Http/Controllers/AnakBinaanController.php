@@ -19,11 +19,7 @@ class AnakBinaanController extends Controller
         if (request()->ajax()) {
             $data = DataKeluarga::select(
                 'data_keluargas.*',
-<<<<<<< HEAD
-                'data_keluargas.id as id_kel',
-=======
                 'data_keluargas.id as id_kelu',
->>>>>>> 6c1fce2d85e22ba2db6cb1bc368d8030ae723da0
                 'anaks.*',
                 'anaks.id_anaks as id_anaks',
                 'anaks.nama_lengkap as nama_lengkap_anak',
@@ -51,25 +47,12 @@ class AnakBinaanController extends Controller
             ->get();
 
             return datatables($data)
-<<<<<<< HEAD
-                ->addColumn('action', function($data) {
-                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip" onClick="detailDatakeluarga(' . $data->id_kel . ')" data-original-title="View" class="view btn btn-info view text-white">
-                        <i class="bi bi-card-list"></i> Detail
-                    </a>';
-                    $btn = $btn.'<a href="javascript:void(0)" data-toggle="tooltip" onClick="Survey(' . $data->id_kel . ')" data-original-title="Edit" class="edit btn btn-success edit">
-                        <i class="bi bi-clipboard2-plus"></i> Survey
-                    </a>';
-                    $btn = $btn.'<a href="javascript:void(0)" id="delete-button" onClick="deleteFunc(' . $data->id_kel . ')" data-original-title="Delete" class="delete btn btn-danger">
-                        <i class="bi bi-trash3-fill"></i> Delete
-                    </a>';
-
-=======
                 // ->addColumn('action', 'DataAnakBinaan.dataanakbinaan-action')
                 ->addColumn('action', function ($data) {
                     $btn = '<a href="' . url("/admin/calonAnakBinaanDetail/" . $data->id_kelu) . '" data-toggle="tooltip" data-id="' . $data->id_kelu . '" data-original-title="View" class="view btn btn-sm btn-info view text-white me-1"><i class="bi bi-clipboard2-plus"></i> Detail</a>';
                     $btn = $btn.'<a href="' . url("admin/surveyForm/" . $data->id_kelu) . '" data-toggle="tooltip" data-id="' . $data->id_kelu . '" data-original-title="View" class="view btn btn-sm btn-info view text-white"><i class="bi bi-clipboard2-plus"></i> Isi Survey</a>';
                     $btn = $btn.'<a href="' . url("admin/AnakBinaandelete/" . $data->id_kelu) . '" data-toggle="tooltip" data-id="' . $data->id_kelu . '" data-original-title="View" class="view btn btn-sm btn-danger view text-white ms-1"><i class="bi bi-clipboard2-plus"></i> Delete</a>';
->>>>>>> 6c1fce2d85e22ba2db6cb1bc368d8030ae723da0
+
                     return $btn;
                 })
                 ->addColumn('survey_status', function ($data) {
