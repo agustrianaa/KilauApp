@@ -6,6 +6,7 @@ use App\Models\anak;
 use App\Models\Ayah;
 use App\Models\DataKeluarga;
 use App\Models\Ibu;
+use App\Models\StatusAnak;
 use App\Models\SurveyKeluarga;
 use App\Models\Wali;
 use Illuminate\Http\Request;
@@ -28,7 +29,7 @@ class ValidasiSurveyController extends Controller
                 'survey_keluargas.created_at as created_at',
                 'survey_keluargas.*',
             )
-            ->leftJoin('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
+            ->join('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
             ->get();
 
             return datatables($data) 
@@ -40,10 +41,12 @@ class ValidasiSurveyController extends Controller
             })
             ->addColumn('kelayakan', function($row){
                 $id = $row->id; // Ambil ID dari baris data
-                if ($row->hsurvey === null) {
-                    $kelayakanAct = '<a href="javascript:void(0)" onClick="kelayakanFunc(' . $id . ')" data-original-title="View Kelayakan" class="kelayakan btn btn-info btn-sm"><i class="fas fa-check-circle"></i> Lihat Kelayakan</a>';
-                } else {
+                $survey = SurveyKeluarga::find($id);
+                $data = $survey->hsurvey;
+                if ($data === null) {
                     $kelayakanAct = '<a href="javascript:void(0)" onClick="tambahKelayakan('. $id .')" data-original-title="Tambahkan Kelayakan" class="tambahkan-kelayakan btn btn-success btn-sm"><i class="fas fa-plus-circle"></i> Tambahkan Kelayakan</a>';
+                } else {
+                    $kelayakanAct = '<a href="javascript:void(0)" onClick="kelayakanFunc(' . $id . ')" data-original-title="View Kelayakan" class="kelayakan btn btn-info btn-sm"><i class="fas fa-check-circle"></i> Layak</a>';
                 }
                 return $kelayakanAct;
             })
@@ -86,7 +89,7 @@ class ValidasiSurveyController extends Controller
         $survey = SurveyKeluarga::find($id);
         $status = $request->input('status');
         $ket = $request->input('ket');
-
+        
         
         SurveyKeluarga::create([
             'resume' => $ket,
@@ -112,6 +115,7 @@ class ValidasiSurveyController extends Controller
         //
     }
 
+    
     /**
      * Update the specified resource in storage.
      */
@@ -125,12 +129,35 @@ class ValidasiSurveyController extends Controller
 
     $status = $request->input('status');
     $ket = $request->input('ket');
-
+    $id_kel = $survey->keluarga_id;
     // Menggunakan metode update untuk memperbarui record yang sudah ada
     $survey->update([
         'resume' => $ket,
         'hsurvey' => $status,
     ]);
+
+    if($status != 'Ditangguhkan'){
+        $stat = $status == 'layak' ? 'CPB' : 'NPB';
+        StatusAnak::whereIn('anak_id', function($query) use($id_kel){
+                                $query->select('id_anaks')
+                                    ->from('anaks')
+                                    ->where('data_keluarga_id', $id_kel);
+                            })
+                            ->update(['status_beasiswa' => $stat, 'status_binaan' => true]);
+    }
+
+    // if ($status === 'layak') {
+    //     $anak = new StatusAnak();
+    //     $anak->status_beasiswa = 'PB'; // Ganti dengan data anak yang sesuai
+    //     $anak->status_binaan = true; // Ganti dengan status anak yang sesuai
+    //     $anak->save();
+    // } elseif ($status === 'tidak layak') {
+    //     $anak = new StatusAnak();
+    //     $anak->status_beasiswa = 'PB'; // Ganti dengan data anak yang sesuai
+    //     $anak->status_binaan = true; // Ganti dengan status anak yang sesuai
+    //     $anak->save();
+    // }
+    
 
     return redirect()->back()->with('success', 'Data berhasil diperbarui.');
 }

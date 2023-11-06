@@ -52,6 +52,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
 
     Route::get('/PengajuanForm',[PengajuanAnakController::class,'pengajuanForm'])->name('pengajuanForm');
     Route::post('/PengajuanFormStore',[PengajuanAnakController::class, 'pengajuanFormStore'])->name('pengajuanFormStore');
+    Route::get('/AjukanAnak',[PengajuanAnakController::class,'AjukanAnak'])->name('AjukanIndex');
+    Route::get('/CariKK',[PengajuanAnakController::class,'search'])->name('CariNoKK');
 });
 
     Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], function(){
@@ -74,7 +76,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::post('/AnakBinaanstore', [AnakBinaanController::class, 'store'])->name('AnakBinaanstore');
     Route::get('/AnakBinaanview/{id}', [AnakBinaanController::class, 'showViewPage'])->name('AnakBinaanview');
     Route::post('/AnakBinaanedit', [AnakBinaanController::class, 'edit'])->name('AnakBinaanedit');
-    Route::post('/AnakBinaandelete', [AnakBinaanController::class, 'destroy'])->name('AnakBinaandelete');
+    Route::get('/AnakBinaandelete/{id}', [AnakBinaanController::class, 'destroy'])->name('AnakBinaandelete');
 
     // Validasi Survey
     Route::get('/validasi-survey', [ValidasiSurveyController::class, 'index'])->name('validasi-survey');

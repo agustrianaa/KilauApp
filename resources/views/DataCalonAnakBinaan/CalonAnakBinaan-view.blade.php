@@ -22,7 +22,7 @@
                 </div><!-- End container-fluid -->
             </div>
             <!-- End content-header -->
-            
+
             <div class="container-fluid">
                 <div class="row">
                     <!-- CARD DATA ANAK -->
@@ -47,7 +47,7 @@
                                         <b>Kelas</b> <div class="float-right">{{ $dataAnak ? $dataAnak->kelas_sekolah : 'Data Kosong' }}</div>
                                     </li>
                                     <li class="list-group-item">
-                                        <b>Shelter</b> <div class="float-right">{{ $dataAnak ? $dataAnak->nama_lengkap : 'Data Kosong' }}</div>
+                                        <b>Shelter</b> <div class="float-right">{{ $dataKeluarga ? $dataKeluarga->shelter : 'Data Kosong' }}</div>
                                     </li>
                                 </ul>
                                 <div class="float-end">
@@ -92,7 +92,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        
+
                                                         <div class="col-12">
                                                             <div class="row">
                                                                 <div class="col-md-6">
@@ -148,7 +148,7 @@
                                                     </div>
                                                 </form>
                                             </div>
-                                        
+
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
                                                 <button type="button" data-dismiss="modal" class="btn btn-primary" id="btn-simpan-anak">Simpan</button>
@@ -160,11 +160,11 @@
                             </div>
                         </div>
                     </div>
-    
+
                     <!-- Data Keluarga, Ayah, Ibu -->
                     <div class="col-md-9">
                         <div class="card" >
-                            
+
                             <div class="card-body">
                                 <div class="float-start m-1">
                                     <a href="{{ route('admin.calonanakbinaanIndex') }}" class="btn btn-outline-warning shadow-sm"><i class="bi bi-arrow-left"></i> Kembali</a>
@@ -189,7 +189,7 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="#tab_dataWali" data-toggle="pill" role="tab" aria-selected="false">Data Wali</a>
                                         </li>
-                                    </ul> 
+                                    </ul>
                                 </div>
                                 <div class="card-body" >
                                     <div class="tab-content" >
@@ -347,7 +347,7 @@
                                                     {{-- </div>
                                                 </div> --}}
                                         </div>
-    
+
                                         <!-- Modal Data Keluarga -->
                                         <div class="modal fade" id="modal_dataKeluarga" tabindex="-1" role="dialog" aria-labelledby="LabelKeluarga">
                                             <div class="modal-dialog modal-lg" role="document">
@@ -431,7 +431,7 @@
                                                                     <input type="text" class="form-control" id="no_rek" name="no_rek" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->no_rek : 'Data Kosong' }}" required="">
                                                                 </div>
                                                             </div>
-                                                            
+
                                                         </form>
                                                     </div>
                                                     <div class="modal-footer">
@@ -442,7 +442,7 @@
                                             </div>
                                         </div>
                                         <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
-    
+
                                         <!-- Data Ayah -->
                                         <div class="tab-pane fade" id="tab_dataAyah">
                                             <ul class="list-group list-group-unbordered mb-3">
@@ -577,7 +577,7 @@
                                             </ul>
                                             <button type="button" class="btn btn-success float-right btn-md" data-toggle="modal" data-target="#modal_dataAyah" data-id="{{ $dataAyah ? $dataAyah->id_ayahs : '' }}"><i class="bi bi-pencil-square"></i> Edit</button>
                                         </div>
-                                        
+
                                         <!-- Modal Data Ayah -->
                                         <div class="modal fade" id="modal_dataAyah" tabindex="-1" role="dialog" aria-labelledby="LabelAyah">
                                             <div class="modal-dialog modal-lg" role="document">
@@ -690,7 +690,7 @@
                                                             </div>
                                                         </form>
                                                     </div>
-                                                
+
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
                                                         <button type="button" data-dismiss="modal" class="btn btn-primary" id="btn-simpan-ayah">Simpan</button>
@@ -819,7 +819,7 @@
                                             </ul>
                                             <button type="button" class="btn btn-success float-right btn-md" data-toggle="modal" data-target="#modal_dataIbu" data-id="{{ $dataIbu ? $dataIbu->id_ibus : '' }}"><i class="bi bi-pencil-square"></i> Edit</button>
                                         </div>
-    
+
                                         <!-- Modal Data Ibu -->
                                         <div class="modal fade" id="modal_dataIbu" tabindex="-1" role="dialog" aria-labelledby="LabelIbu">
                                             <div class="modal-dialog modal-lg" role="document">
@@ -931,7 +931,7 @@
                                             </div>
                                         </div>
                                         <!----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
-                                        
+
                                         <!-- Data Wali -->
                                         <div class="tab-pane fade" id="tab_dataWali">
                                             <ul class="list-group list-group-unbordered mb-3">
@@ -1279,7 +1279,7 @@
                 },
                 success: function (data) {
                     console.log(data);
-                    
+
                     $('#modal_dataKeluarga').modal('hide');
                     Swal.fire({
                         icon: 'success',

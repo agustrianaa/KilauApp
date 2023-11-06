@@ -107,6 +107,7 @@
         <div class="card">
           <div class="card-body">
             <div class="card-body text-center">
+              <h3>Pengajuan Calon Anak Binaan Baru</h3>
               <a href="{{ route('admin.pengajuanForm') }}" class="btn btn-outline-info">Pengajuan Anak+</a>
             </div>
           </div>
@@ -116,8 +117,16 @@
       <!-- /.Left col -->
       <!-- right col (We are only adding the ID to make the widgets sortable)-->
       <section class="col-lg-6 connectedSortable">
-
-  
+        <div class="card">
+          <div class="card-body">
+            <div class="card-body">
+              <div class="text-center">
+                <h3>Sudah mempunyai Keluarga Terdaftar?</h3>
+                <a href="{{ route('admin.AjukanIndex') }}" class="btn btn-outline-success">Ajukan Anak+</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
       <!-- right col -->
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>

@@ -19,7 +19,11 @@ class AnakBinaanController extends Controller
         if (request()->ajax()) {
             $data = DataKeluarga::select(
                 'data_keluargas.*',
+<<<<<<< HEAD
                 'data_keluargas.id as id_kel',
+=======
+                'data_keluargas.id as id_kelu',
+>>>>>>> 6c1fce2d85e22ba2db6cb1bc368d8030ae723da0
                 'anaks.*',
                 'anaks.id_anaks as id_anaks',
                 'anaks.nama_lengkap as nama_lengkap_anak',
@@ -47,6 +51,7 @@ class AnakBinaanController extends Controller
             ->get();
 
             return datatables($data)
+<<<<<<< HEAD
                 ->addColumn('action', function($data) {
                     $btn = '<a href="javascript:void(0)" data-toggle="tooltip" onClick="detailDatakeluarga(' . $data->id_kel . ')" data-original-title="View" class="view btn btn-info view text-white">
                         <i class="bi bi-card-list"></i> Detail
@@ -58,6 +63,13 @@ class AnakBinaanController extends Controller
                         <i class="bi bi-trash3-fill"></i> Delete
                     </a>';
 
+=======
+                // ->addColumn('action', 'DataAnakBinaan.dataanakbinaan-action')
+                ->addColumn('action', function ($data) {
+                    $btn = '<a href="' . url("/admin/calonAnakBinaanDetail/" . $data->id_kelu) . '" data-toggle="tooltip" data-id="' . $data->id_kelu . '" data-original-title="View" class="view btn btn-sm btn-info view text-white me-1"><i class="bi bi-clipboard2-plus"></i> Detail</a>';
+                    $btn = $btn.'<a href="' . url("admin/surveyForm/" . $data->id_kelu) . '" data-toggle="tooltip" data-id="' . $data->id_kelu . '" data-original-title="View" class="view btn btn-sm btn-info view text-white"><i class="bi bi-clipboard2-plus"></i> Isi Survey</a>';
+                    $btn = $btn.'<a href="' . url("admin/AnakBinaandelete/" . $data->id_kelu) . '" data-toggle="tooltip" data-id="' . $data->id_kelu . '" data-original-title="View" class="view btn btn-sm btn-danger view text-white ms-1"><i class="bi bi-clipboard2-plus"></i> Delete</a>';
+>>>>>>> 6c1fce2d85e22ba2db6cb1bc368d8030ae723da0
                     return $btn;
                 })
                 ->addColumn('survey_status', function ($data) {
@@ -109,9 +121,10 @@ class AnakBinaanController extends Controller
         return Response()->json($anak);
     }
 
-    public function destroy(Request $request) {
-        $anak = DataKeluarga::where('id', $request->id)->delete();
+    public function destroy($id) {
+        // $anak =
+        DataKeluarga::where('id', $id)->delete();
 
-        return Response()->json($anak);
+        // return Response()->json($anak);
     }
 }
