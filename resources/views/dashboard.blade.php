@@ -10,6 +10,9 @@
     color: rgb(255, 255, 255);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
+  .breadcrumb.float-sm-right li {
+    color: black;
+  }
 </style>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
@@ -23,8 +26,8 @@
       </div><!-- /.col -->
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard v1</li>
+          <li class="breadcrumb-item">Home</li>
+          <li class="breadcrumb-item active">Dashboard</li>
         </ol>
       </div><!-- /.col -->
     </div><!-- /.row -->
@@ -48,7 +51,7 @@
           <div class="icon">
             <i class="bi bi-people-fill"></i>{{-- icon --}}
           </div>
-          <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          <a href="{{ route('admin.calonanakbinaanIndex') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
       <!-- ./col -->
@@ -122,7 +125,7 @@
             <div class="card-body">
               <div class="text-center">
                 <h3>Sudah mempunyai Keluarga Terdaftar?</h3>
-                <a href="{{ route('admin.AjukanIndex') }}" class="btn btn-outline-success">Ajukan Anak+</a>
+                <a href="{{ route('admin.anak.tambah') }}" class="btn btn-outline-success">Ajukan Anak+</a>
               </div>
             </div>
           </div>
