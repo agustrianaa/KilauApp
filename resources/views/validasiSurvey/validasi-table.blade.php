@@ -92,9 +92,13 @@
         }
     }
 
+    function kelayakanFunc(id) {
+        window.location.href = "{{ url('admin/validasi') }}/" + id;
+    }
+
     function tambahKelayakan(id) {
-            window.location.href = "{{ url('admin/validasi') }}/" + id;
-        }
+        window.location.href = "{{ url('admin/validasi') }}/" + id;
+    }
 
     function editFunc(id) {
         window.location.href = "{{ url('admin/') }}/" + id;
