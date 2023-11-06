@@ -52,6 +52,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
 
     Route::get('/PengajuanForm',[PengajuanAnakController::class,'pengajuanForm'])->name('pengajuanForm');
     Route::post('/PengajuanFormStore',[PengajuanAnakController::class, 'pengajuanFormStore'])->name('pengajuanFormStore');
+    Route::get('/AjukanAnak',[PengajuanAnakController::class,'AjukanAnak'])->name('AjukanIndex');
+    Route::get('/CariKK',[PengajuanAnakController::class,'search'])->name('CariNoKK');
 });
 
     Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], function(){
