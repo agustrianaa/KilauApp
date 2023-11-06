@@ -40,7 +40,7 @@
                                     <div class="col-4">
                                         <input type="text" class="form-control" id="nomorKartuKeluarga" name="nomorKartuKeluarga">
                                         <div id="hasilPencarian">
-                                            
+
                                         </div>
                                     </div>
                                     <div class="col-4">
@@ -71,15 +71,11 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
-        }),
+        })
 
-
-    });
-
-    $(document).ready(function() {
         $('#nomorKartuKeluarga').on('keyup', function() {
                 var query = $(this).val();
-
+                console.log(query)
                 $.ajax({
                     url: "{{ url('admin/CariKK') }}",
                     method: 'GET',
@@ -88,9 +84,9 @@
                     success: function(data) {
                         var results = '';
                         $.each(data, function(index, item) {
-                            results += '<li>' + item.no_kk + '</li>';
+                            results += '<a href="' + item.id + '">' + item.no_kk + '</a><br>';
                         });
-                    
+
                         $('#hasilPencarian').html('<ul>' + results + '</ul>');
                     }
                 });
