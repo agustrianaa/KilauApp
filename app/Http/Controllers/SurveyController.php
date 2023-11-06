@@ -16,6 +16,7 @@ class SurveyController extends Controller
             // $data = DataKeluarga::latest()->get();
             $data = DataKeluarga::select(
                 'data_keluargas.*',
+                'data_keluargas.id as id_kel',
                 'anaks.*',
                 'status_anaks.*',
                 'anaks.id_anaks as id_anaks',
@@ -50,7 +51,7 @@ class SurveyController extends Controller
             return datatables($data)
             ->addIndexColumn()
             ->addColumn('action', function ($data) {
-                $btn = '<a href="' . url("admin/surveyForm/" . $data->id) . '" data-toggle="tooltip" data-id="' . $data->id . '" data-original-title="View" class="view btn btn-sm btn-info view text-white"><i class="bi bi-clipboard2-plus"></i> Isi Survey</a>';
+                $btn = '<a href="' . url("admin/surveyForm/" . $data->id_kel) . '" data-toggle="tooltip" data-id="' . $data->id_kel . '" data-original-title="View" class="view btn btn-sm btn-info view text-white"><i class="bi bi-clipboard2-plus"></i> Edit Survey</a>';
                 return $btn;
             })
             ->rawColumns(['action'])
