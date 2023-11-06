@@ -9,6 +9,7 @@ use App\Models\Anak;
 use App\Models\Ibu;
 use App\Models\StatusAnak;
 use App\Models\Wali;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 
 class PengajuanAnakController extends Controller
@@ -104,5 +105,32 @@ class PengajuanAnakController extends Controller
 
         return redirect()->route('admin.dashboard')->with('alert', $alert);
     }
+
+    public function AjukanAnak() {
+        return view('PengajuanAnak.AjukanAnak');
+    }
+
+    // public function cari(Request $request, $id):View
+    // {
+
+    //     $cariID = DataKeluarga::find($id);
+    //     $cariKK = $cariID->no_kk;
+    //     $nomorKK = $request->input('nomorKartuKeluarga');
+
+    //     // Cari data keluarga berdasarkan nomor KK
+    //     $keluargas = DataKeluarga::where('no_kk', $cariKK)->get();
+
+    //     return view('PengajuanAnak.AjukanAnak', compact('keluargas'));
+    // }
+
+    public function search(Request $request)
+    {
+        $nomorKartuKeluarga = $request->input('nomorKartuKeluarga');
+        
+        $result = DataKeluarga::where('no_kk', 'like', '%'.$nomorKartuKeluarga.'%')->get();
+    
+        return response()->json($result);
+    }
+
 
 }
