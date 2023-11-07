@@ -90,7 +90,7 @@
                         {data: 'shelter', name: 'kacab'},
                         {data: 'action', name: 'action'}
                     ],
-                order: [[0, 'asc']],
+                order: [[0, 'desc']],
                 paging: true,
                 pageLength: 10,
                 language: {
