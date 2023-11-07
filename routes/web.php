@@ -85,6 +85,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
 
     // Pengajuan Donatur 
     Route::get('/pengajuan-donatur', [PengajuanDonaturController::class,'index'])->name('aju-donatur');
+    Route::get('/pengajuan/{id}', [PengajuanDonaturController::class,'show'])->name('pengajuan');
+    Route::get('/cari-donatur', [PengajuanDonaturController::class,'search'])->name('cariDonatur');
 
     
     Route::resource('/posts', \App\Http\Controllers\PostController::class);
