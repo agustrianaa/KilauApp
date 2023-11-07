@@ -276,7 +276,7 @@
                 { data: 'survey_status', name: 'survey_status'},
                 { data: 'action', name: 'action', orderable: false},
             ],
-            order: [[0, 'asc']],
+            order: [[0, 'desc']],
             paging: true,
             pageLength: 10, // Menyeting jumlah entri yang ditampilkan menjadi 10
             language: {

@@ -408,7 +408,7 @@
                     },
                     { data: 'action', name: 'action', orderable: false},
                 ],
-                order: [[0, 'asc']],
+                order: [[0, 'desc']],
                 language: {
                     "emptyTable": "Data Kosong..."
                 }
