@@ -20,14 +20,14 @@ class CalonAnakBinaanController extends Controller
         if (request()->ajax()) {
             $data = DataKeluarga::select(
                 'data_keluargas.*',
-                'anaks.nama_lengkap as nama_lengkap_calon_anak', 
-                'anaks.tempat_lahir as tempat_lahir_calon_anak', 
-                'anaks.tanggal_lahir as tanggal_lahir_calon_anak', 
+                'anaks.nama_lengkap as nama_lengkap_calon_anak',
+                'anaks.tempat_lahir as tempat_lahir_calon_anak',
+                'anaks.tanggal_lahir as tanggal_lahir_calon_anak',
                 'ayahs.*',
-                'ayahs.nama as nama_ayah', 
-                'ayahs.nik as nik_ayah', 
+                'ayahs.nama as nama_ayah',
+                'ayahs.nik as nik_ayah',
                 'anaks.*',
-                'ibus.*', 
+                'ibus.*',
                 'walis.*',
                 'status_anaks.*',
                 )
@@ -72,10 +72,10 @@ class CalonAnakBinaanController extends Controller
         $dataWali = Wali::where('data_keluarga_id', $dataKeluarga->id)->first();
         // Tampilkan halaman detail data keluarga (misalnya, menggunakan view 'detail_datakeluarga.blade.php')
         return view('DataCalonAnakBinaan.CalonAnakBinaan-view', [
-            'dataKeluarga' => $dataKeluarga, 
-            'dataIbu' => $dataIbu, 
+            'dataKeluarga' => $dataKeluarga,
+            'dataIbu' => $dataIbu,
             'dataAyah' => $dataAyah,
-            'dataAnak' => $dataAnak, 
+            'dataAnak' => $dataAnak,
             'dataWali' => $dataWali,
         ]);
     }
@@ -83,16 +83,16 @@ class CalonAnakBinaanController extends Controller
     // Update Data Keluarga~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     public function updated(Request $request, string $id)
     {
-        $dataKeluarga = DataKeluarga::find($id);    
+        $dataKeluarga = DataKeluarga::find($id);
 
         if (!$dataKeluarga) {
             return response()->json(['success' => false, 'message' => 'Data Keluarga tidak ditemukan']);
-        }   
+        }
 
         // Lakukan update data keluarga
         $dataKeluarga->update($request->only([
             'kacab', 'no_kk', 'alamat_kk', 'kepala_keluarga', 'wilayah_binaan', 'shelter', 'jarak_ke_shelter', 'no_telp', 'no_rek'
-        ]));    
+        ]));
 
         return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui']);
     }
@@ -110,7 +110,7 @@ class CalonAnakBinaanController extends Controller
         // Lakukan update data ayah
         $dataKeluarga->dataAnak->update($request->only([
             'nama_lengkap', 'nama_panggilan', 'anak_ke', 'jenis_kelamin', 'tempat_lahir', 'tanggal_lahir', 'nama_sekolah', 'kelas_sekolah', 'nama_madrasah', 'kelas_madrasah', 'hobby', 'cita_cita'
-        ]));    
+        ]));
 
         return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui']);
     }
@@ -128,7 +128,7 @@ class CalonAnakBinaanController extends Controller
         // Lakukan update data ayah
         $dataKeluarga->dataAyah->update($request->only([
             'nik', 'nama', 'tempat_lahir', 'tanggal_lahir', 'pekerjaan', 'jumlah_tanggungan', 'pendapatan', 'agama', 'alamat'
-        ]));    
+        ]));
 
         return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui']);
     }
@@ -146,7 +146,7 @@ class CalonAnakBinaanController extends Controller
         // Lakukan update data ibu
         $dataKeluarga->dataIbu->update($request->only([
             'nik', 'nama', 'tempat_lahir', 'tanggal_lahir', 'pekerjaan', 'pendapatan', 'agama', 'alamat'
-        ]));    
+        ]));
 
         return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui']);
     }
@@ -163,7 +163,7 @@ class CalonAnakBinaanController extends Controller
         // Lakukan update data wali
         $dataKeluarga->dataWali->update($request->only([
             'no_ktp', 'nama_lengkap', 'nama_panggilan', 'tempat_lahir', 'tanggal_lahir', 'pekerjaan', 'jumlah_tanggungan', 'pendapatan', 'data_keluarga_id'
-        ]));    
+        ]));
 
         return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui']);
     }

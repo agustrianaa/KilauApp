@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DataKeluarga;
 use App\Models\SurveyKeluarga;
+use DB;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -129,6 +130,40 @@ class SurveyController extends Controller
     {
         $data = SurveyKeluarga::where('keluarga_id', $id)->first();
 
-        return view('survey.surveyEdit', compact('data'));
+        return view('survey.surveyEdit', compact('data', 'id'));
+    }
+    public function surveyEdit(Request $request, $id)
+    {
+        // $data = SurveyKeluarga::where('keluarga_id', $id)->first();
+
+        DB::table('survey_keluargas')
+            ->where('keluarga_id', $id)
+            ->update([
+                // 'keluarga_id' => $id,
+                'kep_tanah' => $request->kep_tanah,
+                'kep_rumah' => $request->kep_rumah,
+                'lantai' => $request->lantai,
+                'dinding' => $request->dinding,
+                'kep_kendaraan' => $request->kep_kendaraan,
+                'kep_elektronik' => $request->kep_elektronik,
+                'sumber_air' => $request->sumber_air,
+                'jamban' => $request->jamban,
+                'tempat_sampah' => $request->tempat_sampah,
+                'perokok' => $request->perokok,
+                'miras' => $request->miras,
+                'p3k' => $request->p3k,
+                'makan_sayur' => $request->makan_sayur,
+                'sholat' => $request->sholat,
+                'baca_quran' => $request->baca_quran,
+                'majelis_taklim' => $request->majelis_taklim,
+                'pengurus_organisasi' => $request->pengurus_organisasi,
+                'status_anak' => $request->status_anak,
+                'biaya_pendidikan' => $request->biaya_pendidikan,
+                'bantuan_lembaga_formal' => $request->bantuan_lembaga_formal,
+                'resume' => $request->resume,
+                'petugas_survey' => $request->petugas_survey,
+            ]);
+
+        return redirect()->route('admin.surveyAnak');;
     }
 }
