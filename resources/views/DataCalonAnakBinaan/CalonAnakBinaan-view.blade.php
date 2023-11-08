@@ -82,6 +82,12 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
+                                                        <div class="col-sm-2">
+                                                            <label class="control-label">Anak ke</label>
+                                                            <input type="number" class="form-control" id="AnakKe" name="AnakKe" placeholder="" value="{{ $dataAnak ? $dataAnak->anak_ke : 'Data Kosong' }}" maxlength="50" required="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
                                                         <div class="col-sm-12">
                                                             <label class="control-label">Jenis Kelamin</label>
                                                             <select class="form-select" id="jenisKelaminAnak" name="jenisKelaminAnak" required="">
@@ -240,7 +246,7 @@
                                                                         </div>
                                                                         <div class="col-sm-6">
                                                                             <div class="float-start">
-                                                                                <b>: </b> {{ $dataKeluarga ? $dataKeluarga->anak_ke : 'Data Kosong' }}
+                                                                                <b>: </b> {{ $dataAnak ? $dataAnak->anak_ke : 'Data Kosong' }}
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -378,12 +384,6 @@
                                                                 <div class="col-sm-12">
                                                                     <label class="control-label">No. Kartu Keluarga</label>
                                                                     <input type="text" class="form-control" id="nomorkk" name="nomorkk" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->no_kk : 'Data Kosong' }}" maxlength="50" required="">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <div class="col-sm-2">
-                                                                    <label class="control-label">Anak ke</label>
-                                                                    <input type="number" class="form-control" id="AnakKe" name="AnakKe" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->anak_ke : 'Data Kosong' }}" maxlength="50" required="">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
@@ -1188,6 +1188,7 @@
             var idAnak = $('#id_anaks').val();
             var namaLengkapAnak = $('#namaLengkapAnak').val();
             var namaPanggilanAnak = $('#namaPanggilanAnak').val();
+            var AnakKe = $('#AnakKe').val();
             var jenisKelaminAnak = $('#jenisKelaminAnak').val();
             var tempat_lahirAnak = $('#tempat_lahirAnak').val();
             var tanggal_lahirAnak = $('#tanggal_lahirAnak').val();
@@ -1204,6 +1205,7 @@
                 data: {
                     nama_lengkap : namaLengkapAnak,
                     nama_panggilan : namaPanggilanAnak,
+                    anak_ke : AnakKe,
                     jenis_kelamin : jenisKelaminAnak,
                     tempat_lahir : tempat_lahirAnak,
                     tanggal_lahir : tanggal_lahirAnak,
@@ -1257,7 +1259,6 @@
         function getDataKeluarga(){
             var kacab = $('#kacab').val();
             var nomorkk = $('#nomorkk').val();
-            var AnakKe = $('#AnakKe').val();
             var wilayah_binaan = $('#wilayah_binaan').val();
             var shelter = $('#shelter').val();
             var jarakShelter = $('#jarakShelter').val();
@@ -1270,7 +1271,6 @@
                 data: {
                     kacab : kacab,
                     no_kk : nomorkk,
-                    anak_ke : AnakKe,
                     wilayah_binaan : wilayah_binaan,
                     shelter : shelter,
                     jarak_ke_shelter : jarakShelter,

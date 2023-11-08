@@ -91,7 +91,7 @@ class CalonAnakBinaanController extends Controller
 
         // Lakukan update data keluarga
         $dataKeluarga->update($request->only([
-            'kacab', 'no_kk', 'anak_ke', 'alamat_kk', 'kepala_keluarga', 'wilayah_binaan', 'shelter', 'jarak_ke_shelter', 'no_telp', 'no_rek'
+            'kacab', 'no_kk', 'alamat_kk', 'kepala_keluarga', 'wilayah_binaan', 'shelter', 'jarak_ke_shelter', 'no_telp', 'no_rek'
         ]));    
 
         return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui']);
@@ -109,7 +109,7 @@ class CalonAnakBinaanController extends Controller
 
         // Lakukan update data ayah
         $dataKeluarga->dataAnak->update($request->only([
-            'nama_lengkap', 'nama_panggilan', 'jenis_kelamin', 'tempat_lahir', 'tanggal_lahir', 'nama_sekolah', 'kelas_sekolah', 'nama_madrasah', 'kelas_madrasah', 'hobby', 'cita_cita'
+            'nama_lengkap', 'nama_panggilan', 'anak_ke', 'jenis_kelamin', 'tempat_lahir', 'tanggal_lahir', 'nama_sekolah', 'kelas_sekolah', 'nama_madrasah', 'kelas_madrasah', 'hobby', 'cita_cita'
         ]));    
 
         return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui']);

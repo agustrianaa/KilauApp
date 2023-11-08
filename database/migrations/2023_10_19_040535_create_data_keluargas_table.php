@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('kacab');
             $table->string('no_kk');
-            $table->string('anak_ke');
             $table->string('alamat_kk');
             $table->string('kepala_keluarga');
             $table->string('wilayah_binaan');
