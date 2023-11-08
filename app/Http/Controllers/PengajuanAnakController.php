@@ -106,16 +106,20 @@ class PengajuanAnakController extends Controller
         return redirect()->route('admin.dashboard')->with('alert', $alert);
     }
 
-    public function AjukanAnak() {
-        return view('PengajuanAnak.AjukanAnak');
+    public function AjukanAnak(Request $request) {
+        $dataKeluargaId = $request->input('idDataKeluarga'); // Mendapatkan ID DataKeluarga dari formulir
+
+        // Lakukan validasi atau operasi lain sesuai kebutuhan di sini
+
+        return view('PengajuanAnak.AjukanAnak', ['dataKeluargaId' => $dataKeluargaId]);
     }
 
     public function search(Request $request)
     {
         $nomorKartuKeluarga = $request->input('nomorKartuKeluarga');
-        
+
         $result = DataKeluarga::where('no_kk', 'like', '%'.$nomorKartuKeluarga.'%')->get();
-    
+
         return response()->json($result);
     }
 

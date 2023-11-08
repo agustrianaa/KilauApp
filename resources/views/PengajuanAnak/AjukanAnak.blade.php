@@ -247,9 +247,9 @@
                     $.each(data, function(index, item) {
                         // Menambahkan tautan dengan nomor KK dan data-keluarga-id sebagai atribut data
                         results += '<a class="linkColor" href="javascript:void(0)" data-data-keluarga-id="' + item.id + '" data-no-kk="' + item.no_kk + '"> <div class="col-12 bgColor"> <div class="text-center">' + item.no_kk + '</div></div></a>';
-                    }); 
+                    });
 
-                    $('#hasilPencarian').html('<div class="card"><div class="card-body">' + results + '</div></div>');  
+                    $('#hasilPencarian').html('<div class="card"><div class="card-body">' + results + '</div></div>');
 
                     // Menambahkan event click pada tautan yang mengatur data-keluarga-id
                     $('.linkColor').on('click', function() {
@@ -278,7 +278,7 @@
     $(document).ready(function () {
         var inputCariKK = $("#inputCariKK");
         var formAnak = $("#formAnak");
-        
+
         // Tombol Kembali diklik
         $("#kembaliCariKK").click(function () {
             // Menghapus kembali class "sembunyikanInputKK"
