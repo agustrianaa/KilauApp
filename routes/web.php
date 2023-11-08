@@ -71,6 +71,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::get('/surveyAnak', [SurveyController::class, 'indexSurvey'])->name('surveyAnak');
     Route::get('/surveyForm/{id}', [SurveyController::class, 'surveyForm'])->name('surveyForm');
     Route::post('/surveyStore', [SurveyController::class, 'store'])->name('surveyStore');
+    Route::get('/surveyShow/{id}', [SurveyController::class, 'surveyShow'])->name('surveyShow');
+    Route::post('/surveyEdit/{id}', [SurveyController::class, 'surveyEdit'])->name('surveyEdit');
 
     Route::get('/AnakBinaan', [AnakBinaanController::class, 'index'])->name('AnakBinaan');
     Route::post('/AnakBinaanstore', [AnakBinaanController::class, 'store'])->name('AnakBinaanstore');
