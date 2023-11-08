@@ -80,7 +80,7 @@
                     <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
                   </li>
                 </ul>
-              </div> 
+              </div>
             </div>
             <div class="card-body">
               <div class="col-12">
@@ -259,7 +259,7 @@
               url : "{{ url('admin/AnakBinaan') }}",
             },
             columns: [
-                { 
+                {
                     data: null,
                     name: 'id',
                     render: function(data, type, row, meta) {
@@ -299,7 +299,7 @@
     var filterCard = $("#filterCard");
     var openFilter = $("#openFilter");
     var closeFilter = $("#closeFilter");
-    
+
     // Tombol Buka Filter diklik
     $("#tombolbukafilter").click(function () {
       // Menghapus class "filters"
@@ -313,7 +313,7 @@
       openFilter.removeClass("bukaFilter");
       closeFilter.addClass("tutupFilter");
     });
-    
+
     function add(){
       $('#AnakBinaanForm').trigger("reset");
       $('#TambahModal').html("Tambah Data");
@@ -344,7 +344,7 @@
       // Mendapatkan URL dengan menggunakan route() function dari Laravel
       var url = "{{ route('admin.calonAnakBinaanDetail', ':id') }}";
       url = url.replace(':id', id);
-      
+
       // Redirect ke halaman baru
       window.location.href = url;
     }
@@ -420,7 +420,7 @@
               $("#btn-save").html('Submit');
               $("#btn-save"). attr("disabled", false);
             },
-            
+
             error: function(data) {
                 console.log(data);
             }

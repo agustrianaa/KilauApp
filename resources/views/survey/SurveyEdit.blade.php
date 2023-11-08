@@ -29,8 +29,9 @@
                             </li>
                         </ul>
                     </div>
-                    {{-- <form action="{{ route('admin.surveyStore', $id) }}" method="post" enctype="multipart/form-data">
-                    @csrf --}}
+                    <form action="{{ route('admin.surveyEdit', $id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
                     <div class="card-body" >
                         <div class="tab-content" >
                             <!-- Data Asset -->
@@ -100,11 +101,11 @@
                                                             <option value="Marmer" {{ old('lantai', $data->lantai) == 'Marmer' ? 'selected' : '' }}>Marmer</option>
                                                             <option value="Kayu" {{ old('lantai', $data->lantai) == 'Kayu' ? 'selected' : '' }}>Kayu</option>
                                                             <option value="Tanah" {{ old('lantai', $data->lantai) == 'Tanah' ? 'selected' : '' }}>Tanah</option>
-                                                            <option value="" {{ old('lantai', $data->lantai) == !in_array($data->lantai, ['Keramik', 'Ubin', 'Marmer', 'Kayu', 'Tanah',]) ? 'selected' : '' }}>Lainnya</option>
+                                                            <option value="" {{ old('lantai', $data->lantai) == !in_array($data->lantai, ['Keramik', 'Ubin', 'Marmer', 'Kayu', 'Tanah']) ? 'selected' : '' }}>Lainnya</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-2">
-                                                        <input type="text" name="lantai" id="lantai2" class="form-control form-control-sm lantailainnya" placeholder="Isi jika 'lainnya'" value="{{ old('lantai', $data->lantai) }}" disabled>
+                                                        <input type="text" name="lantai" id="lantai2" class="form-control form-control-sm lantailainnya" placeholder="Isi jika 'lainnya'" value="{{ old('lantai', $data->lantai) }}" {{ old('lantai', $data->lantai) == !in_array($data->lantai, ['Keramik', 'Ubin', 'Marmer', 'Kayu', 'Tanah']) ? 'value='. old('lantai', $data->lantai) : 'disabled' }}>
                                                     </div>
                                                 </div>
                                             </li>
@@ -127,7 +128,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-2">
-                                                        <input type="text" name="dinding" id="dinding2" class="form-control form-control-sm dindinglainnya" placeholder="Isi jika 'lainnya'" value="{{ old('dinding', $data->dinding) }}" disabled>
+                                                        <input type="text" name="dinding" id="dinding2" class="form-control form-control-sm dindinglainnya" placeholder="Isi jika 'lainnya'" value="{{ old('dinding', $data->dinding) }}" {{ old('dinding', $data->dinding) == !in_array($data->dinding, ['Tembok', 'Kayu', 'Papan', 'Geribik']) ? 'value='. old('dinding', $data->dinding) : 'disabled' }}>
                                                     </div>
                                                 </div>
                                             </li>
@@ -141,15 +142,15 @@
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" name="kep_kendaraan" id="opsiSepeda" value="Sepeda">
+                                                            <input class="form-check-input" type="checkbox" name="kep_kendaraan" id="opsiSepeda" value="Sepeda" {{ old('kep_kendaraan', $data->kep_kendaraan) == 'Sepeda' ? 'checked' : '' }}>
                                                             <label class="form-check-label" for="opsiSepeda">Sepeda</label>
                                                         </div>
                                                         <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" name="kep_kendaraan" id="opsiMotor" value="Motor">
+                                                            <input class="form-check-input" type="checkbox" name="kep_kendaraan" id="opsiMotor" value="Motor" {{ old('kep_kendaraan', $data->kep_kendaraan) == 'Motor' ? 'checked' : '' }}>
                                                             <label class="form-check-label" for="opsiMotor">Motor</label>
                                                         </div>
                                                         <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" name="kep_kendaraan" id="opsiMobil" value="Mobil">
+                                                            <input class="form-check-input" type="checkbox" name="kep_kendaraan" id="opsiMobil" value="Mobil" {{ old('kep_kendaraan', $data->kep_kendaraan) == 'Mobil' ? 'checked' : '' }}>
                                                             <label class="form-check-label" for="opsiMobil">Mobil</label>
                                                         </div>
                                                     </div>
@@ -166,10 +167,10 @@
                                                     <div class="col-sm-4">
                                                         <select name="kep_elektronik" id="kep_elektronik" class="form-select form-select-sm">
                                                             <option disabled selected>Pilih Elektronik...</option>
-                                                            <option value="Handphone">Handphone</option>
-                                                            <option value="Radio">Radio</option>
-                                                            <option value="Televisi">Televisi</option>
-                                                            <option value="Kulkas">Kulkas</option>
+                                                            <option value="Handphone" {{ old('kep_elektronik', $data->kep_elektronik) == 'Handphone' ? 'selected' : '' }}>Handphone</option>
+                                                            <option value="Radio" {{ old('kep_elektronik', $data->kep_elektronik) == 'Radio' ? 'selected' : '' }}>Radio</option>
+                                                            <option value="Televisi" {{ old('kep_elektronik', $data->kep_elektronik) == 'Televisi' ? 'selected' : '' }}>Televisi</option>
+                                                            <option value="Kulkas" {{ old('kep_elektronik', $data->kep_elektronik) == 'Kulkas' ? 'selected' : '' }}>Kulkas</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -194,14 +195,14 @@
                                             <div class="col-sm-2">
                                                 <select name="sumber_air" id="sumber_air1" class="form-select form-select-sm sumberselect">
                                                     <option disabled selected>Pilih Sumber...</option>
-                                                    <option value="Sumur">Sumur</option>
-                                                    <option value="Sungai">Sungai</option>
-                                                    <option value="PDAM">PDAM</option>
-                                                    <option value="">Lainnya</option>
+                                                    <option value="Sumur" {{ old('sumber_air', $data->sumber_air) == 'Sumur' ? 'selected' : '' }}>Sumur</option>
+                                                    <option value="Sungai" {{ old('sumber_air', $data->sumber_air) == 'Sungai' ? 'selected' : '' }}>Sungai</option>
+                                                    <option value="PDAM" {{ old('sumber_air', $data->sumber_air) == 'PDAM' ? 'selected' : '' }}>PDAM</option>
+                                                    <option value="" {{ old('sumber_air', $data->sumber_air) == !in_array($data->sumber_air, ['Sumur', 'Sungai', 'PDAM']) ? 'selected' : '' }}>Lainnya</option>
                                                 </select>
                                             </div>
                                             <div class="col-sm-2">
-                                                <input type="text" name="sumber_air" id="sumber_air2" class="form-control form-control-sm sumberlainnya" placeholder="Isi jika 'lainnya'" disabled>
+                                                <input type="text" name="sumber_air" id="sumber_air2" class="form-control form-control-sm sumberlainnya" placeholder="Isi jika 'lainnya'" value="{{ old('sumber_air', $data->sumber_air) }}" {{ old('sumber_air', $data->sumber_air) == !in_array($data->sumber_air, ['Sumur', 'Sungai', 'PDAM']) ? 'value='. old('sumber_air', $data->sumber_air) : 'disabled' }}>
                                             </div>
                                         </div>
                                     </li>
@@ -216,13 +217,13 @@
                                             <div class="col-sm-2">
                                                 <select name="jamban" id="jamban1" class="form-select form-select-sm limbahselect">
                                                     <option disabled selected>Pilih Saluran...</option>
-                                                    <option value="Sungai">Sungai</option>
-                                                    <option value="Septiktank">Septiktank</option>
-                                                    <option value="">Lainnya</option>
+                                                    <option value="Sungai" {{ old('jamban', $data->jamban) == 'Sungai' ? 'selected' : '' }}>Sungai</option>
+                                                    <option value="Septiktank" {{ old('jamban', $data->jamban) == 'Septiktank' ? 'selected' : '' }}>Septiktank</option>
+                                                    <option value="" {{ old('jamban', $data->jamban) == !in_array($data->jamban, ['Sungai', 'Septiktank']) ? 'selected' : '' }}>Lainnya</option>
                                                 </select>
                                             </div>
                                             <div class="col-sm-2">
-                                                <input type="text" name="jamban" id="jamban2" class="form-control form-control-sm limbahlainnya" placeholder="Isi jika 'lainnya'" disabled>
+                                                <input type="text" name="jamban" id="jamban2" class="form-control form-control-sm limbahlainnya" placeholder="Isi jika 'lainnya'"  value="{{ $data->jamban }}" {{ old('jamban', $data->jamban) == !in_array($data->jamban, ['Sungai', 'Septiktank']) ? 'value='. old('jamban', $data->jamban) : 'disabled' }}>
                                             </div>
                                         </div>
                                     </li>
@@ -472,7 +473,7 @@
                                             <div class="col-sm-4">
                                                 <div class="input-group input-group-sm">
                                                     <span class="input-group-text" id="inputGroup-sizing-sm">Rp.</span>
-                                                    <input type="text" name="biaya_pendidikan" id="biaya_pendidikan" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                                    <input type="text" name="biaya_pendidikan" id="biaya_pendidikan" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="{{ old('biaya_pendidikan', $data->biaya_pendidikan) }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -487,7 +488,7 @@
                                             </div>
                                             <div class="col-sm-2">
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="bantuan_lembaga_formal" id="bantuan_lembaga_formal1" value="Ya" {{ old('bantuan_lembaga_formal', $data->bantuan_lembaga_formal) == 'Ya' ? 'checked' : '' }}>
+                                                    <input class="form-check-input" type="radio" name="bantuan_lembaga_formal" id="bantuan_lembaga_formal1" {{ old('bantuan_lembaga_formal', $data->bantuan_lembaga_formal) != 'Tidak' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="bantuan_lembaga_formal1">Ya</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
@@ -501,7 +502,7 @@
                                             <div class="col-sm-2">
                                                 <div class="input-group input-group-sm">
                                                     <span class="input-group-text">Rp.</span>
-                                                    <input type="text" name="bantuan_lembaga_formal" id="bantuan_lembaga_formal3" class="form-control sebesar" placeholder="Isi jika 'Ya'" disabled>
+                                                    <input type="text" name="bantuan_lembaga_formal" id="bantuan_lembaga_formal3" class="form-control sebesar" placeholder="Isi jika 'Ya'" value="{{ old('bantuan_lembaga_formal', $data->bantuan_lembaga_formal) }}" {{ old('bantuan_lembaga_formal', $data->bantuan_lembaga_formal) != 'Tidak' ? 'value='. old('bantuan_lembaga_formal', $data->bantuan_lembaga_formal) : 'disabled' }}>
                                                 </div>
                                             </div>
                                         </div>
@@ -522,7 +523,7 @@
                                                 <div class="text-center"><b>:</b></div>
                                             </div>
                                             <div class="col-sm-9">
-                                                <textarea class="form-control" name="resume" id="resume" rows="3" placeholder="Resume Diskripstif, Kondisi Calon Penerima Manfaat"></textarea>
+                                                <textarea class="form-control" name="resume" id="resume" rows="3" placeholder="Resume Diskripstif, Kondisi Calon Penerima Manfaat">{{ old('resume', $data->resume) }}</textarea>
                                             </div>
                                         </div>
                                     </li>
@@ -535,7 +536,7 @@
                                                 <div class="text-center"><b>:</b></div>
                                             </div>
                                             <div class="col-sm-3">
-                                                <input class="form-control form-control-sm" name="petugas_survey" id="petugas_survey" placeholder="Nama Lengkap Petugas Survey">
+                                                <input class="form-control form-control-sm" name="petugas_survey" id="petugas_survey" placeholder="Nama Lengkap Petugas Survey" value="{{ old('petugas_survey', $data->petugas_survey) }}">
                                             </div>
                                         </div>
                                     </li>

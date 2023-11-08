@@ -7,3 +7,5 @@
 <a href="javascript:void(0);" id="delete-compnay" onClick="delete_datakeluarga({{ $id }})" data-toggle="tooltip" title="Hapus Data" class="delete btn btn-sm btn-danger shadow-sm">
     <i class="bi bi-trash3-fill"></i> Delete
 </a>
+
+{{ $id }}
