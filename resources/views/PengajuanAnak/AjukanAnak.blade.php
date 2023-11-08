@@ -106,6 +106,17 @@
                                 <div class="row mb-2">
                                     <div class="col-4">
                                         <div class="float-end">
+                                            <b>Anak Ke :</b>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="number" placeholder="Anak Ke..." class="form-control" id="anakKe" name="anakKe">
+                                    </div>
+                                    <div class="col-4"></div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4">
+                                        <div class="float-end">
                                             <b>Jenis Kelamin :</b>
                                         </div>
                                     </div>
@@ -153,7 +164,7 @@
                                         </div>
                                     </div>
                                     <div class="col-2">
-                                        <input type="text" placeholder="Nama Sekolah..." class="form-control" id="namaMadrasah" name="namaMadrasah">
+                                        <input type="text" placeholder="Nama Madrasah..." class="form-control" id="namaMadrasah" name="namaMadrasah">
                                     </div>
                                     <div class="col-2">
                                         <input type="number" placeholder="Kelas..." class="form-control" id="kelasMadrasah" name="kelasMadrasah">
@@ -182,6 +193,8 @@
                                     </div>
                                     <div class="col-4"></div>
                                 </div>
+                                <input type="hidden" class="form-control" value="0" name="statusAnak">
+                                <input type="hidden" class="form-control" value="BCPB" name="statusBeasiswa">
                                 <div class="row mb-2">
                                     <div class="col-4">
                                     </div>

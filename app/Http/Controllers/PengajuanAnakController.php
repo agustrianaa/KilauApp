@@ -22,7 +22,6 @@ class PengajuanAnakController extends Controller
         $dataKeluarga = DataKeluarga::create([
             "kacab" => $request->kacab,
             "no_kk" => $request->no_kk,
-            "anak_ke" => $request->anak_ke,
             "alamat_kk" => $request->alamat_kk,
             "kepala_keluarga" => $request->kepala_keluarga,
             "wilayah_binaan" => $request->wilayah_binaan,
@@ -38,6 +37,7 @@ class PengajuanAnakController extends Controller
             "data_keluarga_id" => $keluargaID,
             "nama_lengkap" => $request->nama_lengkap_calon_anak,
             "nama_panggilan" => $request->nama_panggilan_calon_anak,
+            "anak_ke" => $request->anak_ke,
             "jenis_kelamin" => $request->jenis_kelamin_calon_anak,
             "tempat_lahir" => $request->tempat_lahir_calon_anak,
             "tanggal_lahir" => $request->tanggal_lahir_calon_anak,
@@ -146,9 +146,10 @@ class PengajuanAnakController extends Controller
         ]);
 
         // Simpan data anak ke database
-        Anak::create([
+        $dataAnak = Anak::create([
             'nama_lengkap' => $request->namaLengkapAnak,
             'nama_panggilan' => $request->namaPanggilanAnak,
+            'anak_ke' => $request->anakKe,
             'jenis_kelamin' => $request->jenisKelaminAnak,
             'tempat_lahir' => $request->tempatLahirAnak,
             'tanggal_lahir' => $request->tanggalLahirAnak,
@@ -159,6 +160,12 @@ class PengajuanAnakController extends Controller
             'hobby' => $request->hobbyAnak,
             'cita_cita' => $request->citaCitaAnak,
             'data_keluarga_id' => $request->idDataKeluarga, // Gunakan ID DataKeluarga yang sudah disimpan dalam input tersembunyi
+        ]);
+        $anakID = $dataAnak->id_anaks;
+        StatusAnak::create([
+            'anak_id' => $anakID,
+            'status_binaan' => $request->statusAnak,
+            'status_beasiswa' => $request->statusBeasiswa,
         ]);
 
         // Tambahkan kode SweetAlert2 sebelum redirect
