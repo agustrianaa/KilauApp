@@ -110,19 +110,6 @@ class PengajuanAnakController extends Controller
         return view('PengajuanAnak.AjukanAnak');
     }
 
-    // public function cari(Request $request, $id):View
-    // {
-
-    //     $cariID = DataKeluarga::find($id);
-    //     $cariKK = $cariID->no_kk;
-    //     $nomorKK = $request->input('nomorKartuKeluarga');
-
-    //     // Cari data keluarga berdasarkan nomor KK
-    //     $keluargas = DataKeluarga::where('no_kk', $cariKK)->get();
-
-    //     return view('PengajuanAnak.AjukanAnak', compact('keluargas'));
-    // }
-
     public function search(Request $request)
     {
         $nomorKartuKeluarga = $request->input('nomorKartuKeluarga');
@@ -130,6 +117,58 @@ class PengajuanAnakController extends Controller
         $result = DataKeluarga::where('no_kk', 'like', '%'.$nomorKartuKeluarga.'%')->get();
     
         return response()->json($result);
+    }
+
+    public function tambahAnakForm(Request $request)
+    {
+        $dataKeluargaId = $request->input('idDataKeluarga'); // Mendapatkan ID DataKeluarga dari formulir
+
+        // Lakukan validasi atau operasi lain sesuai kebutuhan di sini
+
+        return view('PengajuanAnak.AjukanAnak', ['dataKeluargaId' => $dataKeluargaId]);
+    }
+
+    public function simpanAnak(Request $request)
+    {
+        // Validasi input sesuai kebutuhan
+        $request->validate([
+            'namaLengkapAnak' => 'required',
+            'namaPanggilanAnak' => 'required',
+            'jenisKelaminAnak' => 'required',
+            'tempatLahirAnak' => 'required',
+            'tanggalLahirAnak' => 'required',
+            'namaSekolah' => 'required',
+            'kelasSekolah' => 'required',
+            'namaMadrasah' => 'required',
+            'kelasMadrasah' => 'required',
+            'hobbyAnak' => 'required',
+            'citaCitaAnak' => 'required',
+        ]);
+
+        // Simpan data anak ke database
+        Anak::create([
+            'nama_lengkap' => $request->namaLengkapAnak,
+            'nama_panggilan' => $request->namaPanggilanAnak,
+            'jenis_kelamin' => $request->jenisKelaminAnak,
+            'tempat_lahir' => $request->tempatLahirAnak,
+            'tanggal_lahir' => $request->tanggalLahirAnak,
+            'nama_sekolah' => $request->namaSekolah,
+            'kelas_sekolah' => $request->kelasSekolah,
+            'nama_madrasah' => $request->namaMadrasah,
+            'kelas_madrasah' => $request->kelasMadrasah,
+            'hobby' => $request->hobbyAnak,
+            'cita_cita' => $request->citaCitaAnak,
+            'data_keluarga_id' => $request->idDataKeluarga, // Gunakan ID DataKeluarga yang sudah disimpan dalam input tersembunyi
+        ]);
+
+        // Tambahkan kode SweetAlert2 sebelum redirect
+        $alert = [
+            'title' => 'Anak ditambahkan!',
+            'icon' => 'success',
+        ];
+
+        // Redirect atau lakukan tindakan lain sesuai kebutuhan
+        return redirect()->route('admin.dashboard')->with('alert', $alert);
     }
 
 

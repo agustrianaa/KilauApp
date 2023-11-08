@@ -1126,7 +1126,7 @@
                                                                 <div class="col-sm-3 text-nowrap">
                                                                     <div class="input-group">
                                                                         <label class="control-label">Jumlah Tanggungan</label>
-                                                                        <input type="number" class="form-control" id="jumlahTanggunganWali" name="jumlahTanggunganWali" placeholder="" value="{{ $dataAyah ? $dataAyah->jumlah_tanggungan : 'Data Kosong' }}" required="">
+                                                                        <input type="number" class="form-control" id="jumlahTanggunganWali" name="jumlahTanggunganWali" placeholder="" value="{{ $dataWali ? $dataWali->jumlah_tanggungan : 'Data Kosong' }}" required="">
                                                                         <span class="input-group-text">Anak</span>
                                                                     </div>
                                                                 </div>
@@ -1135,15 +1135,15 @@
                                                                 <div class="col-sm-12">
                                                                     <label class="control-label">Pendapatan</label>
                                                                     <select class="form-select" id="pendapatanWali" name="pendapatanWali">
-                                                                        <option disabled selected {{ $dataAyah->pendapatan == '' ? 'selected' : '' }}>Pilih Penghasilan...</option>
-                                                                        <option value="Dibawah Rp.500.000,-" {{ $dataAyah->pendapatan == 'Dibawah Rp.500.000,-' ? 'selected' : '' }}>Dibawah Rp.500.000,-</option>
-                                                                        <option value="Rp.500.000,- s/d Rp.1.500.000,-" {{ $dataAyah->pendapatan == 'Rp.500.000,- s/d Rp.1.500.000,-' ? 'selected' : '' }}>Rp.500.000,- s/d Rp.1.500.000,-</option>
-                                                                        <option value="Rp.1.500.000,- s/d Rp.2.500.000,-" {{ $dataAyah->pendapatan == 'Rp.1.500.000,- s/d Rp.2.500.000,-' ? 'selected' : '' }}>Rp.1.500.000,- s/d Rp.2.500.000,-</option>
-                                                                        <option value="Rp.2.500.000,- s/d Rp.3.500.000,-" {{ $dataAyah->pendapatan == 'Rp.2.500.000,- s/d Rp.3.500.000,-' ? 'selected' : '' }}>Rp.2.500.000,- s/d Rp.3.500.000,-</option>
-                                                                        <option value="Rp.3.000.000,- s/d Rp.5.000.000,-" {{ $dataAyah->pendapatan == 'Rp.3.000.000,- s/d Rp.5.000.000,-' ? 'selected' : '' }}>Rp.3.000.000,- s/d Rp.5.000.000,-</option>
-                                                                        <option value="Rp.5.000.000,- s/d Rp.7.000.000,-" {{ $dataAyah->pendapatan == 'Rp.5.000.000,- s/d Rp.7.000.000,-' ? 'selected' : '' }}>Rp.5.000.000,- s/d Rp.7.000.000,-</option>
-                                                                        <option value="Rp.7.000.000,- s/d Rp.10.000.000,-" {{ $dataAyah->pendapatan == 'Rp.7.000.000,- s/d Rp.10.000.000,-' ? 'selected' : '' }}>Rp.7.000.000,- s/d Rp.10.000.000,-</option>
-                                                                        <option value="Diatas Rp.10.000.000,-" {{ $dataAyah->pendapatan == 'Diatas Rp.10.000.000,-' ? 'selected' : '' }}>Diatas Rp.10.000.000,-</option>
+                                                                        <option disabled selected {{ $dataWali->pendapatan == '' ? 'selected' : '' }}>Pilih Penghasilan...</option>
+                                                                        <option value="Dibawah Rp.500.000,-" {{ $dataWali->pendapatan == 'Dibawah Rp.500.000,-' ? 'selected' : '' }}>Dibawah Rp.500.000,-</option>
+                                                                        <option value="Rp.500.000,- s/d Rp.1.500.000,-" {{ $dataWali->pendapatan == 'Rp.500.000,- s/d Rp.1.500.000,-' ? 'selected' : '' }}>Rp.500.000,- s/d Rp.1.500.000,-</option>
+                                                                        <option value="Rp.1.500.000,- s/d Rp.2.500.000,-" {{ $dataWali->pendapatan == 'Rp.1.500.000,- s/d Rp.2.500.000,-' ? 'selected' : '' }}>Rp.1.500.000,- s/d Rp.2.500.000,-</option>
+                                                                        <option value="Rp.2.500.000,- s/d Rp.3.500.000,-" {{ $dataWali->pendapatan == 'Rp.2.500.000,- s/d Rp.3.500.000,-' ? 'selected' : '' }}>Rp.2.500.000,- s/d Rp.3.500.000,-</option>
+                                                                        <option value="Rp.3.000.000,- s/d Rp.5.000.000,-" {{ $dataWali->pendapatan == 'Rp.3.000.000,- s/d Rp.5.000.000,-' ? 'selected' : '' }}>Rp.3.000.000,- s/d Rp.5.000.000,-</option>
+                                                                        <option value="Rp.5.000.000,- s/d Rp.7.000.000,-" {{ $dataWali->pendapatan == 'Rp.5.000.000,- s/d Rp.7.000.000,-' ? 'selected' : '' }}>Rp.5.000.000,- s/d Rp.7.000.000,-</option>
+                                                                        <option value="Rp.7.000.000,- s/d Rp.10.000.000,-" {{ $dataWali->pendapatan == 'Rp.7.000.000,- s/d Rp.10.000.000,-' ? 'selected' : '' }}>Rp.7.000.000,- s/d Rp.10.000.000,-</option>
+                                                                        <option value="Diatas Rp.10.000.000,-" {{ $dataWali->pendapatan == 'Diatas Rp.10.000.000,-' ? 'selected' : '' }}>Diatas Rp.10.000.000,-</option>
                                                                     </select>
                                                                 </div>
                                                             </div>

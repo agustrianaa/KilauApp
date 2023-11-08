@@ -52,7 +52,9 @@ class SurveyController extends Controller
             return datatables($data)
             ->addIndexColumn()
             ->addColumn('action', function ($data) {
+
                 $btn = '<a href="' . url("admin/surveyShow/" . $data->id_kel) . '" data-toggle="tooltip" data-id="' . $data->id_kel . '" data-original-title="View" class="view btn btn-sm btn-info view text-white"><i class="bi bi-clipboard2-plus"></i> Edit Survey</a>';
+
                 return $btn;
             })
             ->rawColumns(['action'])
