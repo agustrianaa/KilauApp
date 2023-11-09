@@ -87,6 +87,7 @@
                             </li>
                         </ul>
                     </div>  --}}
+
                 </div>
                 <form>
                     <div class="card-body">
@@ -162,7 +163,7 @@
                                     <th>Kepala Keluarga</th>
                                     <th>Anak Ke</th>
                                     <th>Status Binaan</th>
-                                    <th style="width: 150px">Action</th>          
+                                    <th style="width: 150px">Action</th>
                                 </tr>
                             </thead>
                         </table>
@@ -181,7 +182,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                
+
                                 <form action="javascript:void(0)" id="formdataKeluarga" name="formdataKeluarga" class="form-horizontal" method="POST" enctype="multipart/form-data">
                                     <div class="row">
                                     <!-- Form data Keluarga -->
@@ -242,7 +243,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
 
                                         <!-- Form Ayah -->
                                         <div class="col-12 col-sm-4">
@@ -366,7 +367,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <!-- Button Save  -->
                                     <div class="col-sm-offset-2 col-sm-10"><br/>
                                         <button type="submit" class="btn btn-primary" id="btn-save">Save</button>
@@ -418,7 +419,7 @@
                 },
 
                 columns : [
-                    { 
+                    {
                         data: null,
                         name: 'id',
                         render: function(data, type, row, meta) {
@@ -478,6 +479,7 @@
     var filterCard = $("#filterCard");
     var openFilter = $("#openFilter");
     var closeFilter = $("#closeFilter");
+
     // Tombol Buka Filter diklik
     $("#tombolbukafilter").click(function () {
         // Menghapus class "filters"
@@ -544,13 +546,14 @@
     }
 
     //menampilkan detail data keluarga
-    function detailDatakeluarga(id){
+    function detailDatakeluarga(id, name){
         // Mendapatkan URL dengan menggunakan route() function dari Laravel
-        var url = "{{ route('admin.calonAnakBinaanDetail', ':id') }}";
-        url = url.replace(':id', id);
-        
-        // Redirect ke halaman baru
-        window.location.href = url;
+        // var url = "{{ route('admin.calonAnakBinaanDetail', ':id') }}";
+        // url = url.replace(':id', id);
+
+        // // Redirect ke halaman baru
+        // window.location.href = url;
+        window.location.href = `{{ url('admin/calonAnakBinaanDetail') }}/${id}?nama_lengkap=${name}`;
     }
 
     
@@ -595,4 +598,4 @@
 
 
 </script>
-@endsection 
+@endsection

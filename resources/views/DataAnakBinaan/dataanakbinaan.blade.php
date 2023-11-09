@@ -80,7 +80,7 @@
                     <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
                   </li>
                 </ul>
-              </div> 
+              </div>
             </div>
             <form>
               <div class="card-body">
@@ -221,12 +221,45 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.18/dist/sweetalert2.all.min.js"></script>
 
 <script type="text/javascript">
-  $(document).ready( function () {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
+    $(document).ready( function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+          $('#AnakBinaan').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+              url : "{{ url('admin/AnakBinaan') }}",
+            },
+            columns: [
+                {
+                    data: null,
+                    name: 'id',
+                    render: function(data, type, row, meta) {
+                        return meta.row + 1; // Menggunakan nomor baris sebagai nomor urut
+                    }
+                },
+                { data: 'nama_lengkap_anak', name: 'nama_lengkap_anak'},
+                { data: 'nama_panggilan_anak', name: 'nama_panggilan_anak'},
+                { data: 'ttl', name: 'ttl'},
+                { data: 'nama_sekolah_anak', name: 'nama_sekolah_anak'},
+                { data: 'nama_madrasah_anak', name: 'nama_madrasah_anak'},
+                { data: 'hobby_anak', name: 'hobby_anak'},
+                { data: 'status_beasiswa', name: 'status_beasiswa'},
+                { data: 'survey_status', name: 'survey_status'},
+                { data: 'action', name: 'action', orderable: false},
+            ],
+            order: [[0, 'desc']],
+            paging: true,
+            pageLength: 10, // Menyeting jumlah entri yang ditampilkan menjadi 10
+            language: {
+                "emptyTable": "Data Kosong..."
+            }
+        });
+
 
     // var selectedShelter = [];
     //     load_data(shelter);
@@ -279,7 +312,7 @@
     var filterCard = $("#filterCard");
     var openFilter = $("#openFilter");
     var closeFilter = $("#closeFilter");
-    
+
     $("#tombolbukafilter").click(function () {
       filterCard.removeClass("filters");
       openFilter.addClass("bukaFilter");
@@ -290,7 +323,7 @@
       openFilter.removeClass("bukaFilter");
       closeFilter.addClass("tutupFilter");
     });
-    
+
 
     function Survey(id) {
       // Navigate to the view page with the record's ID as a query parameter
@@ -302,7 +335,7 @@
       // Mendapatkan URL dengan menggunakan route() function dari Laravel
       var url = "{{ route('admin.calonAnakBinaanDetail', ':id') }}";
       url = url.replace(':id', id);
-      
+
       // Redirect ke halaman baru
       window.location.href = url;
     }
@@ -325,6 +358,61 @@
             var oTable = $('#AnakBinaan').dataTable();
             oTable.fnDraw(false);
           }
+      });
+    }
+
+    function deleteFunc(id){
+        if (confirm("Ingin Mengahapus Data?") == true) {
+            var id = id;
+            //ajax
+            $.ajax({
+                type: "POST",
+                url: "{{ url('admin/AnakBinaandelete') }}",
+                data: { id: id },
+                dataType: 'json',
+                success: function(res){
+                  Swal.fire(
+                      'Terhapus!',
+                      'Data berhasil dihapus.',
+                      'success'
+                  );
+
+                    var oTable = $('#AnakBinaan').dataTable();
+                    oTable.fnDraw(false);
+                }
+            });
+        }
+    }
+
+    $('#AnakBinaanForm').submit(function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        $.ajax({
+            type: 'POST',
+            url: "{{ url('admin/AnakBinaanstore') }}",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: (data) => {
+              Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: 'Data berhasil ditambahkan!',
+                showConfirmButton: false,
+                timer: 1500 // Durasi pesan SweetAlert ditampilkan dalam milidetik (ms)
+              });
+
+              $("#tambah-modal").modal('hide');
+              var oTable = $('#AnakBinaan').dataTable();
+              oTable.fnDraw(false);
+              $("#btn-save").html('Submit');
+              $("#btn-save"). attr("disabled", false);
+            },
+
+            error: function(data) {
+                console.log(data);
+            }
         });
       }
     }
