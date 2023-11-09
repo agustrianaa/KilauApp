@@ -40,6 +40,7 @@ class SurveyController extends Controller
             ->leftJoin('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
             ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
             ->where('status_anaks.status_binaan', 1)
+            ->whereNotNull('survey_keluargas.id')
             ->orderBy('data_keluargas.created_at', 'asc')
             // ->where(function ($query) {
             //     $query->where('survey_keluargas.id', '!=', null) // Atau 'IS NOT NULL' tergantung pada DBMS Anda
@@ -51,7 +52,9 @@ class SurveyController extends Controller
             return datatables($data)
             ->addIndexColumn()
             ->addColumn('action', function ($data) {
-                $btn = '<a href="' . url("admin/surveyForm/" . $data->id_kel) . '" data-toggle="tooltip" data-id="' . $data->id_kel . '" data-original-title="View" class="view btn btn-sm btn-warning view text-black"><i class="bi bi-check2-circle"></i> Validasi Survey</a>';
+
+                $btn = '<a href="' . url("admin/surveyShow/" . $data->id_kel) . '" data-toggle="tooltip" data-id="' . $data->id_kel . '" data-original-title="View" class="view btn btn-sm btn-info view text-white"><i class="bi bi-clipboard2-plus"></i> Edit Survey</a>';
+
                 return $btn;
             })
             ->rawColumns(['action'])
@@ -120,5 +123,12 @@ class SurveyController extends Controller
     public function destroy(SurveyController $surveyController)
     {
 
+    }
+
+    public function surveyShow($id)
+    {
+        $data = SurveyKeluarga::where('keluarga_id', $id)->first();
+
+        return view('survey.surveyEdit', compact('data'));
     }
 }
