@@ -38,6 +38,11 @@ class CalonAnakBinaanController extends Controller
                 ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
                 ->where('status_anaks.status_binaan', 0)
                 ->get();
+                // Mengecek apakah filter shelter diberikan
+                if ($request->has('shelter')) {
+                    $shelter = $request->shelter;
+                    $data = $data->whereIn('shelter', $shelter);
+                }
 
             return datatables($data)
                 ->addColumn('TTL', function ($data) {
@@ -50,6 +55,15 @@ class CalonAnakBinaanController extends Controller
         }
 
         return view('DataCalonAnakBinaan.CalonAnakBinaan');
+    }
+
+    public function cariKK(Request $request)
+    {
+        $inputCariKK = $request->input('inputCariKK');
+        
+        $result = DataKeluarga::where('no_kk', 'like', '%'.$inputCariKK.'%')->get();
+    
+        return response()->json($result);
     }
 
     public function update(Request $request, $anak_id)

@@ -103,7 +103,7 @@ class PengajuanAnakController extends Controller
             'showConfirmButton' => 'false',
         ];
 
-        return redirect()->route('admin.dashboard')->with('alert', $alert);
+        return redirect()->route('admin.calonanakbinaanIndex')->with('alert', $alert);
     }
 
     public function AjukanAnak() {
@@ -172,10 +172,10 @@ class PengajuanAnakController extends Controller
         $alert = [
             'title' => 'Anak ditambahkan!',
             'icon' => 'success',
-        ];
+        ]; 
 
         // Redirect atau lakukan tindakan lain sesuai kebutuhan
-        return redirect()->route('admin.dashboard')->with('alert', $alert);
+        return redirect()->route('admin.calonanakbinaanIndex')->with('alert', $alert);
     }
 
 

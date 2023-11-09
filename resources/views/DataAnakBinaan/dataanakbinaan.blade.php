@@ -82,54 +82,30 @@
                 </ul>
               </div> 
             </div>
-            <div class="card-body">
-              <div class="col-12">
-                <div class="row">
-                  <div class="col-lg-2">
-                    <label class="form-label select-label">Agama</label>
-                      <select class="form-select" id="fagama" multiple="multiple">
-                        <option value="" disabled selected>-Pilih-</option>
-                        <option value="Islam">Islam</option>
-                        <option value="Kristen Protestan">Kristen Protestan</option>
-                        <option value="Kristen Katolik">Kristen Katolik</option>
-                        <option value="Hindu">Hindu</option>
-                        <option value="Buddha"> Buddha</option>
-                        <option value="Konghucu">Konghucu</option>
+            <form>
+              <div class="card-body">
+                <div class="col-12">
+                  <div class="row">
+                    <div class="col-lg-2">
+                      <label class="form-label select-label">Shelter</label>
+                      <select class="form-select" id="filterShelter" name="filterShelter" multiple="multiple">
+                          <option value="" disabled selected>-Pilih-</option>
+                          <option value="Indramayu">Indramayu</option>
+                          <option value="Sumedang">Sumedang</option>
+                          <option value="Bandung">Bandung</option>
+                          <option value="Bogor">Bogor</option>
                       </select>
-                  </div>
-                  <div class="col-lg-2">
-                    <label class="form-label select-label">Agama</label>
-                      <select class="form-select" id="fagama" multiple="multiple">
-                        <option value="" disabled selected>-Pilih-</option>
-                        <option value="Islam">Islam</option>
-                        <option value="Kristen Protestan">Kristen Protestan</option>
-                        <option value="Kristen Katolik">Kristen Katolik</option>
-                        <option value="Hindu">Hindu</option>
-                        <option value="Buddha"> Buddha</option>
-                        <option value="Konghucu">Konghucu</option>
-                      </select>
-                  </div>
-                  <div class="col-lg-2">
-                    <label class="form-label select-label">Agama</label>
-                      <select class="form-select" id="fagama" multiple="multiple">
-                        <option value="" disabled selected>-Pilih-</option>
-                        <option value="Islam">Islam</option>
-                        <option value="Kristen Protestan">Kristen Protestan</option>
-                        <option value="Kristen Katolik">Kristen Katolik</option>
-                        <option value="Hindu">Hindu</option>
-                        <option value="Buddha"> Buddha</option>
-                        <option value="Konghucu">Konghucu</option>
-                      </select>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="card-footer">
-              <div class="text-center">
-                  <button type="button" class="btn btn-outline-info">Filter</button>
-                  <button type="button" class="btn btn-outline-danger">Reset</button>
+              <div class="card-footer">
+                <div class="text-center">
+                    <button type="button" class="btn btn-outline-info">Filter</button>
+                    <button type="reset" class="btn btn-outline-danger">Reset</button>
+                </div>
               </div>
-            </div>
+            </form>
           </div>
           <!-- End card filter~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
@@ -245,100 +221,82 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.18/dist/sweetalert2.all.min.js"></script>
 
 <script type="text/javascript">
-    $(document).ready( function () {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-          $('#AnakBinaan').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: {
-              url : "{{ url('admin/AnakBinaan') }}",
-            },
-            columns: [
-                { 
-                    data: null,
-                    name: 'id',
-                    render: function(data, type, row, meta) {
-                        return meta.row + 1; // Menggunakan nomor baris sebagai nomor urut
-                    }
-                },
-                { data: 'nama_lengkap_anak', name: 'nama_lengkap_anak'},
-                { data: 'nama_panggilan_anak', name: 'nama_panggilan_anak'},
-                { data: 'ttl', name: 'ttl'},
-                { data: 'nama_sekolah_anak', name: 'nama_sekolah_anak'},
-                { data: 'nama_madrasah_anak', name: 'nama_madrasah_anak'},
-                { data: 'hobby_anak', name: 'hobby_anak'},
-                { data: 'status_beasiswa', name: 'status_beasiswa'},
-                { data: 'survey_status', name: 'survey_status'},
-                { data: 'action', name: 'action', orderable: false},
-            ],
-            order: [[0, 'desc']],
-            paging: true,
-            pageLength: 10, // Menyeting jumlah entri yang ditampilkan menjadi 10
-            language: {
-                "emptyTable": "Data Kosong..."
-            }
-        });
-
-        $('#resetfilters').click(function() {
-            // Mengatur nilai-nilai semua elemen select ke nilai kosong
-            $('#fagama').val('');
-            $('#fjenis_kelamin').val('');
-            $('#fstatus_binaan').val('');
-
-            // Memuat ulang data dengan filter kosong
-            $('#AnakBinaan').DataTable().destroy();
-            load_data();
-        });
+  $(document).ready( function () {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
     });
 
+    // var selectedShelter = [];
+    //     load_data(shelter);
+
+    $('#AnakBinaan').DataTable({
+      processing: true,
+      serverSide: true,
+      ajax: {
+        url : "{{ url('admin/AnakBinaan') }}",
+      },
+      columns: [
+          { 
+              data: null,
+              name: 'id',
+              render: function(data, type, row, meta) {
+                  return meta.row + 1; // Menggunakan nomor baris sebagai nomor urut
+              }
+          },
+          { data: 'nama_lengkap_anak', name: 'nama_lengkap_anak'},
+          { data: 'nama_panggilan_anak', name: 'nama_panggilan_anak'},
+          { data: 'ttl', name: 'ttl'},
+          { data: 'nama_sekolah', name: 'nama_sekolah'},
+          { data: 'nama_madrasah', name: 'nama_madrasah'},
+          { data: 'hobby', name: 'hobby'},
+          { data: 'status_beasiswa', name: 'status_beasiswa'},
+          { data: 'shelter', name: 'shelter'},
+          { data: 'action', name: 'action', orderable: false},
+      ],
+      order: [[0, 'desc']],
+      paging: true,
+      pageLength: 10, // Menyeting jumlah entri yang ditampilkan menjadi 10
+      language: {
+          "emptyTable": "Data Kosong..."
+      }
+    });
+  
+    $('#resetfilters').click(function() {
+        // Mengatur nilai-nilai semua elemen select ke nilai kosong
+        $('#fagama').val('');
+        $('#fjenis_kelamin').val('');
+        $('#fstatus_binaan').val('');
+    
+        // Memuat ulang data dengan filter kosong
+        $('#AnakBinaan').DataTable().destroy();
+        load_data();
+    });
+  });
+
+    // Tombol Buka / Tutup Filter ~~~~~~~~
     var filterCard = $("#filterCard");
     var openFilter = $("#openFilter");
     var closeFilter = $("#closeFilter");
     
-    // Tombol Buka Filter diklik
     $("#tombolbukafilter").click(function () {
-      // Menghapus class "filters"
       filterCard.removeClass("filters");
       openFilter.addClass("bukaFilter");
       closeFilter.removeClass("tutupFilter");
     });
     $("#tombolTutupFilter").click(function () {
-      // Menghapus class "filters"
       filterCard.addClass("filters");
       openFilter.removeClass("bukaFilter");
       closeFilter.addClass("tutupFilter");
     });
     
-    function add(){
-      $('#AnakBinaanForm').trigger("reset");
-      $('#TambahModal').html("Tambah Data");
-      $('#tambah-modal').modal('show');
-      $('#id').val('');
-      $('#nama_lengkap').val('');
-      $('#nama_panggilan').val('');
-      $('#tempat_lahir').val('');
-      $('#tanggal_lahir').val('');
-      $('#nama_sekolah').val('');
-      $('#nama_madrasah').val('');
-      $('#hobby').val('');
-      $('#cita_cita').val('');
-    }
-
-    function viewFunc(id) {
-      // Navigate to the view page with the record's ID as a query parameter
-      window.location.href = "{{ url('admin/AnakBinaanview/') }}/" + id;
-    }
 
     function Survey(id) {
       // Navigate to the view page with the record's ID as a query parameter
       window.location.href = "{{ url('admin/surveyForm/') }}/" + id;
     }
-
+  
     //menampilkan detail data keluarga
     function detailDatakeluarga(id){
       // Mendapatkan URL dengan menggunakan route() function dari Laravel
@@ -348,85 +306,29 @@
       // Redirect ke halaman baru
       window.location.href = url;
     }
-
-    function editFunc(id){
-      $.ajax({
+  
+    function deleteFunc(id){
+      if (confirm("Ingin Mengahapus Data?") == true) {
+        var id = id;
+        //ajax
+        $.ajax({
           type: "POST",
-          url: "{{ url('admin/AnakBinaanedit') }}",
-          data: { id: id},
+          url: "{{ url('admin/AnakBinaandelete') }}",
+          data: { id: id },
           dataType: 'json',
           success: function(res){
-              console.log(res);
-              $('#TambahModal').html("Edit Data");
-              $('#tambah-modal').modal('show');
-              $('#id').val(res.id);
-              $('#nama_lengkap').val(res.nama_lengkap);
-              $('#nama_panggilan').val(res.nama_panggilan);
-              $('#tempat_lahir').val(res.tempat_lahir);
-              $('#tanggal_lahir').val(res.tanggal_lahir);
-              $('#nama_sekolah').val(res.nama_sekolah);
-              $('#nama_madrasah').val(res.nama_madrasah);
-              $('#hobby').val(res.hobby);
-              $('#cita_cita').val(res.cita_cita);
+            Swal.fire(
+              'Terhapus!',
+              'Data berhasil dihapus.',
+              'success'
+            );
+            var oTable = $('#AnakBinaan').dataTable();
+            oTable.fnDraw(false);
           }
-      });
-    }
-
-    function deleteFunc(id){
-        if (confirm("Ingin Mengahapus Data?") == true) {
-            var id = id;
-            //ajax
-            $.ajax({
-                type: "POST",
-                url: "{{ url('admin/AnakBinaandelete') }}",
-                data: { id: id },
-                dataType: 'json',
-                success: function(res){
-                  Swal.fire(
-                      'Terhapus!',
-                      'Data berhasil dihapus.',
-                      'success'
-                  );
-
-                    var oTable = $('#AnakBinaan').dataTable();
-                    oTable.fnDraw(false);
-                }
-            });
-        }
-    }
-
-    $('#AnakBinaanForm').submit(function(e) {
-        e.preventDefault();
-        var formData = new FormData(this);
-        $.ajax({
-            type: 'POST',
-            url: "{{ url('admin/AnakBinaanstore') }}",
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: (data) => {
-              Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: 'Data berhasil ditambahkan!',
-                showConfirmButton: false,
-                timer: 1500 // Durasi pesan SweetAlert ditampilkan dalam milidetik (ms)
-              });
-
-              $("#tambah-modal").modal('hide');
-              var oTable = $('#AnakBinaan').dataTable();
-              oTable.fnDraw(false);
-              $("#btn-save").html('Submit');
-              $("#btn-save"). attr("disabled", false);
-            },
-            
-            error: function(data) {
-                console.log(data);
-            }
         });
-  });
-  </script>
+      }
+    }
+</script>
 
 
 @endsection
