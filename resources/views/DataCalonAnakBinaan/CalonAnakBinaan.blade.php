@@ -479,13 +479,14 @@
     }
 
     //menampilkan detail data keluarga
-    function detailDatakeluarga(id){
+    function detailDatakeluarga(id, name){
         // Mendapatkan URL dengan menggunakan route() function dari Laravel
-        var url = "{{ route('admin.calonAnakBinaanDetail', ':id') }}";
-        url = url.replace(':id', id);
+        // var url = "{{ route('admin.calonAnakBinaanDetail', ':id') }}";
+        // url = url.replace(':id', id);
 
-        // Redirect ke halaman baru
-        window.location.href = url;
+        // // Redirect ke halaman baru
+        // window.location.href = url;
+        window.location.href = `{{ url('admin/calonAnakBinaanDetail') }}/${id}?nama_lengkap=${name}`;
     }
 
     $('#formdataKeluarga').submit(function(e){

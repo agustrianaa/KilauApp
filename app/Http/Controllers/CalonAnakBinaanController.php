@@ -61,14 +61,16 @@ class CalonAnakBinaanController extends Controller
         $data->save();
     }
 
-    public function showDetail(string $id)
+    public function showDetail(Request $request, $id)
     {
         // ini untuk detail data keluarga
         // Ambil data keluarga berdasarkan $id dari database
         $dataKeluarga = DataKeluarga::find($id);
         $dataIbu = Ibu::where('data_keluarga_id', $dataKeluarga->id)->first();
         $dataAyah = Ayah::where('data_keluarga_id', $dataKeluarga->id)->first();
-        $dataAnak = Anak::where('data_keluarga_id', $dataKeluarga->id)->first();
+        $dataAnak = Anak::where('data_keluarga_id', $dataKeluarga->id)
+        ->where('nama_lengkap', $request->nama_lengkap)
+        ->first();
         $dataWali = Wali::where('data_keluarga_id', $dataKeluarga->id)->first();
         // Tampilkan halaman detail data keluarga (misalnya, menggunakan view 'detail_datakeluarga.blade.php')
         return view('DataCalonAnakBinaan.CalonAnakBinaan-view', [
