@@ -24,6 +24,15 @@
         font-size: 18px;
         transition: 0.1s;
     }
+    .kk.sembunyi {
+        display: none;
+    }
+    .btn.btn-warning.bukaKKbtn {
+        display: none;
+    }
+    .btn.btn-danger.tutupKKbtn {
+        display: none;
+    }
 </style>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -57,10 +66,18 @@
             <!-- Card Untuk Filter ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
             <div class="card filters" id="filterCard">
                 <div class="card-header">
-                    <div class="card-title">
-                        <h4><b>Filter</b></h4>
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-2">
+                            </div>
+                            <div class="col-2">
+                            </div>
+                            <div class="col-4">
+                            </div>
+                            <div class="col-4"></div>
+                        </div>
                     </div>
-                    <div class="card-tools">
+                    {{-- <div class="card-tools">
                         <ul class="nav nav-pills ml-auto">
                             <li class="nav-item">
                                 <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
@@ -69,56 +86,66 @@
                                 <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
                             </li>
                         </ul>
-                    </div>
+                    </div>  --}}
+
                 </div>
-                <div class="card-body">
-                    <div class="col-12">
-                        <div class="row">
-                            <div class="col-lg-2">
-                                <label class="form-label select-label">Agama</label>
-                                <select class="form-select" id="fagama" multiple="multiple">
-                                    <option value="" disabled selected>-Pilih-</option>
-                                    <option value="Islam">Islam</option>
-                                    <option value="Kristen Protestan">Kristen Protestan</option>
-                                    <option value="Kristen Katolik">Kristen Katolik</option>
-                                    <option value="Hindu">Hindu</option>
-                                    <option value="Buddha"> Buddha</option>
-                                    <option value="Konghucu">Konghucu</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-2">
-                                <label class="form-label select-label">Agama</label>
-                                <select class="form-select" id="fagama" multiple="multiple">
-                                    <option value="" disabled selected>-Pilih-</option>
-                                    <option value="Islam">Islam</option>
-                                    <option value="Kristen Protestan">Kristen Protestan</option>
-                                    <option value="Kristen Katolik">Kristen Katolik</option>
-                                    <option value="Hindu">Hindu</option>
-                                    <option value="Buddha"> Buddha</option>
-                                    <option value="Konghucu">Konghucu</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-2">
-                                <label class="form-label select-label">Agama</label>
-                                <select class="form-select" id="fagama" multiple="multiple">
-                                    <option value="" disabled selected>-Pilih-</option>
-                                    <option value="Islam">Islam</option>
-                                    <option value="Kristen Protestan">Kristen Protestan</option>
-                                    <option value="Kristen Katolik">Kristen Katolik</option>
-                                    <option value="Hindu">Hindu</option>
-                                    <option value="Buddha"> Buddha</option>
-                                    <option value="Konghucu">Konghucu</option>
-                                </select>
+                <form>
+                    <div class="card-body">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <label class="form-label select-label">Shelter</label>
+                                    <select class="form-select" id="filterShelter" name="filterShelter" multiple="multiple">
+                                        <option value="" disabled selected>-Pilih-</option>
+                                        <option value="Indramayu">Indramayu</option>
+                                        <option value="Sumedang">Sumedang</option>
+                                        <option value="Bandung">Bandung</option>
+                                        <option value="Bogor">Bogor</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="card-footer">
-                    <div class="text-center">
-                        <button type="button" class="btn btn-outline-info">Filter</button>
-                        <button type="button" class="btn btn-outline-danger">Reset</button>
+                    <div class="card-footer">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="float-start">
+                                        <button type="button" class="btn btn-warning" id="bukaKK">Cari No. KK</button>
+                                        <button type="button" class="btn btn-danger tutupKKbtn" id="tutupKK">Tutup Cari No. KK</button>
+                                    </div>
+                                </div>
+                                <div class="col-2"></div>
+                                <div class="col-4">
+                                    <div class="text-center">
+                                        <button type="button" class="btn btn-outline-info" id="filterSemua">Filter</button>
+                                        <button type="reset" class="btn btn-outline-danger">Reset</button>
+                                    </div>
+                                </div>
+                                <div class="col-4"></div>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                    <div class="kk sembunyi" id="cariNomorKK">
+                        <hr>
+                        <div class="card-body">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="float-end">
+                                            <b>No. KK :</b>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="text" class="form-control" id="inputCariKK" name="inputCariKK">
+                                    </div>
+                                    <div class="col-4"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </form>
             </div>
             <!-- End card filter~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
@@ -354,6 +381,16 @@
                 </div><!-- End Modal  -->
 </section>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
+@if(session('alert'))
+    <script>
+        Swal.fire({
+            title: '{{ session('alert.title') }}',
+            text: '{{ session('alert.text') }}',
+            icon: '{{ session('alert.icon') }}',
+        });
+    </script>
+@endif
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
@@ -363,18 +400,13 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
-        }),
-
-        // untuk collapse filteeerrrr
-        $('collapseExample').hide();
-        $("button").click(function(){
-            $("#collapseExample").toggle();
         });
 
-        load_data();
+        var selectedShelter = [];
+        load_data(shelter);
 
         function load_data(){
-            var fwilbin = $('#fwilbin').val();
+            var filterShelter = $('#filterShelter').val();
 
             $('#CalonAnakBinaanTable').DataTable({
                 processing : true,
@@ -382,7 +414,7 @@
                 ajax : {
                     url : "{{ url('admin/calonAnakBinaan') }}",
                     data: {
-                        wilayah_binaan : fwilbin,
+                        shelter : filterShelter,
                     }
                 },
 
@@ -415,10 +447,31 @@
             });
         }
 
-        //filter daerah wilayah binaan
-        $('#fwilbin').on('change', function(){
+        // Tombol "Filter" ditekan
+        $('#filterSemua').click(function () {
+            // Mengambil nilai-nilai select yang telah dipilih sebelumnya
+            var filterShelter = selectedShelter;
+            
+            // Meng-"destroy" tabel lama
             $('#CalonAnakBinaanTable').DataTable().destroy();
-            load_data();
+            
+            // Memuat data dengan filter
+            load_data(filterShelter);
+        });
+
+        $('#inputCariKK').on('keyup', function() {
+            var query = $(this).val();
+            console.log(query);
+            $.ajax({
+                url: "{{ url('admin/carinomorKK') }}",
+                method: 'GET',
+                data: { inputCariKK: query },
+                dataType: 'json',
+                success: function(data) {
+                    $('#CalonAnakBinaanTable').DataTable().destroy();
+                    load_data(query);
+                }
+            });
         });
 
     });
@@ -439,6 +492,20 @@
         filterCard.addClass("filters");
         openFilter.removeClass("bukaFilter");
         closeFilter.addClass("tutupFilter");
+    });
+
+    var cariNomorKK = $("#cariNomorKK");
+    var tutupKK = $("#tutupKK");
+    var bukaKK = $("#bukaKK");
+    $('#bukaKK').click(function() {
+        cariNomorKK.removeClass("sembunyi");
+        tutupKK.removeClass("tutupKKbtn");
+        bukaKK.addClass("bukaKKbtn");
+    });
+    $('#tutupKK').click(function() {
+        cariNomorKK.addClass("sembunyi");
+        tutupKK.addClass("tutupKKbtn");
+        bukaKK.removeClass("bukaKKbtn");
     });
 
     function validasiAnak(anak_id) {
@@ -489,27 +556,46 @@
         window.location.href = `{{ url('admin/calonAnakBinaanDetail') }}/${id}?nama_lengkap=${name}`;
     }
 
-    $('#formdataKeluarga').submit(function(e){
-        e.preventDefault();
-        var formData = new FormData(this);
-        $.ajax({
-            type: "POST",
-            url: "{{ url('admin/save-calonAnakBinaan') }}",
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: (data) => {
-                $("#modal-datakeluarga").modal('hide');
-                var oTable = $('#CalonAnakBinaanTable').DataTable();
-                oTable.ajax.reload(false);
-                $("#btn-save").html('Submit');
-                $("#btn-save").attr("disabled", false);
-            },
-            error: function(data){
-                console.log(data);
-            }
-        })
-    });
+    
+
+    // let calonAnakBinaanTable; // Variabel untuk menyimpan objek DataTable
+
+    // document.getElementById('cariKK').addEventListener('keyup', function() {
+    //     let keyword = this.value;
+    //     if (calonAnakBinaanTable) {
+    //         calonAnakBinaanTable.destroy(); // Menghancurkan tabel DataTable jika sudah ada
+    //     }
+
+    //     if (keyword.length >= 3) {
+    //         fetch('/admin/carinomorKK/' + keyword, {
+    //             method: 'GET',
+    //         })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             // Inisialisasi kembali tabel DataTable dengan hasil pencarian
+    //             calonAnakBinaanTable = $('#CalonAnakBinaanTable').DataTable({
+    //                 // Konfigurasi DataTable
+    //                 // ...
+    //             });
+                
+    //             // Manipulasi atau tampilkan hasil pencarian di tabel
+    //             // Misalnya, Anda dapat menggunakan data.forEach() untuk mengisi tabel
+    //             data.forEach(item => {
+    //                 calonAnakBinaanTable.row.add([
+    //                     // Data untuk setiap kolom dalam tabel
+    //                     item.field1,
+    //                     item.field2,
+    //                     // ...
+    //                 ]).draw();
+    //             });
+    //         })
+    //         .catch(error => {
+    //             console.error('Terjadi kesalahan:', error);
+    //         });
+    //     }
+    // });
+
+
+
 </script>
 @endsection

@@ -58,7 +58,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::post('/anak/simpan', [PengajuanAnakController::class, 'simpanAnak'])->name('anak.simpan');
 });
 
-    Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], function(){
+Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], function(){
     Route::get('/calonAnakBinaan', [CalonAnakBinaanController::class, 'calonanakbinaanIndex'])->name('calonanakbinaanIndex');
     Route::post('/save-calonAnakBinaan',[CalonAnakBinaanController::class,'store'])->name('save-calonAnakBinaan');
     Route::put('/calonAnakBinaan/{anak_id}', [CalonAnakBinaanController::class, 'update'])->name('calonanakbinaanValidasi');
@@ -69,6 +69,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::put('/calonAnakBinaanEditIbu/{id}', [CalonAnakBinaanController::class, 'updatedIbu'])->name('calonAnakBinaanStoreIbu');
     Route::put('/calonAnakBinaanEditWali/{id}', [CalonAnakBinaanController::class, 'updatedWali'])->name('calonAnakBinaanStoreWali');
     Route::post('/calonAnakBinaanDelete', [CalonAnakBinaanController::class, 'destroyd'])->name('calonAnakBinaanDelete');
+    Route::get('/carinomorKK', [CalonAnakBinaanController::class, 'cariKK'])->name('cariKK');
 
     Route::get('/surveyAnak', [SurveyController::class, 'indexSurvey'])->name('surveyAnak');
     Route::get('/surveyForm/{id}', [SurveyController::class, 'surveyForm'])->name('surveyForm');

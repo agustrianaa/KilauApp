@@ -26,10 +26,6 @@ class AnakBinaanController extends Controller
                 'anaks.nama_panggilan as nama_panggilan_anak',
                 'anaks.tempat_lahir as tempat_lahir_anak',
                 'anaks.tanggal_lahir as tanggal_lahir_anak',
-                'anaks.nama_sekolah as nama_sekolah_anak',
-                'anaks.nama_madrasah as nama_madrasah_anak',
-                'anaks.hobby as hobby_anak',
-                'anaks.cita_cita as cita_cita_anak',
                 'ayahs.*',
                 'ibus.*',
                 'walis.*',
@@ -45,6 +41,11 @@ class AnakBinaanController extends Controller
             ->where('status_anaks.status_binaan', 1)
             ->whereNull('survey_keluargas.id')
             ->get();
+            // Mengecek apakah filter shelter diberikan
+            if ($request->has('shelter')) {
+                $shelter = $request->shelter;
+                $data = $data->whereIn('shelter', $shelter);
+            }
 
             return datatables($data)
                 // ->addColumn('action', 'DataAnakBinaan.dataanakbinaan-action')
@@ -67,27 +68,6 @@ class AnakBinaanController extends Controller
         }
 
         return view('DataAnakBinaan.dataanakbinaan');
-    }
-
-    public function store(Request $request)  {
-        $anakId = $request->id;
-
-        $anak = Anak::updateOrCreate(
-            [
-                'id' => $anakId
-            ],
-            [
-                'nama_lengkap' => $request->nama_lengkap,
-                'nama_panggilan' => $request->nama_panggilan,
-                'tempat_lahir' => $request->tempat_lahir,
-                'tanggal_lahir' => $request->tanggal_lahir,
-                'nama_sekolah' => $request->nama_sekolah,
-                'nama_madrasah' => $request->nama_madrasah,
-                'hobby' => $request->hobby,
-                'cita_cita' => $request->cita_cita,
-            ]);
-
-            return Response()->json($anak);
     }
 
     public function showViewPage(Request $request, $id):View
