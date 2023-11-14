@@ -1142,7 +1142,7 @@
         });
 
         function getDataAnak(){
-            // var idAnak = $('#id_anaks').val();
+            var idAnak = $('#id_anaks').val();
             var namaLengkapAnak = $('#namaLengkapAnak').val();
             var namaPanggilanAnak = $('#namaPanggilanAnak').val();
             var AnakKe = $('#AnakKe').val();
