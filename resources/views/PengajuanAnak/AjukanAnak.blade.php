@@ -146,6 +146,51 @@
                                 <div class="row mb-2">
                                     <div class="col-4">
                                         <div class="float-end">
+                                            <b>Wilayah Binaan :</b>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <select class="form-select" id="WilayahBinaanAnak" name="WilayahBinaanAnak">
+                                            <option disabled selected>Pilih Wilayah Binaan...</option>
+                                            <option value="Indramayu">Indramayu</option>
+                                            <option value="Bandung">Bandung</option>
+                                            <option value="Sumedang">Sumedang</option>
+                                            <option value="Bogor">Bogor</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-4"></div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4">
+                                        <div class="float-end">
+                                            <b>Shelter :</b>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <select class="form-select" id="ShelterAnak" name="ShelterAnak">
+                                            <option disabled selected>Pilih Shelter...</option>
+                                            <option value="Indramayu">Indramayu</option>
+                                            <option value="Bandung">Bandung</option>
+                                            <option value="Sumedang">Sumedang</option>
+                                            <option value="Bogor">Bogor</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-4"></div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4">
+                                        <div class="float-end">
+                                            <b>Jarak ke Shelter :</b>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="number" class="form-control" id="jarakShelterAnak" name="jarakShelterAnak"> KM
+                                    </div>
+                                    <div class="col-4"></div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4">
+                                        <div class="float-end">
                                             <b>Nama Sekolah & Kelas :</b>
                                         </div>
                                     </div>
@@ -292,6 +337,9 @@
             $('#jenisKelaminAnak').val('');
             $('#tempatLahirAnak').val('');
             $('#tanggalLahirAnak').val('');
+            $('#WilayahBinaanAnak').val('');
+            $('#ShelterAnak').val('');
+            $('#jarakShelterAnak').val('');
             $('#namaSekolah').val('');
             $('#kelasSekolah').val('');
             $('#namaMadrasah').val('');

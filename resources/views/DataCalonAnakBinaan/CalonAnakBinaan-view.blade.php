@@ -47,7 +47,13 @@
                                         <b>Kelas</b> <div class="float-right">{{ $dataAnak ? $dataAnak->kelas_sekolah : 'Data Kosong' }}</div>
                                     </li>
                                     <li class="list-group-item">
-                                        <b>Shelter</b> <div class="float-right">{{ $dataKeluarga ? $dataKeluarga->shelter : 'Data Kosong' }}</div>
+                                        <b>Wilayah Binaan</b> <div class="float-right">{{ $dataAnak ? $dataAnak->wilayah_binaan : 'Data Kosong' }}</div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Shelter</b> <div class="float-right">{{ $dataAnak ? $dataAnak->shelter : 'Data Kosong' }}</div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Jarak ke Shelter</b> <div class="float-right">{{ $dataAnak ? $dataAnak->jarak_ke_shelter : 'Data Kosong' }} KM</div>
                                     </li>
                                 </ul>
                                 <div class="float-end">
@@ -98,7 +104,6 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-
                                                         <div class="col-12">
                                                             <div class="row">
                                                                 <div class="col-md-6">
@@ -109,6 +114,39 @@
                                                                     <label class="control-label">Tanggal Lahir</label>
                                                                     <input type="date" class="form-control" id="tanggal_lahirAnak" name="tanggal_lahirAnak" placeholder="" value="{{ $dataAnak ? $dataAnak->tanggal_lahir : 'Data Kosong' }}" required="">
                                                                 </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-sm-12">
+                                                            <label class="control-label">Wilayah Binaan</label>
+                                                            <select class="form-select" id="wilayah_binaan" name="wilayah_binaan">
+                                                                <option disabled selected {{ $dataAnak->wilayah_binaan == '' ? 'selected' : '' }}>Wilayah Binaan...</option>
+                                                                <option value="Indramayu" {{ $dataAnak->wilayah_binaan == 'Indramayu' ? 'selected' : '' }}>Indramayu</option>
+                                                                <option value="Bandung" {{ $dataAnak->wilayah_binaan == 'Bandung' ? 'selected' : '' }}>Bandung</option>
+                                                                <option value="Sumedang" {{ $dataAnak->wilayah_binaan == 'Sumedang' ? 'selected' : '' }}>Sumedang</option>
+                                                                <option value="Bogor" {{ $dataAnak->wilayah_binaan == 'Bogor' ? 'selected' : '' }}>Bogor</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-sm-12">
+                                                            <label class="control-label">Shelter</label>
+                                                            <select class="form-select" id="shelter" name="shelter">
+                                                                <option disabled selected {{ $dataAnak->shelter == '' ? 'selected' : '' }}>Pilih Shelter...</option>
+                                                                <option value="Indramayu" {{ $dataAnak->shelter == 'Indramayu' ? 'selected' : '' }}>Indramayu</option>
+                                                                <option value="Bandung" {{ $dataAnak->shelter == 'Bandung' ? 'selected' : '' }}>Bandung</option>
+                                                                <option value="Sumedang" {{ $dataAnak->shelter == 'Sumedang' ? 'selected' : '' }}>Sumedang</option>
+                                                                <option value="Bogor" {{ $dataAnak->shelter == 'Bogor' ? 'selected' : '' }}>Bogor</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-sm-3 text-nowrap">
+                                                            <label class="control-label">Jarak ke Shelter</label>
+                                                            <div class="input-group">
+                                                                <input type="number" class="form-control" id="jarakShelter" name="jarakShelter" placeholder="" value="{{ $dataAnak ? $dataAnak->jarak_ke_shelter : 'Data Kosong' }}" required="">
+                                                                <span class="input-group-text">KM</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -273,54 +311,6 @@
                                                                     <div class="row">
                                                                         <div class="col-sm-6">
                                                                             <div class="">
-                                                                                <b>Wilayah Binaan</b>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-sm-6">
-                                                                            <div class="float-start">
-                                                                                <b>: </b> {{ $dataKeluarga ? $dataKeluarga->wilayah_binaan : 'Data Kosong' }}
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="list-group-item">
-                                                                <div class="col-sm-12">
-                                                                    <div class="row">
-                                                                        <div class="col-sm-6">
-                                                                            <div class="">
-                                                                                <b>Shelter</b>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-sm-6">
-                                                                            <div class="float-start">
-                                                                                <b>: </b> {{ $dataKeluarga ? $dataKeluarga->shelter : 'Data Kosong' }}
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="list-group-item">
-                                                                <div class="col-sm-12">
-                                                                    <div class="row">
-                                                                        <div class="col-sm-6">
-                                                                            <div class="">
-                                                                                <b>Jarak ke Shelter</b>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-sm-6">
-                                                                            <div class="float-start">
-                                                                                <b>: </b> {{ $dataKeluarga ? $dataKeluarga->jarak_ke_shelter : 'Data Kosong' }} KM
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="list-group-item">
-                                                                <div class="col-sm-12">
-                                                                    <div class="row">
-                                                                        <div class="col-sm-6">
-                                                                            <div class="">
                                                                                 <b>No. Telephone</b>
                                                                             </div>
                                                                         </div>
@@ -384,39 +374,6 @@
                                                                 <div class="col-sm-12">
                                                                     <label class="control-label">No. Kartu Keluarga</label>
                                                                     <input type="text" class="form-control" id="nomorkk" name="nomorkk" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->no_kk : 'Data Kosong' }}" maxlength="50" required="">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <div class="col-sm-12">
-                                                                    <label class="control-label">Wilayah Binaan</label>
-                                                                    <select class="form-select" id="wilayah_binaan" name="wilayah_binaan">
-                                                                        <option disabled selected {{ $dataKeluarga->wilayah_binaan == '' ? 'selected' : '' }}>Wilayah Binaan...</option>
-                                                                        <option value="Indramayu" {{ $dataKeluarga->wilayah_binaan == 'Indramayu' ? 'selected' : '' }}>Indramayu</option>
-                                                                        <option value="Bandung" {{ $dataKeluarga->wilayah_binaan == 'Bandung' ? 'selected' : '' }}>Bandung</option>
-                                                                        <option value="Sumedang" {{ $dataKeluarga->wilayah_binaan == 'Sumedang' ? 'selected' : '' }}>Sumedang</option>
-                                                                        <option value="Bogor" {{ $dataKeluarga->wilayah_binaan == 'Bogor' ? 'selected' : '' }}>Bogor</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <div class="col-sm-12">
-                                                                    <label class="control-label">Shelter</label>
-                                                                    <select class="form-select" id="shelter" name="shelter">
-                                                                        <option disabled selected {{ $dataKeluarga->shelter == '' ? 'selected' : '' }}>Pilih Shelter...</option>
-                                                                        <option value="Indramayu" {{ $dataKeluarga->shelter == 'Indramayu' ? 'selected' : '' }}>Indramayu</option>
-                                                                        <option value="Bandung" {{ $dataKeluarga->shelter == 'Bandung' ? 'selected' : '' }}>Bandung</option>
-                                                                        <option value="Sumedang" {{ $dataKeluarga->shelter == 'Sumedang' ? 'selected' : '' }}>Sumedang</option>
-                                                                        <option value="Bogor" {{ $dataKeluarga->shelter == 'Bogor' ? 'selected' : '' }}>Bogor</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <div class="col-sm-3 text-nowrap">
-                                                                    <label class="control-label">Jarak ke Shelter</label>
-                                                                    <div class="input-group">
-                                                                        <input type="number" class="form-control" id="jarakShelter" name="jarakShelter" placeholder="" value="{{ $dataKeluarga ? $dataKeluarga->jarak_ke_shelter : 'Data Kosong' }}" required="">
-                                                                        <span class="input-group-text">KM</span>
-                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
@@ -1185,13 +1142,16 @@
         });
 
         function getDataAnak(){
-            var idAnak = $('#id_anaks').val();
+            // var idAnak = $('#id_anaks').val();
             var namaLengkapAnak = $('#namaLengkapAnak').val();
             var namaPanggilanAnak = $('#namaPanggilanAnak').val();
             var AnakKe = $('#AnakKe').val();
             var jenisKelaminAnak = $('#jenisKelaminAnak').val();
             var tempat_lahirAnak = $('#tempat_lahirAnak').val();
             var tanggal_lahirAnak = $('#tanggal_lahirAnak').val();
+            var wilayah_binaan = $('#wilayah_binaan').val();
+            var shelter = $('#shelter').val();
+            var jarakShelter = $('#jarakShelter').val();
             var namaSekolah = $('#namaSekolah').val();
             var kelasSekolah = $('#kelasSekolah').val();
             var namaMadrasah = $('#namaMadrasah').val();
@@ -1209,6 +1169,9 @@
                     jenis_kelamin : jenisKelaminAnak,
                     tempat_lahir : tempat_lahirAnak,
                     tanggal_lahir : tanggal_lahirAnak,
+                    wilayah_binaan : wilayah_binaan,
+                    shelter : shelter,
+                    jarak_ke_shelter : jarakShelter,
                     nama_sekolah : namaSekolah,
                     kelas_sekolah : kelasSekolah,
                     nama_madrasah : namaMadrasah,
@@ -1259,9 +1222,6 @@
         function getDataKeluarga(){
             var kacab = $('#kacab').val();
             var nomorkk = $('#nomorkk').val();
-            var wilayah_binaan = $('#wilayah_binaan').val();
-            var shelter = $('#shelter').val();
-            var jarakShelter = $('#jarakShelter').val();
             var no_telp = $('#no_telp').val();
             var no_rek = $('#no_rek').val();
 
@@ -1271,9 +1231,6 @@
                 data: {
                     kacab : kacab,
                     no_kk : nomorkk,
-                    wilayah_binaan : wilayah_binaan,
-                    shelter : shelter,
-                    jarak_ke_shelter : jarakShelter,
                     no_telp : no_telp,
                     no_rek : no_rek,
                 },
@@ -1503,49 +1460,7 @@
 
         /* -------------------------------------------------------------------------------------------------------------------------------- */
         // JS IBU
-//         var idIbu;
-//         $('#modal_dataIbu').on('show.bs.modal', function(event){
-//             var button = $(event.relatedTarget);
-//             idIbu = button.data('id_ibus');
-//         });
 
-//         // Bisa dibilang mengambil data yaa ges yaa
-//         function getDataIbu(){
-//             var idIbu = $('#id_ibus').val();
-//             var nikIbu = $('#nikIbu').val();
-//             var namaIbu = $('#namaIbu').val();
-//             var tempat_lahirIbu = $('#tempat_lahirIbu').val();
-//             var tanggal_lahirIbu = $('#tanggal_lahirIbu').val();
-//             var agamaIbu = $('#agamaIbu').val();
-//             var alamatIbu = $('#alamatIbu').val();
-
-//             $.ajax({
-//                 method: 'PUT',
-//                 url: "/admin/calonAnakBinaanEdit/" + idIbu,
-//                 data: {
-//                     nik : nikIbu,
-//                     nama : namaIbu,
-//                     tempat_lahir : tempat_lahirIbu,
-//                     tanggal_lahir : tanggal_lahirIbu,
-//                     agama : agamaIbu,
-//                     alamat : alamatIbu,
-//                 },
-//                 success: function (data){
-//                     console.log(data);
-//                     $('#modal_dataIbu').modal('hide');
-//                     // Memuat ulang halaman
-//                     location.reload();
-//                 },
-//                 error: function (error){
-//                     console.log('Error', error)
-//                 }
-//             });
-//         }
-
-//         // fungsi tombol simpan dalam model
-//         $('#btn-simpan-ibu').on('click', function(){
-//             getDataIbu();
-//         });
     });
 </script>
 
