@@ -21,6 +21,7 @@ class CalonAnakBinaanController extends Controller
             $data = DataKeluarga::select(
                 'data_keluargas.*',
                 'anaks.nama_lengkap as nama_lengkap_calon_anak',
+                // 'anaks.id_anaks as id_anak',
                 'anaks.tempat_lahir as tempat_lahir_calon_anak',
                 'anaks.tanggal_lahir as tanggal_lahir_calon_anak',
                 'ayahs.*',
@@ -60,31 +61,29 @@ class CalonAnakBinaanController extends Controller
     public function cariKK(Request $request)
     {
         $inputCariKK = $request->input('inputCariKK');
-        
+
         $result = DataKeluarga::where('no_kk', 'like', '%'.$inputCariKK.'%')->get();
-    
+
         return response()->json($result);
     }
 
-    public function update(Request $request, $anak_id)
+    public function update(Request $request, $id_anaks)
     {
-        $data = StatusAnak::find($anak_id);
+        $data = StatusAnak::where('anak_id', $id_anaks)->first();
 
         $data->status_binaan = 1;
 
         $data->save();
     }
 
-    public function showDetail(Request $request, $id)
+    public function showDetail(Request $request, $id, $id_anaks)
     {
         // ini untuk detail data keluarga
         // Ambil data keluarga berdasarkan $id dari database
         $dataKeluarga = DataKeluarga::find($id);
         $dataIbu = Ibu::where('data_keluarga_id', $dataKeluarga->id)->first();
         $dataAyah = Ayah::where('data_keluarga_id', $dataKeluarga->id)->first();
-        $dataAnak = Anak::where('data_keluarga_id', $dataKeluarga->id)
-        ->where('nama_lengkap', $request->nama_lengkap)
-        ->first();
+        $dataAnak = Anak::where('id_anaks', $id_anaks)->first();
         $dataWali = Wali::where('data_keluarga_id', $dataKeluarga->id)->first();
         // Tampilkan halaman detail data keluarga (misalnya, menggunakan view 'detail_datakeluarga.blade.php')
         return view('DataCalonAnakBinaan.CalonAnakBinaan-view', [
@@ -117,14 +116,14 @@ class CalonAnakBinaanController extends Controller
     // Update Data Ayah~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     public function updatedAnak(Request $request, string $id_anaks)
     {
-        $dataKeluarga = Anak::find($id_anaks);
+        $dataAnak = Anak::find($id_anaks);
 
-        if (!$dataKeluarga) {
+        if (!$dataAnak) {
             return response()->json(['success' => false, 'message' => 'Data Keluarga tidak ditemukan']);
         }
 
         // Lakukan update data ayah
-        $dataKeluarga->dataAnak->update($request->only([
+        $dataAnak->update($request->only([
             'nama_lengkap', 'nama_panggilan', 'anak_ke', 'jenis_kelamin', 'tempat_lahir', 'wilayah_binaan', 'shelter', 'jarak_ke_shelter', 'tanggal_lahir', 'nama_sekolah', 'kelas_sekolah', 'nama_madrasah', 'kelas_madrasah', 'hobby', 'cita_cita'
         ]));
 

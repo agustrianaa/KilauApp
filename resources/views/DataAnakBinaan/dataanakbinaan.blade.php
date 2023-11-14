@@ -284,17 +284,13 @@
       // Navigate to the view page with the record's ID as a query parameter
       window.location.href = "{{ url('admin/surveyForm/') }}/" + id;
     }
-  
-    //menampilkan detail data keluarga
-    function detailDatakeluarga(id){
-      // Mendapatkan URL dengan menggunakan route() function dari Laravel
-      var url = "{{ route('admin.calonAnakBinaanDetail', ':id') }}";
-      url = url.replace(':id', id);
 
-      // Redirect ke halaman baru
-      window.location.href = url;
+    //menampilkan detail data keluarga
+    function detailDatakeluarga(id, id_anaks){
+
+    window.location.href = `{{ url('admin/calonAnakBinaanDetail') }}/${id}/${id_anaks}`;
     }
-  
+
     function deleteFunc(id){
       if (confirm("Ingin Mengahapus Data?") == true) {
         var id = id;

@@ -62,8 +62,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
 Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], function(){
     Route::get('/calonAnakBinaan', [CalonAnakBinaanController::class, 'calonanakbinaanIndex'])->name('calonanakbinaanIndex');
     Route::post('/save-calonAnakBinaan',[CalonAnakBinaanController::class,'store'])->name('save-calonAnakBinaan');
-    Route::put('/calonAnakBinaan/{anak_id}', [CalonAnakBinaanController::class, 'update'])->name('calonanakbinaanValidasi');
-    Route::get('/calonAnakBinaanDetail/{id}', [CalonAnakBinaanController::class, 'showDetail'])->name('calonAnakBinaanDetail');
+    Route::put('/calonAnakBinaan/{id_anaks}', [CalonAnakBinaanController::class, 'update'])->name('calonanakbinaanValidasi');
+    Route::get('/calonAnakBinaanDetail/{id}/{id_anaks}', [CalonAnakBinaanController::class, 'showDetail'])->name('calonAnakBinaanDetail');
     Route::put('/calonAnakBinaanEdit/{id}', [CalonAnakBinaanController::class, 'updated'])->name('calonAnakBinaanStore');
     Route::put('/calonAnakBinaanEditAnak/{id_anaks}', [CalonAnakBinaanController::class, 'updatedAnak'])->name('calonAnakBinaanStoreAnak');
     Route::put('/calonAnakBinaanEditAyah/{id}', [CalonAnakBinaanController::class, 'updatedAyah'])->name('calonAnakBinaanStoreAyah');

@@ -451,10 +451,10 @@
         $('#filterSemua').click(function () {
             // Mengambil nilai-nilai select yang telah dipilih sebelumnya
             var filterShelter = selectedShelter;
-            
+
             // Meng-"destroy" tabel lama
             $('#CalonAnakBinaanTable').DataTable().destroy();
-            
+
             // Memuat data dengan filter
             load_data(filterShelter);
         });
@@ -546,17 +546,12 @@
     }
 
     //menampilkan detail data keluarga
-    function detailDatakeluarga(id, name){
-        // Mendapatkan URL dengan menggunakan route() function dari Laravel
-        // var url = "{{ route('admin.calonAnakBinaanDetail', ':id') }}";
-        // url = url.replace(':id', id);
+    function detailDatakeluarga(id, id_anaks){
 
-        // // Redirect ke halaman baru
-        // window.location.href = url;
-        window.location.href = `{{ url('admin/calonAnakBinaanDetail') }}/${id}?nama_lengkap=${name}`;
-    }
+window.location.href = `{{ url('admin/calonAnakBinaanDetail') }}/${id}/${id_anaks}`;
+}
 
-    
+
 
     // let calonAnakBinaanTable; // Variabel untuk menyimpan objek DataTable
 
@@ -577,7 +572,7 @@
     //                 // Konfigurasi DataTable
     //                 // ...
     //             });
-                
+
     //             // Manipulasi atau tampilkan hasil pencarian di tabel
     //             // Misalnya, Anda dapat menggunakan data.forEach() untuk mengisi tabel
     //             data.forEach(item => {
