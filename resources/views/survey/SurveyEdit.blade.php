@@ -141,19 +141,25 @@
                                                         <div class="text-center"><b>:</b></div>
                                                     </div>
                                                     <div class="col-sm-4">
+                                                        <!-- Checkbox untuk Sepeda -->
                                                         <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" name="kep_kendaraan" id="opsiSepeda" value="Sepeda" {{ old('kep_kendaraan', $data->kep_kendaraan) == 'Sepeda' ? 'checked' : '' }}>
+                                                            <input class="form-check-input" type="checkbox" name="kep_kendaraan[]" id="opsiSepeda" value="Sepeda" {{ in_array('Sepeda', old('kep_kendaraan', $data->kep_kendaraan)) ? 'checked' : '' }}>
                                                             <label class="form-check-label" for="opsiSepeda">Sepeda</label>
                                                         </div>
+
+                                                        <!-- Checkbox untuk Motor -->
                                                         <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" name="kep_kendaraan" id="opsiMotor" value="Motor" {{ old('kep_kendaraan', $data->kep_kendaraan) == 'Motor' ? 'checked' : '' }}>
+                                                            <input class="form-check-input" type="checkbox" name="kep_kendaraan[]" id="opsiMotor" value="Motor" {{ in_array('Motor', old('kep_kendaraan', $data->kep_kendaraan)) ? 'checked' : '' }}>
                                                             <label class="form-check-label" for="opsiMotor">Motor</label>
                                                         </div>
+
+                                                        <!-- Checkbox untuk Mobil -->
                                                         <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" name="kep_kendaraan" id="opsiMobil" value="Mobil" {{ old('kep_kendaraan', $data->kep_kendaraan) == 'Mobil' ? 'checked' : '' }}>
+                                                            <input class="form-check-input" type="checkbox" name="kep_kendaraan[]" id="opsiMobil" value="Mobil" {{ in_array('Mobil', old('kep_kendaraan', $data->kep_kendaraan)) ? 'checked' : '' }}>
                                                             <label class="form-check-label" for="opsiMobil">Mobil</label>
                                                         </div>
                                                     </div>
+
                                                 </div>
                                             </li>
                                             <li class="list-group-item">

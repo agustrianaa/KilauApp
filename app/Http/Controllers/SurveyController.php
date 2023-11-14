@@ -72,10 +72,16 @@ class SurveyController extends Controller
     public function store(Request $request)
     {
         // Mengambil semua nilai yang dipilih dari checkbox "kep_kendaraan" sebagai array
-        $resultText = $request->input('kep_kendaraan');
+        // $resultText = $request->input('kep_kendaraan');
 
         // Mengganti input "kep_kendaraan" dengan string yang berisi nilai yang dipilih
-        $request->merge(['kep_kendaraan' => $resultText]);
+        // $request->merge(['kep_kendaraan' => $resultText]);
+
+        $request->validate([
+            'kep_kendaraan' => 'required|array',
+            'kep_kendaraan.*' => 'in:Sepeda,Motor,Mobil',
+        ]);
+
 
         SurveyKeluarga::create($request->all());
 
