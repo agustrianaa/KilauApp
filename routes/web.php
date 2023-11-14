@@ -13,6 +13,7 @@ use App\Http\Controllers\ValidasiSurveyController;
 use App\Http\Controllers\ValidasiBeasiswaController;
 use App\Http\Controllers\AnakBinaanController;
 use App\Http\Controllers\SurveyController;
+use App\Http\Controllers\TestCont;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -64,7 +65,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::put('/calonAnakBinaan/{anak_id}', [CalonAnakBinaanController::class, 'update'])->name('calonanakbinaanValidasi');
     Route::get('/calonAnakBinaanDetail/{id}', [CalonAnakBinaanController::class, 'showDetail'])->name('calonAnakBinaanDetail');
     Route::put('/calonAnakBinaanEdit/{id}', [CalonAnakBinaanController::class, 'updated'])->name('calonAnakBinaanStore');
-    Route::put('/calonAnakBinaanEditAnak/{id}', [CalonAnakBinaanController::class, 'updatedAnak'])->name('calonAnakBinaanStoreAnak');
+    Route::put('/calonAnakBinaanEditAnak/{id_anaks}', [CalonAnakBinaanController::class, 'updatedAnak'])->name('calonAnakBinaanStoreAnak');
     Route::put('/calonAnakBinaanEditAyah/{id}', [CalonAnakBinaanController::class, 'updatedAyah'])->name('calonAnakBinaanStoreAyah');
     Route::put('/calonAnakBinaanEditIbu/{id}', [CalonAnakBinaanController::class, 'updatedIbu'])->name('calonAnakBinaanStoreIbu');
     Route::put('/calonAnakBinaanEditWali/{id}', [CalonAnakBinaanController::class, 'updatedWali'])->name('calonAnakBinaanStoreWali');
@@ -76,6 +77,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::post('/surveyStore', [SurveyController::class, 'store'])->name('surveyStore');
     Route::get('/surveyShow/{id}', [SurveyController::class, 'surveyShow'])->name('surveyShow');
     Route::put('/surveyEdit/{id}', [SurveyController::class, 'surveyEdit'])->name('surveyEdit');
+
+    Route::get('/Test', [TestCont::class, 'index'])->name('TestView');
 
     Route::get('/AnakBinaan', [AnakBinaanController::class, 'index'])->name('AnakBinaan');
     Route::post('/AnakBinaanstore', [AnakBinaanController::class, 'store'])->name('AnakBinaanstore');

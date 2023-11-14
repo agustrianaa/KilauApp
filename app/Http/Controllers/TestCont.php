@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Anak;
 use App\Models\DataKeluarga;
-use App\Models\Ayah;
-use App\Models\Ibu;
-use App\Models\Wali;
-use Datatables;
-use Illuminate\Support\Facades\DB;
-use Illuminate\View\View;
+use Illuminate\Http\Request;
 
-class AnakBinaanController extends Controller
+class TestCont extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
     public function index(Request $request)
     {
         if (request()->ajax()) {
@@ -26,6 +22,7 @@ class AnakBinaanController extends Controller
                 'anaks.tempat_lahir as tempat_lahir_anak',
                 'anaks.tanggal_lahir as tanggal_lahir_anak',
                 'ayahs.*',
+                'ayahs.nama as nama_ayah',
                 'ibus.*',
                 'walis.*',
                 'status_anaks.*',
@@ -66,27 +63,54 @@ class AnakBinaanController extends Controller
                 ->make(true);
         }
 
-        return view('DataAnakBinaan.dataanakbinaan');
+        return view('AnakBinaan');
     }
 
-    public function showViewPage(Request $request, $id):View
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
     {
-        $record = Anak::find($id);
-
-        return view('DataAnakBinaan.dataanakbinaan-view', compact('record'));
+        //
     }
 
-    public function edit(Request $request) {
-        $where = array('id' => $request->id);
-        $anak = Anak::where($where)->first();
-
-        return Response()->json($anak);
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
     }
 
-    public function destroy($id) {
-        // $anak =
-        DataKeluarga::where('id', $id)->delete();
+    /**
+     * Display the specified resource.
+     */
+    public function show(TestCont $testCont)
+    {
+        //
+    }
 
-        // return Response()->json($anak);
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(TestCont $testCont)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, TestCont $testCont)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(TestCont $testCont)
+    {
+        //
     }
 }

@@ -40,7 +40,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Data Calon Anak Binaan</h1>
+                    <h1 class="m-0">Data Test Anak Binaan</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -412,7 +412,7 @@
                 processing : true,
                 serverSide : true,
                 ajax : {
-                    url : "{{ url('admin/calonAnakBinaan') }}",
+                    url : "{{ url('admin/Test') }}",
                     data: {
                         shelter : filterShelter,
                     }
@@ -426,7 +426,7 @@
                             return meta.row + 1; // Menggunakan nomor baris sebagai nomor urut
                         }
                     },
-                    { data: 'nama_lengkap_calon_anak', name: 'nama_lengkap_calon_anak'},
+                    { data: 'nama_lengkap_anak', name: 'nama_lengkap_anak'},
                     { data: 'shelter', name: 'shelter'},
                     { data: 'no_kk', name: 'no_kk'},
                     { data: 'nama_ayah', name: 'nama_ayah'},
@@ -555,6 +555,45 @@
         // window.location.href = url;
         window.location.href = `{{ url('admin/calonAnakBinaanDetail') }}/${id}?nama_lengkap=${name}`;
     }
+
+    
+
+    // let calonAnakBinaanTable; // Variabel untuk menyimpan objek DataTable
+
+    // document.getElementById('cariKK').addEventListener('keyup', function() {
+    //     let keyword = this.value;
+    //     if (calonAnakBinaanTable) {
+    //         calonAnakBinaanTable.destroy(); // Menghancurkan tabel DataTable jika sudah ada
+    //     }
+
+    //     if (keyword.length >= 3) {
+    //         fetch('/admin/carinomorKK/' + keyword, {
+    //             method: 'GET',
+    //         })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             // Inisialisasi kembali tabel DataTable dengan hasil pencarian
+    //             calonAnakBinaanTable = $('#CalonAnakBinaanTable').DataTable({
+    //                 // Konfigurasi DataTable
+    //                 // ...
+    //             });
+                
+    //             // Manipulasi atau tampilkan hasil pencarian di tabel
+    //             // Misalnya, Anda dapat menggunakan data.forEach() untuk mengisi tabel
+    //             data.forEach(item => {
+    //                 calonAnakBinaanTable.row.add([
+    //                     // Data untuk setiap kolom dalam tabel
+    //                     item.field1,
+    //                     item.field2,
+    //                     // ...
+    //                 ]).draw();
+    //             });
+    //         })
+    //         .catch(error => {
+    //             console.error('Terjadi kesalahan:', error);
+    //         });
+    //     }
+    // });
 
 
 

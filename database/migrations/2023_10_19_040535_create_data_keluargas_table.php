@@ -17,9 +17,6 @@ return new class extends Migration
             $table->string('no_kk');
             $table->string('alamat_kk');
             $table->string('kepala_keluarga');
-            $table->string('wilayah_binaan');
-            $table->string('shelter');
-            $table->string('jarak_ke_shelter')->nullable();
             $table->string('no_telp')->nullable();
             $table->string('no_rek')->nullable();
             $table->timestamps();

@@ -228,6 +228,8 @@
             }
         });
 
+        var selectedShelter = [];
+
           $('#AnakBinaan').DataTable({
             processing: true,
             serverSide: true,
@@ -245,9 +247,9 @@
                 { data: 'nama_lengkap_anak', name: 'nama_lengkap_anak'},
                 { data: 'nama_panggilan_anak', name: 'nama_panggilan_anak'},
                 { data: 'ttl', name: 'ttl'},
-                { data: 'nama_sekolah_anak', name: 'nama_sekolah_anak'},
-                { data: 'nama_madrasah_anak', name: 'nama_madrasah_anak'},
-                { data: 'hobby_anak', name: 'hobby_anak'},
+                { data: 'nama_sekolah', name: 'nama_sekolah'},
+                { data: 'nama_madrasah', name: 'nama_madrasah'},
+                { data: 'hobby', name: 'hobby'},
                 { data: 'status_beasiswa', name: 'status_beasiswa'},
                 { data: 'survey_status', name: 'survey_status'},
                 { data: 'action', name: 'action', orderable: false},
@@ -259,53 +261,6 @@
                 "emptyTable": "Data Kosong..."
             }
         });
-
-
-    // var selectedShelter = [];
-    //     load_data(shelter);
-
-    $('#AnakBinaan').DataTable({
-      processing: true,
-      serverSide: true,
-      ajax: {
-        url : "{{ url('admin/AnakBinaan') }}",
-      },
-      columns: [
-          { 
-              data: null,
-              name: 'id',
-              render: function(data, type, row, meta) {
-                  return meta.row + 1; // Menggunakan nomor baris sebagai nomor urut
-              }
-          },
-          { data: 'nama_lengkap_anak', name: 'nama_lengkap_anak'},
-          { data: 'nama_panggilan_anak', name: 'nama_panggilan_anak'},
-          { data: 'ttl', name: 'ttl'},
-          { data: 'nama_sekolah', name: 'nama_sekolah'},
-          { data: 'nama_madrasah', name: 'nama_madrasah'},
-          { data: 'hobby', name: 'hobby'},
-          { data: 'status_beasiswa', name: 'status_beasiswa'},
-          { data: 'shelter', name: 'shelter'},
-          { data: 'action', name: 'action', orderable: false},
-      ],
-      order: [[0, 'desc']],
-      paging: true,
-      pageLength: 10, // Menyeting jumlah entri yang ditampilkan menjadi 10
-      language: {
-          "emptyTable": "Data Kosong..."
-      }
-    });
-  
-    $('#resetfilters').click(function() {
-        // Mengatur nilai-nilai semua elemen select ke nilai kosong
-        $('#fagama').val('');
-        $('#fjenis_kelamin').val('');
-        $('#fstatus_binaan').val('');
-    
-        // Memuat ulang data dengan filter kosong
-        $('#AnakBinaan').DataTable().destroy();
-        load_data();
-    });
   });
 
     // Tombol Buka / Tutup Filter ~~~~~~~~
@@ -360,6 +315,7 @@
           }
       });
     }
+  }
 
     function deleteFunc(id){
         if (confirm("Ingin Mengahapus Data?") == true) {
@@ -382,39 +338,6 @@
                 }
             });
         }
-    }
-
-    $('#AnakBinaanForm').submit(function(e) {
-        e.preventDefault();
-        var formData = new FormData(this);
-        $.ajax({
-            type: 'POST',
-            url: "{{ url('admin/AnakBinaanstore') }}",
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: (data) => {
-              Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: 'Data berhasil ditambahkan!',
-                showConfirmButton: false,
-                timer: 1500 // Durasi pesan SweetAlert ditampilkan dalam milidetik (ms)
-              });
-
-              $("#tambah-modal").modal('hide');
-              var oTable = $('#AnakBinaan').dataTable();
-              oTable.fnDraw(false);
-              $("#btn-save").html('Submit');
-              $("#btn-save"). attr("disabled", false);
-            },
-
-            error: function(data) {
-                console.log(data);
-            }
-        });
-      }
     }
 </script>
 
