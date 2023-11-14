@@ -141,15 +141,15 @@
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" name="kep_kendaraan" id="opsiSepeda" value="Sepeda">
+                                                            <input class="form-check-input" type="checkbox" name="kep_kendaraan[]" id="opsiSepeda" value="Sepeda">
                                                             <label class="form-check-label" for="opsiSepeda">Sepeda</label>
                                                         </div>
                                                         <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" name="kep_kendaraan" id="opsiMotor" value="Motor">
+                                                            <input class="form-check-input" type="checkbox" name="kep_kendaraan[]" id="opsiMotor" value="Motor">
                                                             <label class="form-check-label" for="opsiMotor">Motor</label>
                                                         </div>
                                                         <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" name="kep_kendaraan" id="opsiMobil" value="Mobil">
+                                                            <input class="form-check-input" type="checkbox" name="kep_kendaraan[]" id="opsiMobil" value="Mobil">
                                                             <label class="form-check-label" for="opsiMobil">Mobil</label>
                                                         </div>
                                                     </div>
