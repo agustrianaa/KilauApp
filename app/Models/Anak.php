@@ -17,6 +17,7 @@ class Anak extends Model
 
     protected $fillable = [
         'data_keluarga_id',
+        'donatur_id',
         'nama_lengkap',
         'nama_panggilan',
         'jenis_kelamin',
@@ -42,5 +43,10 @@ class Anak extends Model
     public function beasiswa():BelongsTo
     {
         return $this->belongsTo('App\Models\Beasiswa', 'id');
+    }
+
+    public function donatur()
+    {
+        return $this->belongsTo(Donatur::class, 'donatur_id');
     }
 }

@@ -9,9 +9,16 @@ class Donatur extends Model
 {
     use HasFactory;
 
+    public $tabel = 'donaturs';
+    protected $primaryKey = 'id';
     protected $fillable = [
         'user_id',
         'name',
+        'alamat',
+        'no_hp',
+        'no_rek',
+        'nama_bank',
+        'diperuntukkan',
     ];
 
     public function user(){
