@@ -11,10 +11,26 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class SurveyController extends Controller
 {
-    public function indexSurvey()
+    public function indexSurvey(Request $request)
     {
+        $data = DataKeluarga::select(
+            'data_keluargas.*',
+            'anaks.*',
+            'status_anaks.*',
+
+        )
+        // ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
+        ->leftJoin('anaks', function ($join) {
+            $join->on('data_keluargas.id', '=', 'anaks.data_keluarga_id')
+                ->whereRaw('anaks.id_anaks = (SELECT MAX(id_anaks) FROM anaks WHERE anaks.data_keluarga_id = data_keluargas.id)');
+        })
+        ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
+        ->where('status_anaks.status_binaan', 1)
+        // ->whereRaw('anaks.id_anaks IN (SELECT MAX(id_anaks) FROM anaks GROUP BY data_keluarga_id)') // Memilih satu anak dengan id_anaks tertinggi
+        ->orderBy('data_keluargas.created_at', 'asc')
+        ->get();
         if(request()->ajax()){
-            // $data = DataKeluarga::latest()->get();
+            $wilayah_binaan = $request->wilayah_binaan;
             $data = DataKeluarga::select(
                 'data_keluargas.*',
                 'data_keluargas.id as id_kel',
@@ -41,14 +57,26 @@ class SurveyController extends Controller
             ->leftJoin('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
             ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
             ->where('status_anaks.status_binaan', 1)
+            // ->where('anaks.wilayah_binaan', 'Bogor')
             ->whereNotNull('survey_keluargas.id')
             ->orderBy('data_keluargas.created_at', 'asc')
-            // ->where(function ($query) {
-            //     $query->where('survey_keluargas.id', '!=', null) // Atau 'IS NOT NULL' tergantung pada DBMS Anda
-            //         ->orWhere('survey_keluargas.id', 'IS NULL');
-            // })
+            ->when(isset($wilayah_binaan), function ($query) use ($wilayah_binaan) {
+                // foreach ($wilayah_binaan as $wilayah) {
+                    $query->whereIn('wilayah_binaan', $wilayah_binaan);
+                // }
+            })
             ->get();
 
+            // $result = $data->get();
+
+            // if ($request->has('wilayah_binaan')) {
+            //     $wilayah_binaan = $request->wilayah_binaan;
+            //     $data = $data->whereIn('wilayah_binaan', $wilayah_binaan);
+            // }
+
+            // if(isset($wilbin)) {
+            //     $data->orWhere('wilayah_binaan', $wilbin);
+            // }
 
             return datatables($data)
             ->addIndexColumn()
@@ -61,7 +89,9 @@ class SurveyController extends Controller
             ->rawColumns(['action'])
             ->make(true);
         }
-        return view('survey.SurveyTabel');
+
+        return view('survey.SurveyTabel', compact('data'));
+
     }
 
     public function surveyForm($id)
