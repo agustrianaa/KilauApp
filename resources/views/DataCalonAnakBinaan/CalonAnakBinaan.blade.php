@@ -1,39 +1,11 @@
 @extends('layout.main')
 @section('content')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dancing+Script">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
-<style>
-    .card.filters {
-        display: none;
-    }
-    .col-lg-12.bukaFilter {
-        display: none;
-    }
-    .col-lg-12.tutupFilter {
-        display: none;
-    }
-    .breadcrumb-item a {
-        text-decoration: none;
-        color: black;
-        transition: 0.1s;
-    }
-    .breadcrumb-item a:hover {
-        text-decoration: none;
-        color: rgb(0, 136, 255);
-        font-size: 18px;
-        transition: 0.1s;
-    }
-    .kk.sembunyi {
-        display: none;
-    }
-    .btn.btn-warning.bukaKKbtn {
-        display: none;
-    }
-    .btn.btn-danger.tutupKKbtn {
-        display: none;
-    }
-</style>
+<link rel="stylesheet" href="{{ asset('css/calonAnakBinaan.css') }}">
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -65,64 +37,53 @@
         </div>
             <!-- Card Untuk Filter ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
             <div class="card filters" id="filterCard">
-                <div class="card-header">
-                    <div class="col-12">
-                        <div class="row">
-                            <div class="col-2">
-                            </div>
-                            <div class="col-2">
-                            </div>
-                            <div class="col-4">
-                            </div>
-                            <div class="col-4"></div>
-                        </div>
-                    </div>
-                    {{-- <div class="card-tools">
-                        <ul class="nav nav-pills ml-auto">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
-                            </li>
-                        </ul>
-                    </div>  --}}
-
-                </div>
                 <form>
                     <div class="card-body">
-                        <div class="col-12">
-                            <div class="row">
-                                <div class="col-lg-2">
-                                    <label class="form-label select-label">Shelter</label>
-                                    <select class="form-select" id="filterShelter" name="filterShelter" multiple="multiple">
-                                        <option value="" disabled selected>-Pilih-</option>
-                                        <option value="Indramayu">Indramayu</option>
-                                        <option value="Sumedang">Sumedang</option>
-                                        <option value="Bandung">Bandung</option>
-                                        <option value="Bogor">Bogor</option>
-                                    </select>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <label class="form-label select-label">Shelter</label>
+                                    </div>
+                                    <div class="col-4">
+                                        <label class="form-label select-label">Wilayah</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <div class="col-12">
-                            <div class="row">
-                                <div class="col-2">
-                                    <div class="float-start">
-                                        <button type="button" class="btn btn-warning" id="bukaKK">Cari No. KK</button>
-                                        <button type="button" class="btn btn-danger tutupKKbtn" id="tutupKK">Tutup Cari No. KK</button>
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <!-- Dropdown dengan ID 'multiSelect' yang memungkinkan seleksi banyak opsi -->
+                                        <select id="multiSelect" class="form-select" multiple="multiple" style="width: 300px; height:100px;">
+                                            <option value="Indramayu">Indramayu</option>
+                                            <option value="Bandung">Bandung</option>
+                                            <option value="Bogor">Bogor</option>
+                                            <option value="Sumedang">Sumedang</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <select id="dynamicSelect" class="form-select" multiple="multiple" style="width: 300px;"></select>
                                     </div>
                                 </div>
-                                <div class="col-2"></div>
-                                <div class="col-4">
-                                    <div class="text-center">
-                                        <button type="button" class="btn btn-outline-info" id="filterSemua">Filter</button>
-                                        <button type="reset" class="btn btn-outline-danger">Reset</button>
+                            </div>
+                            <div class="col-12 mt-3">
+                                <hr class="garis">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <div class="float-start">
+                                            <button type="button" class="btn btn-outline-warning" id="bukaKK">Cari No. KK</button>
+                                            <button type="button" class="btn btn-danger tutupKKbtn" id="tutupKK">Tutup Cari No. KK</button>
+                                        </div>
                                     </div>
+                                    <div class="col-2"></div>
+                                    <div class="col-4">
+                                        <div class="text-center">
+                                            <button type="button" class="btn btn-outline-info" id="filterSemua">Filter</button>
+                                            <button type="reset" class="btn btn-outline-danger" id="resetFilter">Reset</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-4"></div>
                                 </div>
-                                <div class="col-4"></div>
                             </div>
                         </div>
                     </div>
@@ -172,213 +133,6 @@
             </div>
 
         </div>
-
-                <!-- Modal Data Keluarga -->
-                <div class="modal fade" id="modal-datakeluarga" aria-hidden="true">
-                    <div class="modal-dialog modal-xl">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Tambah Data Keluarga</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-
-                                <form action="javascript:void(0)" id="formdataKeluarga" name="formdataKeluarga" class="form-horizontal" method="POST" enctype="multipart/form-data">
-                                    <div class="row">
-                                    <!-- Form data Keluarga -->
-                                        <div class="col-12 col-sm-4">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h4 class="text-center">Form Keluarga</h4>
-                                                    <hr>
-                                                    <input type="hidden" name="id" id="id">
-                                                    <div class="form-group">
-                                                        <label for="no_kk" class=" control-label">No KK</label>
-                                                        <div class="col-sm-12">
-                                                            <input type="text" class="form-control" id="no_kk" name="no_kk" placeholder="No Kartu Keluarga..." maxlength="50" required="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="name" class="control-label">Kepala Keluarga</label>
-                                                        <div class="col-sm-12">
-                                                            <input type="text" class="form-control" id="kepala_keluarga" name="kepala_keluarga" placeholder="Kepala Keluarga..." maxlength="50" required="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label">Kantor Cabang</label>
-                                                        <div class="col-sm-12">
-                                                            <select class="form-select" id="kacab" name="kacab" required="">
-                                                                <option value="" disabled selected>Pilih Kantor</option>
-                                                                <option value="Bandung">Bandung</option>
-                                                                <option value="Sumedang">Sumedang</option>
-                                                                <option value="Indramayu">Indramayu</option>
-                                                                <option value="Bogor">Bogor</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label">Wilayah Cabang</label>
-                                                        <div class="col-sm-12">
-                                                            <select class="form-select" id="wilbin" name="wilbin" required="">
-                                                                <option value="" disabled selected>Pilih Wilayah</option>
-                                                                <option value="Bandung">Bandung</option>
-                                                                <option value="Sumedang">Sumedang</option>
-                                                                <option value="Indramayu">Indramayu</option>
-                                                                <option value="Bogor">Bogor</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label">Shelter</label>
-                                                        <div class="col-sm-12">
-                                                            <select class="form-select" id="shelter" name="shelter" required="">
-                                                                <option value="" disabled selected>Pilih Shelter</option>
-                                                                <option value="Bandung">Bandung</option>
-                                                                <option value="Sumedang">Sumedang</option>
-                                                                <option value="Indramayu">Indramayu</option>
-                                                                <option value="Bogor">Bogor</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <!-- Form Ayah -->
-                                        <div class="col-12 col-sm-4">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h4 class="text-center">Form Ayah</h4>
-                                                    <hr>
-                                                    <div class="form-group">
-                                                        <label class=" control-label">NIK</label>
-                                                        <div class="col-sm-12">
-                                                            <input type="text" class="form-control" id="nik_ayah" name="nik_ayah" placeholder="" required="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class=" control-label">Nama Ayah</label>
-                                                        <div class="col-sm-12">
-                                                            <input type="text" class="form-control" id="nama_ayah" name="nama_ayah" placeholder="Nama Ayah" required="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label">Tempat, Tanggal Lahir</label>
-                                                        <div class="col-sm-12">
-                                                            <div class="row">
-                                                                <div class="col-sm-6">
-                                                                    <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="" required="">
-                                                                </div>
-                                                                <div class="col-sm-6">
-                                                                    <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" placeholder=""  required="">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label">Agama</label>
-                                                        <div class="col-sm-12">
-                                                            <select class="form-select" id="agama" name="agama" required="">
-                                                                <option value="" disabled selected>Pilih Agama</option>
-                                                                <option value="Islam">Islam</option>
-                                                                <option value="Kristen">Kristen</option>
-                                                                <option value="Katolik">Katolik</option>
-                                                                <option value="Hindu">Hindu</option>
-                                                                <option value="Buddha">Buddha</option>
-                                                                <option value="Konghucu">Konghucu</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label">Alamat</label>
-                                                        <div class="col-sm-12">
-                                                            <input type="text" class="form-control" id="alamat" name="alamat" placeholder="" required="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label">Pekerjaan</label>
-                                                        <div class="col-sm-12">
-                                                            <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" placeholder="" required="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Form Ibu -->
-                                        <div class="col-12 col-sm-4">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h4 class="text-center">Form Ibu</h4>
-                                                    <hr>
-                                                    <div class="form-group">
-                                                        <label class=" control-label">NIK</label>
-                                                        <div class="col-sm-12">
-                                                            <input type="text" class="form-control" id="nik_ibu" name="nik_ibu" placeholder="" required="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class=" control-label">Nama Ibu</label>
-                                                        <div class="col-sm-12">
-                                                            <input type="text" class="form-control" id="nama_ibu" name="nama_ibu" placeholder="Nama Ibu" required="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label">Tempat, Tanggal Lahir</label>
-                                                        <div class="col-sm-12">
-                                                            <div class="row">
-                                                                <div class="col-sm-6">
-                                                                    <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="" required="">
-                                                                </div>
-                                                                <div class="col-sm-6">
-                                                                    <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" placeholder=""  required="">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label">Agama</label>
-                                                        <div class="col-sm-12">
-                                                            <select class="form-select" id="agama" name="agama" required="">
-                                                                <option value="" disabled selected>Pilih Agama</option>
-                                                                <option value="Islam">Islam</option>
-                                                                <option value="Kristen">Kristen</option>
-                                                                <option value="Katolik">Katolik</option>
-                                                                <option value="Hindu">Hindu</option>
-                                                                <option value="Buddha">Buddha</option>
-                                                                <option value="Konghucu">Konghucu</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label">Alamat</label>
-                                                        <div class="col-sm-12">
-                                                            <input type="text" class="form-control" id="alamat" name="alamat" placeholder="" required="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label">Pekerjaan</label>
-                                                        <div class="col-sm-12">
-                                                            <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" placeholder="" required="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Button Save  -->
-                                    <div class="col-sm-offset-2 col-sm-10"><br/>
-                                        <button type="submit" class="btn btn-primary" id="btn-save">Save</button>
-                                    </div>
-
-                                </form>
-                            </div>
-                            <div class="modal-footer"></div>
-                        </div>
-                    </div>
-                </div><!-- End Modal  -->
 </section>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
@@ -392,8 +146,6 @@
     </script>
 @endif
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-
 <script type="text/javascript">
     $(document).ready(function() {
         $.ajaxSetup({
@@ -402,22 +154,21 @@
             }
         });
 
-        var selectedShelter = [];
-        load_data(shelter);
+        loadData();
 
-        function load_data(){
-            var filterShelter = $('#filterShelter').val();
+        function loadData() {
+            var selectedShelters = $('#multiSelect').val();
 
             $('#CalonAnakBinaanTable').DataTable({
                 processing : true,
+                // searching : false,
                 serverSide : true,
                 ajax : {
                     url : "{{ url('admin/calonAnakBinaan') }}",
                     data: {
-                        shelter : filterShelter,
-                    }
+                        shelter: selectedShelters,
+                    },
                 },
-
                 columns : [
                     {
                         data: null,
@@ -442,40 +193,94 @@
                 ],
                 order: [[0, 'desc']],
                 language: {
-                    "emptyTable": "Data Kosong..."
+                    "emptyTable": "Data Kosong...",
+                    "info": "Menampilkan _START_ sampai _END_, dari _TOTAL_ data",
+                    "lengthMenu": "Tampilkan _MENU_ data/halaman",
+                    "search": "Cari:",
+                    "infoFiltered": "(disaring dari total _MAX_ data)",
+                    "zeroRecords": "Tidak ada data yang cocok...",
+                    "loadingRecords": "Memuat...",
+                    "processing": "Memproses...",
+                    "paginate": {
+                        "first": "Pertama",
+                        "last": "Terakhir",
+                        "next": "Selanjutnya",
+                        "previous": "Sebelumnya"
+                    },
                 }
             });
         }
 
-        // Tombol "Filter" ditekan
+        $('#multiSelect').select2({
+            placeholder: 'Pilih Shelter...', // Teks placeholder
+            // tokenSeparators: [',', ' '], // Menentukan pemisah token (bisa disesuaikan)
+            width: '100%', // Menetapkan lebar dropdown
+            allowClear: true, // Mengaktifkan tombol "Hapus" untuk menghapus nilai yang dipilih
+        });
+
+        // Peta asosiasi antara opsi di dropdown pertama dengan opsi yang akan ditampilkan di dropdown kedua
+        var optionMap = {
+            'Indramayu': ['IndramayuSatu', 'Junti', 'Koramil'],
+            'Bandung': ['Pennsylvania', 'Dakota', 'Minnesota'],
+            'Bogor': ['Tennessee', 'Delaware', 'Florida'],
+            'Sumedang': ['Bibi', 'Bubu', 'Bua'] // Tambahkan opsi jika diperlukan
+        };
+
+        $('#dynamicSelect').select2({
+            width: '100%', // Menetapkan lebar dropdown
+            placeholder: 'Pilih Wilayah...', // Teks placeholder
+            allowClear: true, // Mengaktifkan tombol "Hapus" untuk menghapus nilai yang dipilih
+        });
+
+        // Menangani perubahan nilai pada dropdown pertama
+        $('#multiSelect').on('change', function() {
+            // Mendapatkan nilai yang dipilih pada dropdown pertama
+            var selectedValues = $(this).val();
+
+            // Membersihkan opsi pada dropdown kedua
+            $('#dynamicSelect').empty();
+
+            // Mengisi ulang opsi pada dropdown kedua berdasarkan nilai yang dipilih pada dropdown pertama
+            if (selectedValues) {
+                selectedValues.forEach(function(value) {
+                    // Menambahkan opsi baru pada dropdown kedua berdasarkan peta asosiasi
+                    optionMap[value].forEach(function(subValue) {
+                        $('#dynamicSelect').append('<option value="' + subValue.toLowerCase().replace(/\s/g, '') + '">' + subValue + '</option>');
+                    });
+                });
+            }
+
+            // Memperbarui tampilan Select2 pada dropdown kedua
+            // $('#dynamicSelect').select2();
+        });
+
+        // Mengirim nilai Select2 Shelter ke server saat tombol filter ditekan
         $('#filterSemua').click(function () {
-            // Mengambil nilai-nilai select yang telah dipilih sebelumnya
-            var filterShelter = selectedShelter;
-
-            // Meng-"destroy" tabel lama
-            $('#CalonAnakBinaanTable').DataTable().destroy();
-
-            // Memuat data dengan filter
-            load_data(filterShelter);
+            var selectedShelters = $('#multiSelect').val();
+        
+            $('#CalonAnakBinaanTable').DataTable().destroy();      
+            loadData(selectedShelters);
         });
 
-        $('#inputCariKK').on('keyup', function() {
-            var query = $(this).val();
-            console.log(query);
-            $.ajax({
-                url: "{{ url('admin/carinomorKK') }}",
-                method: 'GET',
-                data: { inputCariKK: query },
-                dataType: 'json',
-                success: function(data) {
-                    $('#CalonAnakBinaanTable').DataTable().destroy();
-                    load_data(query);
-                }
-            });
+
+        function resetFilter() {
+            // Hapus semua nilai yang dipilih di Select2
+            $('#multiSelect').val(null).trigger('change');      
+
+            // Destroy tabel data (gantilah '#tabelData' dengan ID atau kelas tabel Anda)
+            $('#CalonAnakBinaanTable').DataTable().destroy();      
+
+            // Misalnya, inisialisasi kembali tabel dengan ID 'CalonAnakBinaanTable'
+            loadData();
+        }
+
+        $('#resetFilter').click(function () {
+            resetFilter();
         });
 
-    });
+    }); // End Ajax
 
+    // Fungsi Buka Atau Tutup Filter
     var filterCard = $("#filterCard");
     var openFilter = $("#openFilter");
     var closeFilter = $("#closeFilter");
@@ -507,6 +312,7 @@
         tutupKK.addClass("tutupKKbtn");
         bukaKK.removeClass("bukaKKbtn");
     });
+
 
     function validasiAnak(id_anaks) {
         $.ajax({
@@ -547,11 +353,7 @@
 
     //menampilkan detail data keluarga
     function detailDatakeluarga(id, id_anaks){
-
         window.location.href = `{{ url('admin/calonAnakBinaanDetail') }}/${id}/${id_anaks}`;
     }
-
-
-
 </script>
 @endsection

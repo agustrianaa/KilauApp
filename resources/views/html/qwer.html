@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Style untuk input */
+    .Test {
+      position: relative;
+      font-size: 16px;
+      border: none;
+      border-bottom: 2px solid #ccc; /* Warna garis default */
+      outline: none;
+      padding: 8px;
+      transition: border-bottom-color 0.3s ease; /* Animasi perubahan warna garis */
+    }
+
+    /* Animasi garis kelap-kelip */
+    @keyframes blink {
+      0% {
+        border-bottom-color: #3498db; /* Warna garis saat awal */
+      }
+      50% {
+        border-bottom-color: #e74c3c; /* Warna garis pada pertengahan animasi */
+      }
+      100% {
+        border-bottom-color: #3498db; /* Warna garis saat akhir animasi */
+      }
+    }
+
+    /* Menerapkan animasi ketika input mendapatkan fokus */
+    .Test:focus {
+      animation: blink 1s infinite; /* Menggunakan animasi keyframes blink */
+    }
+  </style>
+</head>
+<body>
+
+  <input type="text" class="Test" placeholder="Type something...">
+
+</body>
+</html>
