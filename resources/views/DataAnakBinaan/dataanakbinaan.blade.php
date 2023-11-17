@@ -1,7 +1,6 @@
 @extends('layout.main')
 @section('content')
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
 <style>
   .content-wrapper.background {
@@ -135,90 +134,9 @@
           <!-- End card Tabel Anak Binaan~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
         </div>
-
-        <!-- Modal -->
-        <div class="modal fade" id="tambah-modal" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Tambah Data Anak Binaan</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="javascript:void(0)" id="AnakBinaanForm" name="AnakBinaanForm" class="form-horizontal" method="POST" enctype="multipart/form-data">
-                            <input type="hidden" name="id" id="id">
-                            <div class="form-group">
-                                <label for="name" class="col-sm-2 control-label">Nama Lengkap</label>
-                                <div class="col-sm-12">
-                                    <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" placeholder="Nama..." maxlength="50" required="">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                              <label for="name" class="col-sm-2 control-label">Nama Panggilan</label>
-                              <div class="col-sm-12">
-                                  <input type="text" class="form-control" id="nama_panggilan" name="nama_panggilan" placeholder="Nama..." maxlength="50" required="">
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label for="name" class="col-sm-2 control-label text-nowrap">Tempat dan Tanggal Lahir</label>
-                              <div class="col-sm-12">
-                                <div class="row">
-                                  <div class="col-md-6">
-                                      <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="Tempat Lahir..." required="">
-                                  </div>
-                                  <div class="col-md-6">
-                                      <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" required="">
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label for="name" class="col-sm-2 control-label">Nama Sekolah</label>
-                              <div class="col-sm-12">
-                                  <input type="text" class="form-control" id="nama_sekolah" name="nama_sekolah" placeholder="Nama..." maxlength="50" required="">
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label for="name" class="col-sm-2 control-label">Nama Madrasah</label>
-                              <div class="col-sm-12">
-                                  <input type="text" class="form-control" id="nama_madrasah" name="nama_madrasah" placeholder="Anak Ke..." required="">
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label for="name" class="col-sm-2 control-label text-nowrap">Hobby</label>
-                              <div class="col-sm-12">
-                                  <input type="text" class="form-control" id="hobby" name="hobby" placeholder="Kepala Keluarga..." required="">
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label for="name" class="col-sm-2 control-label text-nowrap">Cita Cita</label>
-                              <div class="col-sm-12">
-                                  <input type="text" class="form-control" id="cita_cita" name="cita_cita" placeholder="Kepala Keluarga..." required="">
-                              </div>
-                            </div>
-                            <div class="col-sm-offset-2 col-sm-10"><br/>
-                                <button type="submit" class="btn btn-primary" id="btn-save">Save</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer"></div>
-                </div>
-            </div>
-        </div><!-- End Modal -->
     </section><!-- End Main content -->
 </div><!-- End content-wrapper -->
   <!-- /.content-wrapper -->
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.18/dist/sweetalert2.all.min.js"></script>
 
 <script type="text/javascript">
     $(document).ready( function () {
