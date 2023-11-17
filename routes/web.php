@@ -72,13 +72,17 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::post('/calonAnakBinaanDelete', [CalonAnakBinaanController::class, 'destroyd'])->name('calonAnakBinaanDelete');
     Route::get('/carinomorKK', [CalonAnakBinaanController::class, 'cariKK'])->name('cariKK');
 
+    Route::post('/getWilayah', [CalonAnakBinaanController::class, 'cariWilayah'])->name('cariWilayah');
+    Route::post('/filterData', [CalonAnakBinaanController::class, 'filterData'])->name('filterData');
+
     Route::get('/surveyAnak', [SurveyController::class, 'indexSurvey'])->name('surveyAnak');
     Route::get('/surveyForm/{id}', [SurveyController::class, 'surveyForm'])->name('surveyForm');
     Route::post('/surveyStore', [SurveyController::class, 'store'])->name('surveyStore');
     Route::get('/surveyShow/{id}', [SurveyController::class, 'surveyShow'])->name('surveyShow');
     Route::put('/surveyEdit/{id}', [SurveyController::class, 'surveyEdit'])->name('surveyEdit');
 
-    Route::get('/Test', [TestCont::class, 'index'])->name('TestView');
+    Route::get('/Test', [TestCont::class, 'indexTest'])->name('TestView');
+    Route::get('/carinomorKK', [TestCont::class, 'cariNomorKK'])->name('cariNomorKK');
 
     Route::get('/AnakBinaan', [AnakBinaanController::class, 'index'])->name('AnakBinaan');
     Route::post('/AnakBinaanstore', [AnakBinaanController::class, 'store'])->name('AnakBinaanstore');

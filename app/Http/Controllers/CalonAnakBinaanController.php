@@ -37,13 +37,17 @@ class CalonAnakBinaanController extends Controller
                 ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
                 ->leftJoin('walis', 'data_keluargas.id', '=', 'walis.data_keluarga_id')
                 ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
+                ->when($request->has('shelter'), function ($query) use ($request) {
+                    $shelter = $request->shelter;
+                    return $query->whereIn('shelter', $shelter);
+                })
                 ->where('status_anaks.status_binaan', 0)
                 ->get();
                 // Mengecek apakah filter shelter diberikan
-                if ($request->has('shelter')) {
-                    $shelter = $request->shelter;
-                    $data = $data->whereIn('shelter', $shelter);
-                }
+                // if ($request->has('shelter')) {
+                //     $shelter = $request->shelter;
+                //     $data = $data->whereIn('shelter', $shelter);
+                // }
 
             return datatables($data)
                 ->addColumn('TTL', function ($data) {
@@ -58,22 +62,36 @@ class CalonAnakBinaanController extends Controller
         return view('DataCalonAnakBinaan.CalonAnakBinaan');
     }
 
-    public function cariKK(Request $request)
+    public function filterData(Request $request)
     {
-        $inputCariKK = $request->input('inputCariKK');
+        // Pastikan ada parameter 'shelters' yang dikirim dari Select2
+        if ($request->has('shelters')) {
+            $shelters = $request->shelters; 
 
-        $result = DataKeluarga::where('no_kk', 'like', '%'.$inputCariKK.'%')->get();
+            // Lakukan filter data berdasarkan nilai yang diterima dari Select2 Shelter
+            $filteredData = DataKeluarga::whereIn('shelter', $shelters)->get(); 
 
-        return response()->json($result);
+            // Lakukan sesuatu dengan data yang difilter (misalnya, kirim kembali sebagai respons)
+            return response()->json($filteredData);
+        }   
+
+        // Jika tidak ada parameter 'shelters' atau terjadi kesalahan lain
+        return response()->json(['message' => 'Invalid request']);
     }
+
 
     public function update(Request $request, $id_anaks)
     {
-        $data = StatusAnak::where('anak_id', $id_anaks)->first();
-
-        $data->status_binaan = 1;
-
-        $data->save();
+        try {
+            $data = StatusAnak::where('anak_id', $id_anaks)->firstOrFail();
+    
+            $data->status_binaan = 1;
+            $data->save();
+    
+            return response()->json(['success' => true, 'message' => 'Status binaan berhasil diperbarui']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Gagal memperbarui status binaan']);
+        }
     }
 
     public function showDetail(Request $request, $id, $id_anaks)
@@ -182,6 +200,24 @@ class CalonAnakBinaanController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui']);
     }
+
+    // public function getWilayah(Request $request) {
+    //     $selectedShelters = $request->input('shelters');
+        
+    //     // Lakukan logika untuk mendapatkan daftar wilayah berdasarkan shelter yang dipilih
+    //     // Misalnya, query ke database atau logika lainnya
+    
+    //     // Contoh hasil data wilayah
+    //     $wilayah = [
+    //         'Indramayu' => ['Karpel', 'Junti', 'Koramil'],
+    //         'Sumedang' => ['Cici', 'Buba', 'Batuh'],
+    //         'Bogor' => ['Tennessee', 'Delaware', 'Florida'],
+    //         'Bandung' => ['Pennsylvania', 'Dakota', 'Minnesota'],
+    //     ];
+    
+    //     // Kirim data wilayah sebagai JSON
+    //     return response()->json($wilayah[$selectedShelters]);
+    // }
 
 
     // Hapus Data
