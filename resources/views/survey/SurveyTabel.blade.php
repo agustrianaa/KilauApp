@@ -29,6 +29,13 @@
                         <li class="breadcrumb-item">Validasi Survey</li>
                     </ol>
                 </div>
+                <div class="col-md-12">
+                    <select class="multiple form-select" name="wilayah_binaan[]" multiple="multiple">
+                        @foreach ($data as $item)
+                        <option value="{{ $item->wilayah_binaan }}" >{{ $item->wilayah_binaan }}</option>
+                        @endforeach
+                      </select>
+                </div>
             </div><!-- End row -->
         </div><!-- End container-fluid -->
     </div>
@@ -68,6 +75,8 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+
+
             $('#tabelsurvey').DataTable({
                 searching: true,
                 serverSide: true,
@@ -76,7 +85,7 @@
                     type: 'GET',
                 },
                 columns: [
-                        { 
+                        {
                             data: null,
                             name: 'id',
                             render: function(data, type, row, meta) {
@@ -97,6 +106,72 @@
                     "emptyTable": "Data Kosong..."
                 }
             });
+
+            $('.multiple').select2({
+                placeholder: 'select option'
+            });
+
+            $('.multiple').on('change', function() {
+                var selectedData = $(this).select2('data');
+
+                // Membuat array untuk menyimpan nilai text dari setiap elemen yang dipilih
+                var selectedTexts = [];
+                for (var i = 0; i < selectedData.length; i++) {
+                    selectedTexts.push(selectedData[i].text);
+                }
+
+
+
+                // Mengirim data ke controller Laravel melalui AJAX
+                $.ajax({
+                    type: 'GET',
+                    url: 'surveyAnak', // Ganti dengan URL controller Laravel Anda
+                    data: { wilayah_binaan: selectedTexts },
+                    success: function(response) {
+                        console.log('Ajax berhasil:', response.data); // Handle response dari controller jika diperlukan
+
+                        var table = $('#tabelsurvey').DataTable();
+                        // table.clear().destroy().rows.add(response.data).draw();
+
+                        // Clear existing data in the DataTable
+                        // table.clear().destroy();
+
+                        // // Add new data to the DataTable
+                        // table.rows.add(response.data);
+
+                        // // Redraw the DataTable with the new data
+                        // table.draw();
+
+                        // for (var i = 0; i < response.data.length; i++) {
+                        //     console.log(response.data[i].kacab)
+                        // }
+
+                        var tbody = $('#tabelsurvey tbody');
+                        tbody.empty();
+
+                        // Populate the table with the updated data
+                        for (var i = 0; i < response.data.length; i++) {
+                            var rowData = response.data[i];
+                            var rowHtml = '<tr>' +
+                                '<td>' + (i + 1) + '</td>' +
+                                '<td>' + rowData.no_kk + '</td>' +
+                                '<td>' + rowData.kepala_keluarga + '</td>' +
+                                '<td>' + rowData.kacab + '</td>' +
+                                '<td>' + rowData.wilayah_binaan + '</td>' +
+                                '<td>' + rowData.shelter + '</td>' +
+                                '<td>' + rowData.action + '</td>' +
+                                '</tr>';
+                            tbody.append(rowHtml);
+                        }
+                    },
+                    error: function(error) {
+                        console.error(error);
+                    }
+                });
+            })
+
+
+
         });
 </script>
 
