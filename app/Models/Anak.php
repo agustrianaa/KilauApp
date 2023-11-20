@@ -19,6 +19,7 @@ class anak extends Model
         'data_keluarga_id',
         'nama_lengkap',
         'nama_panggilan',
+        'agama',
         'anak_ke',
         'jenis_kelamin',
         'tempat_lahir',

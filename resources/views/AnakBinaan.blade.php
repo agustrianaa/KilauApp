@@ -313,7 +313,7 @@
     //menampilkan detail data keluarga
     function detailDatakeluarga(id, id_anaks){
 
-    window.location.href = `{{ url('admin/calonAnakBinaanDetail') }}/${id}/${id_anaks}`;
+        window.location.href = `{{ url('admin/calonAnakBinaanDetail') }}/${id}/${id_anaks}`;
     }
 </script>
 @endsection

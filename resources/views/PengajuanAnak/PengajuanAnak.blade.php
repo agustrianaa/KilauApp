@@ -86,13 +86,29 @@
                                             </div>
                                             <div class="row mb-2">
                                                 <div class="col-12 col-sm-4">
+                                                    <p class="text-sm-end">Agama :</p>
+                                                </div>
+                                                <div class="col-12 col-sm-8">
+                                                    <select class="form-select" id="agama_anak" name="agama_anak" required="">
+                                                        <option value="" disabled selected>-Pilih-</option>
+                                                        <option value="Islam">Islam</option>
+                                                        <option value="Kristen">Kristen</option>
+                                                        <option value="Katolik">Katolik</option>
+                                                        <option value="Hindu">Hindu</option>
+                                                        <option value="Budha">Budha</option>
+                                                        <option value="Konghucu">Konghucu</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-12 col-sm-4">
                                                     <p class="text-sm-end">Jenis Kelamin :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
                                                     <select class="form-select" id="jenis_kelamin_calon_anak" name="jenis_kelamin_calon_anak" required="">
-                                                            <option value="" disabled selected>-Pilih-</option>
-                                                            <option value="Laki-Laki">Laki-Laki</option>
-                                                            <option value="Perempuan">Perempuan</option>
+                                                        <option value="" disabled selected>-Pilih-</option>
+                                                        <option value="Laki-Laki">Laki-Laki</option>
+                                                        <option value="Perempuan">Perempuan</option>
                                                     </select>
                                                 </div>
                                             </div>
