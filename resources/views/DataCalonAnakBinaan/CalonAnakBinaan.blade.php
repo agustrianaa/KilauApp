@@ -263,18 +263,18 @@
         $('#filterSemua').click(function () {
             var selectedShelters = $('#multiSelect').val();
             var selectedWil = $('#dynamicSelect').val();
-        
-            $('#CalonAnakBinaanTable').DataTable().destroy();      
+
+            $('#CalonAnakBinaanTable').DataTable().destroy();
             loadData(selectedShelters, selectedWil);
         });
 
 
         function resetFilter() {
             // Hapus semua nilai yang dipilih di Select2
-            $('#multiSelect').val(null).trigger('change');      
+            $('#multiSelect').val(null).trigger('change');
 
             // Destroy tabel data (gantilah '#tabelData' dengan ID atau kelas tabel Anda)
-            $('#CalonAnakBinaanTable').DataTable().destroy();      
+            $('#CalonAnakBinaanTable').DataTable().destroy();
 
             // Misalnya, inisialisasi kembali tabel dengan ID 'CalonAnakBinaanTable'
             loadData();

@@ -30,12 +30,29 @@
                         <li class="breadcrumb-item">Validasi Survey</li>
                     </ol>
                 </div>
-                <div class="col-md-12">
-                    <select class="multiple form-select" name="wilayah_binaan[]" multiple="multiple">
+                <div class="col-md-3">
+                    <select class="multiple-kacab form-select" name="kacab[]" multiple="multiple">
                         @foreach ($data as $item)
-                        <option value="{{ $item->wilayah_binaan }}" >{{ $item->wilayah_binaan }}</option>
+                        <option value="{{ $item->kacab }}" >{{ $item->kacab }}</option>
                         @endforeach
                       </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="multiple-wilbin form-select" name="wilayah_binaan[]" multiple="multiple">
+                        {{-- @foreach ($data as $item)
+                        <option value="{{ $item->wilayah_binaan }}" >{{ $item->wilayah_binaan }}</option>
+                        @endforeach --}}
+                      </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="multiple-shelter form-select" name="shelter[]" multiple="multiple">
+                        {{-- @foreach ($data as $item)
+                        <option value="{{ $item->shelter }}" >{{ $item->shelter }}</option>
+                        @endforeach --}}
+                      </select>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary 1">Simpan</button>
                 </div>
             </div><!-- End row -->
         </div><!-- End container-fluid -->
@@ -109,17 +126,85 @@
                 }
             });
 
-            $('.multiple').select2({
-                placeholder: 'select option'
+            $('.multiple-kacab').select2({
+                placeholder: 'select kacab'
+            });
+            $('.multiple-wilbin').select2({
+                placeholder: 'select wilbin'
+            });
+            $('.multiple-shelter').select2({
+                placeholder: 'select shelter'
             });
 
-            $('.multiple').on('change', function() {
-                var selectedData = $(this).select2('data');
+            $('.multiple-kacab').on('change', function() {
+                var selectedKacab = $(this).select2('data');
+                $('.multiple-shelter').empty();
+                $('.multiple-wilbin').empty();
+
+                var kacab = [];
+                    for (var i = 0; i < selectedKacab.length; i++) {
+                        kacab.push(selectedKacab[i].text);
+                    }
+
+                $.ajax({
+                    url: "/admin/wilbinSurvey",
+                    type: 'get',
+                    data: {
+                        kacab: kacab
+                    },
+                    success: function( result ) {
+                        // console.log(result[0].shelter)
+
+                        for (var i = 0; i < result.length; i++) {
+                            var rowData = result[i];
+                        $('.multiple-wilbin').append(`<option value="${rowData.wilayah_binaan}">${rowData.wilayah_binaan}</option>`)
+                        }
+                    }
+                })
+            })
+            $('.multiple-wilbin').on('change', function() {
+                var selectedwilbin = $(this).select2('data');
+                $('.multiple-shelter').empty();
+
+                var wilbin = [];
+                    for (var i = 0; i < selectedwilbin.length; i++) {
+                        wilbin.push(selectedwilbin[i].text);
+                    }
+
+                $.ajax({
+                    url: "/admin/shelterSurvey",
+                    type: 'get',
+                    data: {
+                        wilayah_binaan: wilbin
+                    },
+                    success: function( result ) {
+                        // console.log(result[0].shelter)
+
+                        for (var i = 0; i < result.length; i++) {
+                            var rowData = result[i];
+                        $('.multiple-shelter').append(`<option value="${rowData.shelter}">${rowData.shelter}</option>`)
+                        }
+                    }
+                })
+            })
+
+            $('.btn').on('click', function() {
+                var selectedKacab = $('.multiple-kacab').select2('data');
+                var selectedwilbin = $('.multiple-wilbin').select2('data');
+                var selectedshelter = $('.multiple-shelter').select2('data');
 
                 // Membuat array untuk menyimpan nilai text dari setiap elemen yang dipilih
-                var selectedTexts = [];
-                for (var i = 0; i < selectedData.length; i++) {
-                    selectedTexts.push(selectedData[i].text);
+                var kacab = [];
+                for (var i = 0; i < selectedKacab.length; i++) {
+                    kacab.push(selectedKacab[i].text);
+                }
+                var wilbin = [];
+                for (var i = 0; i < selectedwilbin.length; i++) {
+                    wilbin.push(selectedwilbin[i].text);
+                }
+                var shelter = [];
+                for (var i = 0; i < selectedshelter.length; i++) {
+                    shelter.push(selectedshelter[i].text);
                 }
 
 
@@ -128,7 +213,7 @@
                 $.ajax({
                     type: 'GET',
                     url: 'surveyAnak', // Ganti dengan URL controller Laravel Anda
-                    data: { wilayah_binaan: selectedTexts },
+                    data: { kacab: kacab, wilayah_binaan: wilbin, shelter: shelter },
                     success: function(response) {
                         console.log('Ajax berhasil:', response.data); // Handle response dari controller jika diperlukan
 

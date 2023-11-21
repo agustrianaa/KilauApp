@@ -108,6 +108,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::get('/table', [reportController::class,'table'])->name('table');
     Route::get('/wilbin', [reportController::class,'wilbin'])->name('wilbin');
     Route::get('/shelter', [reportController::class,'shelter'])->name('shelter');
+    Route::get('/wilbinSurvey', [SurveyController::class,'wilbin'])->name('wilbinSurvey');
+    Route::get('/shelterSurvey', [SurveyController::class,'shelter'])->name('shelterSurvey');
 });
 
 Route::resource('/calon', CalonAnakBinaanController::class);
