@@ -46,7 +46,7 @@ class CalonAnakBinaanController extends Controller
                 ->when($request->has('agamaAnak'), function ($query) use ($request) {
                     $agamaAnak = $request->agamaAnak;
                     return $query->whereIn('anaks.agama', $agamaAnak);
-                })                
+                })            
                 ->where('status_anaks.status_binaan', 0)
                 ->get();
 

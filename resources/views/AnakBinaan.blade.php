@@ -1,56 +1,23 @@
 @extends('layout.main')
 @section('content')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dancing+Script">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
 
-<link href="vendor/select2/dist/css/select2.min.css" rel="stylesheet" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
-
-<style>
-    .card.filters {
-        display: none;
-    }
-    .col-lg-12.bukaFilter {
-        display: none;
-    }
-    .col-lg-12.tutupFilter {
-        display: none;
-    }
-    .breadcrumb-item a {
-        text-decoration: none;
-        color: black;
-        transition: 0.1s;
-    }
-    .breadcrumb-item a:hover {
-        text-decoration: none;
-        color: rgb(0, 136, 255);
-        font-size: 18px;
-        transition: 0.1s;
-    }
-    .kk.sembunyi {
-        display: none;
-    }
-    .btn.btn-warning.bukaKKbtn {
-        display: none;
-    }
-    .btn.btn-danger.tutupKKbtn {
-        display: none;
-    }
-    .form-group.saam {
-        display: none;
-    }
-</style>
+<link rel="stylesheet" href="{{ asset('css/calonAnakBinaan.css') }}">
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Data Test Anak Binaan</h1>
+                    <h1 class="m-0">Data Anak Binaan</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Data Calon Anak Binaan</li>
+                        <li class="breadcrumb-item active">Data Anak Binaan</li>
                     </ol>
                 </div>
             </div><!-- End row -->
@@ -72,35 +39,51 @@
             <div class="card filters" id="filterCard">
                 <form>
                     <div class="card-body">
-                        <div class="col-12">
-                            <div class="row">
-                                <div class="col-2">
-                                    <select class="js-example-basic-multiple" name="states[]" multiple="multiple">
-                                        <option value="AL">Alabama</option>
-                                        ...
-                                        <option value="WY">Wyoming</option>
-                                    </select>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <label class="form-label select-label">Shelter</label>
+                                    </div>
+                                    <div class="col-4">
+                                        <label class="form-label select-label">Wilayah</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <div class="col-12">
-                            <div class="row">
-                                <div class="col-2">
-                                    <div class="float-start">
-                                        <button type="button" class="btn btn-warning" id="bukaKK">Cari No. KK</button>
-                                        <button type="button" class="btn btn-danger tutupKKbtn" id="tutupKK">Tutup Cari No. KK</button>
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <!-- Dropdown dengan ID 'multiSelect' yang memungkinkan seleksi banyak opsi -->
+                                        <select id="multiSelect" class="form-select" multiple="multiple" style="width: 300px; height:100px;">
+                                            <option value="Indramayu">Indramayu</option>
+                                            <option value="Bandung">Bandung</option>
+                                            <option value="Bogor">Bogor</option>
+                                            <option value="Sumedang">Sumedang</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <select id="dynamicSelect" class="form-select" multiple="multiple" style="width: 300px;"></select>
                                     </div>
                                 </div>
-                                <div class="col-2"></div>
-                                <div class="col-4">
-                                    <div class="text-center">
-                                        <button type="button" class="btn btn-outline-info" id="filterSemua">Filter</button>
-                                        <button type="reset" id="resetFilter" class="btn btn-outline-danger">Reset</button>
+                            </div>
+                            <div class="col-12 mt-3">
+                                <hr class="garis">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <div class="float-start">
+                                            <button type="button" class="btn btn-outline-warning" id="bukaKK">Cari No. KK</button>
+                                            <button type="button" class="btn btn-danger tutupKKbtn" id="tutupKK">Tutup Cari No. KK</button>
+                                        </div>
                                     </div>
+                                    <div class="col-2"></div>
+                                    <div class="col-4">
+                                        <div class="text-center">
+                                            <button type="button" class="btn btn-outline-info" id="filterSemua">Filter</button>
+                                            <button type="reset" class="btn btn-outline-danger" id="resetFilter">Reset</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-4"></div>
                                 </div>
-                                <div class="col-4"></div>
                             </div>
                         </div>
                     </div>
@@ -124,7 +107,6 @@
                         <hr>
                     </div>
                 </form>
-
             </div>
             <!-- End card filter~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
@@ -137,11 +119,13 @@
                                 <tr>
                                     <th style="width: 10px">No</th>
                                     <th>Nama</th>
-                                    <th style="width: 80px">Shelter</th>
+                                    <th>Agama</th>
+                                    <th>Shelter</th>
                                     <th>No. KK</th>
                                     <th>Kepala Keluarga</th>
-                                    <th style="width: 30px">Anak Ke</th>
-                                    <th style="width: 50px">Status Binaan</th>
+                                    <th>Anak Ke</th>
+                                    <th>Status Binaan</th>
+                                    <th>Status Survey</th>
                                     <th style="width: 150px">Action</th>
                                 </tr>
                             </thead>
@@ -153,15 +137,18 @@
         </div>
 </section>
 </div>
-
-<script>
-    $(document).ready(function() {
-    $('.js-example-basic-multiple').select2();
-});
-</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
+@if(session('alert'))
+    <script>
+        Swal.fire({
+            title: '{{ session('alert.title') }}',
+            text: '{{ session('alert.text') }}',
+            icon: '{{ session('alert.icon') }}',
+        });
+    </script>
+@endif
 
 <script type="text/javascript">
-
     $(document).ready(function() {
         $.ajaxSetup({
             headers: {
@@ -169,21 +156,24 @@
             }
         });
 
-        load_data();
+        loadData();
 
-        function load_data(){
-            var filterShelter = $('#filterShelter').val();
+        function loadData() {
+            var selectedShelters = $('#multiSelect').val();
+            var selectedWil = $('#dynamicSelect').val();
+            console.log(selectedShelters, selectedWil);
 
             $('#AnakBinaanTable').DataTable({
                 processing : true,
+                // searching : false,
                 serverSide : true,
                 ajax : {
-                    url : "{{ url('admin/Test') }}",
+                    url : "{{ url('admin/AnakBinaan') }}",
                     data: {
-                        shelter : filterShelter,
-                    }
+                        shelter: selectedShelters,
+                        agamaAnak : selectedWil,
+                    },
                 },
-
                 columns : [
                     {
                         data: null,
@@ -193,6 +183,7 @@
                         }
                     },
                     { data: 'nama_lengkap_anak', name: 'nama_lengkap_anak'},
+                    { data: 'agamaAnak', name: 'agamaAnak'},
                     { data: 'shelter', name: 'shelter'},
                     { data: 'no_kk', name: 'no_kk'},
                     { data: 'nama_ayah', name: 'nama_ayah'},
@@ -204,43 +195,100 @@
                             return data == 1 ? 'Aktif' : 'Belum validasi';
                         }
                     },
+                    { data: 'survey_status', name: 'survey_status'},
                     { data: 'action', name: 'action', orderable: false},
                 ],
                 order: [[0, 'desc']],
                 language: {
-                    "emptyTable": "Data Kosong..."
+                    "emptyTable": "Data Kosong...",
+                    "info": "Menampilkan _START_ sampai _END_, dari _TOTAL_ data",
+                    "lengthMenu": "Tampilkan _MENU_ data/halaman",
+                    "search": "Cari:",
+                    "infoFiltered": "(disaring dari total _MAX_ data)",
+                    "zeroRecords": "Tidak ada data yang cocok...",
+                    "loadingRecords": "Memuat...",
+                    "processing": "Memproses...",
+                    "paginate": {
+                        "first": "Pertama",
+                        "last": "Terakhir",
+                        "next": "Selanjutnya",
+                        "previous": "Sebelumnya"
+                    },
                 }
             });
         }
 
-        // Tombol "Filter" ditekan
-        $('#filterSemua').click(function () {
-            // Meng-"destroy" tabel lama
-            $('#AnakBinaanTable').DataTable().destroy();
-
-            // Memuat data dengan filter
-            load_data();
+        $('#multiSelect').select2({
+            placeholder: 'Pilih Shelter...', // Teks placeholder
+            // tokenSeparators: [',', ' '], // Menentukan pemisah token (bisa disesuaikan)
+            width: '100%', // Menetapkan lebar dropdown
+            allowClear: true, // Mengaktifkan tombol "Hapus" untuk menghapus nilai yang dipilih
         });
 
-        // Fungsi untuk mereset filter dan mengembalikan tabel ke kondisi semula
+        // Peta asosiasi antara opsi di dropdown pertama dengan opsi yang akan ditampilkan di dropdown kedua
+        var optionMap = {
+            'Indramayu': ['Islam', 'Kristen', 'Koramil'],
+            'Bandung': ['Pennsylvania', 'Dakota', 'Minnesota'],
+            'Bogor': ['Tennessee', 'Delaware', 'Florida'],
+            'Sumedang': ['Bibi', 'Bubu', 'Bua'] // Tambahkan opsi jika diperlukan
+        };
+
+        $('#dynamicSelect').select2({
+            width: '100%', // Menetapkan lebar dropdown
+            placeholder: 'Pilih Wilayah...', // Teks placeholder
+            allowClear: true, // Mengaktifkan tombol "Hapus" untuk menghapus nilai yang dipilih
+        });
+
+        // Menangani perubahan nilai pada dropdown pertama
+        $('#multiSelect').on('change', function() {
+            // Mendapatkan nilai yang dipilih pada dropdown pertama
+            var selectedValues = $(this).val();
+
+            // Membersihkan opsi pada dropdown kedua
+            $('#dynamicSelect').empty();
+
+            // Mengisi ulang opsi pada dropdown kedua berdasarkan nilai yang dipilih pada dropdown pertama
+            if (selectedValues) {
+                selectedValues.forEach(function(value) {
+                    // Menambahkan opsi baru pada dropdown kedua berdasarkan peta asosiasi
+                    optionMap[value].forEach(function(subValue) {
+                        $('#dynamicSelect').append('<option value="' + subValue.toLowerCase().replace(/\s/g, '') + '">' + subValue + '</option>');
+                    });
+                });
+            }
+
+            // Memperbarui tampilan Select2 pada dropdown kedua
+            // $('#dynamicSelect').select2();
+        });
+
+        // Mengirim nilai Select2 Shelter ke server saat tombol filter ditekan
+        $('#filterSemua').click(function () {
+            var selectedShelters = $('#multiSelect').val();
+            var selectedWil = $('#dynamicSelect').val();
+        
+            $('#AnakBinaanTable').DataTable().destroy();      
+            loadData(selectedShelters, selectedWil);
+        });
+
+
         function resetFilter() {
-            // Mengosongkan nilai filter Shelter
-            $('#filterShelter').val(null).trigger('change');
-        
-            // Meng-"destroy" tabel lama
-            $('#AnakBinaanTable').DataTable().destroy();
-        
-            // Memuat data tanpa filter
-            load_data();
+            // Hapus semua nilai yang dipilih di Select2
+            $('#multiSelect').val(null).trigger('change');      
+
+            // Destroy tabel data (gantilah '#tabelData' dengan ID atau kelas tabel Anda)
+            $('#AnakBinaanTable').DataTable().destroy();      
+
+            // Misalnya, inisialisasi kembali tabel dengan ID 'AnakBinaanTable'
+            loadData();
         }
 
-        // Menambahkan event click pada tombol Reset
         $('#resetFilter').click(function () {
             resetFilter();
         });
 
-    });
+    }); // End Ajax
 
+    // Fungsi Buka Atau Tutup Filter
     var filterCard = $("#filterCard");
     var openFilter = $("#openFilter");
     var closeFilter = $("#closeFilter");
@@ -273,11 +321,12 @@
         bukaKK.removeClass("bukaKKbtn");
     });
 
-    function validasiAnak(anak_id) {
+
+    function validasiAnak(id_anaks) {
         $.ajax({
-            url: "calonAnakBinaan/" + anak_id,
+            url: "calonAnakBinaan/" + id_anaks,
             type: 'PUT',
-            data: anak_id,
+            data: id_anaks,
             success: function() {
             Swal.fire({
                     icon: 'success',

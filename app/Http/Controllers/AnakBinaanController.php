@@ -25,6 +25,7 @@ class AnakBinaanController extends Controller
                 'anaks.nama_panggilan as nama_panggilan_anak',
                 'anaks.tempat_lahir as tempat_lahir_anak',
                 'anaks.tanggal_lahir as tanggal_lahir_anak',
+                'anaks.agama as agamaAnak',
                 'ayahs.*',
                 'ayahs.nama as nama_ayah',
                 'ibus.*',
@@ -38,14 +39,18 @@ class AnakBinaanController extends Controller
             ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
             ->leftJoin('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
             ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
+            ->orderBy('anaks.id_anaks', 'desc')
+            ->when($request->has('shelter'), function ($query) use ($request) {
+                $shelter = $request->shelter;
+                return $query->whereIn('shelter', $shelter);
+            })
+            ->when($request->has('agamaAnak'), function ($query) use ($request) {
+                $agamaAnak = $request->agamaAnak;
+                return $query->whereIn('anaks.agama', $agamaAnak);
+            })
             ->where('status_anaks.status_binaan', 1)
             ->whereNull('survey_keluargas.id')
             ->get();
-            // Mengecek apakah filter shelter diberikan
-            if ($request->has('shelter')) {
-                $shelter = $request->shelter;
-                $data = $data->whereIn('shelter', $shelter);
-            }
 
             return datatables($data)
                 // ->addColumn('action', 'DataAnakBinaan.dataanakbinaan-action')
