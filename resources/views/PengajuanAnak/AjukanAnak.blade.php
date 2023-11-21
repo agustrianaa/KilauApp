@@ -106,6 +106,25 @@
                                 <div class="row mb-2">
                                     <div class="col-4">
                                         <div class="float-end">
+                                            <b>Agama :</b>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <select class="form-select" name="agamaAnak" id="agamaAnak">
+                                            <option value="" disabled selected>-Pilih-</option>
+                                            <option value="Islam">Islam</option>
+                                            <option value="Kristen">Kristen</option>
+                                            <option value="Katolik">Katolik</option>
+                                            <option value="Hindu">Hindu</option>
+                                            <option value="Budha">Budha</option>
+                                            <option value="Konghucu">Konghucu</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-4"></div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4">
+                                        <div class="float-end">
                                             <b>Anak Ke :</b>
                                         </div>
                                     </div>

@@ -35,6 +35,9 @@
                                 <p class="text-center">{{ $dataAnak ? $dataAnak->nama_lengkap : 'Data Kosong' }}</p>
                                 <ul class="list-group list-group-unbordered mb-3">
                                     <li class="list-group-item">
+                                        <b>Agama</b> <div class="float-right">{{ $dataAnak ? $dataAnak->agama : 'Data Kosong' }}</div>
+                                    </li>
+                                    <li class="list-group-item">
                                         <b>Kelamin</b> <div class="float-right">{{ $dataAnak ? $dataAnak->jenis_kelamin : 'Data Kosong' }}</div>
                                     </li>
                                     <li class="list-group-item">
@@ -85,6 +88,20 @@
                                                         <div class="col-sm-12">
                                                             <label class="control-label">Nama Panggilan</label>
                                                             <input type="text" class="form-control" id="namaPanggilanAnak" name="namaPanggilanAnak" placeholder="" value="{{ $dataAnak ? $dataAnak->nama_panggilan : 'Data Kosong' }}" maxlength="50" required="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-sm-12">
+                                                            <label class="control-label">Agama</label>
+                                                            <select class="form-select" id="agamaAnak" name="agamaAnak" required="">
+                                                                <option value="" disabled selected {{ $dataAnak->agama == '' ? 'selected' : '' }}>-Pilih-</option>
+                                                                <option value="Islam" {{ $dataAnak->agama == 'Islam' ? 'selected' : '' }}>Islam</option>
+                                                                <option value="Kristen" {{ $dataAnak->agama == 'Kristen' ? 'selected' : '' }}>Kristen</option>
+                                                                <option value="Katolik" {{ $dataAnak->agama == 'Katolik' ? 'selected' : '' }}>Katolik</option>
+                                                                <option value="Hindu" {{ $dataAnak->agama == 'Hindu' ? 'selected' : '' }}>Hindu</option>
+                                                                <option value="Budha" {{ $dataAnak->agama == 'Budha' ? 'selected' : '' }}>Budha</option>
+                                                                <option value="Konghucu" {{ $dataAnak->agama == 'Konghucu' ? 'selected' : '' }}>Konghucu</option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -1145,6 +1162,7 @@
             var idAnak = $('#id_anaks').val();
             var namaLengkapAnak = $('#namaLengkapAnak').val();
             var namaPanggilanAnak = $('#namaPanggilanAnak').val();
+            var agamaAnak = $('#agamaAnak').val();
             var AnakKe = $('#AnakKe').val();
             var jenisKelaminAnak = $('#jenisKelaminAnak').val();
             var tempat_lahirAnak = $('#tempat_lahirAnak').val();
@@ -1165,6 +1183,7 @@
                 data: {
                     nama_lengkap : namaLengkapAnak,
                     nama_panggilan : namaPanggilanAnak,
+                    agama : agamaAnak,
                     anak_ke : AnakKe,
                     jenis_kelamin : jenisKelaminAnak,
                     tempat_lahir : tempat_lahirAnak,
@@ -1196,6 +1215,7 @@
                     }, 1000); // Ganti 1000 dengan jumlah milidetik yang Anda inginkan.
                 },
                 error: function (error){
+                    console.log(error);
                     Swal.fire({
                         icon: 'error',
                         title: 'Terjadi Kesalahan!',

@@ -119,6 +119,7 @@
                                 <tr>
                                     <th style="width: 10px">No</th>
                                     <th>Nama</th>
+                                    <th>Agama</th>
                                     <th>Shelter</th>
                                     <th>No. KK</th>
                                     <th>Kepala Keluarga</th>
@@ -158,6 +159,8 @@
 
         function loadData() {
             var selectedShelters = $('#multiSelect').val();
+            var selectedWil = $('#dynamicSelect').val();
+            console.log(selectedShelters, selectedWil);
 
             $('#CalonAnakBinaanTable').DataTable({
                 processing : true,
@@ -167,6 +170,7 @@
                     url : "{{ url('admin/calonAnakBinaan') }}",
                     data: {
                         shelter: selectedShelters,
+                        agamaAnak : selectedWil,
                     },
                 },
                 columns : [
@@ -178,6 +182,7 @@
                         }
                     },
                     { data: 'nama_lengkap_calon_anak', name: 'nama_lengkap_calon_anak'},
+                    { data: 'agamaAnak', name: 'agamaAnak'},
                     { data: 'shelter', name: 'shelter'},
                     { data: 'no_kk', name: 'no_kk'},
                     { data: 'nama_ayah', name: 'nama_ayah'},
@@ -220,7 +225,7 @@
 
         // Peta asosiasi antara opsi di dropdown pertama dengan opsi yang akan ditampilkan di dropdown kedua
         var optionMap = {
-            'Indramayu': ['IndramayuSatu', 'Junti', 'Koramil'],
+            'Indramayu': ['Islam', 'Kristen', 'Koramil'],
             'Bandung': ['Pennsylvania', 'Dakota', 'Minnesota'],
             'Bogor': ['Tennessee', 'Delaware', 'Florida'],
             'Sumedang': ['Bibi', 'Bubu', 'Bua'] // Tambahkan opsi jika diperlukan
@@ -257,9 +262,10 @@
         // Mengirim nilai Select2 Shelter ke server saat tombol filter ditekan
         $('#filterSemua').click(function () {
             var selectedShelters = $('#multiSelect').val();
+            var selectedWil = $('#dynamicSelect').val();
         
             $('#CalonAnakBinaanTable').DataTable().destroy();      
-            loadData(selectedShelters);
+            loadData(selectedShelters, selectedWil);
         });
 
 
@@ -353,6 +359,7 @@
 
     //menampilkan detail data keluarga
     function detailDatakeluarga(id, id_anaks){
+
         window.location.href = `{{ url('admin/calonAnakBinaanDetail') }}/${id}/${id_anaks}`;
     }
 </script>

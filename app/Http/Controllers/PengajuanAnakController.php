@@ -34,6 +34,7 @@ class PengajuanAnakController extends Controller
             "data_keluarga_id" => $keluargaID,
             "nama_lengkap" => $request->nama_lengkap_calon_anak,
             "nama_panggilan" => $request->nama_panggilan_calon_anak,
+            "agama" => $request->agama_anak,
             "anak_ke" => $request->anak_ke,
             "jenis_kelamin" => $request->jenis_kelamin_calon_anak,
             "tempat_lahir" => $request->tempat_lahir_calon_anak,
@@ -138,6 +139,7 @@ class PengajuanAnakController extends Controller
         $request->validate([
             'namaLengkapAnak' => 'required',
             'namaPanggilanAnak' => 'required',
+            'agamaAnak' => 'required',
             'jenisKelaminAnak' => 'required',
             'tempatLahirAnak' => 'required',
             'tanggalLahirAnak' => 'required',
@@ -156,6 +158,7 @@ class PengajuanAnakController extends Controller
         $dataAnak = Anak::create([
             'nama_lengkap' => $request->namaLengkapAnak,
             'nama_panggilan' => $request->namaPanggilanAnak,
+            'agama' => $request->agamaAnak,
             'anak_ke' => $request->anakKe,
             'jenis_kelamin' => $request->jenisKelaminAnak,
             'tempat_lahir' => $request->tempatLahirAnak,
