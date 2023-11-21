@@ -17,7 +17,7 @@ class SurveyController extends Controller
             'data_keluargas.*',
             'anaks.*',
             'status_anaks.*',
-
+            'survey_keluargas.*',
         )
         // ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
         ->leftJoin('anaks', function ($join) {
@@ -25,8 +25,10 @@ class SurveyController extends Controller
                 ->whereRaw('anaks.id_anaks = (SELECT MAX(id_anaks) FROM anaks WHERE anaks.data_keluarga_id = data_keluargas.id)');
         })
         ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
+        ->leftJoin('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
         ->where('status_anaks.status_binaan', 1)
         // ->whereRaw('anaks.id_anaks IN (SELECT MAX(id_anaks) FROM anaks GROUP BY data_keluarga_id)') // Memilih satu anak dengan id_anaks tertinggi
+        ->whereNotNull('survey_keluargas.id')
         ->orderBy('data_keluargas.created_at', 'asc')
         ->get();
         if(request()->ajax()){
@@ -108,6 +110,28 @@ class SurveyController extends Controller
         // $request->merge(['kep_kendaraan' => $resultText]);
 
         $request->validate([
+            'keluarga_id' => 'required',
+            'kep_tanah' => 'required',
+            'kep_rumah' => 'required',
+            'lantai' => 'required',
+            'dinding' => 'required',
+            'kep_elektronik' => 'required',
+            'sumber_air' => 'required',
+            'jamban' => 'required',
+            'tempat_sampah' => 'required',
+            'perokok' => 'required',
+            'miras' => 'required',
+            'p3k' => 'required',
+            'makan_sayur' => 'required',
+            'sholat' => 'required',
+            'baca_quran' => 'required',
+            'majelis_taklim' => 'required',
+            'pengurus_organisasi' => 'required',
+            'status_anak' => 'required',
+            'biaya_pendidikan' => 'required',
+            'bantuan_lembaga_formal' => 'required',
+            'resume' => 'required',
+            'petugas_survey' => 'required',
             'kep_kendaraan' => 'required|array',
             'kep_kendaraan.*' => 'in:Sepeda,Motor,Mobil',
         ]);
@@ -171,6 +195,31 @@ class SurveyController extends Controller
     public function surveyEdit(Request $request, $id)
     {
         // $data = SurveyKeluarga::where('keluarga_id', $id)->first();
+        $request->validate([
+            'kep_tanah' => 'required',
+            'kep_rumah' => 'required',
+            'lantai' => 'required',
+            'dinding' => 'required',
+            'kep_elektronik' => 'required',
+            'sumber_air' => 'required',
+            'jamban' => 'required',
+            'tempat_sampah' => 'required',
+            'perokok' => 'required',
+            'miras' => 'required',
+            'p3k' => 'required',
+            'makan_sayur' => 'required',
+            'sholat' => 'required',
+            'baca_quran' => 'required',
+            'majelis_taklim' => 'required',
+            'pengurus_organisasi' => 'required',
+            'status_anak' => 'required',
+            'biaya_pendidikan' => 'required',
+            'bantuan_lembaga_formal' => 'required',
+            'resume' => 'required',
+            'petugas_survey' => 'required',
+            'kep_kendaraan' => 'required|array',
+            'kep_kendaraan.*' => 'in:Sepeda,Motor,Mobil',
+        ]);
 
         DB::table('survey_keluargas')
             ->where('keluarga_id', $id)
