@@ -88,7 +88,7 @@
             $('#donaturId').val(data.id);
             // var cardTitle = data.name;
             var cardContent = '<input type="hidden" id="donaturId" value="' + data.id + '" />';
-            cardContent += '<button id="" class="btn btn-info"><i class="fas fa-arrow-left"></i> Kembali ke pencarian</button><div class="col-md-4 mx-auto"><div class="card card-info"><div class="card-header">Data Donatur</div>'
+            cardContent += '<button id="back" class="btn btn-info"><i class="fas fa-arrow-left"></i> Kembali ke pencarian</button><div class="col-md-4 mx-auto"><div class="card card-info"><div class="card-header">Data Donatur</div>'
             cardContent += ' <table class="table"> <tr><td>Nama Donatur</td><td>' + data.name + '</td></tr>';
             cardContent += '<tr><td>Nomor HP</td><td>' + data.no_hp + '</td></tr>';
             cardContent += '<tr><td>Alamat</td><td>' + data.alamat + '</td></tr>';
@@ -105,7 +105,23 @@
             $('#cariDonatur').hide();
         }
 
-        // Ketika tombol "Simpan" diklik, lakukan aksi penyimpanan
+        $(document).on("click", "#back", function() {
+            var id = $('#anak_id').val();
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('admin.pengajuan') }}/" + id,
+                success: function(response) {
+                    // Redirect ke halaman pencarian
+                    window.location.href = '{{ route("admin.pengajuan") }}/' + id;
+                },
+                error: function(error) {
+                    console.log(error);
+                    // Handle error jika diperlukan
+                }
+            });
+        });
+
+        // Ketika tombol "Simpan" diklik, penyimpanan
         $(document).on("click", "#simpanButton", function() {
             var donaturId = $('#donaturId').val();
             var anakId = $('#anak_id').val();

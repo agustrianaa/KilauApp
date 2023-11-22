@@ -18,14 +18,15 @@ class PengajuanDonaturController extends Controller
         if (request()->ajax()) {
             $key = 0;
             $data = Anak::select(
-                    'anaks.id_anaks as id',
-                    'anaks.donatur_id as donatur_id',
-                    'survey_keluargas.hsurvey as hsurvey',
-                    'donaturs.name as namadonatur',
-                    'anaks.*',
-                    'status_anaks.*',
-                    'anaks.agama as agama',
-                )
+                'anaks.id_anaks as id',
+                'anaks.donatur_id as donatur_id',
+                'survey_keluargas.hsurvey as hsurvey',
+                'donaturs.name as namadonatur',
+                'donaturs.id as donatur_id',
+                'anaks.*',
+                'status_anaks.*',
+                'anaks.agama as agama',
+            )
                 ->join('data_keluargas', 'anaks.data_keluarga_id', '=', 'data_keluargas.id')
                 ->join('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
                 ->join('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
@@ -54,12 +55,12 @@ class PengajuanDonaturController extends Controller
                     return $hsurvey;
                 })
                 ->addColumn('donatur', function ($row) {
-                    $donatur = $row->namadonatur;
+                    $id = $row ->donatur_id;
                     if ($row->namadonatur) {
-                        $donatur = '<a onClick="DonaturFunc()" class="edit btn btn-success btn-sm"><i class="fas fa-user"></i>   ' . $row->namadonatur . '</a>';
+                        $donatur = '<a href="javascript:void(0)" onclick="donaturFunc(' . $id . ')" class="btn btn-success btn-sm"><i class="fas fa-user"></i>   ' . $row->namadonatur . ' </a>';
                     } else {
                         // Jika belum ada donatur
-                        $donatur = '<a onClick="DonaturFunc()" class="edit btn btn-danger btn-sm">Belum Ada Donatur</a>';
+                        $donatur = '<div onClick="noDonatur()" class="btn btn-danger btn-sm">Belum Ada Donatur</div>';
                     }
                     return $donatur;
                 })
@@ -67,7 +68,7 @@ class PengajuanDonaturController extends Controller
                     $id = $row->id;
                     // $donaturId = $row->donatur_id;
                     if ($row->donatur_id) {
-                        $act ='<a href="javascript:void(0)" onClick="editDonatur(' . $id . ')" data-original-title="Edit Donatur" class="edit-donatur btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>';
+                        $act = '<a href="javascript:void(0)" onClick="editDonatur(' . $id . ')" data-original-title="Edit Donatur" class="edit-donatur btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>';
                         $act .= '<a href="javascript:void(0)" onClick="hapusDonatur(' . $id . ')" data-original-title="Hapus Donatur" class="hapus-donatur btn btn-danger btn-sm ml-2"><i class="fas fa-trash"></i></a>';
                     } else {
                         $act = '<a href="javascript:void(0)" onClick="tambahDonatur(' . $id . ')" data-original-title="Tambahkan Donatur" class="tambahkan-donatur btn btn-success btn-sm"><i class="fas fa-plus-circle"></i> Tambahkan Donatur</a>';
@@ -128,9 +129,11 @@ class PengajuanDonaturController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function profileDonatur(Request $request, $id)
     {
-        //
+        $donatur = Donatur::find($id);
+
+        return Response()->json($donatur);
     }
 
     /**
@@ -144,14 +147,18 @@ class PengajuanDonaturController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id, Request $request)
+    public function destroy(Request $request)
     {
-        $donaturId = $request->id;
-        $donatur = Anak::where('donatur_id', $donaturId)->delete();
-       
+        $id = $request->id;
+        $donaturId = $request->all();
+        $anak = Anak::where('id_anaks', $id)->first();;
+        // $donaturId->update(['donatur_id' => null]);
+        $donaturId['donatur_id'] = null;
+        $anakUpdate = $anak->update($donaturId);
+
         return response()->json([
-            'donaturId' => $donaturId,
-            'donatur' => $donatur,
-        ]);        
+            'id' => $id,
+            'Donatur Id' => $donaturId,
+        ]);
     }
 }

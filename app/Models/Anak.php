@@ -31,16 +31,16 @@ class Anak extends Model
         'cita_cita',
     ];
 
-    public function dataKeluarga():BelongsTo
+    public function dataKeluarga(): BelongsTo
     {
         return $this->belongsTo(DataKeluarga::class);
     }
-    public function dataStatusAnak():HasOne
+    public function dataStatusAnak(): HasOne
     {
         return $this->hasOne(StatusAnak::class);
     }
 
-    public function beasiswa():BelongsTo
+    public function beasiswa(): BelongsTo
     {
         return $this->belongsTo('App\Models\Beasiswa', 'id');
     }

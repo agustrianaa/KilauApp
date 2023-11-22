@@ -85,10 +85,11 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
 
     // Pengajuan Donatur 
     Route::get('/pengajuan-donatur', [PengajuanDonaturController::class,'index'])->name('aju-donatur');
-    Route::get('/pengajuan/{id}', [PengajuanDonaturController::class,'show'])->name('pengajuan');
+    Route::get('/pengajuan/{id?}', [PengajuanDonaturController::class,'show'])->name('pengajuan');
     Route::get('/cari-donatur', [PengajuanDonaturController::class,'search'])->name('cariDonatur');
     Route::post('/simpan-donatur', [PengajuanDonaturController::class,'store'])->name('simpanDonatur');
-    Route::post('/hapus-donatur', [ValidasiSurveyController::class, 'destroy'])->name('hapus-donatur');
+    Route::patch('/hapus-donatur', [PengajuanDonaturController::class, 'destroy'])->name('hapus-donatur');
+    Route::get('/profile-donatur/{id}', [PengajuanDonaturController::class, 'profileDonatur'])->name('profile-donatur');
 
     
     Route::resource('/posts', \App\Http\Controllers\PostController::class);

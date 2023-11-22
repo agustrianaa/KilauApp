@@ -24,4 +24,9 @@ class Donatur extends Model
     public function user(){
         return $this->belongsTo('App\Models\User');
     }
+
+    public function anak()
+    {
+        return $this->hasOne(Anak::class);
+    }
 }

@@ -7,9 +7,6 @@
                 <div class="row text-center">
                     <h1>INI HALAMAN PENGAJUAN DONATUR</h1>
                 </div>
-                <div id="updateDonatur">
-                    Perbarui Donatur Anak Binaan
-                </div>
 
                 <div class="card">
                     <div class="card-header">
@@ -32,6 +29,26 @@
                             </table>
                         </div>
                     </div>
+
+
+                    <!-- modal untuk profil donatur -->
+                    <div class="modal fade" id="profilDonaturModal" tabindex="-1" role="dialog" aria-labelledby="profilDonaturLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="profilDonaturLabel">Profil Donatur</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- isi nya ada di js -->
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary". id="btnTutupModal" >Tutup</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
         </div>
@@ -101,10 +118,40 @@
                 "emptyTable": "Data Kosong...."
             }
         });
+        $('#btnTutupModal').on('click', function () {
+    $('#profilDonaturModal').modal('hide');
+});
     });
 
-    function DonaturFunc(id) {
-        window.location.href = "{{ url('admin/')}}" + id;
+
+
+
+    // Mengarah ke profile nya donatur
+    function donaturFunc(id) {
+        var url = '/admin/profile-donatur/' + id;
+        // alert('Ini data Donatur');
+
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: 'json',
+            success: function(data) {
+                $('#profilDonaturModal').find('.modal-body').html('<table class="table"> <tr> <td> Nama Donatur </td> <td>' + ': ' + data.name + '</td> </tr> <tr> <td> ' + 'Alamat  </td> <td>' + ': '+ data.alamat + ' </td> </tr><tr> <td> ' + 'No HP  </td> <td>' + ': '+ data.no_hp + ' </td> </tr><tr> <td> ' + 'Bank  </td> <td>' + ': '+ data.nama_bank + ', '+ data.no_rek + ' </td> </tr>' + '</table>');
+                $('#profilDonaturModal').modal('show');
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+    function noDonatur(id) {
+        Swal.fire({
+            icon: 'info',
+            title: 'Belum Ada Donatur',
+            text: 'Tambahkan donatur untuk melanjutkan.',
+        });
     }
 
     function tambahDonatur(id) {
@@ -118,9 +165,6 @@
             success: function(data) {
                 // $('#updateDonatur').html(data);
                 window.location.href = '/admin/pengajuan/' + id;
-                var newDiv = document.createElement('div');
-                newDiv.id = 'updateDonatur';
-                newDiv.textContent = 'Perbarui Donatur Anak Binaan';
             },
             error: function(xhr, status, error) {
                 // Tangani kesalahan jika ada
@@ -129,16 +173,19 @@
         });
     }
 
-    function hapusDonatur(id){
+    function hapusDonatur(id) {
         if (confirm("Ingin Mengahapus Data?") == true) {
-            var donaturId = id;
+            var id = id;
             //ajax
             $.ajax({
-                type: "POST",
+                type: "PATCH",
                 url: "{{ route('admin.hapus-donatur') }}",
-                data: { id: id },
+                data: {
+                    id: id
+                },
                 dataType: 'json',
-                success: function(res){
+                success: function(data) {
+                    console.log('ini dataid', data.doantur_id)
                     Swal.fire(
                         'Terhapus!',
                         'Data berhasil dihapus.',
