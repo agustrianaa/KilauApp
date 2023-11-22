@@ -39,7 +39,7 @@
                     </div>
                 
                     <div class="colored-box">
-                        <a href="" class="box-link">
+                        <a href="{{ route('admin.settingView') }}" class="box-link">
                             <div class="colored-box-content">
                                 <i class="bi bi-gear"></i>{{-- icon --}}
                                 <span class="box-text">Settings</span>

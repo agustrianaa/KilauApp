@@ -8,6 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PengajuanAnakController;
 use App\Http\Controllers\dataSurveyController;
 use App\Http\Controllers\reportController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\surveyDataController;
 use App\Http\Controllers\ValidasiSurveyController;
 use App\Http\Controllers\ValidasiBeasiswaController;
@@ -50,6 +51,12 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::get('/edit/{id}',[HomeController::class,'edit'])->name('user.edit');
     Route::put('/update/{id}',[HomeController::class,'update'])->name('user.update');
     Route::delete('/delete/{id}',[HomeController::class,'delete'])->name('user.delete');
+
+    Route::get('/Settings/Dashboard',[SettingsController::class,'settingIndex'])->name('settingView');
+    Route::get('/Settings/Data_Wilayah/KaCab',[SettingsController::class,'KaCabIndex'])->name('KaCabView');
+    Route::get('/Settings/Data_Wilayah/KaCab/Tambah_KaCab',[SettingsController::class,'tambahKacab'])->name('tambahKacabView');
+    Route::get('/Settings/Data_Wilayah/WilBin',[SettingsController::class,'WilBinIndex'])->name('WilBinView');
+    Route::get('/Settings/Data_Wilayah/Shelter',[SettingsController::class,'ShelterIndex'])->name('ShelterView');
 
     Route::get('/PengajuanForm',[PengajuanAnakController::class,'pengajuanForm'])->name('pengajuanForm');
     Route::post('/PengajuanFormStore',[PengajuanAnakController::class, 'pengajuanFormStore'])->name('pengajuanFormStore');
