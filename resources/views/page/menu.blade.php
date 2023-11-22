@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" integrity="sha512-oAvZuuYVzkcTc2dH5z1ZJup5OmSQ000qlfRvuoTTiyTBjwX1faoyearj8KdMq0LgsBTHMrRuMek7s+CxF8yE+w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<title>Contoh Halaman</title>
+<title>Menu</title>
 </head>
 
 <body>
@@ -39,7 +39,7 @@
                     </div>
                 
                     <div class="colored-box">
-                        <a href="" class="box-link">
+                        <a href="{{ route('admin.settingView') }}" class="box-link">
                             <div class="colored-box-content">
                                 <i class="bi bi-gear"></i>{{-- icon --}}
                                 <span class="box-text">Settings</span>

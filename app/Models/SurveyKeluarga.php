@@ -14,7 +14,7 @@ class SurveyKeluarga extends Model
     protected $casts = [
         'kep_kendaraan' => 'array',
     ];
-    
+
 
     protected $fillable = [
         'keluarga_id',

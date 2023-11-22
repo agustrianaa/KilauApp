@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-select boxes with Select2</title>
+    <!-- Memuat CSS Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <!-- Memuat jQuery dan Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <!-- Memuat JS Select2 -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <style>
+        /* Menambahkan gaya untuk membuatnya terlihat seperti pillbox */
+        .select2-selection__choice {
+            background-color: #007bff;
+            color: white;
+            border: 1px solid #007bff;
+            border-radius: 20px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Multi-select boxes with Select2</h2>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12 m-5">
+                        <div class="row">
+                            <div class="col-4">
+                                <!-- Dropdown dengan ID 'multiSelect' yang memungkinkan seleksi banyak opsi -->
+                                <select id="multiSelect" class="form-select" multiple="multiple" style="width: 300px;">
+                                    <option value="Indramayu">Indramayu</option>
+                                    <option value="Bandung">Bandung</option>
+                                    <option value="Jakarta">Jakarta</option>
+                                    <option value="Bekasi">Bekasi</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 m-5">
+                        <div class="row">
+                            <div class="col-4">
+                                <!-- Dropdown kedua yang akan diisi dinamis -->
+                                <select id="dynamicSelect" class="form-select" multiple="multiple" style="width: 300px; height: 35px;"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Inisialisasi Select2 pada dropdown pertama
+        $(document).ready(function() {
+            $('#multiSelect').select2({
+                tokenSeparators: [',', ' '], // Menentukan pemisah token (bisa disesuaikan)
+                width: '50%', // Menetapkan lebar dropdown
+            });
+
+            // Peta asosiasi antara opsi di dropdown pertama dengan opsi yang akan ditampilkan di dropdown kedua
+            var optionMap = {
+                'Indramayu': ['Karpel', 'Junti', 'Koramil'],
+                'Bandung': ['Pennsylvania', 'Dakota', 'Minnesota'],
+                'Jakarta': ['Tennessee', 'Delaware', 'Florida'],
+                'Bekasi': [] // Tambahkan opsi jika diperlukan
+            };
+
+            // Menangani perubahan nilai pada dropdown pertama
+            $('#multiSelect').on('change', function() {
+                // Mendapatkan nilai yang dipilih pada dropdown pertama
+                var selectedValues = $(this).val();
+
+                // Membersihkan opsi pada dropdown kedua
+                $('#dynamicSelect').empty();
+
+                // Mengisi ulang opsi pada dropdown kedua berdasarkan nilai yang dipilih pada dropdown pertama
+                if (selectedValues) {
+                    selectedValues.forEach(function(value) {
+                        // Menambahkan opsi baru pada dropdown kedua berdasarkan peta asosiasi
+                        optionMap[value].forEach(function(subValue) {
+                            $('#dynamicSelect').append('<option value="' + subValue.toLowerCase().replace(/\s/g, '') + '">' + subValue + '</option>');
+                        });
+                    });
+                }
+
+                // Memperbarui tampilan Select2 pada dropdown kedua
+                $('#dynamicSelect').select2();
+            });
+        });
+    </script>
+
+</body>
+</html>

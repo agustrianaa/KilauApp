@@ -20,14 +20,16 @@ class CalonAnakBinaanController extends Controller
         if (request()->ajax()) {
             $data = DataKeluarga::select(
                 'data_keluargas.*',
-                'anaks.nama_lengkap as nama_lengkap_calon_anak', 
-                'anaks.tempat_lahir as tempat_lahir_calon_anak', 
-                'anaks.tanggal_lahir as tanggal_lahir_calon_anak', 
-                'ayahs.*',
-                'ayahs.nama as nama_ayah', 
-                'ayahs.nik as nik_ayah', 
                 'anaks.*',
-                'ibus.*', 
+                'anaks.nama_lengkap as nama_lengkap_calon_anak',
+                // 'anaks.id_anaks as id_anak',
+                'anaks.tempat_lahir as tempat_lahir_calon_anak',
+                'anaks.tanggal_lahir as tanggal_lahir_calon_anak',
+                'anaks.agama as agamaAnak',
+                'ayahs.*',
+                'ayahs.nama as nama_ayah',
+                'ayahs.nik as nik_ayah',
+                'ibus.*',
                 'walis.*',
                 'status_anaks.*',
                 )
@@ -36,6 +38,15 @@ class CalonAnakBinaanController extends Controller
                 ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
                 ->leftJoin('walis', 'data_keluargas.id', '=', 'walis.data_keluarga_id')
                 ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
+                ->orderBy('anaks.id_anaks', 'desc')
+                ->when($request->has('shelter'), function ($query) use ($request) {
+                    $shelter = $request->shelter;
+                    return $query->whereIn('shelter', $shelter);
+                })
+                ->when($request->has('agamaAnak'), function ($query) use ($request) {
+                    $agamaAnak = $request->agamaAnak;
+                    return $query->whereIn('anaks.agama', $agamaAnak);
+                })            
                 ->where('status_anaks.status_binaan', 0)
                 ->get();
 
@@ -52,30 +63,53 @@ class CalonAnakBinaanController extends Controller
         return view('DataCalonAnakBinaan.CalonAnakBinaan');
     }
 
-    public function update(Request $request, $anak_id)
+    public function filterData(Request $request)
     {
-        $data = StatusAnak::find($anak_id);
+        // Pastikan ada parameter 'shelters' yang dikirim dari Select2
+        if ($request->has('shelters')) {
+            $shelters = $request->shelters; 
 
-        $data->status_binaan = 1;
+            // Lakukan filter data berdasarkan nilai yang diterima dari Select2 Shelter
+            $filteredData = DataKeluarga::whereIn('shelter', $shelters)->get(); 
 
-        $data->save();
+            // Lakukan sesuatu dengan data yang difilter (misalnya, kirim kembali sebagai respons)
+            return response()->json($filteredData);
+        }   
+
+        // Jika tidak ada parameter 'shelters' atau terjadi kesalahan lain
+        return response()->json(['message' => 'Invalid request']);
     }
 
-    public function showDetail(string $id)
+
+    public function update(Request $request, $id_anaks)
+    {
+        try {
+            $data = StatusAnak::where('anak_id', $id_anaks)->firstOrFail();
+    
+            $data->status_binaan = 1;
+            $data->save();
+    
+            return response()->json(['success' => true, 'message' => 'Status binaan berhasil diperbarui']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Gagal memperbarui status binaan']);
+        }
+    }
+
+    public function showDetail(Request $request, $id, $id_anaks)
     {
         // ini untuk detail data keluarga
         // Ambil data keluarga berdasarkan $id dari database
         $dataKeluarga = DataKeluarga::find($id);
         $dataIbu = Ibu::where('data_keluarga_id', $dataKeluarga->id)->first();
         $dataAyah = Ayah::where('data_keluarga_id', $dataKeluarga->id)->first();
-        $dataAnak = Anak::where('data_keluarga_id', $dataKeluarga->id)->first();
+        $dataAnak = Anak::where('id_anaks', $id_anaks)->first();
         $dataWali = Wali::where('data_keluarga_id', $dataKeluarga->id)->first();
         // Tampilkan halaman detail data keluarga (misalnya, menggunakan view 'detail_datakeluarga.blade.php')
         return view('DataCalonAnakBinaan.CalonAnakBinaan-view', [
-            'dataKeluarga' => $dataKeluarga, 
-            'dataIbu' => $dataIbu, 
+            'dataKeluarga' => $dataKeluarga,
+            'dataIbu' => $dataIbu,
             'dataAyah' => $dataAyah,
-            'dataAnak' => $dataAnak, 
+            'dataAnak' => $dataAnak,
             'dataWali' => $dataWali,
         ]);
     }
@@ -83,36 +117,41 @@ class CalonAnakBinaanController extends Controller
     // Update Data Keluarga~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     public function updated(Request $request, string $id)
     {
-        $dataKeluarga = DataKeluarga::find($id);    
-
-        if (!$dataKeluarga) {
-            return response()->json(['success' => false, 'message' => 'Data Keluarga tidak ditemukan']);
-        }   
-
-        // Lakukan update data keluarga
-        $dataKeluarga->update($request->only([
-            'kacab', 'no_kk', 'anak_ke', 'alamat_kk', 'kepala_keluarga', 'wilayah_binaan', 'shelter', 'jarak_ke_shelter', 'no_telp', 'no_rek'
-        ]));    
-
-        return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui']);
-    }
-
-
-    // Update Data Ayah~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    public function updatedAnak(Request $request, string $id)
-    {
         $dataKeluarga = DataKeluarga::find($id);
 
         if (!$dataKeluarga) {
             return response()->json(['success' => false, 'message' => 'Data Keluarga tidak ditemukan']);
         }
 
-        // Lakukan update data ayah
-        $dataKeluarga->dataAnak->update($request->only([
-            'nama_lengkap', 'nama_panggilan', 'jenis_kelamin', 'tempat_lahir', 'tanggal_lahir', 'nama_sekolah', 'kelas_sekolah', 'nama_madrasah', 'kelas_madrasah', 'hobby', 'cita_cita'
-        ]));    
+        // Lakukan update data keluarga
+        $dataKeluarga->update($request->only([
+            'kacab', 'no_kk', 'alamat_kk', 'kepala_keluarga', 'no_telp', 'no_rek'
+        ]));
 
         return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui']);
+    }
+
+
+    // Update Data Ayah~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    public function updatedAnak(Request $request, string $id_anaks)
+    {
+        $dataAnak = Anak::find($id_anaks);
+
+        if (!$dataAnak) {
+            return response()->json(['success' => false, 'message' => 'Data Keluarga tidak ditemukan']);
+        }
+
+        try {
+            // Lakukan update data anak
+            $dataAnak->update($request->only([
+                'nama_lengkap', 'nama_panggilan', 'agama', 'anak_ke', 'jenis_kelamin', 'tempat_lahir', 'wilayah_binaan', 'shelter', 'jarak_ke_shelter', 'tanggal_lahir', 'nama_sekolah', 'kelas_sekolah', 'nama_madrasah', 'kelas_madrasah', 'hobby', 'cita_cita'
+            ]));
+    
+            return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui']);
+        } catch (\Exception $e) {
+            // Jika terjadi error saat update, kirim response error
+            return response()->json(['success' => false, 'message' => 'Gagal memperbarui data. Error: ' . $e->getMessage()]);
+        }
     }
 
 
@@ -128,7 +167,7 @@ class CalonAnakBinaanController extends Controller
         // Lakukan update data ayah
         $dataKeluarga->dataAyah->update($request->only([
             'nik', 'nama', 'tempat_lahir', 'tanggal_lahir', 'pekerjaan', 'jumlah_tanggungan', 'pendapatan', 'agama', 'alamat'
-        ]));    
+        ]));
 
         return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui']);
     }
@@ -146,7 +185,7 @@ class CalonAnakBinaanController extends Controller
         // Lakukan update data ibu
         $dataKeluarga->dataIbu->update($request->only([
             'nik', 'nama', 'tempat_lahir', 'tanggal_lahir', 'pekerjaan', 'pendapatan', 'agama', 'alamat'
-        ]));    
+        ]));
 
         return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui']);
     }
@@ -163,7 +202,7 @@ class CalonAnakBinaanController extends Controller
         // Lakukan update data wali
         $dataKeluarga->dataWali->update($request->only([
             'no_ktp', 'nama_lengkap', 'nama_panggilan', 'tempat_lahir', 'tanggal_lahir', 'pekerjaan', 'jumlah_tanggungan', 'pendapatan', 'data_keluarga_id'
-        ]));    
+        ]));
 
         return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui']);
     }

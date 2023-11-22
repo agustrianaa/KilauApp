@@ -19,17 +19,15 @@ class AnakBinaanController extends Controller
         if (request()->ajax()) {
             $data = DataKeluarga::select(
                 'data_keluargas.*',
+                'data_keluargas.id as id_kelu',
                 'anaks.*',
-                'anaks.id_anaks as id_anaks',
                 'anaks.nama_lengkap as nama_lengkap_anak',
                 'anaks.nama_panggilan as nama_panggilan_anak',
                 'anaks.tempat_lahir as tempat_lahir_anak',
                 'anaks.tanggal_lahir as tanggal_lahir_anak',
-                'anaks.nama_sekolah as nama_sekolah_anak',
-                'anaks.nama_madrasah as nama_madrasah_anak',
-                'anaks.hobby as hobby_anak',
-                'anaks.cita_cita as cita_cita_anak',
+                'anaks.agama as agamaAnak',
                 'ayahs.*',
+                'ayahs.nama as nama_ayah',
                 'ibus.*',
                 'walis.*',
                 'status_anaks.*',
@@ -41,11 +39,27 @@ class AnakBinaanController extends Controller
             ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
             ->leftJoin('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
             ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
+            ->orderBy('anaks.id_anaks', 'desc')
+            ->when($request->has('shelter'), function ($query) use ($request) {
+                $shelter = $request->shelter;
+                return $query->whereIn('shelter', $shelter);
+            })
+            ->when($request->has('agamaAnak'), function ($query) use ($request) {
+                $agamaAnak = $request->agamaAnak;
+                return $query->whereIn('anaks.agama', $agamaAnak);
+            })
             ->where('status_anaks.status_binaan', 1)
+            ->whereNull('survey_keluargas.id')
             ->get();
 
             return datatables($data)
-                ->addColumn('action', 'DataAnakBinaan.dataanakbinaan-action')
+                // ->addColumn('action', 'DataAnakBinaan.dataanakbinaan-action')
+                ->addColumn('action', function ($data) {
+                    $btn = '<a href="' . url("/admin/calonAnakBinaanDetail/" . $data->id_kelu .'/'. $data->id_anaks) . '" data-toggle="tooltip" data-id="' . $data->id_kelu . '" title="Detail Anak & Keluarga" class="view btn btn-sm btn-info view text-white me-1"><i class="bi bi-file-richtext"></i> Detail</a>';
+                    $btn = $btn.'<a href="' . url("admin/surveyForm/" . $data->id_kelu) . '" data-toggle="tooltip" data-id="' . $data->id_kelu . '" title="Isi Survey Detail Keluarga" class="view btn btn-sm btn-success view text-white"><i class="bi bi-ui-checks"></i> Isi Survey</a>';
+                    $btn = $btn.'<a href="' . url("admin/AnakBinaandelete/" . $data->id_kelu) . '" data-toggle="tooltip" data-id="' . $data->id_kelu . '" title="Hapus Data" class="view btn btn-sm btn-danger view text-white ms-1"><i class="bi bi-trash-fill"></i> Delete</a>';
+                    return $btn;
+                })
                 ->addColumn('survey_status', function ($data) {
                     return $data->survey_keluargas ? 'Sudah Survey' : 'Belum Survey';
                 })
@@ -58,27 +72,6 @@ class AnakBinaanController extends Controller
         }
 
         return view('DataAnakBinaan.dataanakbinaan');
-    }
-
-    public function store(Request $request)  {
-        $anakId = $request->id;
-
-        $anak = Anak::updateOrCreate(
-            [
-                'id' => $anakId
-            ],
-            [
-                'nama_lengkap' => $request->nama_lengkap,
-                'nama_panggilan' => $request->nama_panggilan,
-                'tempat_lahir' => $request->tempat_lahir,
-                'tanggal_lahir' => $request->tanggal_lahir,
-                'nama_sekolah' => $request->nama_sekolah,
-                'nama_madrasah' => $request->nama_madrasah,
-                'hobby' => $request->hobby,
-                'cita_cita' => $request->cita_cita,
-            ]);
-
-            return Response()->json($anak);
     }
 
     public function showViewPage(Request $request, $id):View
@@ -95,9 +88,10 @@ class AnakBinaanController extends Controller
         return Response()->json($anak);
     }
 
-    public function destroy(Request $request) {
-        $anak = DataKeluarga::where('id', $request->id)->delete();
+    public function destroy($id) {
+        // $anak =
+        DataKeluarga::where('id', $id)->delete();
 
-        return Response()->json($anak);
+        // return Response()->json($anak);
     }
 }

@@ -1,5 +1,5 @@
-@extends('layout.main')
-@section('content')
+@extends('layout.mainSettings')
+@section('contentSettings')
 
 <style>
   .small-box .icon>i {
@@ -38,20 +38,21 @@
 <!-- Main content -->
 <section class="content">
   <div class="container-fluid">
+    <h1>Halaman Settings</h1>
     <!-- Small boxes (Stat box) -->
     <div class="row">
       <div class="col-lg-3 col-6">
         <!-- small box -->
         <div class="small-box bg-success">
           <div class="inner">
-            <h3>{{ $totalCalonAnakBinaan }}</h3>
+            <h3>-</h3>
 
-            <p>Data Calon Anak Binaan</p>
+            <p>Kantor Cabang</p>
           </div>
           <div class="icon">
-            <i class="bi bi-people-fill"></i>{{-- icon --}}
+            <i class="bi bi-buildings-fill"></i>{{-- icon --}}
           </div>
-          <a href="{{ route('admin.calonanakbinaanIndex') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          <a href="{{ route('admin.KaCabView') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
       <!-- ./col -->
@@ -60,29 +61,30 @@
         <div class="small-box bg-info">
           <div class="inner">
 
-            <h3>{{ $totalAnakBinaan }}</h3>
+            <h3>-</h3>
 
-            <p>Data Anak Binaan</p>
+            <p>Wilayah Binaan</p>
           </div>
           <div class="icon">
-            <i class="bi bi-person-video3"></i>{{-- icon --}}
+            <i class="bi bi-building"></i>{{-- icon --}}
           </div>
-          <a href="{{ route('admin.AnakBinaan') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          <a href="{{ route('admin.WilBinView') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
-      <!-- ./col -->
+
       <div class="col-lg-3 col-6">
         <!-- small box -->
-        <div class="small-box bg-warning">
+        <div class="small-box" style="background-color: rgb(255,193,7); color: white;">
           <div class="inner">
-            <h3 class="text-white">{{ $totalBelumValidasi }}</h3>
 
-            <p class="text-white">Data yang belum Validasi Beasiswa</p>
+            <h3>-</h3>
+
+            <p>Shelter</p>
           </div>
           <div class="icon">
-            <i class="bi bi-person-fill-add"></i>{{-- icon --}}
+            <i class="bi bi-houses"></i>{{-- icon --}}
           </div>
-          <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          <a href="{{ route('admin.ShelterView') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
       <!-- ./col -->
@@ -90,9 +92,9 @@
         <!-- small box -->
         <div class="small-box bg-danger">
           <div class="inner">
-            <h3>{{ $totalSudahValidasi }}</h3>
+            <h3>-</h3>
 
-            <p>Data yang sudah Validasi Beasiswa</p>
+            <p>Data</p>
           </div>
           <div class="icon">
             <i class="ion ion-pie-graph"></i>
@@ -105,32 +107,38 @@
     <!-- /.row -->
     <!-- Main row -->
     <div class="row">
-      <!-- Left col -->
-      <section class="col-lg-6 connectedSortable">
-        <div class="card">
-          <div class="card-body">
-            <div class="card-body text-center">
-              <h3>Pengajuan Calon Anak Binaan Baru</h3>
-              <a href="{{ route('admin.pengajuanForm') }}" class="btn btn-outline-info">Pengajuan Anak+</a>
+
+      <div class="col-12">
+        <div class="row">
+          <div class="col-6">
+            <div class="card">
+              <div class="card-body">
+                <div class="text-center">
+                  <!-- Contoh select box dengan opsi dari data provinsi yang diterima dari controller -->
+                  <select name="province" class="form-select" id="province">
+                    <option value="" disabled selected>Select Provinsi</option>
+                    @foreach ($provinces as $province)
+                    @php
+                        $formattedName = ucwords(strtolower($province['name']));
+                    @endphp
+                        <option value="{{ $formattedName }}">{{ $formattedName }}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-
-      </section>
-      <!-- /.Left col -->
-      <!-- right col (We are only adding the ID to make the widgets sortable)-->
-      <section class="col-lg-6 connectedSortable">
-        <div class="card">
-          <div class="card-body">
-            <div class="card-body">
-              <div class="text-center">
-                <h3>Sudah mempunyai Keluarga Terdaftar?</h3>
-                <a href="{{ route('admin.anak.tambah') }}" class="btn btn-outline-success">Ajukan Anak+</a>
+          <div class="col-6">
+            <div class="card">
+              <div class="card-body">
+                <div class="text-center">
+                  <h2>Test2</h2>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
       <!-- right col -->
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
       @if(session('alert'))

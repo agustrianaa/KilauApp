@@ -18,9 +18,13 @@ return new class extends Migration
             $table->string('nama_lengkap');
             $table->string('nama_panggilan');
             $table->string('agama');
+            $table->string('anak_ke');
             $table->string('jenis_kelamin');
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
+            $table->string('wilayah_binaan');
+            $table->string('shelter');
+            $table->string('jarak_ke_shelter')->nullable();
             $table->string('nama_sekolah');
             $table->string('kelas_sekolah');
             $table->string('nama_madrasah');

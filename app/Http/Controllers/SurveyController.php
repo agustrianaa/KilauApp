@@ -5,17 +5,44 @@ namespace App\Http\Controllers;
 
 use App\Models\DataKeluarga;
 use App\Models\SurveyKeluarga;
+use DB;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class SurveyController extends Controller
 {
-    public function indexSurvey()
+    public function indexSurvey(Request $request)
     {
+        $data = DataKeluarga::select(
+            'data_keluargas.id',
+            'data_keluargas.kacab',
+            'anaks.id_anaks',
+            'anaks.data_keluarga_id',
+            'status_anaks.*',
+            'survey_keluargas.keluarga_id',
+        )
+        // ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
+        ->leftJoin('anaks', function ($join) {
+            $join->on('data_keluargas.id', '=', 'anaks.data_keluarga_id')
+                ->where('anaks.id_anaks', '=', DB::raw('(SELECT MAX(id_anaks) FROM anaks WHERE anaks.data_keluarga_id = data_keluargas.id)'));
+        })
+
+        ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
+        ->leftJoin('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
+        // ->where('status_anaks.status_binaan', 1)
+        ->where('status_anaks.status_binaan', '=', 1)
+
+        // ->whereRaw('anaks.id_anaks IN (SELECT MAX(id_anaks) FROM anaks GROUP BY data_keluarga_id)') // Memilih satu anak dengan id_anaks tertinggi
+        ->whereNotNull('survey_keluargas.id')
+        ->orderBy('data_keluargas.created_at', 'asc')
+        ->get();
         if(request()->ajax()){
-            // $data = DataKeluarga::latest()->get();
+            $kacab = $request->kacab;
+            $wilayah_binaan = $request->wilayah_binaan;
+            $shelter = $request->shelter;
             $data = DataKeluarga::select(
                 'data_keluargas.*',
+                'data_keluargas.id as id_kel',
                 'anaks.*',
                 'status_anaks.*',
                 'anaks.id_anaks as id_anaks',
@@ -39,24 +66,129 @@ class SurveyController extends Controller
             ->leftJoin('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
             ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
             ->where('status_anaks.status_binaan', 1)
+            // ->where('anaks.wilayah_binaan', 'Bogor')
+            ->whereNotNull('survey_keluargas.id')
             ->orderBy('data_keluargas.created_at', 'asc')
-            // ->where(function ($query) {
-            //     $query->where('survey_keluargas.id', '!=', null) // Atau 'IS NOT NULL' tergantung pada DBMS Anda
-            //         ->orWhere('survey_keluargas.id', 'IS NULL');
-            // })
+            ->when(isset($kacab), function ($query) use ($kacab) {
+                // foreach ($kacab as $wilayah) {
+                    $query->whereIn('kacab', $kacab);
+                // }
+            })
+            ->when(isset($wilayah_binaan), function ($query) use ($wilayah_binaan) {
+                // foreach ($wilayah_binaan as $wilayah) {
+                    $query->whereIn('wilayah_binaan', $wilayah_binaan);
+                // }
+            })
+            ->when(isset($shelter), function ($query) use ($shelter) {
+                // foreach ($shelter as $wilayah) {
+                    $query->whereIn('shelter', $shelter);
+                // }
+            })
             ->get();
 
+            // $result = $data->get();
+
+            // if ($request->has('wilayah_binaan')) {
+            //     $wilayah_binaan = $request->wilayah_binaan;
+            //     $data = $data->whereIn('wilayah_binaan', $wilayah_binaan);
+            // }
+
+            // if(isset($wilbin)) {
+            //     $data->orWhere('wilayah_binaan', $wilbin);
+            // }
 
             return datatables($data)
             ->addIndexColumn()
             ->addColumn('action', function ($data) {
-                $btn = '<a href="' . url("admin/surveyForm/" . $data->id) . '" data-toggle="tooltip" data-id="' . $data->id . '" data-original-title="View" class="view btn btn-sm btn-info view text-white"><i class="bi bi-clipboard2-plus"></i> Isi Survey</a>';
+
+                $btn = '<a href="' . url("admin/surveyShow/" . $data->id_kel) . '" data-toggle="tooltip" data-id="' . $data->id_kel . '" data-original-title="View" class="view btn btn-sm btn-info view text-white"><i class="bi bi-clipboard2-plus"></i> Edit Survey</a>';
+
                 return $btn;
             })
             ->rawColumns(['action'])
             ->make(true);
         }
-        return view('survey.SurveyTabel');
+
+        return view('survey.SurveyTabel', compact('data'));
+
+    }
+    public function wilbin(Request $request)
+    {
+        $kacab = $request->kacab;
+        if(request()->ajax()){
+            if(isset($kacab)){
+
+                $data = DataKeluarga::select(
+                    'data_keluargas.id',
+                    'anaks.id_anaks',
+                    'anaks.data_keluarga_id',
+                    'anaks.shelter',
+                    'anaks.wilayah_binaan',
+                    'status_anaks.*',
+                    'survey_keluargas.id',
+                    'survey_keluargas.keluarga_id',
+                )
+                // ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
+                ->leftJoin('anaks', function ($join) {
+                    $join->on('data_keluargas.id', '=', 'anaks.data_keluarga_id')
+                        ->where('anaks.id_anaks', '=', DB::raw('(SELECT MAX(id_anaks) FROM anaks WHERE anaks.data_keluarga_id = data_keluargas.id)'));
+                })
+
+                ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
+                ->leftJoin('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
+                // ->where('status_anaks.status_binaan', 1)
+                ->where('status_anaks.status_binaan', '=', 1)
+
+                // ->whereRaw('anaks.id_anaks IN (SELECT MAX(id_anaks) FROM anaks GROUP BY data_keluarga_id)') // Memilih satu anak dengan id_anaks tertinggi
+                ->whereNotNull('survey_keluargas.id')
+                ->orderBy('data_keluargas.created_at', 'asc')
+                ->when(isset($kacab), function ($query) use ($kacab) {
+                        $query->whereIn('kacab', $kacab);
+                })
+                ->get();
+
+                return response()->json($data);
+            }
+        }
+    }
+    public function shelter(Request $request)
+    {
+        $wilbin = $request->wilayah_binaan;
+        if(request()->ajax()){
+            if(isset($wilbin)){
+
+                $data = DataKeluarga::select(
+                    'data_keluargas.id',
+                    'anaks.id_anaks',
+                    'anaks.data_keluarga_id',
+                    'anaks.shelter',
+                    'anaks.wilayah_binaan',
+                    'status_anaks.*',
+                    'survey_keluargas.id',
+                    'survey_keluargas.keluarga_id',
+                )
+                // ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
+                ->leftJoin('anaks', function ($join) {
+                    $join->on('data_keluargas.id', '=', 'anaks.data_keluarga_id')
+                        ->where('anaks.id_anaks', '=', DB::raw('(SELECT MAX(id_anaks) FROM anaks WHERE anaks.data_keluarga_id = data_keluargas.id)'));
+                })
+
+                ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
+                ->leftJoin('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
+                // ->where('status_anaks.status_binaan', 1)
+                ->where('status_anaks.status_binaan', '=', 1)
+
+                // ->whereRaw('anaks.id_anaks IN (SELECT MAX(id_anaks) FROM anaks GROUP BY data_keluarga_id)') // Memilih satu anak dengan id_anaks tertinggi
+                ->whereNotNull('survey_keluargas.id')
+                ->orderBy('data_keluargas.created_at', 'asc')
+                ->when(isset($wilbin), function ($query) use ($wilbin) {
+                        $query->whereIn('wilayah_binaan', $wilbin);
+                })
+                ->get();
+
+                return response()->json($data);
+            }
+        }
     }
 
     public function surveyForm($id)
@@ -67,10 +199,38 @@ class SurveyController extends Controller
     public function store(Request $request)
     {
         // Mengambil semua nilai yang dipilih dari checkbox "kep_kendaraan" sebagai array
-        $resultText = $request->input('kep_kendaraan');
+        // $resultText = $request->input('kep_kendaraan');
 
         // Mengganti input "kep_kendaraan" dengan string yang berisi nilai yang dipilih
-        $request->merge(['kep_kendaraan' => $resultText]);
+        // $request->merge(['kep_kendaraan' => $resultText]);
+
+        $request->validate([
+            'keluarga_id' => 'required',
+            'kep_tanah' => 'required',
+            'kep_rumah' => 'required',
+            'lantai' => 'required',
+            'dinding' => 'required',
+            'kep_elektronik' => 'required',
+            'sumber_air' => 'required',
+            'jamban' => 'required',
+            'tempat_sampah' => 'required',
+            'perokok' => 'required',
+            'miras' => 'required',
+            'p3k' => 'required',
+            'makan_sayur' => 'required',
+            'sholat' => 'required',
+            'baca_quran' => 'required',
+            'majelis_taklim' => 'required',
+            'pengurus_organisasi' => 'required',
+            'status_anak' => 'required',
+            'biaya_pendidikan' => 'required',
+            'bantuan_lembaga_formal' => 'required',
+            'resume' => 'required',
+            'petugas_survey' => 'required',
+            'kep_kendaraan' => 'required|array',
+            'kep_kendaraan.*' => 'in:Sepeda,Motor,Mobil',
+        ]);
+
 
         SurveyKeluarga::create($request->all());
 
@@ -119,5 +279,71 @@ class SurveyController extends Controller
     public function destroy(SurveyController $surveyController)
     {
 
+    }
+
+    public function surveyShow($id)
+    {
+        $data = SurveyKeluarga::where('keluarga_id', $id)->first();
+
+        return view('survey.surveyEdit', compact('data', 'id'));
+    }
+    public function surveyEdit(Request $request, $id)
+    {
+        // $data = SurveyKeluarga::where('keluarga_id', $id)->first();
+        $request->validate([
+            'kep_tanah' => 'required',
+            'kep_rumah' => 'required',
+            'lantai' => 'required',
+            'dinding' => 'required',
+            'kep_elektronik' => 'required',
+            'sumber_air' => 'required',
+            'jamban' => 'required',
+            'tempat_sampah' => 'required',
+            'perokok' => 'required',
+            'miras' => 'required',
+            'p3k' => 'required',
+            'makan_sayur' => 'required',
+            'sholat' => 'required',
+            'baca_quran' => 'required',
+            'majelis_taklim' => 'required',
+            'pengurus_organisasi' => 'required',
+            'status_anak' => 'required',
+            'biaya_pendidikan' => 'required',
+            'bantuan_lembaga_formal' => 'required',
+            'resume' => 'required',
+            'petugas_survey' => 'required',
+            'kep_kendaraan' => 'required|array',
+            'kep_kendaraan.*' => 'in:Sepeda,Motor,Mobil',
+        ]);
+
+        DB::table('survey_keluargas')
+            ->where('keluarga_id', $id)
+            ->update([
+                // 'keluarga_id' => $id,
+                'kep_tanah' => $request->kep_tanah,
+                'kep_rumah' => $request->kep_rumah,
+                'lantai' => $request->lantai,
+                'dinding' => $request->dinding,
+                'kep_kendaraan' => $request->kep_kendaraan,
+                'kep_elektronik' => $request->kep_elektronik,
+                'sumber_air' => $request->sumber_air,
+                'jamban' => $request->jamban,
+                'tempat_sampah' => $request->tempat_sampah,
+                'perokok' => $request->perokok,
+                'miras' => $request->miras,
+                'p3k' => $request->p3k,
+                'makan_sayur' => $request->makan_sayur,
+                'sholat' => $request->sholat,
+                'baca_quran' => $request->baca_quran,
+                'majelis_taklim' => $request->majelis_taklim,
+                'pengurus_organisasi' => $request->pengurus_organisasi,
+                'status_anak' => $request->status_anak,
+                'biaya_pendidikan' => $request->biaya_pendidikan,
+                'bantuan_lembaga_formal' => $request->bantuan_lembaga_formal,
+                'resume' => $request->resume,
+                'petugas_survey' => $request->petugas_survey,
+            ]);
+
+        return redirect()->route('admin.surveyAnak');;
     }
 }

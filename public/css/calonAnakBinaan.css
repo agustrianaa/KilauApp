@@ -1,0 +1,97 @@
+.card.filters {
+    display: none;
+}
+
+.col-lg-12.bukaFilter {
+    display: none;
+}
+
+.col-lg-12.tutupFilter {
+    display: none;
+}
+
+.breadcrumb-item a {
+    text-decoration: none;
+    color: black;
+    transition: 0.1s;
+}
+
+.breadcrumb-item a:hover {
+    text-decoration: none;
+    color: rgb(0, 136, 255);
+    font-size: 18px;
+    transition: 0.1s;
+}
+
+.kk.sembunyi {
+    display: none;
+}
+
+.btn.btn-outline-warning.bukaKKbtn {
+    display: none;
+}
+
+.btn.btn-danger.tutupKKbtn {
+    display: none;
+}
+
+ /* Menambahkan gaya untuk membuatnya terlihat seperti pillbox */
+.select2-selection__choice {
+    /* background-color: #ff0000; */
+    color: white;
+    border: transparent;
+    /* border-radius: 20px; */
+    /* margin-right: 15px; */
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    /* background-color: rgb(255, 255, 255);
+    border-color: rgb(43, 43, 43); */
+    border-radius: 40px;
+    border: transparent;
+    background-color: rgb(177, 94, 255);
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+    color: rgb(255, 255, 255);
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__display {
+    padding-left: 5px;
+    font-weight: bold;
+    /* font-family: 'Dancing Script', cursive; */
+    font-family: 'Times New Roman', serif;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    background-color: transparent;
+    border: none;
+    /* border-right: 1px solid #000000; */
+    /* border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px; */
+    border-radius: 50px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    padding: 0 4px;
+    position: absolute;
+    left: -2px;
+    top: 0;
+    /* bottom: -0.5px; */
+    transition: 0.2s;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
+    background-color: #fe5050;
+    color: #fff;
+    transition: 0.2s;
+}
+
+.select2-container--default .select2-dropdown .select2-search__field:focus, .select2-container--default .select2-search--inline .select2-search__field:focus {
+    outline: 0;
+    border: transparent;
+}
+
+.garis {
+    font-weight: bold;
+    color: black;
+}

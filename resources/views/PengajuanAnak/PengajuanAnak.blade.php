@@ -86,13 +86,29 @@
                                             </div>
                                             <div class="row mb-2">
                                                 <div class="col-12 col-sm-4">
+                                                    <p class="text-sm-end">Agama :</p>
+                                                </div>
+                                                <div class="col-12 col-sm-8">
+                                                    <select class="form-select" id="agama_anak" name="agama_anak" required="">
+                                                        <option value="" disabled selected>-Pilih-</option>
+                                                        <option value="Islam">Islam</option>
+                                                        <option value="Kristen">Kristen</option>
+                                                        <option value="Katolik">Katolik</option>
+                                                        <option value="Hindu">Hindu</option>
+                                                        <option value="Budha">Budha</option>
+                                                        <option value="Konghucu">Konghucu</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-12 col-sm-4">
                                                     <p class="text-sm-end">Jenis Kelamin :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
                                                     <select class="form-select" id="jenis_kelamin_calon_anak" name="jenis_kelamin_calon_anak" required="">
-                                                            <option value="" disabled selected>-Pilih-</option>
-                                                            <option value="Laki-Laki">Laki-Laki</option>
-                                                            <option value="Perempuan">Perempuan</option>
+                                                        <option value="" disabled selected>-Pilih-</option>
+                                                        <option value="Laki-Laki">Laki-Laki</option>
+                                                        <option value="Perempuan">Perempuan</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -110,6 +126,45 @@
                                                 </div>
                                                 <div class="col-12 col-sm-8">
                                                     <input type="date" class="form-control" id="tanggal_lahir_calon_anak" name="tanggal_lahir_calon_anak" placeholder="Tanggal Lahir...">
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-12 col-sm-4">
+                                                    <p class="text-sm-end">Wilayah Binaan :</p>
+                                                </div>
+                                                <div class="col-12 col-sm-8">
+                                                    <select class="form-select" id="wilayah_binaan" name="wilayah_binaan">
+                                                        <option disabled selected>Wilayah Binaan...</option>
+                                                        <option value="Indramayu">Indramayu</option>
+                                                        <option value="Bandung">Bandung</option>
+                                                        <option value="Sumedang">Sumedang</option>
+                                                        <option value="Bogor">Bogor</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-12 col-sm-4">
+                                                    <p class="text-sm-end">Shelter :</p>
+                                                </div>
+                                                <div class="col-12 col-sm-8">
+                                                    <select class="form-select" id="shelter" name="shelter">
+                                                        <option disabled selected>Pilih Shelter...</option>
+                                                        <option value="Indramayu">Indramayu</option>
+                                                        <option value="Bandung">Bandung</option>
+                                                        <option value="Sumedang">Sumedang</option>
+                                                        <option value="Bogor">Bogor</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-12 col-sm-4">
+                                                    <p class="text-sm-end">Jarak ke Shelter :</p>
+                                                </div>
+                                                <div class="col-12 col-sm-2">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" id="jarak_ke_shelter" name="jarak_ke_shelter" placeholder="">
+                                                        <span class="input-group-text">KM</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -216,45 +271,6 @@
                                                 </div>
                                                 <div class="col-12 col-sm-8">
                                                     <input type="text" class="form-control" id="kepala_keluarga" name="kepala_keluarga" placeholder="Nama Kepala Keluarga...">
-                                                </div>
-                                            </div>
-                                            <div class="row mb-2">
-                                                <div class="col-12 col-sm-4">
-                                                    <p class="text-sm-end">Wilayah Binaan :</p>
-                                                </div>
-                                                <div class="col-12 col-sm-8">
-                                                    <select class="form-select" id="wilayah_binaan" name="wilayah_binaan">
-                                                        <option disabled selected>Wilayah Binaan...</option>
-                                                        <option value="Indramayu">Indramayu</option>
-                                                        <option value="Bandung">Bandung</option>
-                                                        <option value="Sumedang">Sumedang</option>
-                                                        <option value="Bogor">Bogor</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-2">
-                                                <div class="col-12 col-sm-4">
-                                                    <p class="text-sm-end">Shelter :</p>
-                                                </div>
-                                                <div class="col-12 col-sm-8">
-                                                    <select class="form-select" id="shelter" name="shelter">
-                                                        <option disabled selected>Pilih Shelter...</option>
-                                                        <option value="Indramayu">Indramayu</option>
-                                                        <option value="Bandung">Bandung</option>
-                                                        <option value="Sumedang">Sumedang</option>
-                                                        <option value="Bogor">Bogor</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-2">
-                                                <div class="col-12 col-sm-4">
-                                                    <p class="text-sm-end">Jarak ke Shelter :</p>
-                                                </div>
-                                                <div class="col-12 col-sm-2">
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" id="jarak_ke_shelter" name="jarak_ke_shelter" placeholder="">
-                                                        <span class="input-group-text">KM</span>
-                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -551,7 +567,7 @@
                                 <div class="col-12 col-sm-4">
                                     <div class="card">
                                         <div class="card-title">
-                                            <h4 class="text-center">Form Wali(Jika ada)</h4>
+                                            <h4 class="text-center">Form Wali (Jika ada)</h4>
                                         </div>
                                         <hr>
                                         <div class="card-body">

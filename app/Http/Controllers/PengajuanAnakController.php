@@ -9,6 +9,7 @@ use App\Models\Anak;
 use App\Models\Ibu;
 use App\Models\StatusAnak;
 use App\Models\Wali;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 
 class PengajuanAnakController extends Controller
@@ -21,12 +22,8 @@ class PengajuanAnakController extends Controller
         $dataKeluarga = DataKeluarga::create([
             "kacab" => $request->kacab,
             "no_kk" => $request->no_kk,
-            "anak_ke" => $request->anak_ke,
             "alamat_kk" => $request->alamat_kk,
             "kepala_keluarga" => $request->kepala_keluarga,
-            "wilayah_binaan" => $request->wilayah_binaan,
-            "shelter" => $request->shelter,
-            "jarak_ke_shelter" => $request->jarak_ke_shelter,
             "no_telp" => $request->no_telp,
             "no_rek" => $request->no_rek
         ]);
@@ -37,9 +34,14 @@ class PengajuanAnakController extends Controller
             "data_keluarga_id" => $keluargaID,
             "nama_lengkap" => $request->nama_lengkap_calon_anak,
             "nama_panggilan" => $request->nama_panggilan_calon_anak,
+            "agama" => $request->agama_anak,
+            "anak_ke" => $request->anak_ke,
             "jenis_kelamin" => $request->jenis_kelamin_calon_anak,
             "tempat_lahir" => $request->tempat_lahir_calon_anak,
             "tanggal_lahir" => $request->tanggal_lahir_calon_anak,
+            "wilayah_binaan" => $request->wilayah_binaan,
+            "shelter" => $request->shelter,
+            "jarak_ke_shelter" => $request->jarak_ke_shelter,
             "nama_sekolah" => $request->nama_sekolah,
             "kelas_sekolah" => $request->kelas_sekolah,
             "nama_madrasah" => $request->nama_madrasah,
@@ -102,7 +104,92 @@ class PengajuanAnakController extends Controller
             'showConfirmButton' => 'false',
         ];
 
-        return redirect()->route('admin.dashboard')->with('alert', $alert);
+        return redirect()->route('admin.calonanakbinaanIndex')->with('alert', $alert);
     }
+
+    public function AjukanAnak(Request $request) {
+        $dataKeluargaId = $request->input('idDataKeluarga'); // Mendapatkan ID DataKeluarga dari formulir
+
+        // Lakukan validasi atau operasi lain sesuai kebutuhan di sini
+
+        return view('PengajuanAnak.AjukanAnak', ['dataKeluargaId' => $dataKeluargaId]);
+    }
+
+    public function search(Request $request)
+    {
+        $nomorKartuKeluarga = $request->input('nomorKartuKeluarga');
+
+        $result = DataKeluarga::where('no_kk', 'like', '%'.$nomorKartuKeluarga.'%')->get();
+
+        return response()->json($result);
+    }
+
+    public function tambahAnakForm(Request $request)
+    {
+        $dataKeluargaId = $request->input('idDataKeluarga'); // Mendapatkan ID DataKeluarga dari formulir
+
+        // Lakukan validasi atau operasi lain sesuai kebutuhan di sini
+
+        return view('PengajuanAnak.AjukanAnak', ['dataKeluargaId' => $dataKeluargaId]);
+    }
+
+    public function simpanAnak(Request $request)
+    {
+        // Validasi input sesuai kebutuhan
+        $request->validate([
+            'namaLengkapAnak' => 'required',
+            'namaPanggilanAnak' => 'required',
+            'agamaAnak' => 'required',
+            'jenisKelaminAnak' => 'required',
+            'tempatLahirAnak' => 'required',
+            'tanggalLahirAnak' => 'required',
+            'WilayahBinaanAnak' => 'required',
+            'ShelterAnak' => 'required',
+            'jarakShelterAnak' => 'required',
+            'namaSekolah' => 'required',
+            'kelasSekolah' => 'required',
+            'namaMadrasah' => 'required',
+            'kelasMadrasah' => 'required',
+            'hobbyAnak' => 'required',
+            'citaCitaAnak' => 'required',
+        ]);
+
+        // Simpan data anak ke database
+        $dataAnak = Anak::create([
+            'nama_lengkap' => $request->namaLengkapAnak,
+            'nama_panggilan' => $request->namaPanggilanAnak,
+            'agama' => $request->agamaAnak,
+            'anak_ke' => $request->anakKe,
+            'jenis_kelamin' => $request->jenisKelaminAnak,
+            'tempat_lahir' => $request->tempatLahirAnak,
+            'tanggal_lahir' => $request->tanggalLahirAnak,
+            'wilayah_binaan' => $request->WilayahBinaanAnak,
+            'shelter' => $request->ShelterAnak,
+            'jarak_ke_shelter' => $request->jarakShelterAnak,
+            'nama_sekolah' => $request->namaSekolah,
+            'kelas_sekolah' => $request->kelasSekolah,
+            'nama_madrasah' => $request->namaMadrasah,
+            'kelas_madrasah' => $request->kelasMadrasah,
+            'hobby' => $request->hobbyAnak,
+            'cita_cita' => $request->citaCitaAnak,
+            'data_keluarga_id' => $request->idDataKeluarga, // Gunakan ID DataKeluarga yang sudah disimpan dalam input tersembunyi
+        ]);
+        $anakID = $dataAnak->id_anaks;
+        StatusAnak::create([
+            'anak_id' => $anakID,
+            'status_binaan' => $request->statusAnak,
+            'status_beasiswa' => $request->statusBeasiswa,
+        ]);
+
+        // Tambahkan kode SweetAlert2 sebelum redirect
+        $alert = [
+            'title' => 'Anak ditambahkan!',
+            'icon' => 'success',
+        ]; 
+
+        // Redirect atau lakukan tindakan lain sesuai kebutuhan
+        return redirect()->route('admin.calonanakbinaanIndex')->with('alert', $alert);
+    }
+
 
 }

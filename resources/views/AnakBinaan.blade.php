@@ -12,12 +12,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Data Calon Anak Binaan</h1>
+                    <h1 class="m-0">Data Anak Binaan</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Data Calon Anak Binaan</li>
+                        <li class="breadcrumb-item active">Data Anak Binaan</li>
                     </ol>
                 </div>
             </div><!-- End row -->
@@ -114,7 +114,7 @@
                 <div class="card-body">
                     <div class="table-responsive text-nowrap">
                         <!-- Tabel data keluarga -->
-                        <table class="table table-bordered" id="CalonAnakBinaanTable">
+                        <table class="table table-bordered" id="AnakBinaanTable">
                             <thead>
                                 <tr>
                                     <th style="width: 10px">No</th>
@@ -125,6 +125,7 @@
                                     <th>Kepala Keluarga</th>
                                     <th>Anak Ke</th>
                                     <th>Status Binaan</th>
+                                    <th>Status Survey</th>
                                     <th style="width: 150px">Action</th>
                                 </tr>
                             </thead>
@@ -132,6 +133,44 @@
                     </div>
                 </div>
             </div>
+
+            <select class="form-control col-md-6 col-xs-12" name="id_prov" id="prop" required="required" onchange="ajaxkota(this.value)">
+                <option value="" selected="" disabled="">Pilih Provinsi...</option>
+                /option><option value="35">Jawa Timur</option><option value="36">Banten</option><option value="51">Bali</option><option value="52">Nusa Tenggara Barat</option><option value="53">Nusa Tenggara Timur</option><option value="61">Kalimantan Barat</option><option value="62">Kalimantan Tengah</option><option value="63">Kalimantan Selatan</option><option value="64">Kalimantan Timur</option><option value="65">Kalimantan Utara</option><option value="71">Sulawesi Utara</option><option value="72">Sulawesi Tengah</option><option value="73">Sulawesi Selatan</option><option value="74">Sulawesi Tenggara</option><option value="75">Gorontalo</option><option value="76">Sulawesi Barat</option><option value="81">Maluku</option><option value="82">Maluku Utara</option><option value="91">Papua Barat</option><option value="92">Papua</option>                    </select>
+
+                Kabupaten Asahan
+                Kabupaten Batubara
+                Kabupaten Dairi
+                Kabupaten Deli Serdang
+                Kabupaten Humbang Hasundutan
+                Kabupaten Karo
+                Kabupaten Labuhanbatu
+                Kabupaten Labuhanbatu Selatan
+                Kabupaten Labuhanbatu Utara
+                Kabupaten Langkat
+                Kabupaten Mandailing Natal
+                Kabupaten Nias
+                Kabupaten Nias Barat
+                Kabupaten Nias Selatan
+                Kabupaten Nias Utara
+                Kabupaten Padang Lawas
+                Kabupaten Padang Lawas Utara
+                Kabupaten Pakpak Bharat
+                Kabupaten Samosir
+                Kabupaten Serdang Bedagai
+                Kabupaten Simalungun
+                Kabupaten Tapanuli Selatan
+                Kabupaten Tapanuli Tengah
+                Kabupaten Tapanuli Utara
+                Kabupaten Toba Samosir
+                Kota Binjai
+                Kota Gunungsitoli
+                Kota Medan
+                Kota Padangsidempuan
+                Kota Pematangsiantar
+                Kota Sibolga
+                Kota Tanjungbalai
+                Kota Tebing Tinggi
 
         </div>
 </section>
@@ -162,12 +201,12 @@
             var selectedWil = $('#dynamicSelect').val();
             console.log(selectedShelters, selectedWil);
 
-            $('#CalonAnakBinaanTable').DataTable({
+            $('#AnakBinaanTable').DataTable({
                 processing : true,
                 // searching : false,
                 serverSide : true,
                 ajax : {
-                    url : "{{ url('admin/calonAnakBinaan') }}",
+                    url : "{{ url('admin/AnakBinaan') }}",
                     data: {
                         shelter: selectedShelters,
                         agamaAnak : selectedWil,
@@ -181,7 +220,7 @@
                             return meta.row + 1; // Menggunakan nomor baris sebagai nomor urut
                         }
                     },
-                    { data: 'nama_lengkap_calon_anak', name: 'nama_lengkap_calon_anak'},
+                    { data: 'nama_lengkap_anak', name: 'nama_lengkap_anak'},
                     { data: 'agamaAnak', name: 'agamaAnak'},
                     { data: 'shelter', name: 'shelter'},
                     { data: 'no_kk', name: 'no_kk'},
@@ -194,6 +233,7 @@
                             return data == 1 ? 'Aktif' : 'Belum validasi';
                         }
                     },
+                    { data: 'survey_status', name: 'survey_status'},
                     { data: 'action', name: 'action', orderable: false},
                 ],
                 order: [[0, 'desc']],
@@ -212,7 +252,7 @@
                         "next": "Selanjutnya",
                         "previous": "Sebelumnya"
                     },
-                }
+                },
             });
         }
 
@@ -263,20 +303,20 @@
         $('#filterSemua').click(function () {
             var selectedShelters = $('#multiSelect').val();
             var selectedWil = $('#dynamicSelect').val();
-
-            $('#CalonAnakBinaanTable').DataTable().destroy();
+        
+            $('#AnakBinaanTable').DataTable().destroy();      
             loadData(selectedShelters, selectedWil);
         });
 
 
         function resetFilter() {
             // Hapus semua nilai yang dipilih di Select2
-            $('#multiSelect').val(null).trigger('change');
+            $('#multiSelect').val(null).trigger('change');      
 
             // Destroy tabel data (gantilah '#tabelData' dengan ID atau kelas tabel Anda)
-            $('#CalonAnakBinaanTable').DataTable().destroy();
+            $('#AnakBinaanTable').DataTable().destroy();      
 
-            // Misalnya, inisialisasi kembali tabel dengan ID 'CalonAnakBinaanTable'
+            // Misalnya, inisialisasi kembali tabel dengan ID 'AnakBinaanTable'
             loadData();
         }
 
@@ -333,7 +373,7 @@
                     timer: 900,
                     showConfirmButton: false
                 }).then(function() {
-                    var oTable = $('#CalonAnakBinaanTable').DataTable();
+                    var oTable = $('#AnakBinaanTable').DataTable();
                     oTable.ajax.reload(false);
                 });
             }
@@ -350,7 +390,7 @@
                 data: {id:id},
                 dataType: 'json',
                 success: function(res) {
-                    var oTable = $('#CalonAnakBinaanTable').DataTable();
+                    var oTable = $('#AnakBinaanTable').DataTable();
                     oTable.ajax.reload(false); //agar tidak perlu refresh halaman
                 }
             });
