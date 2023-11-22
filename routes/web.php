@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PengajuanAnakController;
 use App\Http\Controllers\dataSurveyController;
+use App\Http\Controllers\PengajuanDonaturController;
 use App\Http\Controllers\reportController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\surveyDataController;
@@ -103,9 +104,15 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::post('/survey-delete', [ValidasiSurveyController::class, 'destroy'])->name('survey-delete');
     Route::put('/update-validasi/{id}', [ValidasiSurveyController::class, 'update'])->name('save-validasi');
 
-    // Route::put('/save/{id_anaks}', [ValidasiBeasiswaController::class, 'update'])->name('save');
-    // Route::post('validasi/{id}/save-validasi', [ValidasiBeasiswaController::class, 'store'])->name('save-validasi');
-    // Route::put('/update-validasi/{id}', [ValidasiBeasiswaController::class, 'update'])->name('update-validasi');
+    // Pengajuan Donatur 
+    Route::get('/pengajuan-donatur', [PengajuanDonaturController::class,'index'])->name('aju-donatur');
+    Route::get('/pengajuan/{id?}', [PengajuanDonaturController::class,'show'])->name('pengajuan');
+    Route::get('/cari-donatur', [PengajuanDonaturController::class,'search'])->name('cariDonatur');
+    Route::post('/simpan-donatur', [PengajuanDonaturController::class,'store'])->name('simpanDonatur');
+    Route::patch('/hapus-donatur', [PengajuanDonaturController::class, 'destroy'])->name('hapus-donatur');
+    Route::get('/profile-donatur/{id}', [PengajuanDonaturController::class, 'profileDonatur'])->name('profile-donatur');
+
+    
     Route::resource('/posts', \App\Http\Controllers\PostController::class);
     Route::resource('/acc', \App\Http\Controllers\AccController::class);
 

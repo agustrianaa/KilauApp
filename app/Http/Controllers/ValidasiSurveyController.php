@@ -145,20 +145,7 @@ class ValidasiSurveyController extends Controller
                             })
                             ->update(['status_beasiswa' => $stat, 'status_binaan' => true]);
     }
-
-    // if ($status === 'layak') {
-    //     $anak = new StatusAnak();
-    //     $anak->status_beasiswa = 'PB'; // Ganti dengan data anak yang sesuai
-    //     $anak->status_binaan = true; // Ganti dengan status anak yang sesuai
-    //     $anak->save();
-    // } elseif ($status === 'tidak layak') {
-    //     $anak = new StatusAnak();
-    //     $anak->status_beasiswa = 'PB'; // Ganti dengan data anak yang sesuai
-    //     $anak->status_binaan = true; // Ganti dengan status anak yang sesuai
-    //     $anak->save();
-    // }
     
-
     return redirect()->back()->with('success', 'Data berhasil diperbarui.');
 }
 
