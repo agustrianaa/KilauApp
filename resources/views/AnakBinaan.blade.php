@@ -134,6 +134,44 @@
                 </div>
             </div>
 
+            <select class="form-control col-md-6 col-xs-12" name="id_prov" id="prop" required="required" onchange="ajaxkota(this.value)">
+                <option value="" selected="" disabled="">Pilih Provinsi...</option>
+                /option><option value="35">Jawa Timur</option><option value="36">Banten</option><option value="51">Bali</option><option value="52">Nusa Tenggara Barat</option><option value="53">Nusa Tenggara Timur</option><option value="61">Kalimantan Barat</option><option value="62">Kalimantan Tengah</option><option value="63">Kalimantan Selatan</option><option value="64">Kalimantan Timur</option><option value="65">Kalimantan Utara</option><option value="71">Sulawesi Utara</option><option value="72">Sulawesi Tengah</option><option value="73">Sulawesi Selatan</option><option value="74">Sulawesi Tenggara</option><option value="75">Gorontalo</option><option value="76">Sulawesi Barat</option><option value="81">Maluku</option><option value="82">Maluku Utara</option><option value="91">Papua Barat</option><option value="92">Papua</option>                    </select>
+
+                Kabupaten Asahan
+                Kabupaten Batubara
+                Kabupaten Dairi
+                Kabupaten Deli Serdang
+                Kabupaten Humbang Hasundutan
+                Kabupaten Karo
+                Kabupaten Labuhanbatu
+                Kabupaten Labuhanbatu Selatan
+                Kabupaten Labuhanbatu Utara
+                Kabupaten Langkat
+                Kabupaten Mandailing Natal
+                Kabupaten Nias
+                Kabupaten Nias Barat
+                Kabupaten Nias Selatan
+                Kabupaten Nias Utara
+                Kabupaten Padang Lawas
+                Kabupaten Padang Lawas Utara
+                Kabupaten Pakpak Bharat
+                Kabupaten Samosir
+                Kabupaten Serdang Bedagai
+                Kabupaten Simalungun
+                Kabupaten Tapanuli Selatan
+                Kabupaten Tapanuli Tengah
+                Kabupaten Tapanuli Utara
+                Kabupaten Toba Samosir
+                Kota Binjai
+                Kota Gunungsitoli
+                Kota Medan
+                Kota Padangsidempuan
+                Kota Pematangsiantar
+                Kota Sibolga
+                Kota Tanjungbalai
+                Kota Tebing Tinggi
+
         </div>
 </section>
 </div>
@@ -214,7 +252,7 @@
                         "next": "Selanjutnya",
                         "previous": "Sebelumnya"
                     },
-                }
+                },
             });
         }
 
