@@ -96,10 +96,19 @@
             </li>
 
             <li class="nav-item">
+            <a href="{{ route('admin.aju-donatur') }}" class="nav-link">
+            <i class="fas fa-hand-holding-heart"></i>{{-- icon --}}
+                <p class="pl-1">
+                    Pengajuan Donatur
+                </p>
+            </a>
+            </li>
+
+            <li class="nav-item">
                 <a href="{{ url('datasurvey') }}" class="nav-link">
                     <i class="bi bi-clipboard2-plus-fill"></i>{{-- icon --}}
                     <p class="pl-1">
-                        Survey
+                        Contoh Survey
                     </p>
                 </a>
             </li>

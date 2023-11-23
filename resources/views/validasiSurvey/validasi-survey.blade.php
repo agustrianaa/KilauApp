@@ -281,7 +281,7 @@
                                     <label class="form-check-label" for="pb" ><h5>Tidak Mencukupi</h5> 'Ditangguhkan'</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" name="status" class="form-check-input" id="tdk_layak" value="tidak layak" @if ($status === 'tidak layak') checked @endif>
+                                    <input type="radio" name="status" class="form-check-input" id="ckp_layak" value="cukup layak" @if ($status === 'cukup layak') checked @endif>
                                     <label class="form-check-label" for="pb" ><h5>Tidak Layak</h5> 'Non Penerimaan Beasiswa(NPB) dan Anak Binaan'</label>
                                 </div>
                                 

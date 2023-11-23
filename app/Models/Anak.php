@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class anak extends Model
+class Anak extends Model
 {
 
     use HasFactory;
@@ -17,6 +17,7 @@ class anak extends Model
 
     protected $fillable = [
         'data_keluarga_id',
+        'donatur_id',
         'nama_lengkap',
         'nama_panggilan',
         'agama',
@@ -35,17 +36,22 @@ class anak extends Model
         'cita_cita',
     ];
 
-    public function dataKeluarga():BelongsTo
+    public function dataKeluarga(): BelongsTo
     {
         return $this->belongsTo(DataKeluarga::class);
     }
-    public function dataStatusAnak():HasOne
+    public function dataStatusAnak(): HasOne
     {
         return $this->hasOne(StatusAnak::class);
     }
 
-    public function beasiswa():BelongsTo
+    public function beasiswa(): BelongsTo
     {
         return $this->belongsTo('App\Models\Beasiswa', 'id');
+    }
+
+    public function donatur()
+    {
+        return $this->belongsTo(Donatur::class, 'donatur_id');
     }
 }
