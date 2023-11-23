@@ -6,8 +6,10 @@ use App\Models\anak;
 use App\Models\Ayah;
 use App\Models\DataKeluarga;
 use App\Models\Ibu;
+use App\Models\KantorCabang;
 use App\Models\StatusAnak;
 use App\Models\Wali;
+use App\Models\WilayahBinaan;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -56,9 +58,36 @@ class SettingsController extends Controller
     }
 
     public function KaCabIndex(Request $request) {
+        if (request()->ajax()) {
+            $data = KantorCabang::select('*')
+                ->get();
+
+            return datatables($data)
+                ->addColumn('action', 'Settings.Wilayah.tombolAction.tambahKaCab-action')
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
+        }
+
         return View('Settings.Wilayah.settingKaCab');
     }
     public function WilBinIndex(Request $request) {
+        if (request()->ajax()) {
+            $data = KantorCabang::select(
+                'kantor_cabangs.*',
+                'wilayah_binaans.*',
+                )
+                ->leftJoin('wilayah_binaans', 'kantor_cabangs.id_kacab', '=', 'wilayah_binaans.kacab_id')
+                ->orderBy('wilayah_binaans.updated_at', 'desc')
+                ->get();
+
+            return datatables($data)
+                ->addColumn('action', 'Settings.Wilayah.tombolAction.tambahWilBin-action')
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
+        }
+
         return View('Settings.Wilayah.settingWilBin');
     }
     public function ShelterIndex(Request $request) {
@@ -92,4 +121,126 @@ class SettingsController extends Controller
             'kelurahan' => $kelurahan,
         ]);
     }
+
+    public function tambahWilBin(Request $request) {
+        return View('Settings.Wilayah.tambahWilayah.tambahWilBin');
+    }
+
+    public function tambahShelter(Request $request) {
+        return View('Settings.Wilayah.tambahWilayah.tambahShelter');
+    }
+
+    public function simpanKaCab(Request $request) {
+
+        $request->validate([
+            'namaKacab' => 'required',
+            'nomortlp' => 'required',
+            'alamatKacab' => 'required',
+            'tbhProvinsi' => 'required',
+            'tbhKabupaten' => 'required',
+            'tbhKecamatan' => 'required',
+            'tbhKelurahan' => 'required',
+        ]);
+
+        KantorCabang::create([
+            'nama_kacab' => $request->namaKacab,
+            'no_telp' => $request->nomortlp,
+            'alamat' => $request->alamatKacab,
+            'provinsi' => $request->tbhProvinsi,
+            'kabupaten' => $request->tbhKabupaten,
+            'kecamatan' => $request->tbhKecamatan,
+            'kelurahan' => $request->tbhKelurahan,
+        ]);
+
+        // Tambahkan kode SweetAlert2 sebelum redirect
+        $alert = [
+            'title' => 'Kantor Cabang ditambahkan!',
+            'icon' => 'success',
+        ]; 
+
+        // Redirect atau lakukan tindakan lain sesuai kebutuhan
+        return redirect()->route('admin.KaCabView')->with('alert', $alert);
+    }
+
+    public function getKacab(Request $request)
+    {
+        $id_kacab = $request->input('id_kacab');
+
+        $kacab = KantorCabang::find($id_kacab);
+
+        return response()->json($kacab);
+    }
+
+    public function updateKacab(Request $request, $id_kacab)
+    {
+        // // Lakukan validasi atau proses lain sesuai kebutuhan
+        // $id_kacab = $request->input('id_kacab');
+
+        $kacab = KantorCabang::find($id_kacab);
+
+        if (!$kacab) {
+            return response()->json(['success' => false, 'message' => 'Data Keluarga tidak ditemukan']);
+        }
+
+        $kacab->update($request->only([
+            'nama_kacab',
+            'no_telp',
+            'alamat',
+            'provinsi',
+            'kabupaten',
+            'kecamatan',
+            'kelurahan'
+        ]));
+
+        return response()->json(['success' => true]);
+    }
+
+    public function deleteKacab(Request $request)
+    {
+        $id_kacab = $request->input('id_kacab');
+
+        // Lakukan validasi atau proses lain sesuai kebutuhan
+
+        $kacab = KantorCabang::find($id_kacab);
+
+        if ($kacab) {
+            $kacab->delete();
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Kantor Cabang tidak ditemukan.']);
+        }
+    }
+
+    public function getKantorCabang(Request $request)
+    {
+        $term = $request->term;
+        $kantorCabangs = KantorCabang::where('nama_kacab', 'like', '%' . $term . '%')->get();
+
+        $results = [];
+        foreach ($kantorCabangs as $kantorCabang) {
+            $results[] = [
+                'id' => $kantorCabang->id_kacab,
+                'text' => $kantorCabang->nama_kacab,
+            ];
+        }
+
+        return response()->json($results);
+    }
+
+    public function simpanGetKacab(Request $request) {
+        
+        WilayahBinaan::create([
+            'kacab_id' => $request->idUntukKacab,
+            'nama_wilbin' => $request->namaWilbin,
+        ]);
+
+        $alert = [
+            'title' => 'Wilayah Binaan ditambahkan!',
+            'icon' => 'success',
+        ]; 
+
+        // Redirect atau lakukan tindakan lain sesuai kebutuhan
+        return redirect()->route('admin.WilBinView')->with('alert', $alert);
+    }
+
 }

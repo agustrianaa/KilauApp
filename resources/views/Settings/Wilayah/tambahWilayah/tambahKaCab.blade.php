@@ -27,7 +27,8 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Data Anak Binaan</li>
+                        <li class="breadcrumb-item active">Kantor Cabang</li>
+                        <li class="breadcrumb-item active">Tambah Kantor Cabang</li>
                     </ol>
                 </div>
             </div>
@@ -44,107 +45,140 @@
                     <hr>
                     <div class="card-body">
                         <div class="col-12">
-                            <div class="row mb-2">
-                                <div class="col-3">
-                                    <div class="float-end">
-                                        Nama Kantor Cabang :
+                            <form action="{{ route('admin.simpanKaCabFunc') }}" method="POST">
+                            @csrf
+                                <div class="row mb-2">
+                                    <div class="col-3">
+                                        <div class="float-end">
+                                            Nama Kantor Cabang :
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-6">
-                                    <input type="text" class="form-control" placeholder="Nama Kantor Cabang...">
-                                </div>
-                                <div class="col-3"></div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-3">
-                                    <div class="float-end">
-                                        No. Telp :
+                                    <div class="col-6">
+                                        <input name="namaKacab" id="idNamaKacab" type="text" class="form-control" placeholder="Nama Kantor Cabang...">
                                     </div>
+                                    <div class="col-3"></div>
                                 </div>
-                                <div class="col-6">
-                                    <input type="number" class="form-control" placeholder="Nomor Telephone">
-                                </div>
-                                <div class="col-3"></div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-3">
-                                    <div class="float-end">
-                                        Alamat :
+                                <div class="row mb-2">
+                                    <div class="col-3">
+                                        <div class="float-end">
+                                            No. Telp :
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-6">
-                                    <textarea class="form-control" placeholder="Masukan Alamat" id="floatingTextarea2" style="height: 70px"></textarea>
-                                </div>
-                                <div class="col-3"></div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-3">
-                                    <div class="float-end">
-                                        Provinsi :
+                                    <div class="col-6">
+                                        <input name="nomortlp" id="idnotlp" type="number" class="form-control" placeholder="Nomor Telephone">
                                     </div>
+                                    <div class="col-3"></div>
                                 </div>
-                                <div class="col-6">
-                                    <select name="province" class="form-select" id="province" data-province-id>
-                                        <option value="" disabled selected>Pilih Provinsi</option>
-                                        @foreach ($provinces as $province)
-                                            <option value="{{ $province['id'] }}">{{ $province['name'] }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-3"></div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-3">
-                                    <div class="float-end">
-                                        Kabupaten :
+                                <div class="row mb-2">
+                                    <div class="col-3">
+                                        <div class="float-end">
+                                            Alamat :
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-6">
-                                    <select name="kabupaten" class="form-select" id="kabupaten" data-regency-id disabled>
-                                        <option value="" disabled selected>Pilih Kabupaten</option>
-                                        <!-- Opsi Kabupaten akan diisi secara dinamis melalui JavaScript -->
-                                    </select>
-                                </div>
-                                <div class="col-3"></div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-3">
-                                    <div class="float-end">
-                                        Kecamatan :
+                                    <div class="col-6">
+                                        <textarea name="alamatKacab" id="idAlamatKacab" class="form-control" placeholder="Masukan Alamat" id="floatingTextarea2" style="height: 70px"></textarea>
                                     </div>
+                                    <div class="col-3"></div>
                                 </div>
-                                <div class="col-6">
-                                    <select name="kecamatan" class="form-select" id="kecamatan" data-district-id disabled>
-                                        <option value="" disabled selected>Pilih Kecamatan</option>
-                                        <!-- Opsi Kecamatan akan diisi secara dinamis melalui JavaScript -->
-                                    </select>
-                                </div>
-                                <div class="col-3"></div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-3">
-                                    <div class="float-end">
-                                        Kelurahan :
+                            
+                                <!-- Bagian Provinsi -->
+                                <div class="row mb-2">
+                                    <div class="col-3">
+                                        <div class="float-end">
+                                            Provinsi :
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-6">
-                                    <select name="kelurahan" class="form-select" id="kelurahan" data-village-id disabled>
-                                        <option value="" disabled selected>Pilih Kelurahan</option>
-                                        <!-- Opsi Kelurahan akan diisi secara dinamis melalui JavaScript -->
-                                    </select>
-                                </div>
-                                <div class="col-3"></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-3"></div>
-                                <div class="col-6">
-                                    <div class="text-center">
-                                        <button type="button" class="btn btn-warning">Kembali</button>
-                                        <button type="button" class="btn btn-success">Simpan</button>
+                                    <div class="col-6">
+                                        <select class="form-control" name="tbhProvinsi" id="idProvinsi">
+                                            <option value="" disabled selected>Pilih...</option>
+                                            <option value="Jawa Barat">Jawa Barat</option>
+                                            <option value="Jawa Tengah">Jawa Tengah</option>
+                                            <option value="Jawa Timur">Jawa Timur</option>
+                                        </select>
+                                        {{-- <select name="province" class="form-select" id="province">
+                                            <option value="" disabled selected>Pilih Provinsi</option>
+                                            @foreach ($provinces as $province)
+                                                <option value="{{ $province['id'] }}">{{ $province['name'] }}</option>
+                                            @endforeach
+                                        </select> --}}
                                     </div>
+                                    <div class="col-3"></div>
                                 </div>
-                                <div class="col-3"></div>
-                            </div>
+                            
+                                <!-- Bagian Kabupaten -->
+                                <div class="row mb-2">
+                                    <div class="col-3">
+                                        <div class="float-end">
+                                            Kabupaten :
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <select class="form-control" name="tbhKabupaten" id="idKabupaten">
+                                            <option value="" disabled selected>Pilih...</option>
+                                            <option value="Indramayu">Indramayu</option>
+                                            <option value="Bekasi">Bekasi</option>
+                                            <option value="Jakarta">Jakarta</option>
+                                        </select>
+                                        {{-- <select name="regency" class="form-select" id="regency" disabled>
+                                            <option value="" disabled selected>Pilih Kabupaten</option>
+                                        </select> --}}
+                                    </div>
+                                    <div class="col-3"></div>
+                                </div>
+                            
+                                <!-- Bagian Kecamatan -->
+                                <div class="row mb-2">
+                                    <div class="col-3">
+                                        <div class="float-end">
+                                            Kecamatan :
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <select class="form-control" name="tbhKecamatan" id="idKecamatan">
+                                            <option value="" disabled selected>Pilih...</option>
+                                            <option value="Karpel">Karpel</option>
+                                            <option value="Junti">Junti</option>
+                                            <option value="Koramil">Koramil</option>
+                                        </select>
+                                        {{-- <select name="district" class="form-select" id="district" disabled>
+                                            <option value="" disabled selected>Pilih Kecamatan</option>
+                                        </select> --}}
+                                    </div>
+                                    <div class="col-3"></div>
+                                </div>
+                            
+                                <!-- Bagian Kelurahan -->
+                                <div class="row mb-2">
+                                    <div class="col-3">
+                                        <div class="float-end">
+                                            Kelurahan :
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <select class="form-control" name="tbhKelurahan" id="idKelurahan">
+                                            <option value="" disabled selected>Pilih...</option>
+                                            <option value="Kelur Satu">Kelur Satu</option>
+                                            <option value="Kelur Dua">Kelur Dua</option>
+                                            <option value="Kelur Tiga">Kelur Tiga</option>
+                                        </select>
+                                        {{-- <select name="village" class="form-select" id="village" disabled>
+                                            <option value="" disabled selected>Pilih Kelurahan</option>
+                                        </select> --}}
+                                    </div>
+                                    <div class="col-3"></div>
+                                </div>
+                            
+                                <div class="row">
+                                    <div class="col-3"></div>
+                                    <div class="col-6">
+                                        <div class="text-center">
+                                            <a href="{{ route('admin.KaCabView') }}" class="btn btn-warning">Kembali</a>
+                                            <button type="submit" class="btn btn-success">Simpan</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-3"></div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -153,87 +187,63 @@
     </section>
 </div>
 
-<script>
-    // Tambahkan event listener untuk perubahan pada dropdown Provinsi
-    document.getElementById('province').addEventListener('change', function () {
-        // Dapatkan province_id yang dipilih
-        var provinceId = this.value;
+{{-- <script>
+    // Ambil elemen-elemen select
+    const provinceSelect = document.getElementById('province');
+    const regencySelect = document.getElementById('regency');
+    const districtSelect = document.getElementById('district');
+    const villageSelect = document.getElementById('village');
 
-        // Reset dan nonaktifkan dropdown Kabupaten, Kecamatan, dan Kelurahan
-        resetDropdown('kabupaten');
-        resetDropdown('kecamatan');
-        resetDropdown('kelurahan');
+    // Tambahkan event listener untuk perubahan pada select provinsi
+    provinceSelect.addEventListener('change', function () {
+        // Ambil province_id yang dipilih
+        const selectedProvinceId = this.value;
 
-        // Jika provinceId tidak kosong, ambil data Kabupaten berdasarkan province_id
-        if (provinceId) {
-            getDataAndPopulateDropdown('https://emsifa.github.io/api-wilayah-indonesia/api/regencies/' + provinceId + '.json', 'kabupaten', 'regency_id');
-        }
+        // Mengambil data kabupaten berdasarkan province_id
+        const url = `https://emsifa.github.io/api-wilayah-indonesia/api/regencies/${selectedProvinceId}.json`;
+        getDataAndPopulateSelect(url, regencySelect);
     });
 
-    // Tambahkan event listener untuk perubahan pada dropdown Kabupaten
-    document.getElementById('kabupaten').addEventListener('change', function () {
-        // Dapatkan regency_id yang dipilih
-        var regencyId = this.value;
+    // Tambahkan event listener untuk perubahan pada select kabupaten
+    regencySelect.addEventListener('change', function () {
+        // Ambil regency_id yang dipilih
+        const selectedRegencyId = this.value;
 
-        // Reset dan nonaktifkan dropdown Kecamatan dan Kelurahan
-        resetDropdown('kecamatan');
-        resetDropdown('kelurahan');
-
-        // Jika regencyId tidak kosong, ambil data Kecamatan berdasarkan regency_id
-        if (regencyId) {
-            getDataAndPopulateDropdown('https://emsifa.github.io/api-wilayah-indonesia/api/districts/' + regencyId + '.json', 'kecamatan', 'district_id');
-        }
+        // Mengambil data kecamatan berdasarkan regency_id
+        const url = `https://emsifa.github.io/api-wilayah-indonesia/api/districts/${selectedRegencyId}.json`;
+        getDataAndPopulateSelect(url, districtSelect);
     });
 
-    // Tambahkan event listener untuk perubahan pada dropdown Kecamatan
-    document.getElementById('kecamatan').addEventListener('change', function () {
-        // Dapatkan district_id yang dipilih
-        var districtId = this.value;
+    // Tambahkan event listener untuk perubahan pada select kecamatan
+    districtSelect.addEventListener('change', function () {
+        // Ambil district_id yang dipilih
+        const selectedDistrictId = this.value;
 
-        // Reset dan nonaktifkan dropdown Kelurahan
-        resetDropdown('kelurahan');
-
-        // Jika districtId tidak kosong, ambil data Kelurahan berdasarkan district_id
-        if (districtId) {
-            getDataAndPopulateDropdown('https://emsifa.github.io/api-wilayah-indonesia/api/villages/' + districtId + '.json', 'kelurahan', 'village_id');
-        }
+        // Mengambil data kelurahan berdasarkan district_id
+        const url = `https://emsifa.github.io/api-wilayah-indonesia/api/villages/${selectedDistrictId}.json`;
+        getDataAndPopulateSelect(url, villageSelect);
     });
 
-    // Fungsi untuk mereset dan menonaktifkan dropdown
-    function resetDropdown(dropdownId) {
-        var dropdown = document.getElementById(dropdownId);
-        dropdown.innerHTML = '<option value="" disabled selected>Pilih ' + capitalizeFirstLetter(dropdownId) + '</option>';
-        dropdown.setAttribute('disabled', true);
+    // Fungsi untuk mengambil data dari API dan mengisi elemen select
+    async function getDataAndPopulateSelect(url, selectElement) {
+        try {
+            // Mengambil data dari API
+            const response = await fetch(url);
+            const data = await response.json();
+
+            // Mengisi elemen select dengan opsi yang sesuai
+            selectElement.innerHTML = '<option value="" disabled selected>Pilih ' + selectElement.name.charAt(0).toUpperCase() + selectElement.name.slice(1) + '</option>';
+            data.forEach(option => {
+                selectElement.innerHTML += `<option value="${option.id}">${option.name}</option>`;
+            });
+
+            // Menghilangkan atribut 'disabled' pada elemen select setelah diisi
+            selectElement.removeAttribute('disabled');
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
     }
-
-    // Fungsi untuk mendapatkan data dan mengisi dropdown
-    function getDataAndPopulateDropdown(apiUrl, dropdownId, dataId) {
-        // Menggunakan fetch API untuk mengambil data dari API
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then(data => {
-                // Mendapatkan dropdown yang akan diisi
-                var dropdown = document.getElementById(dropdownId);
-
-                // Mengisi dropdown dengan opsi berdasarkan data yang diterima
-                data.forEach(item => {
-                    var option = document.createElement('option');
-                    option.value = item[dataId];
-                    option.textContent = item.name;
-                    dropdown.appendChild(option);
-                });
-
-                // Mengaktifkan dropdown setelah diisi
-                dropdown.removeAttribute('disabled');
-            })
-            .catch(error => console.error('Error fetching data:', error));
-    }
-
-    // Fungsi untuk mengubah huruf pertama menjadi huruf besar
-    function capitalizeFirstLetter(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    }
-</script>
+</script> --}}
 {{-- <script type="text/javascript">
     // SCRIPT
 </script> --}}
