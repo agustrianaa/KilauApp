@@ -56,8 +56,8 @@
                         <div class="card-body text-nowrap">
                             <div class="row">
 
-                                <form action="{{ route('admin.pengajuanFormStore') }}" method="POST">
-                                    @csrf
+                    <form action="{{ route('admin.pengajuanFormStore') }}" method="POST">
+                    @csrf
                                     <div class="row">
                                         <!--Form Anak-->
                                 <div class="col-12 col-sm-6">

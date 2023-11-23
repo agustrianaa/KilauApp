@@ -114,16 +114,7 @@
             <div class="card">
               <div class="card-body">
                 <div class="text-center">
-                  <!-- Contoh select box dengan opsi dari data provinsi yang diterima dari controller -->
-                  <select name="province" class="form-select" id="province">
-                    <option value="" disabled selected>Select Provinsi</option>
-                    @foreach ($provinces as $province)
-                    @php
-                        $formattedName = ucwords(strtolower($province['name']));
-                    @endphp
-                        <option value="{{ $formattedName }}">{{ $formattedName }}</option>
-                    @endforeach
-                  </select>
+                  <h2>Test1</h2>
                 </div>
               </div>
             </div>

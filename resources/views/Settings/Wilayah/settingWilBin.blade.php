@@ -1,5 +1,16 @@
-@extends('layout.main')
-@section('content')
+@extends('layout.mainSettings')
+@section('contentSettings')
+
+<style>
+    #btntmbhKaCab {
+        background-color: rgb(0, 119, 255);
+        border: transparent;
+    }
+    #btntmbhKaCab:hover {
+        background-color: rgb(0, 97, 207);
+        border: transparent;
+    }
+</style>
 
 <div class="content-wrapper background">
     <!-- Content Header (Page header) -->
@@ -11,7 +22,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Data Anak Binaan</li>
+                        <li class="breadcrumb-item active">Data Kantor Cabang</li>
                     </ol>
                 </div>
             </div>
@@ -20,13 +31,91 @@
 
     <section class="content">
         <div class="container-fluid">
-            <!-- >>> ISI HALAMAN DI SINI <<< -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-12 mb-2">
+                        <div class="row">
+                            <div class="col-6">
+                                <a href="{{ route('admin.tambahWilBinView') }}" class="btn btn-md btn-info text-white fw-bold" id="btntmbhKaCab">Tambah Wilayah Binaan +</a>
+                            </div>
+                            <div class="col-6"></div>
+                        </div>
+                    </div>
+                    <hr class="text-black mb-4">
+                    <div class="table-responsive text-nowrap">
+                        <table class="table table-bordered text-center" id="WilbinTable">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Wilayah Binaan</th>
+                                    <th>Kantor Cabang</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
+@if(session('alert'))
+    <script>
+        Swal.fire({
+            title: '{{ session('alert.title') }}',
+            text: '{{ session('alert.text') }}',
+            icon: '{{ session('alert.icon') }}',
+        });
+    </script>
+@endif
 
 <script type="text/javascript">
-    // SCRIPT
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('#WilbinTable').DataTable({
+            processing : true,
+            // searching : false,
+            serverSide : true,
+            ajax : {
+                url : "{{ url('admin/Settings/Data_Wilayah/WilBin') }}",
+            },
+            columns : [
+                {
+                    data: null,
+                    name: 'id',
+                    render: function(data, type, row, meta) {
+                        return meta.row + 1; // Menggunakan nomor baris sebagai nomor urut
+                    }
+                },
+                { data: 'nama_wilbin', name: 'nama_wilbin'},
+                { data: 'nama_kacab', name: 'nama_kacab'},
+                { data: 'action', name: 'action', orderable: false},
+            ],
+            order: [[0, 'desc']],
+            language: {
+                "emptyTable": "Data Kosong...",
+                "info": "Menampilkan _START_ sampai _END_, dari _TOTAL_ data",
+                "lengthMenu": "Tampilkan _MENU_ data/halaman",
+                "search": "Cari:",
+                "infoFiltered": "(disaring dari total _MAX_ data)",
+                "zeroRecords": "Tidak ada data yang cocok...",
+                "loadingRecords": "Memuat...",
+                "processing": "Memproses...",
+                "paginate": {
+                    "first": "Pertama",
+                    "last": "Terakhir",
+                    "next": "Selanjutnya",
+                    "previous": "Sebelumnya"
+                },
+            },
+        }); // End DataTable
+    }); // End Ajax
 </script>
 
 @endsection
