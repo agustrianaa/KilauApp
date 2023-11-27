@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class WilayahBinaan extends Model
 {
     use HasFactory;
-    public $tabel = 'wilayah_binaans';
+    public $table = 'wilayah_binaans';
     protected $primaryKey = 'id_wilbin';
     protected $fillable = [
         'kacab_id',
@@ -20,10 +20,10 @@ class WilayahBinaan extends Model
 
     public function dataKaCab():BelongsTo
     {
-        return $this->belongsTo(KantorCabang::class, 'kacab_id');
+        return $this->belongsTo(KantorCabang::class);
     }
 
-    public function dataShelter(): HasOne
+    public function dataShelter():HasOne
     {
         return $this->hasOne(Shelter::class);
     }

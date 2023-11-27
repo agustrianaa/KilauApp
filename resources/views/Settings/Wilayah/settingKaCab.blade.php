@@ -22,6 +22,35 @@
         color: white;
         transition: 0.1s;
     }
+    /* Atur lebar dan tinggi notifikasi */
+    .swal2-popup {
+        background-color: rgb(255, 255, 255);
+        border-radius: 30px;
+        width: 300px; /* Ganti dengan lebar yang diinginkan */
+        height: auto; /* Sesuaikan dengan kebutuhan, atau biarkan otomatis */
+    }
+
+    /* Atur font size untuk judul */
+    .swal2-title {
+        font-size: 20px; /* Ganti dengan ukuran font yang diinginkan */
+    }
+
+    /* Atur font size untuk teks */
+    .swal2-content {
+        font-size: 16px; /* Ganti dengan ukuran font yang diinginkan */
+    }
+    .breadcrumb-item a {
+    text-decoration: none;
+    color: black;
+    transition: 0.1s;
+    }
+
+    .breadcrumb-item a:hover {
+        text-decoration: none;
+        color: rgb(0, 136, 255);
+        font-size: 18px;
+        transition: 0.1s;
+    }
 </style>
 
 <div class="content-wrapper background">
@@ -30,6 +59,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
+                    <h1 class="m-0">Data Kantor Cabang</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -75,7 +105,7 @@
             </div>
 
             <!-- Modal Edit -->
-            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal fade" id="editModalKacab" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -83,50 +113,50 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-
-                            <form id="editForm" method="POST">
-                                @csrf
                                 <div class="col-12">
-                                    <div class="row">
-                                        <input type="hidden" name="id_kacab" id="id_kacab">
-                                        <div class="col-12 mb-3">
-                                            <label for="editNamaKacab" class="form-label">Nama Kantor Cabang</label>
-                                            <input type="text" class="form-control" id="editNamaKacab" name="nama_kacab">
-                                        </div>
-                                        <div class="col-12 mb-3">
-                                            <label for="editNoTelpKacab" class="form-label">Nomor Telepon</label>
-                                            <input type="text" class="form-control" id="editNoTelpKacab" name="no_telp">
-                                        </div>
-                                        <div class="col-12 mb-3">
-                                            <label for="editAlamatKacab" class="form-label">Alamat</label>
-                                            <input type="text" class="form-control" id="editAlamatKacab" name="alamat">
-                                        </div>
-                                        <div class="col-12 mb-3">
-                                            <label for="editProvinsi" class="form-label">Provinsi</label>
-                                            <input type="text" class="form-control" id="editProvinsi" name="provinsi">
-                                        </div>
-                                        <div class="col-12 mb-3">
-                                            <label for="editKabupaten" class="form-label">Kabupaten</label>
-                                            <input type="text" class="form-control" id="editKabupaten" name="kabupaten">
-                                        </div>
-                                        <div class="col-12 mb-3">
-                                            <label for="editKecamatan" class="form-label">Kecamatan</label>
-                                            <input type="text" class="form-control" id="editKecamatan" name="kecamatan">
-                                        </div>
-                                        <div class="col-12 mb-3">
-                                            <label for="editKelurahan" class="form-label">Kelurahan</label>
-                                            <input type="text" class="form-control" id="editKelurahan" name="kelurahan">
-                                        </div>
-        
-                                        <div class="col-12">
-                                            <div class="text-center">
-                                                <button id="tutupModalbtn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                                <button type="button" class="btn btn-primary" onclick="updateKacab()">Simpan Perubahan</button>
+                                    <form action="javascript:void(0)" id="kacabform" method="PUT">
+                                        @csrf
+                                        <div class="row">
+                                            <input type="hidden" name="idforkacab" id="idforkacab">
+                                            <div class="col-12 mb-3">
+                                                <label for="editNamaKacab" class="form-label">Nama Kantor Cabang</label>
+                                                <input type="text" class="form-control" id="editNamaKacab" name="nama_kacab">
+                                            </div>
+                                            <div class="col-12 mb-3">
+                                                <label for="editNoTelpKacab" class="form-label">Nomor Telepon</label>
+                                                <input type="text" class="form-control" id="editNoTelpKacab" name="no_telp">
+                                            </div>
+                                            <div class="col-12 mb-3">
+                                                <label for="editAlamatKacab" class="form-label">Alamat</label>
+                                                <input type="text" class="form-control" id="editAlamatKacab" name="alamat">
+                                            </div>
+                                            <div class="col-12 mb-3">
+                                                <label for="editProvinsi" class="form-label">Provinsi</label>
+                                                <input type="text" class="form-control" id="editProvinsi" name="provinsi">
+                                            </div>
+                                            <div class="col-12 mb-3">
+                                                <label for="editKabupaten" class="form-label">Kabupaten</label>
+                                                <input type="text" class="form-control" id="editKabupaten" name="kabupaten">
+                                            </div>
+                                            <div class="col-12 mb-3">
+                                                <label for="editKecamatan" class="form-label">Kecamatan</label>
+                                                <input type="text" class="form-control" id="editKecamatan" name="kecamatan">
+                                            </div>
+                                            <div class="col-12 mb-3">
+                                                <label for="editKelurahan" class="form-label">Kelurahan</label>
+                                                <input type="text" class="form-control" id="editKelurahan" name="kelurahan">
+                                            </div>
+                                        
+                                            <div class="col-12">
+                                                <div class="text-center">
+                                                    <button id="tutupModalbtn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                                    <button type="submit" class="btn btn-primary" id="btn-save" onclick="updateKacab()">Simpan Perubahan</button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </form>
+
                                 </div>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -199,32 +229,13 @@
         }); // End DataTable
     }); // End Ajax
 
-    // function deleteKacab(id_kacab){
-    //     if (confirm("Are you sure you want to delete")==true) {
-    //         var id = id_kacab;
-    //         $.ajax({
-    //             type:"POST",
-    //             url: "{{ url('admin/deleteKacab') }}",
-    //             data: {id:id},
-    //             dataType: 'json',
-    //             success: function(res) {
-    //                 var oTable = $('#CalonAnakBinaanTable').DataTable();
-    //                 oTable.ajax.reload(false); //agar tidak perlu refresh halaman
-    //             }
-    //         });
-    //     }
-    // }
-
-    function editKacab(id_kacab) {
-        // Lakukan request AJAX untuk mendapatkan data kantor cabang berdasarkan ID
+    function getKacabData(id_kacab) {
         $.ajax({
-            type: "GET",
-            url: "{{ route('admin.getKacab') }}",
-            data: {
-                id_kacab: id_kacab,
-            },
+            url: "{{ route('admin.getKacab', '') }}/" + id_kacab,
+            type: 'GET',
             success: function (data) {
-                // Isi modal dengan data dari response
+                // Mengisi formulir modal dengan data yang diterima dari controller
+                $('#idforkacab').val(data.id_kacab);
                 $('#editNamaKacab').val(data.nama_kacab);
                 $('#editNoTelpKacab').val(data.no_telp);
                 $('#editAlamatKacab').val(data.alamat);
@@ -232,37 +243,51 @@
                 $('#editKabupaten').val(data.kabupaten);
                 $('#editKecamatan').val(data.kecamatan);
                 $('#editKelurahan').val(data.kelurahan);
-
-                // Tampilkan modal
-                $('#editModal').modal('show');
             },
             error: function (data) {
-                // Handle error jika diperlukan
+                console.log('Error:', data);
             }
         });
     }
 
-    // Fungsi untuk menyimpan perubahan setelah mengedit
-    function updateKacab(id_kacab) {
-        // Lakukan request AJAX untuk menyimpan perubahan
+    function updateKacab() {
+        // Ambil data dari formulir modal
+        var formData = $('#kacabform').serialize();
+
+        // Kirim permintaan Ajax untuk memperbarui data
         $.ajax({
-            type: "POST",
-            url: "{{ url('admin//updateKacab/{id_kacab}') }}",
-            data: $('#editForm').serialize(),
+            url: "{{ route('admin.updateKacab', '') }}/" + $('#idforkacab').val(),
+            type: 'PUT',
+            data: formData,
             success: function (data) {
-                $('#editModal').modal('hide');
+                // Tampilkan pesan sukses atau error jika perlu
+                Swal.fire({
+                    title: 'Update!',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1200,
+                });
+                // Tutup modal setelah pembaruan berhasil
+                $('#editModalKacab').modal('hide');
+                // Reload DataTable untuk menampilkan perubahan
+                $('#KacabTable').DataTable().ajax.reload();
             },
             error: function (data) {
-                // Handle error jika diperlukan
-                console.log(data.responseText);
+                Swal.fire({
+                    title: 'Gagal!',
+                    text: 'Gagal memperbarui Kantor Cabang. Periksa Konsol',
+                    icon: 'error',
+                });
+                console.log('Error:', data);
             }
         });
     }
+
 
     function deleteKacab(id_kacab) {
         Swal.fire({
-            title: 'Apakah Anda yakin?',
-            text: "Anda tidak akan dapat mengembalikan ini!",
+            title: 'Apakah yakin?',
+            text: "Data akan dihapus permanen!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
@@ -280,9 +305,10 @@
                     },
                     success: function (data) {
                         Swal.fire({
-                            title: 'Berhasil!',
-                            text: 'Kantor Cabang berhasil dihapus.',
+                            title: 'Berhasil dihapus!',
                             icon: 'success',
+                            showConfirmButton: false,
+                            timer: 1200,
                         });
                         // Tambahan: Reload DataTable setelah menghapus
                         $('#KacabTable').DataTable().ajax.reload();
@@ -290,9 +316,10 @@
                     error: function (data) {
                         Swal.fire({
                             title: 'Gagal!',
-                            text: 'Gagal menghapus Kantor Cabang.',
+                            text: 'Gagal menghapus Kantor Cabang. Periksa Konsol',
                             icon: 'error',
                         });
+                        console.log('Error:', data);
                     }
                 });
             }

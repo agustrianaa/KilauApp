@@ -35,6 +35,7 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
                         <li class="breadcrumb-item active">Data Shelter</li>
+                        <li class="breadcrumb-item active">Tambah Shelter</li>
                     </ol>
                 </div>
             </div>
@@ -51,75 +52,78 @@
                     <hr>
                     <div class="card-body">
                         <div class="col-12">
-                            <div class="row mb-2">
-                                <div class="col-3">
-                                    <div class="float-end">
-                                        Cari Wilayah Binaan :
+                            <form action="{{ route('admin.simpanGetWilbin') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="idUntukWilbin">
+                                <div class="row mb-2">
+                                    <div class="col-3">
+                                        <div class="float-end">
+                                            Cari Wilayah Binaan :
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-6">
-                                    <select class="form-select" name="searchKacab" id="cariWilayahBinaan" style="width: 300px; height:100px;">
-                                        <option value=""></option>
-                                        <option value="Wilayah Binaan 1">Wilayah Binaan 1</option>
-                                        <option value="Wilayah Binaan 2">Wilayah Binaan 2</option>
-                                    </select>
-                                </div>
-                                <div class="col-3"></div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-3">
-                                    <div class="float-end">
-                                        Nama Shelter :
+                                    <div class="col-6">
+                                        <select class="form-select" name="searchKacab" id="cariWilayahBinaan" style="width: 300px; height:100px;">
+                                            <option value=""></option>
+                                        </select>
                                     </div>
+                                    <div class="col-3"></div>
                                 </div>
-                                <div class="col-6">
-                                    <input type="text" class="form-control" placeholder="Nama Wilayah Shelter...">
-                                </div>
-                                <div class="col-3"></div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-3">
-                                    <div class="float-end">
-                                        Nama Koordinator :
+                                <div class="row mb-2">
+                                    <div class="col-3">
+                                        <div class="float-end">
+                                            Nama Shelter :
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-6">
-                                    <input type="text" class="form-control" placeholder="Nama Koordinator...">
-                                </div>
-                                <div class="col-3"></div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-3">
-                                    <div class="float-end">
-                                        No. HP :
+                                    <div class="col-6">
+                                        <input name="namaShelter" type="text" class="form-control" placeholder="Nama Wilayah Shelter...">
                                     </div>
+                                    <div class="col-3"></div>
                                 </div>
-                                <div class="col-6">
-                                    <input type="text" class="form-control" placeholder="No. HP...">
-                                </div>
-                                <div class="col-3"></div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-3">
-                                    <div class="float-end">
-                                        Alamat :
+                                <div class="row mb-2">
+                                    <div class="col-3">
+                                        <div class="float-end">
+                                            Nama Koordinator :
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-6">
-                                    <textarea class="form-control" placeholder="Masukan Alamat..." id="floatingTextarea2" style="height: 70px"></textarea>
-                                </div>
-                                <div class="col-3"></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-3"></div>
-                                <div class="col-6">
-                                    <div class="text-center">
-                                        <a href="{{ route('admin.WilBinView') }}" class="btn btn-warning">Kembali</a>
-                                        <button type="button" class="btn btn-success">Simpan</button>
+                                    <div class="col-6">
+                                        <input name="koorShelter" type="text" class="form-control" placeholder="Nama Koordinator...">
                                     </div>
+                                    <div class="col-3"></div>
                                 </div>
-                                <div class="col-3"></div>
-                            </div>
+                                <div class="row mb-2">
+                                    <div class="col-3">
+                                        <div class="float-end">
+                                            No. HP :
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <input name="noHP" type="text" class="form-control" placeholder="No. HP...">
+                                    </div>
+                                    <div class="col-3"></div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-3">
+                                        <div class="float-end">
+                                            Alamat :
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <textarea name="alamatShelter" class="form-control" placeholder="Masukan Alamat..." id="floatingTextarea2" style="height: 70px"></textarea>
+                                    </div>
+                                    <div class="col-3"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3"></div>
+                                    <div class="col-6">
+                                        <div class="text-center">
+                                            <a href="{{ route('admin.ShelterView') }}" class="btn btn-warning">Kembali</a>
+                                            <button type="submit" class="btn btn-success">Simpan</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-3"></div>
+                                </div>
+                            </form>
+
                         </div>
                     </div>
                 </div>
@@ -130,11 +134,29 @@
 
 <script>
     $('#cariWilayahBinaan').select2({
-        placeholder: 'Pilih Wilayah Binaan...', // Teks placeholder
-        tokenSeparators: [',', ' '], // Menentukan pemisah token (bisa disesuaikan)
-        width: '100%', // Menetapkan lebar dropdown
-        allowClear: true, // Mengaktifkan tombol "Hapus" untuk menghapus nilai yang dipilih
+        placeholder: 'Pilih Wilayah Binaan...',
+        tokenSeparators: [',', ' '],
+        width: '100%',
+        allowClear: true,
+        ajax: {
+            url: '{{ route("admin.getnamaWilbin") }}',
+            dataType: 'json',
+            delay: 250,
+            processResults: function (data) {
+                return {
+                    results: data
+                };
+            },
+            cache: true
+        }
     });
+
+    $('#cariWilayahBinaan').on('select2:select', function (e) {
+        var data = e.params.data;
+        console.log('Selected Data:', data);
+        $('input[name="idUntukWilbin"]').val(data.id);
+    });
+
 </script>
 {{-- <script type="text/javascript">
     // SCRIPT
