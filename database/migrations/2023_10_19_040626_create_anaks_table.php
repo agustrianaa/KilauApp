@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('anaks', function (Blueprint $table) {
             $table->id('id_anaks');
             $table->foreignId('data_keluarga_id')->references('id')->on('data_keluargas')->onDelete('cascade');
+            $table->foreignId('donatur_id')->nullable()->references('id')->on('donaturs');
             $table->string('nama_lengkap');
             $table->string('nama_panggilan');
             $table->string('agama');

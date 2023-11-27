@@ -52,28 +52,28 @@
 
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-chart-pie"></i>
+                    <i class="bi bi-geo-alt"></i>
                     <p>
                         Data Wilayah
-                        <i class="right fas fa-angle-left"></i>
+                        <i class="right fas fa-angle-right"></i>
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
-                    <li class="nav-item">
+                    <li class="nav-item menu">
                         <a href="{{ route('admin.KaCabView') }}" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>KaCab</p>
+                            <i class="bi bi-buildings-fill"></i>
+                            <p>Kantor Cabang</p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item menu">
                         <a href="{{ route('admin.WilBinView') }}" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>WilBin</p>
+                            <i class="bi bi-building"></i>
+                            <p>Wilayah Binaan</p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item menu">
                         <a href="{{ route('admin.ShelterView') }}" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
+                            <i class="bi bi-houses"></i>
                             <p>Shelter</p>
                         </a>
                     </li>

@@ -15,8 +15,13 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('name');
+            $table->string('alamat');
+            $table->string('no_hp');
+            $table->string('no_rek');
+            $table->string('nama_bank');
+            $table->string('diperuntukkan');
             $table->timestamps();
-
+            
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

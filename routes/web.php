@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PengajuanAnakController;
 use App\Http\Controllers\dataSurveyController;
+use App\Http\Controllers\PengajuanDonaturController;
 use App\Http\Controllers\reportController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\surveyDataController;
@@ -52,11 +53,34 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::put('/update/{id}',[HomeController::class,'update'])->name('user.update');
     Route::delete('/delete/{id}',[HomeController::class,'delete'])->name('user.delete');
 
+    // Dashboard Menu Settings
     Route::get('/Settings/Dashboard',[SettingsController::class,'settingIndex'])->name('settingView');
-    Route::get('/Settings/Data_Wilayah/KaCab',[SettingsController::class,'KaCabIndex'])->name('KaCabView');
-    Route::get('/Settings/Data_Wilayah/KaCab/Tambah_KaCab',[SettingsController::class,'tambahKacab'])->name('tambahKacabView');
-    Route::get('/Settings/Data_Wilayah/WilBin',[SettingsController::class,'WilBinIndex'])->name('WilBinView');
+
+    // Kantor Cabang
+    Route::get('/Settings/Data_Wilayah/KaCab',[SettingsController::class,'KaCabIndex'])->name('KaCabView'); // Tabel
+    Route::get('/getKacab/{id_kacab}', [SettingsController::class, 'getKacab'])->name('getKacab'); // Get Data untuk Edit
+    Route::put('/updateKacab/{id_kacab}', [SettingsController::class, 'updateKacab'])->name('updateKacab'); // Fungsi Update Edit
+    Route::post('/deleteKacab', [SettingsController::class, 'deleteKacab'])->name('deleteKacab'); // Fungsi Delete
+    Route::get('/Settings/Data_Wilayah/KaCab/Tambah_KaCab',[SettingsController::class,'tambahKacab'])->name('tambahKacabView'); // Form Tambah Kantor Cabang
+    Route::post('/Settings/Data_Wilayah/KaCab/Tambah_KaCab/Simpan_Kacab',[SettingsController::class,'simpanKaCab'])->name('simpanKaCabFunc'); // Fungsi Simpan Kantor Cabang
+
+    // Wilayah Binaan
+    Route::get('/Settings/Data_Wilayah/WilBin',[SettingsController::class,'WilBinIndex'])->name('WilBinView'); // Tabel
+    Route::get('/getWilbin/{id_wilbin}', [SettingsController::class, 'getWilbin'])->name('getWilbin'); // Get Data untuk Edit
+    Route::put('/updateWilbin/{id_wilbin}', [SettingsController::class, 'updateWilbin'])->name('updateWilbin'); // Fungsi Update Edit
+    Route::post('/deleteWilbin', [SettingsController::class, 'deleteWilbin'])->name('deleteWilbin'); // Fungsi Delete
+    Route::get('/Settings/Data_Wilayah/WilBin/Tambah_WilBin',[SettingsController::class,'tambahWilBin'])->name('tambahWilBinView'); // Form Tambah Wilayah Binaan
+    Route::get('/searchKacab', [SettingsController::class, 'getKantorCabang'])->name('getnamakacab'); // Fungsi Get Data Kantor Cabang
+    Route::post('/simpanGetKacab', [SettingsController::class, 'simpanGetKacab'])->name('simpanGetKacab'); // Fungsi Simpan Wilayah Binaan
+
+    // Shelter
     Route::get('/Settings/Data_Wilayah/Shelter',[SettingsController::class,'ShelterIndex'])->name('ShelterView');
+    Route::get('/getShelter/{id_shelter}', [SettingsController::class, 'getShelter'])->name('getShelter'); // Get Data untuk Edit
+    Route::put('/updateShelter/{id_shelter}', [SettingsController::class, 'updateShelter'])->name('updateShelter'); // Fungsi Update Edit
+    Route::post('/deleteShelter', [SettingsController::class, 'deleteShelter'])->name('deleteShelter'); // Fungsi Delete
+    Route::get('/Settings/Data_Wilayah/Shelter/Tambah_Shelter',[SettingsController::class,'tambahShelter'])->name('tambahShelterView');
+    Route::get('/searchWilbin', [SettingsController::class, 'getWilayahBinaan'])->name('getnamaWilbin');
+    Route::post('/simpanGetWilbin', [SettingsController::class, 'simpanGetWilbin'])->name('simpanGetWilbin');
 
     Route::get('/PengajuanForm',[PengajuanAnakController::class,'pengajuanForm'])->name('pengajuanForm');
     Route::post('/PengajuanFormStore',[PengajuanAnakController::class, 'pengajuanFormStore'])->name('pengajuanFormStore');
@@ -64,9 +88,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::get('/CariKK',[PengajuanAnakController::class,'search'])->name('CariNoKK');
     Route::get('/anak/tambah', [PengajuanAnakController::class, 'tambahAnakForm'])->name('anak.tambah');
     Route::post('/anak/simpan', [PengajuanAnakController::class, 'simpanAnak'])->name('anak.simpan');
-});
 
-Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], function(){
     Route::get('/calonAnakBinaan', [CalonAnakBinaanController::class, 'calonanakbinaanIndex'])->name('calonanakbinaanIndex');
     Route::post('/save-calonAnakBinaan',[CalonAnakBinaanController::class,'store'])->name('save-calonAnakBinaan');
     Route::put('/calonAnakBinaan/{id_anaks}', [CalonAnakBinaanController::class, 'update'])->name('calonanakbinaanValidasi');
@@ -103,12 +125,16 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::post('/survey-delete', [ValidasiSurveyController::class, 'destroy'])->name('survey-delete');
     Route::put('/update-validasi/{id}', [ValidasiSurveyController::class, 'update'])->name('save-validasi');
 
-    // Route::put('/save/{id_anaks}', [ValidasiBeasiswaController::class, 'update'])->name('save');
-    // Route::post('validasi/{id}/save-validasi', [ValidasiBeasiswaController::class, 'store'])->name('save-validasi');
-    // Route::put('/update-validasi/{id}', [ValidasiBeasiswaController::class, 'update'])->name('update-validasi');
+    // Pengajuan Donatur 
+    Route::get('/pengajuan-donatur', [PengajuanDonaturController::class,'index'])->name('aju-donatur');
+    Route::get('/pengajuan/{id?}', [PengajuanDonaturController::class,'show'])->name('pengajuan');
+    Route::get('/cari-donatur', [PengajuanDonaturController::class,'search'])->name('cariDonatur');
+    Route::post('/simpan-donatur', [PengajuanDonaturController::class,'store'])->name('simpanDonatur');
+    Route::patch('/hapus-donatur', [PengajuanDonaturController::class, 'destroy'])->name('hapus-donatur');
+    Route::get('/profile-donatur/{id}', [PengajuanDonaturController::class, 'profileDonatur'])->name('profile-donatur');
+
     Route::resource('/posts', \App\Http\Controllers\PostController::class);
     Route::resource('/acc', \App\Http\Controllers\AccController::class);
-
 
     // report
     Route::get('/report', [reportController::class,'index'])->name('report');
