@@ -11,7 +11,7 @@ class Shelter extends Model
 {
     use HasFactory;
 
-    public $tabel = 'shelters';
+    public $table = 'shelters';
     protected $primaryKey = 'id_shelter';
     protected $fillable = [
         'wilbin_id',
@@ -21,8 +21,8 @@ class Shelter extends Model
         'alamat'
     ];
 
-    public function dataWilBin():BelongsTo
+    public function dataWilBin(): BelongsTo
     {
-        return $this->belongsTo(KantorCabang::class);
+        return $this->belongsTo(WilayahBinaan::class);
     }
 }

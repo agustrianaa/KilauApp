@@ -53,21 +53,34 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::put('/update/{id}',[HomeController::class,'update'])->name('user.update');
     Route::delete('/delete/{id}',[HomeController::class,'delete'])->name('user.delete');
 
+    // Dashboard Menu Settings
     Route::get('/Settings/Dashboard',[SettingsController::class,'settingIndex'])->name('settingView');
-    Route::get('/Settings/Data_Wilayah/KaCab',[SettingsController::class,'KaCabIndex'])->name('KaCabView');
-    Route::get('/getKacab', [SettingsController::class, 'getKacab'])->name('getKacab');
-    Route::post('/updateKacab/{id_kacab}', [SettingsController::class, 'updateKacab'])->name('updateKacab');
-    Route::post('/deleteKacab', [SettingsController::class, 'deleteKacab'])->name('deleteKacab');
-    Route::get('/Settings/Data_Wilayah/KaCab/Tambah_KaCab',[SettingsController::class,'tambahKacab'])->name('tambahKacabView');
-    Route::post('/Settings/Data_Wilayah/KaCab/Tambah_KaCab/Simpan_Kacab',[SettingsController::class,'simpanKaCab'])->name('simpanKaCabFunc');
-    Route::get('/Settings/Data_Wilayah/WilBin',[SettingsController::class,'WilBinIndex'])->name('WilBinView');
 
-    Route::get('/searchKacab', [SettingsController::class, 'getKantorCabang'])->name('getnamakacab');
-    Route::post('/simpanGetKacab', [SettingsController::class, 'simpanGetKacab'])->name('simpanGetKacab');
-    Route::get('/Settings/Data_Wilayah/WilBin/Tambah_WilBin',[SettingsController::class,'tambahWilBin'])->name('tambahWilBinView');
+    // Kantor Cabang
+    Route::get('/Settings/Data_Wilayah/KaCab',[SettingsController::class,'KaCabIndex'])->name('KaCabView'); // Tabel
+    Route::get('/getKacab/{id_kacab}', [SettingsController::class, 'getKacab'])->name('getKacab'); // Get Data untuk Edit
+    Route::put('/updateKacab/{id_kacab}', [SettingsController::class, 'updateKacab'])->name('updateKacab'); // Fungsi Update Edit
+    Route::post('/deleteKacab', [SettingsController::class, 'deleteKacab'])->name('deleteKacab'); // Fungsi Delete
+    Route::get('/Settings/Data_Wilayah/KaCab/Tambah_KaCab',[SettingsController::class,'tambahKacab'])->name('tambahKacabView'); // Form Tambah Kantor Cabang
+    Route::post('/Settings/Data_Wilayah/KaCab/Tambah_KaCab/Simpan_Kacab',[SettingsController::class,'simpanKaCab'])->name('simpanKaCabFunc'); // Fungsi Simpan Kantor Cabang
+
+    // Wilayah Binaan
+    Route::get('/Settings/Data_Wilayah/WilBin',[SettingsController::class,'WilBinIndex'])->name('WilBinView'); // Tabel
+    Route::get('/getWilbin/{id_wilbin}', [SettingsController::class, 'getWilbin'])->name('getWilbin'); // Get Data untuk Edit
+    Route::put('/updateWilbin/{id_wilbin}', [SettingsController::class, 'updateWilbin'])->name('updateWilbin'); // Fungsi Update Edit
+    Route::post('/deleteWilbin', [SettingsController::class, 'deleteWilbin'])->name('deleteWilbin'); // Fungsi Delete
+    Route::get('/Settings/Data_Wilayah/WilBin/Tambah_WilBin',[SettingsController::class,'tambahWilBin'])->name('tambahWilBinView'); // Form Tambah Wilayah Binaan
+    Route::get('/searchKacab', [SettingsController::class, 'getKantorCabang'])->name('getnamakacab'); // Fungsi Get Data Kantor Cabang
+    Route::post('/simpanGetKacab', [SettingsController::class, 'simpanGetKacab'])->name('simpanGetKacab'); // Fungsi Simpan Wilayah Binaan
+
+    // Shelter
     Route::get('/Settings/Data_Wilayah/Shelter',[SettingsController::class,'ShelterIndex'])->name('ShelterView');
+    Route::get('/getShelter/{id_shelter}', [SettingsController::class, 'getShelter'])->name('getShelter'); // Get Data untuk Edit
+    Route::put('/updateShelter/{id_shelter}', [SettingsController::class, 'updateShelter'])->name('updateShelter'); // Fungsi Update Edit
+    Route::post('/deleteShelter', [SettingsController::class, 'deleteShelter'])->name('deleteShelter'); // Fungsi Delete
     Route::get('/Settings/Data_Wilayah/Shelter/Tambah_Shelter',[SettingsController::class,'tambahShelter'])->name('tambahShelterView');
-
+    Route::get('/searchWilbin', [SettingsController::class, 'getWilayahBinaan'])->name('getnamaWilbin');
+    Route::post('/simpanGetWilbin', [SettingsController::class, 'simpanGetWilbin'])->name('simpanGetWilbin');
 
     Route::get('/PengajuanForm',[PengajuanAnakController::class,'pengajuanForm'])->name('pengajuanForm');
     Route::post('/PengajuanFormStore',[PengajuanAnakController::class, 'pengajuanFormStore'])->name('pengajuanFormStore');
@@ -119,7 +132,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::post('/simpan-donatur', [PengajuanDonaturController::class,'store'])->name('simpanDonatur');
     Route::patch('/hapus-donatur', [PengajuanDonaturController::class, 'destroy'])->name('hapus-donatur');
     Route::get('/profile-donatur/{id}', [PengajuanDonaturController::class, 'profileDonatur'])->name('profile-donatur');
-  
+
     Route::resource('/posts', \App\Http\Controllers\PostController::class);
     Route::resource('/acc', \App\Http\Controllers\AccController::class);
 

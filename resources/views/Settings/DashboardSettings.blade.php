@@ -22,12 +22,12 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1 class="m-0"><b>Dashboard</b></h1>
+        <h1 class="m-0"><b>Dashboard Settings</b></h1>
       </div><!-- /.col -->
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item">Home</li>
-          <li class="breadcrumb-item active">Dashboard</li>
+          <li class="breadcrumb-item active">Dashboard Settings</li>
         </ol>
       </div><!-- /.col -->
     </div><!-- /.row -->
@@ -38,14 +38,13 @@
 <!-- Main content -->
 <section class="content">
   <div class="container-fluid">
-    <h1>Halaman Settings</h1>
     <!-- Small boxes (Stat box) -->
     <div class="row">
       <div class="col-lg-3 col-6">
         <!-- small box -->
         <div class="small-box bg-success">
           <div class="inner">
-            <h3>-</h3>
+            <h3>{{ $totalDataKaCab }}</h3>
 
             <p>Kantor Cabang</p>
           </div>
@@ -61,7 +60,7 @@
         <div class="small-box bg-info">
           <div class="inner">
 
-            <h3>-</h3>
+            <h3>{{ $totalDataWilbin }}</h3>
 
             <p>Wilayah Binaan</p>
           </div>
@@ -77,7 +76,7 @@
         <div class="small-box" style="background-color: rgb(255,193,7); color: white;">
           <div class="inner">
 
-            <h3>-</h3>
+            <h3>{{ $totalDataShelter }}</h3>
 
             <p>Shelter</p>
           </div>
@@ -107,46 +106,21 @@
     <!-- /.row -->
     <!-- Main row -->
     <div class="row">
-
-      <div class="col-12">
-        <div class="row">
-          <div class="col-6">
-            <div class="card">
-              <div class="card-body">
-                <div class="text-center">
-                  <h2>Test1</h2>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-6">
-            <div class="card">
-              <div class="card-body">
-                <div class="text-center">
-                  <h2>Test2</h2>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       <!-- right col -->
-      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
-      @if(session('alert'))
-      <script>
-          Swal.fire({
-              title: '{{ session('alert.title') }}',
-              text: '{{ session('alert.text') }}',
-              icon: '{{ session('alert.icon') }}',
-          });
-      </script>
-      @endif
     </div>
     <!-- /.row (main row) -->
   </div><!-- /.container-fluid -->
-
-
 </section>
 <!-- /.content -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
+@if(session('alert'))
+<script>
+    Swal.fire({
+        title: '{{ session('alert.title') }}',
+        text: '{{ session('alert.text') }}',
+        icon: '{{ session('alert.icon') }}',
+    });
+</script>
+@endif
   <div>
 @endsection

@@ -62,13 +62,13 @@
                     <li class="nav-item menu">
                         <a href="{{ route('admin.KaCabView') }}" class="nav-link">
                             <i class="bi bi-buildings-fill"></i>
-                            <p>KaCab</p>
+                            <p>Kantor Cabang</p>
                         </a>
                     </li>
                     <li class="nav-item menu">
                         <a href="{{ route('admin.WilBinView') }}" class="nav-link">
                             <i class="bi bi-building"></i>
-                            <p>WilBin</p>
+                            <p>Wilayah Binaan</p>
                         </a>
                     </li>
                     <li class="nav-item menu">

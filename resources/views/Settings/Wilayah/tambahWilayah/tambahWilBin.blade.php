@@ -34,7 +34,8 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Data Anak Binaan</li>
+                        <li class="breadcrumb-item active">Data Wilayah Binaan</li>
+                        <li class="breadcrumb-item active">Tambah Wilayah Binaan</li>
                     </ol>
                 </div>
             </div>
