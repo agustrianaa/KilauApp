@@ -67,29 +67,12 @@ class SettingsController extends Controller
 
     public function tambahKacab(Request $request) {
         // Mengambil data provinsi dari API (contoh URL, ganti sesuai kebutuhan)
-        $provinces = $this->getDataFromApi('https://emsifa.github.io/api-wilayah-indonesia/api/provinces.json');
+        $provinces = $this->getDataFromApi('https://alamat.thecloudalert.com/api/provinsi/get/');
 
-        // Misalnya, pilih provinsi pertama sebagai contoh
-        $provinceId = $provinces[0]['id'];
-
-        // Mengganti placeholder dengan actual provinceId
-        $kabupaten = $this->getDataFromApi("https://emsifa.github.io/api-wilayah-indonesia/api/regencies/{$provinceId}.json");
-
-        // Mengambil data kecamatan dari API (contoh URL, ganti sesuai kebutuhan)
-        // Misalnya, pilih kabupaten pertama sebagai contoh
-        $regencyId = $kabupaten[0]['id'];
-        $kecamatan = $this->getDataFromApi("https://emsifa.github.io/api-wilayah-indonesia/api/districts/{$regencyId}.json");
-
-        // Mengambil data kelurahan dari API (contoh URL, ganti sesuai kebutuhan)
-        // Misalnya, pilih kecamatan pertama sebagai contoh
-        $districtId = $kecamatan[0]['id'];
-        $kelurahan = $this->getDataFromApi("https://emsifa.github.io/api-wilayah-indonesia/api/villages/{$districtId}.json");
-
+        // dd($provinces);
         return view('Settings.Wilayah.tambahWilayah.tambahKaCab', [
             'provinces' => $provinces,
-            'kabupaten' => $kabupaten,
-            'kecamatan' => $kecamatan,
-            'kelurahan' => $kelurahan,
         ]);
+
     }
 }

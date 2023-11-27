@@ -86,8 +86,8 @@
                                 <div class="col-6">
                                     <select name="province" class="form-select" id="province" data-province-id>
                                         <option value="" disabled selected>Pilih Provinsi</option>
-                                        @foreach ($provinces as $province)
-                                            <option value="{{ $province['id'] }}">{{ $province['name'] }}</option>
+                                        @foreach ($provinces['result'] as $province)
+                                            <option value="{{ $province['id'] }}">{{ $province['text'] }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -164,10 +164,37 @@
         resetDropdown('kecamatan');
         resetDropdown('kelurahan');
 
-        // Jika provinceId tidak kosong, ambil data Kabupaten berdasarkan province_id
-        if (provinceId) {
-            getDataAndPopulateDropdown('https://emsifa.github.io/api-wilayah-indonesia/api/regencies/' + provinceId + '.json', 'kabupaten', 'regency_id');
-        }
+
+            // var kantor_cabang = $(this).val();
+
+            // dapatkan kabupaten
+            $.ajax({
+                url: `https://alamat.thecloudalert.com/api/kabkota/get/?d_provinsi_id=${provinceId}`,
+                type: 'get',
+                dataType: 'json',
+                success: function( response ) {
+                    // result
+                    // console.log(response);
+
+                    // $('select#cabang').append(`<option value="${result.kacab}">${result.kacab}</option>`)
+
+                    var resultArray = response.result;
+
+                    // Cetak nilai 'result'
+                    // console.log(resultArray);
+
+                    // Iterasi melalui setiap elemen dalam 'resultArray'
+                    for (var i = 0; i < resultArray.length; i++) {
+                        var id = resultArray[i].id;
+                        var text = resultArray[i].text;
+
+                        // Lakukan sesuatu dengan id dan text, contohnya:
+                        // console.log('ID:', id, 'Text:', text);
+                        $('#kabupaten').prop('disabled', false);
+                        $('#kabupaten').append(`<option value="${id}">${text}</option>`)
+                    }
+                }
+            })
     });
 
     // Tambahkan event listener untuk perubahan pada dropdown Kabupaten
@@ -179,13 +206,34 @@
         resetDropdown('kecamatan');
         resetDropdown('kelurahan');
 
-        // Jika regencyId tidak kosong, ambil data Kecamatan berdasarkan regency_id
-        if (regencyId) {
-            getDataAndPopulateDropdown('https://emsifa.github.io/api-wilayah-indonesia/api/districts/' + regencyId + '.json', 'kecamatan', 'district_id');
-        }
+
+        // dapatkan kecamatan
+        $.ajax({
+                url: `https://alamat.thecloudalert.com/api/kecamatan/get/?d_kabkota_id=${regencyId}`,
+                type: 'get',
+                dataType: 'json',
+                success: function( response ) {
+
+                    var resultArray = response.result;
+
+                    // Cetak nilai 'result'
+                    // console.log(resultArray);
+
+                    // Iterasi melalui setiap elemen dalam 'resultArray'
+                    for (var i = 0; i < resultArray.length; i++) {
+                        var id = resultArray[i].id;
+                        var text = resultArray[i].text;
+
+                        // Lakukan sesuatu dengan id dan text, contohnya:
+                        // console.log('ID:', id, 'Text:', text);
+                        $('#kecamatan').prop('disabled', false);
+                        $('#kecamatan').append(`<option value="${id}">${text}</option>`)
+                    }
+                }
+            })
     });
 
-    // Tambahkan event listener untuk perubahan pada dropdown Kecamatan
+    // // Tambahkan event listener untuk perubahan pada dropdown Kecamatan
     document.getElementById('kecamatan').addEventListener('change', function () {
         // Dapatkan district_id yang dipilih
         var districtId = this.value;
@@ -193,10 +241,30 @@
         // Reset dan nonaktifkan dropdown Kelurahan
         resetDropdown('kelurahan');
 
-        // Jika districtId tidak kosong, ambil data Kelurahan berdasarkan district_id
-        if (districtId) {
-            getDataAndPopulateDropdown('https://emsifa.github.io/api-wilayah-indonesia/api/villages/' + districtId + '.json', 'kelurahan', 'village_id');
-        }
+        // dapatkan kecamatan
+        $.ajax({
+                url: `https://alamat.thecloudalert.com/api/kelurahan/get/?d_kecamatan_id=${districtId}`,
+                type: 'get',
+                dataType: 'json',
+                success: function( response ) {
+
+                    var resultArray = response.result;
+
+                    // Cetak nilai 'result'
+                    // console.log(resultArray);
+
+                    // Iterasi melalui setiap elemen dalam 'resultArray'
+                    for (var i = 0; i < resultArray.length; i++) {
+                        var id = resultArray[i].id;
+                        var text = resultArray[i].text;
+
+                        // Lakukan sesuatu dengan id dan text, contohnya:
+                        // console.log('ID:', id, 'Text:', text);
+                        $('#kelurahan').prop('disabled', false);
+                        $('#kelurahan').append(`<option value="${id}">${text}</option>`)
+                    }
+                }
+            })
     });
 
     // Fungsi untuk mereset dan menonaktifkan dropdown
