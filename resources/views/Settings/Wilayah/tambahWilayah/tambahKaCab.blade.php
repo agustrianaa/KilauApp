@@ -92,7 +92,7 @@
                                         <select class="form-control" name="tbhProvinsi" id="idProvinsi">
                                             <option value="" disabled selected>Pilih...</option>
                                             @foreach ($provinces['result'] as $province)
-                                                <option value="{{ $province['id'] }}">{{ $province['text'] }}</option>
+                                                <option value="{{ $province['id'] }}, {{ $province['text'] }}">{{ $province['text'] }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -167,7 +167,9 @@
     // Tambahkan event listener untuk perubahan pada dropdown Provinsi
     document.getElementById('idProvinsi').addEventListener('change', function () {
         // Dapatkan province_id yang dipilih
-        var provinceId = this.value;
+        var province = this.value;
+        var provinceId = province.split(', ');
+
 
         // Reset dan nonaktifkan dropdown Kabupaten, Kecamatan, dan Kelurahan
         resetDropdown('idKabupaten');
@@ -179,7 +181,7 @@
 
             // dapatkan kabupaten
             $.ajax({
-                url: `https://alamat.thecloudalert.com/api/kabkota/get/?d_provinsi_id=${provinceId}`,
+                url: `https://alamat.thecloudalert.com/api/kabkota/get/?d_provinsi_id=${provinceId[0]}`,
                 type: 'get',
                 dataType: 'json',
                 success: function( response ) {
@@ -210,7 +212,8 @@
     // Tambahkan event listener untuk perubahan pada select kabupaten
     document.getElementById('idKabupaten').addEventListener('change', function () {
         // Ambil regency_id yang dipilih
-        const selectedRegencyId = this.value;
+        const selectedRegency = this.value;
+        var selectedRegencyId = selectedRegency.split(', ');
 
         // Reset dan nonaktifkan dropdown Kecamatan dan Kelurahan
         resetDropdown('idKecamatan');
@@ -219,7 +222,7 @@
 
         // dapatkan kecamatan
         $.ajax({
-                url: `https://alamat.thecloudalert.com/api/kecamatan/get/?d_kabkota_id=${selectedRegencyId}`,
+                url: `https://alamat.thecloudalert.com/api/kecamatan/get/?d_kabkota_id=${selectedRegencyId[0]}`,
                 type: 'get',
                 dataType: 'json',
                 success: function( response ) {
@@ -246,14 +249,15 @@
     // // Tambahkan event listener untuk perubahan pada dropdown Kecamatan
     document.getElementById('idKecamatan').addEventListener('change', function () {
         // Dapatkan district_id yang dipilih
-        var districtId = this.value;
+        var district = this.value;
+        var districtId = district.split(', ');;
 
         // Reset dan nonaktifkan dropdown Kelurahan
         resetDropdown('idKelurahan');
 
         // dapatkan kecamatan
         $.ajax({
-                url: `https://alamat.thecloudalert.com/api/kelurahan/get/?d_kecamatan_id=${districtId}`,
+                url: `https://alamat.thecloudalert.com/api/kelurahan/get/?d_kecamatan_id=${districtId[0]}`,
                 type: 'get',
                 dataType: 'json',
                 success: function( response ) {

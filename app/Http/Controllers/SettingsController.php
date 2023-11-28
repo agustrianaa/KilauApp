@@ -30,7 +30,7 @@ class SettingsController extends Controller
         return $data;
     }
     public function settingIndex(Request $request)
-    {   
+    {
         $totalDataKaCab = KantorCabang::count();
         $totalDataWilbin = WilayahBinaan::count();
         $totalDataShelter = Shelter::count();
@@ -105,6 +105,15 @@ class SettingsController extends Controller
 
     public function simpanKaCab(Request $request) {
 
+        $provin = $request->tbhProvinsi;
+        $province = explode(', ', $provin);
+        $kabupa = $request->tbhKabupaten;
+        $kabupaten = explode(', ', $kabupa);
+        $kecam = $request->tbhKecamatan;
+        $kecamatan = explode(', ', $kecam);
+        $kelur = $request->tbhKelurahan;
+        $kelurahan = explode(', ', $kelur);
+
         $request->validate([
             'namaKacab' => 'required',
             'nomortlp' => 'required',
@@ -119,17 +128,17 @@ class SettingsController extends Controller
             'nama_kacab' => $request->namaKacab,
             'no_telp' => $request->nomortlp,
             'alamat' => $request->alamatKacab,
-            'provinsi' => $request->tbhProvinsi,
-            'kabupaten' => $request->tbhKabupaten,
-            'kecamatan' => $request->tbhKecamatan,
-            'kelurahan' => $request->tbhKelurahan,
+            'provinsi' => $province[1],
+            'kabupaten' => $kabupaten[1],
+            'kecamatan' => $kecamatan[1],
+            'kelurahan' => $kelurahan[1],
         ]);
 
         // Tambahkan kode SweetAlert2 sebelum redirect
         $alert = [
             'title' => 'Kantor Cabang ditambahkan!',
             'icon' => 'success',
-        ]; 
+        ];
 
         // Redirect atau lakukan tindakan lain sesuai kebutuhan
         return redirect()->route('admin.KaCabView')->with('alert', $alert);
@@ -162,7 +171,7 @@ class SettingsController extends Controller
                 ->leftJoin('kantor_cabangs', 'kantor_cabangs.id_kacab', '=', 'wilayah_binaans.kacab_id')
                 ->orderBy('wilayah_binaans.updated_at', 'desc')
                 ->get();
-    
+
             return datatables($data)
                 ->addColumn('action', 'Settings.Wilayah.tombolAction.settingWilBin-action')
                 ->rawColumns(['action'])
@@ -219,7 +228,7 @@ class SettingsController extends Controller
     }
 
     public function simpanGetKacab(Request $request) {
-        
+
         WilayahBinaan::create([
             'kacab_id' => $request->idUntukKacab,
             'nama_wilbin' => $request->namaWilbin,
@@ -228,7 +237,7 @@ class SettingsController extends Controller
         $alert = [
             'title' => 'Wilayah Binaan ditambahkan!',
             'icon' => 'success',
-        ]; 
+        ];
 
         // Redirect atau lakukan tindakan lain sesuai kebutuhan
         return redirect()->route('admin.WilBinView')->with('alert', $alert);
@@ -245,14 +254,14 @@ class SettingsController extends Controller
                 ->leftJoin('wilayah_binaans', 'wilayah_binaans.id_wilbin', '=', 'shelters.wilbin_id')
                 ->orderBy('shelters.updated_at', 'desc')
                 ->get();
-    
+
             return datatables($data)
                 ->addColumn('action', 'Settings.Wilayah.tombolAction.settingShelter-action')
                 ->rawColumns(['action'])
                 ->addIndexColumn()
                 ->make(true);
         }
-    
+
         return view('Settings.Wilayah.settingShelter');
     }
 
@@ -299,7 +308,7 @@ class SettingsController extends Controller
         return response()->json($results);
     }
     public function simpanGetWilbin(Request $request) {
-        
+
         Shelter::create([
             'wilbin_id' => $request->idUntukWilbin,
             'nama_shelter' => $request->namaShelter,
@@ -311,7 +320,7 @@ class SettingsController extends Controller
         $alert = [
             'title' => 'Shelter ditambahkan!',
             'icon' => 'success',
-        ]; 
+        ];
 
         // Redirect atau lakukan tindakan lain sesuai kebutuhan
         return redirect()->route('admin.ShelterView')->with('alert', $alert);
