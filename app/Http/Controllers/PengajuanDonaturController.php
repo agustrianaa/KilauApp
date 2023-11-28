@@ -13,29 +13,65 @@ class PengajuanDonaturController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $data = Anak::select(
+            'anaks.id_anaks as id',
+            'anaks.donatur_id as donatur_id',
+            'anaks.agama as agama',
+            'survey_keluargas.hsurvey as hsurvey',
+            'donaturs.name as namadonatur',
+            'donaturs.id as donatur_id',
+            'status_anaks.status_beasiswa as status_beasiswa',
+            'anaks.*',
+            'status_anaks.*',
+            'data_keluargas.*',
+            'data_keluargas.wilayah_binaan as wilbin',
+        )
+            ->join('data_keluargas', 'anaks.data_keluarga_id', '=', 'data_keluargas.id')
+            ->join('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
+            ->join('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
+            ->leftJoin('donaturs', 'anaks.donatur_id', '=', 'donaturs.id')
+            ->where(function ($query)  {
+                $query->where('survey_keluargas.hsurvey', '=', 'layak')
+                    ->orWhere('survey_keluargas.hsurvey', '=', 'cukup layak');
+            })
+            ->get();
+
         if (request()->ajax()) {
             $key = 0;
+            $fbeasiswa = $request->status_beasiswa;
             $data = Anak::select(
                 'anaks.id_anaks as id',
                 'anaks.donatur_id as donatur_id',
                 'survey_keluargas.hsurvey as hsurvey',
                 'donaturs.name as namadonatur',
                 'donaturs.id as donatur_id',
+                'status_anaks.status_beasiswa as status_beasiswa',
                 'anaks.*',
                 'status_anaks.*',
                 'anaks.agama as agama',
+                'data_keluargas.wilayah_binaan as wilbin',
             )
                 ->join('data_keluargas', 'anaks.data_keluarga_id', '=', 'data_keluargas.id')
                 ->join('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
                 ->join('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
                 ->leftJoin('donaturs', 'anaks.donatur_id', '=', 'donaturs.id')
-                ->where(function ($query) {
+                ->where(function ($query)  {
                     $query->where('survey_keluargas.hsurvey', '=', 'layak')
                         ->orWhere('survey_keluargas.hsurvey', '=', 'cukup layak');
                 })
+                ->when($fbeasiswa, function ($query) use ($fbeasiswa) {
+                    $query->where('status_anaks.status_beasiswa', $fbeasiswa);
+                })
+                // ->when($fbeasiswa, function ($query) use ($fbeasiswa) {
+                //     $query->where('status_anaks.status_beasiswa', $fbeasiswa);
+                // })
                 ->get();
+
+                // if($fbeasiswa != ''){
+                //     $data = $data->where('status_beasiswa', $fbeasiswa);
+                // }
 
             return datatables($data)
                 ->addColumn('no', function ($row) use (&$key) {
@@ -80,7 +116,7 @@ class PengajuanDonaturController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        return view('PengajuanDonatur.PengajuanDonatur-table');
+        return view('PengajuanDonatur.PengajuanDonatur-table', compact('data'));
     }
 
     /**
