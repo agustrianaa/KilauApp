@@ -103,7 +103,7 @@
                 </p>
             </a>
             </li>
-
+<!-- 
             <li class="nav-item">
                 <a href="{{ url('datasurvey') }}" class="nav-link">
                     <i class="bi bi-clipboard2-plus-fill"></i>{{-- icon --}}
@@ -129,7 +129,7 @@
                         Acc
                     </p>
                 </a>
-            </li>
+            </li> -->
 
             <li class="nav-item">
             <a href="{{ route('admin.menu') }}" class="nav-link">
