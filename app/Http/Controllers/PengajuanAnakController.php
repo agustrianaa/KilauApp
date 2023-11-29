@@ -18,9 +18,11 @@ use Illuminate\Http\Request;
 class PengajuanAnakController extends Controller
 {
     public function pengajuanForm(Request $request) {
-        $wilayah = KantorCabang::with('dataWilBin.dataShelter')->get();
-
-        return view('PengajuanAnak.PengajuanAnak', compact('wilayah'));
+        $kantorCabangs = KantorCabang::all();
+        $wilayahBinaans = WilayahBinaan::all();
+        $shelters = Shelter::all();
+        
+        return view('PengajuanAnak.PengajuanAnak', compact('kantorCabangs', 'wilayahBinaans', 'shelters'));
     }
 
     public function pengajuanFormStore(Request $request) {

@@ -147,12 +147,8 @@
                                                 <div class="col-12 col-sm-8">
                                                     <select class="form-select" id="wilayah_binaan" name="wilayah_binaan">
                                                         <option disabled selected>-Pilih-</option>
-                                                        @foreach($wilayah as $kantorCabang)
-                                                            @if($kantorCabang->dataWilBin)
-                                                                <option value="{{ $kantorCabang->dataWilBin->nama_wilbin }}">
-                                                                    {{ $kantorCabang->dataWilBin->nama_wilbin }}
-                                                                </option>
-                                                            @endif
+                                                        @foreach($wilayahBinaans as $wilayahBinaan)
+                                                            <option value="{{ $wilayahBinaan->nama_wilbin }}">{{ $wilayahBinaan->nama_wilbin }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -164,12 +160,8 @@
                                                 <div class="col-12 col-sm-8">
                                                     <select class="form-select" id="shelter" name="shelter">
                                                         <option disabled selected>-Pilih-</option>
-                                                        @foreach($wilayah as $kantorCabang)
-                                                            @if($kantorCabang->dataWilBin)
-                                                                <option value="{{ $kantorCabang->dataWilBin->dataShelter->nama_shelter }}">
-                                                                    {{ $kantorCabang->dataWilBin->dataShelter->nama_shelter }}
-                                                                </option>
-                                                            @endif
+                                                        @foreach($shelters as $shelter)
+                                                            <option value="{{ $shelter->nama_shelter }}">{{ $shelter->nama_shelter }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -260,10 +252,8 @@
                                                 <div class="col-12 col-sm-8">
                                                     <select class="form-select" id="kacab" name="kacab">
                                                         <option disabled selected>-Pilih-</option>
-                                                        @foreach($wilayah as $kantorCabang)
-                                                            <option value="{{ $kantorCabang->nama_kacab }}">
-                                                                {{ $kantorCabang->nama_kacab }}
-                                                            </option>
+                                                        @foreach($kantorCabangs as $kantorCabang)
+                                                            <option value="{{ $kantorCabang->nama_kacab }}">{{ $kantorCabang->nama_kacab }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>

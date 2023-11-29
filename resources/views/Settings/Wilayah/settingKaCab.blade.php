@@ -39,6 +39,7 @@
     .swal2-content {
         font-size: 16px; /* Ganti dengan ukuran font yang diinginkan */
     }
+    
     .breadcrumb-item a {
     text-decoration: none;
     color: black;

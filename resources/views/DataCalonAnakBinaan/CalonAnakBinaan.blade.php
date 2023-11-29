@@ -132,7 +132,8 @@
                                     <th style="width: 10px">No</th>
                                     <th>Nama</th>
                                     <th>Agama</th>
-                                    <th>Shelter</th>
+                                    <th>Kacab</th>
+                                    <th>Wilbin</th>
                                     <th>No. KK</th>
                                     <th>Kepala Keluarga</th>
                                     <th>Anak Ke</th>
@@ -182,7 +183,7 @@
                     url : "{{ url('admin/calonAnakBinaan') }}",
                     data: {
                         kacab : selectedKacab,
-                        agamaAnak : selectedWil,
+                        wilbin : selectedWil,
                     },
                 },
                 columns : [
@@ -196,6 +197,7 @@
                     { data: 'nama_lengkap_calon_anak', name: 'nama_lengkap_calon_anak'},
                     { data: 'agamaAnak', name: 'agamaAnak'},
                     { data: 'kacab', name: 'kacab'},
+                    { data: 'wilayah_binaan', name: 'wilayah_binaan'},
                     { data: 'no_kk', name: 'no_kk'},
                     { data: 'nama_ayah', name: 'nama_ayah'},
                     { data: 'anak_ke', name: 'anak_ke'},
@@ -247,6 +249,7 @@
             allowClear: true, // Mengaktifkan tombol "Hapus" untuk menghapus nilai yang dipilih
         });
 
+
         $('#kantorCabang').on('change', function() {
             // Membersihkan opsi pada dropdown kedua
             $('#wilayahBinaan').empty();
@@ -254,17 +257,77 @@
             // Mengisi ulang opsi pada dropdown kedua berdasarkan nilai yang dipilih pada dropdown pertama
             $(this).find('option:selected').each(function() {
                 var kantorId = $(this).data('kantor-id');
+                console.log('Selected Kantor ID:', kantorId);
             
                 // Menggunakan AJAX untuk mengambil data wilayah binaan berdasarkan kacab_id
                 $.ajax({
                     url: '{{ route('admin.cariWilayahBinaan', ['kantorId' => ':kantorId']) }}'.replace(':kantorId', kantorId),
                     type: 'GET',
-                    success: function(data) {
-                        // Menambahkan opsi wilayah binaan ke dropdown kedua
-                        console.log(data);
-                        data.forEach(function(subValue) {
-                            $('#wilayahBinaan').append('<option value="' + subValue.nama_wilbin + '">' + subValue.nama_wilbin + '</option>');
-                        });
+                    data: {
+                        kantorId: kantorId
+                    },
+                    success: function(response) {
+                        console.log('Terjadi response:', response);
+                    
+                        var data = response.hasOwnProperty('data') ? response.data : response;
+                    
+                        // Memastikan data adalah array sebelum menggunakan forEach
+                        if (Array.isArray(data)) {
+                            // Iterasi melalui data dan tambahkan opsi ke dropdown
+                            data.forEach(function(subValue) {
+                                console.log('subvalue log:', subValue.id_wilbin, subValue.nama_wilbin);
+                            
+                                $('#wilayahBinaan').append('<option value="' + subValue.nama_wilbin + '" data-wilbin-id="' + subValue.id_wilbin +'">' + subValue.nama_wilbin + '</option>');
+                            });
+                        } else {
+                            console.log('Invalid data format:', data);
+                        }
+                    
+                        // Pengaktifan ulang Select2 pada dropdown #wilayahBinaan
+                        $('#wilayahBinaan').trigger('change');
+                    },
+                    error: function(error) {
+                        console.log('Terjadi error pada:', error);
+                    }
+                });
+            });
+        });
+
+        $('#wilayahBinaan').on('change', function() {
+            // Membersihkan opsi pada dropdown kedua
+            $('#shelterFilter').empty();
+
+            // Mengisi ulang opsi pada dropdown kedua berdasarkan nilai yang dipilih pada dropdown pertama
+            $(this).find('option:selected').each(function() {
+                var wilbinId = $(this).data('wilbin-id');
+                console.log('Selected Wilbin ID:', wilbinId);
+            
+                // Menggunakan AJAX untuk mengambil data wilayah binaan berdasarkan kacab_id
+                $.ajax({
+                    url: '{{ route('admin.cariShelters', ['wilbinId' => ':wilbinId']) }}'.replace(':wilbinId', wilbinId),
+                    type: 'GET',
+                    data: {
+                        wilbinId: wilbinId
+                    },
+                    success: function(response) {
+                        console.log('Terjadi response:', response);
+                    
+                        var data = response.hasOwnProperty('data') ? response.data : response;
+                    
+                        // Memastikan data adalah array sebelum menggunakan forEach
+                        if (Array.isArray(data)) {
+                            // Iterasi melalui data dan tambahkan opsi ke dropdown
+                            data.forEach(function(subValue) {
+                                console.log('subvalue log:', subValue.id_shelter, subValue.nama_shelter);
+                            
+                                $('#shelterFilter').append('<option value="' + subValue.nama_shelter + '" data-wilbin-id="' + subValue.id_shelter +'">' + subValue.nama_shelter + '</option>');
+                            });
+                        } else {
+                            console.log('Invalid data format:', data);
+                        }
+                    
+                        // Pengaktifan ulang Select2 pada dropdown #shelterFilter
+                        $('#shelterFilter').trigger('change');
                     },
                     error: function(error) {
                         console.log('Terjadi error pada:', error);
@@ -356,21 +419,63 @@
     }
 
     //Menghapus data keluarga
-    function delete_datakeluarga(id){
-        if (confirm("Are you sure you want to delete")==true) {
-            var id = id;
-            $.ajax({
-                type:"POST",
-                url: "{{ url('admin/calonAnakBinaanDelete') }}",
-                data: {id:id},
-                dataType: 'json',
-                success: function(res) {
-                    var oTable = $('#CalonAnakBinaanTable').DataTable();
-                    oTable.ajax.reload(false); //agar tidak perlu refresh halaman
-                }
-            });
-        }
+    function delete_datakeluarga(id) {
+        Swal.fire({
+            title: 'Apakah yakin?',
+            text: "Data akan dihapus permanen!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url('admin/calonAnakBinaanDelete') }}",
+                    data: {
+                        id: id,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function (data) {
+                        Swal.fire({
+                            title: 'Berhasil dihapus!',
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 1200,
+                        });
+                        // Tambahan: Reload DataTable setelah menghapus
+                        $('#CalonAnakBinaanTable').DataTable().ajax.reload();
+                    },
+                    error: function (data) {
+                        Swal.fire({
+                            title: 'Gagal!',
+                            text: 'Gagal menghapus Kantor Cabang. Periksa Konsol',
+                            icon: 'error',
+                        });
+                        console.log('Error:', data);
+                    }
+                });
+            }
+        });
     }
+    //Menghapus data keluarga
+    // function delete_datakeluarga(id){
+    //     if (confirm("Are you sure you want to delete")==true) {
+    //         var id = id;
+    //         $.ajax({
+    //             type:"POST",
+    //             url: "{{ url('admin/calonAnakBinaanDelete') }}",
+    //             data: {id:id},
+    //             dataType: 'json',
+    //             success: function(res) {
+    //                 var oTable = $('#CalonAnakBinaanTable').DataTable();
+    //                 oTable.ajax.reload(false); //agar tidak perlu refresh halaman
+    //             }
+    //         });
+    //     }
+    // }
 
     //menampilkan detail data keluarga
     function detailDatakeluarga(id, id_anaks){
