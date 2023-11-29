@@ -9,7 +9,21 @@
 .col-lg-12.tutupFilter {
     display: none;
 }
-
+/* Atur lebar dan tinggi notifikasi */
+.swal2-popup {
+    background-color: rgb(255, 255, 255);
+    border-radius: 30px;
+    width: 300px; /* Ganti dengan lebar yang diinginkan */
+    height: auto; /* Sesuaikan dengan kebutuhan, atau biarkan otomatis */
+}
+/* Atur font size untuk judul */
+.swal2-title {
+    font-size: 20px; /* Ganti dengan ukuran font yang diinginkan */
+}
+/* Atur font size untuk teks */
+.swal2-content {
+    font-size: 16px; /* Ganti dengan ukuran font yang diinginkan */
+}
 .breadcrumb-item a {
     text-decoration: none;
     color: black;

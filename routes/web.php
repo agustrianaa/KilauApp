@@ -102,6 +102,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::get('/carinomorKK', [CalonAnakBinaanController::class, 'cariKK'])->name('cariKK');
 
     Route::get('/cariWilayahBinaan/{kantorId}', [CalonAnakBinaanController::class, 'cariWilayahBinaan'])->name('cariWilayahBinaan');
+    Route::get('/cariShelters/{wilbinId}', [CalonAnakBinaanController::class, 'cariShelters'])->name('cariShelters');
 
     Route::post('/getWilayah', [CalonAnakBinaanController::class, 'cariWilayah'])->name('cariWilayah');
     Route::post('/filterData', [CalonAnakBinaanController::class, 'filterData'])->name('filterData');
