@@ -203,7 +203,7 @@
                         // Lakukan sesuatu dengan id dan text, contohnya:
                         // console.log('ID:', id, 'Text:', text);
                         // $('#idKabupaten').prop('disabled', false);
-                        $('#idKabupaten').append(`<option value="${id}">${text}</option>`)
+                        $('#idKabupaten').append(`<option value="${id}, ${text}">${text}</option>`)
                     }
                 }
             })
@@ -240,7 +240,7 @@
 
                         // Lakukan sesuatu dengan id dan text, contohnya:
                         // console.log('ID:', id, 'Text:', text);
-                        $('#idKecamatan').append(`<option value="${id}">${text}</option>`)
+                        $('#idKecamatan').append(`<option value="${id}, ${text}">${text}</option>`)
                     }
                 }
             })
@@ -250,7 +250,7 @@
     document.getElementById('idKecamatan').addEventListener('change', function () {
         // Dapatkan district_id yang dipilih
         var district = this.value;
-        var districtId = district.split(', ');;
+        var districtId = district.split(', ');
 
         // Reset dan nonaktifkan dropdown Kelurahan
         resetDropdown('idKelurahan');
@@ -275,7 +275,7 @@
 
                         // Lakukan sesuatu dengan id dan text, contohnya:
                         // console.log('ID:', id, 'Text:', text);
-                        $('#idKelurahan').append(`<option value="${id}">${text}</option>`)
+                        $('#idKelurahan').append(`<option value="${id}, ${text}">${text}</option>`)
                     }
                 }
             })

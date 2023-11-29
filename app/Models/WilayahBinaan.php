@@ -18,13 +18,13 @@ class WilayahBinaan extends Model
         'nama_wilbin'
     ];
 
-    public function dataKaCab():BelongsTo
+    public function dataKaCab(): BelongsTo
     {
         return $this->belongsTo(KantorCabang::class);
     }
 
-    public function dataShelter():HasOne
+    public function dataShelter(): HasOne
     {
-        return $this->hasOne(Shelter::class);
+        return $this->hasOne(Shelter::class, 'wilbin_id', 'id_wilbin');
     }
 }

@@ -6,8 +6,10 @@ use App\Models\anak;
 use App\Models\Ayah;
 use App\Models\DataKeluarga;
 use App\Models\Ibu;
+use App\Models\KantorCabang;
 use App\Models\StatusAnak;
 use App\Models\Wali;
+use App\Models\WilayahBinaan;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -17,12 +19,13 @@ class CalonAnakBinaanController extends Controller
 {
     public function calonanakbinaanIndex(Request $request)
     {
+        $wilayah = KantorCabang::with('dataWilBin.dataShelter')->get();
+
         if (request()->ajax()) {
-            $data = DataKeluarga::select(
+            $query = DataKeluarga::select(
                 'data_keluargas.*',
                 'anaks.*',
                 'anaks.nama_lengkap as nama_lengkap_calon_anak',
-                // 'anaks.id_anaks as id_anak',
                 'anaks.tempat_lahir as tempat_lahir_calon_anak',
                 'anaks.tanggal_lahir as tanggal_lahir_calon_anak',
                 'anaks.agama as agamaAnak',
@@ -31,24 +34,40 @@ class CalonAnakBinaanController extends Controller
                 'ayahs.nik as nik_ayah',
                 'ibus.*',
                 'walis.*',
-                'status_anaks.*',
-                )
+                'status_anaks.*'
+            )
                 ->leftJoin('ayahs', 'data_keluargas.id', '=', 'ayahs.data_keluarga_id')
                 ->leftJoin('ibus', 'data_keluargas.id', '=', 'ibus.data_keluarga_id')
                 ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
                 ->leftJoin('walis', 'data_keluargas.id', '=', 'walis.data_keluarga_id')
                 ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
                 ->orderBy('anaks.id_anaks', 'desc')
-                ->when($request->has('shelter'), function ($query) use ($request) {
-                    $shelter = $request->shelter;
-                    return $query->whereIn('shelter', $shelter);
+                ->when($request->has('kacab'), function ($query) use ($request) {
+                    $kacab = $request->kacab;
+                    return $query->whereIn('data_keluargas.kacab', $kacab);
                 })
                 ->when($request->has('agamaAnak'), function ($query) use ($request) {
                     $agamaAnak = $request->agamaAnak;
                     return $query->whereIn('anaks.agama', $agamaAnak);
-                })            
-                ->where('status_anaks.status_binaan', 0)
-                ->get();
+                });
+
+            // Menambahkan filter berdasarkan wilayah binaan yang dipilih
+            if ($request->has('wilayahBinaan')) {
+                $wilayahBinaan = $request->wilayahBinaan;
+                $query->whereIn('data_keluargas.id', function ($subQuery) use ($wilayahBinaan) {
+                    $subQuery->select('data_keluargas.id')
+                        ->from('data_keluargas')
+                        ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
+                        ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
+                        ->leftJoin('wilayah_binaans', 'status_anaks.wilbin_id', '=', 'wilayah_binaans.id_wilbin')
+                        ->whereIn('wilayah_binaans.id_wilbin', $wilayahBinaan);
+                });
+            }
+
+            // Menambahkan filter berdasarkan status binaan
+            $query->where('status_anaks.status_binaan', 0);
+
+            $data = $query->get();
 
             return datatables($data)
                 ->addColumn('TTL', function ($data) {
@@ -60,7 +79,18 @@ class CalonAnakBinaanController extends Controller
                 ->make(true);
         }
 
-        return view('DataCalonAnakBinaan.CalonAnakBinaan');
+        return view('DataCalonAnakBinaan.CalonAnakBinaan', compact('wilayah'));
+    }
+
+
+    public function cariWilayahBinaan(Request $request)
+    {
+        $kacabId = $request->input('kantor-id');
+
+        // Gantilah sesuai dengan model dan relasi yang Anda miliki
+        $wilayahBinaan = WilayahBinaan::where('kacab_id', $kacabId)->get();
+
+        return response()->json($wilayahBinaan);
     }
 
     public function filterData(Request $request)

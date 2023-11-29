@@ -123,6 +123,7 @@ class SettingsController extends Controller
             'tbhKecamatan' => 'required',
             'tbhKelurahan' => 'required',
         ]);
+        // dd($province[1]);
 
         KantorCabang::create([
             'nama_kacab' => $request->namaKacab,

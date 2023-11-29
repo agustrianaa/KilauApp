@@ -19,6 +19,17 @@
     .row.mb-2.pekerjaanwali{
         display: none;
     }
+    .breadcrumb-item a {
+    text-decoration: none;
+    color: black;
+    transition: 0.1s;
+    }
+
+    .breadcrumb-item a:hover {
+        text-decoration: none;
+        color: rgb(0, 136, 255);
+        transition: 0.1s;
+    }
 </style>
 
 <div class="content-wrapper background">
@@ -31,7 +42,8 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Data Anak Binaan</li>
+                        <li class="breadcrumb-item active">Dashboard</li>
+                        <li class="breadcrumb-item active">Pengajuan Anak</li>
                     </ol>
                 </div>
             </div><!-- End row -->
@@ -134,11 +146,14 @@
                                                 </div>
                                                 <div class="col-12 col-sm-8">
                                                     <select class="form-select" id="wilayah_binaan" name="wilayah_binaan">
-                                                        <option disabled selected>Wilayah Binaan...</option>
-                                                        <option value="Indramayu">Indramayu</option>
-                                                        <option value="Bandung">Bandung</option>
-                                                        <option value="Sumedang">Sumedang</option>
-                                                        <option value="Bogor">Bogor</option>
+                                                        <option disabled selected>-Pilih-</option>
+                                                        @foreach($wilayah as $kantorCabang)
+                                                            @if($kantorCabang->dataWilBin)
+                                                                <option value="{{ $kantorCabang->dataWilBin->nama_wilbin }}">
+                                                                    {{ $kantorCabang->dataWilBin->nama_wilbin }}
+                                                                </option>
+                                                            @endif
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -148,11 +163,14 @@
                                                 </div>
                                                 <div class="col-12 col-sm-8">
                                                     <select class="form-select" id="shelter" name="shelter">
-                                                        <option disabled selected>Pilih Shelter...</option>
-                                                        <option value="Indramayu">Indramayu</option>
-                                                        <option value="Bandung">Bandung</option>
-                                                        <option value="Sumedang">Sumedang</option>
-                                                        <option value="Bogor">Bogor</option>
+                                                        <option disabled selected>-Pilih-</option>
+                                                        @foreach($wilayah as $kantorCabang)
+                                                            @if($kantorCabang->dataWilBin)
+                                                                <option value="{{ $kantorCabang->dataWilBin->dataShelter->nama_shelter }}">
+                                                                    {{ $kantorCabang->dataWilBin->dataShelter->nama_shelter }}
+                                                                </option>
+                                                            @endif
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -160,7 +178,7 @@
                                                 <div class="col-12 col-sm-4">
                                                     <p class="text-sm-end">Jarak ke Shelter :</p>
                                                 </div>
-                                                <div class="col-12 col-sm-2">
+                                                <div class="col-12 col-sm-6">
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" id="jarak_ke_shelter" name="jarak_ke_shelter" placeholder="">
                                                         <span class="input-group-text">KM</span>
@@ -171,7 +189,7 @@
                                                 <div class="col-12 col-sm-4">
                                                     <p class="text-sm-end">Anak Ke :</p>
                                                 </div>
-                                                <div class="col-12 col-sm-8">
+                                                <div class="col-12 col-sm-6">
                                                     <input type="number" class="form-control" id="anak_ke" name="anak_ke" placeholder="Anak ke...">
                                                 </div>
                                             </div>
@@ -241,11 +259,12 @@
                                                 </div>
                                                 <div class="col-12 col-sm-8">
                                                     <select class="form-select" id="kacab" name="kacab">
-                                                        <option disabled selected>Kantor Cabang...</option>
-                                                        <option value="Indramayu">Indramayu</option>
-                                                        <option value="Bandung">Bandung</option>
-                                                        <option value="Sumedang">Sumedang</option>
-                                                        <option value="Bogor">Bogor</option>
+                                                        <option disabled selected>-Pilih-</option>
+                                                        @foreach($wilayah as $kantorCabang)
+                                                            <option value="{{ $kantorCabang->nama_kacab }}">
+                                                                {{ $kantorCabang->nama_kacab }}
+                                                            </option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -278,7 +297,7 @@
                                                     <p class="text-sm-end">No HP :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="number" class="form-control" id="no_telp" name="no_telp" placeholder="No. HP">
+                                                    <input type="number" class="form-control" id="no_telp" name="no_telp" placeholder="No. HP...">
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -380,7 +399,7 @@
                                                 <div class="col-12 col-sm-4">
                                                     <p class="text-sm-end">Jumlah Tanggungan :</p>
                                                 </div>
-                                                <div class="col-12 col-sm-4">
+                                                <div class="col-12 col-sm-6">
                                                     <div class="input-group mb-3">
                                                         <input type="number" class="form-control" id="jumlah_tanggungan_ayah" name="jumlah_tanggungan_ayah" placeholder="">
                                                         <span class="input-group-text">Jiwa</span>
@@ -655,7 +674,7 @@
                                                 <div class="col-12 col-sm-4">
                                                     <p class="text-sm-end">Jumlah Tanggungan :</p>
                                                 </div>
-                                                <div class="col-12 col-sm-4">
+                                                <div class="col-12 col-sm-6">
                                                     <div class="input-group mb-3">
                                                         <input type="number" class="form-control" id="jumlah_tanggungan_wali" name="jumlah_tanggungan_wali" placeholder="">
                                                         <span class="input-group-text">Jiwa</span>
