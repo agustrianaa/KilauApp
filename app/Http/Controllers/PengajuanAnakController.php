@@ -7,15 +7,20 @@ use App\Models\DataKeluarga;
 use App\Models\Ayah;
 use App\Models\Anak;
 use App\Models\Ibu;
+use App\Models\KantorCabang;
+use App\Models\Shelter;
 use App\Models\StatusAnak;
 use App\Models\Wali;
+use App\Models\WilayahBinaan;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 
 class PengajuanAnakController extends Controller
 {
     public function pengajuanForm(Request $request) {
-        return view('PengajuanAnak.PengajuanAnak');
+        $wilayah = KantorCabang::with('dataWilBin.dataShelter')->get();
+
+        return view('PengajuanAnak.PengajuanAnak', compact('wilayah'));
     }
 
     public function pengajuanFormStore(Request $request) {

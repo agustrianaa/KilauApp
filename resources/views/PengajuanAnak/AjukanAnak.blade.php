@@ -20,6 +20,17 @@
     .col-12.sembunyikanInputKK{
         display: none;
     }
+    .breadcrumb-item a {
+    text-decoration: none;
+    color: black;
+    transition: 0.1s;
+    }
+
+    .breadcrumb-item a:hover {
+        text-decoration: none;
+        color: rgb(0, 136, 255);
+        transition: 0.1s;
+    }
 </style>
 
 <div class="content-wrapper background">
@@ -32,6 +43,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                        <li class="breadcrumb-item active">Dashboard</li>
                         <li class="breadcrumb-item active">Ajukan Anak</li>
                     </ol>
                 </div>
@@ -203,7 +215,10 @@
                                         </div>
                                     </div>
                                     <div class="col-4">
-                                        <input type="number" class="form-control" id="jarakShelterAnak" name="jarakShelterAnak"> KM
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="jarakShelterAnak" name="jarakShelterAnak" placeholder="">
+                                            <span class="input-group-text">KM</span>
+                                        </div>
                                     </div>
                                     <div class="col-4"></div>
                                 </div>
@@ -308,10 +323,14 @@
                 dataType: 'json',
                 success: function(data) {
                     var results = '';
+                    if (data.length > 0) {
                     $.each(data, function(index, item) {
-                        // Menambahkan tautan dengan nomor KK dan data-keluarga-id sebagai atribut data
-                        results += '<a class="linkColor" href="javascript:void(0)" data-data-keluarga-id="' + item.id + '" data-no-kk="' + item.no_kk + '"> <div class="col-12 bgColor"> <div class="text-center">' + item.no_kk + '</div></div></a>';
-                    });
+                            results += '<a class="linkColor" href="javascript:void(0)" data-data-keluarga-id="' + item.id + '" data-no-kk="' + item.no_kk + '"> <div class="col-12 bgColor"> <div class="text-center">' + item.no_kk + '</div></div></a>';
+                        });
+                    } else {
+                        // Tampilkan pesan jika tidak ada data yang cocok
+                        results = '<div class="text-center">Tidak ada No.KK yang cocok...</div>';
+                    }
 
                     $('#hasilPencarian').html('<div class="card"><div class="card-body">' + results + '</div></div>');
 

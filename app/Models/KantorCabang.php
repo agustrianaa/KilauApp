@@ -21,9 +21,9 @@ class KantorCabang extends Model
         'kelurahan',
         ];
 
-    public function dataWilBin():HasOne
+    public function dataWilBin(): HasOne
     {
-        return $this->hasOne(WilayahBinaan::class);
+        return $this->hasOne(WilayahBinaan::class, 'kacab_id', 'id_kacab');
     }
 
 }

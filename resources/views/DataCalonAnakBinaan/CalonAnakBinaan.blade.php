@@ -43,27 +43,39 @@
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-4">
-                                        <label class="form-label select-label">Shelter</label>
+                                        <label class="form-label select-label">Kantor Cabang</label>
                                     </div>
                                     <div class="col-4">
-                                        <label class="form-label select-label">Wilayah</label>
+                                        <label class="form-label select-label">Wilayah Binaan</label>
+                                    </div>
+                                    <div class="col-4">
+                                        <label class="form-label select-label">Shelter</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="row">
+
+                                    <!-- Filter -->
                                     <div class="col-lg-4">
-                                        <!-- Dropdown dengan ID 'multiSelect' yang memungkinkan seleksi banyak opsi -->
-                                        <select id="multiSelect" class="form-select" multiple="multiple" style="width: 300px; height:100px;">
-                                            <option value="Indramayu">Indramayu</option>
-                                            <option value="Bandung">Bandung</option>
-                                            <option value="Bogor">Bogor</option>
-                                            <option value="Sumedang">Sumedang</option>
+                                        <select id="kantorCabang" class="form-select" multiple="multiple" style="width: 300px; height:100px;">
+                                            @foreach($wilayah as $kantorCabang)
+                                                <option value="{{ $kantorCabang->nama_kacab }}" data-kantor-id="{{ $kantorCabang->id_kacab }}">
+                                                    {{ $kantorCabang->nama_kacab }}
+                                                </option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="col-lg-4">
-                                        <select id="dynamicSelect" class="form-select" multiple="multiple" style="width: 300px;"></select>
+                                        <select id="wilayahBinaan" class="form-select" multiple="multiple" style="width: 300px;">
+                                        </select>
                                     </div>
+                                    <div class="col-lg-4">
+                                        <select id="shelterFilter" class="form-select" multiple="multiple" style="width: 300px;">
+                                        </select>
+                                    </div>
+                                    <!-- End Filter -->
+
                                 </div>
                             </div>
                             <div class="col-12 mt-3">
@@ -158,9 +170,9 @@
         loadData();
 
         function loadData() {
-            var selectedShelters = $('#multiSelect').val();
-            var selectedWil = $('#dynamicSelect').val();
-            console.log(selectedShelters, selectedWil);
+            var selectedKacab = $('#kantorCabang').val();
+            var selectedWil = $('#wilayahBinaan').val();
+            console.log(selectedKacab, selectedWil);
 
             $('#CalonAnakBinaanTable').DataTable({
                 processing : true,
@@ -169,7 +181,7 @@
                 ajax : {
                     url : "{{ url('admin/calonAnakBinaan') }}",
                     data: {
-                        shelter: selectedShelters,
+                        kacab : selectedKacab,
                         agamaAnak : selectedWil,
                     },
                 },
@@ -183,7 +195,7 @@
                     },
                     { data: 'nama_lengkap_calon_anak', name: 'nama_lengkap_calon_anak'},
                     { data: 'agamaAnak', name: 'agamaAnak'},
-                    { data: 'shelter', name: 'shelter'},
+                    { data: 'kacab', name: 'kacab'},
                     { data: 'no_kk', name: 'no_kk'},
                     { data: 'nama_ayah', name: 'nama_ayah'},
                     { data: 'anak_ke', name: 'anak_ke'},
@@ -216,62 +228,65 @@
             });
         }
 
-        $('#multiSelect').select2({
+        $('#kantorCabang').select2({
             placeholder: 'Pilih Shelter...', // Teks placeholder
             // tokenSeparators: [',', ' '], // Menentukan pemisah token (bisa disesuaikan)
             width: '100%', // Menetapkan lebar dropdown
             allowClear: true, // Mengaktifkan tombol "Hapus" untuk menghapus nilai yang dipilih
         });
 
-        // Peta asosiasi antara opsi di dropdown pertama dengan opsi yang akan ditampilkan di dropdown kedua
-        var optionMap = {
-            'Indramayu': ['Islam', 'Kristen', 'Koramil'],
-            'Bandung': ['Pennsylvania', 'Dakota', 'Minnesota'],
-            'Bogor': ['Tennessee', 'Delaware', 'Florida'],
-            'Sumedang': ['Bibi', 'Bubu', 'Bua'] // Tambahkan opsi jika diperlukan
-        };
-
-        $('#dynamicSelect').select2({
+        $('#wilayahBinaan').select2({
             width: '100%', // Menetapkan lebar dropdown
             placeholder: 'Pilih Wilayah...', // Teks placeholder
             allowClear: true, // Mengaktifkan tombol "Hapus" untuk menghapus nilai yang dipilih
         });
 
-        // Menangani perubahan nilai pada dropdown pertama
-        $('#multiSelect').on('change', function() {
-            // Mendapatkan nilai yang dipilih pada dropdown pertama
-            var selectedValues = $(this).val();
+        $('#shelterFilter').select2({
+            width: '100%', // Menetapkan lebar dropdown
+            placeholder: 'Pilih Wilayah...', // Teks placeholder
+            allowClear: true, // Mengaktifkan tombol "Hapus" untuk menghapus nilai yang dipilih
+        });
 
+        $('#kantorCabang').on('change', function() {
             // Membersihkan opsi pada dropdown kedua
-            $('#dynamicSelect').empty();
+            $('#wilayahBinaan').empty();
 
             // Mengisi ulang opsi pada dropdown kedua berdasarkan nilai yang dipilih pada dropdown pertama
-            if (selectedValues) {
-                selectedValues.forEach(function(value) {
-                    // Menambahkan opsi baru pada dropdown kedua berdasarkan peta asosiasi
-                    optionMap[value].forEach(function(subValue) {
-                        $('#dynamicSelect').append('<option value="' + subValue.toLowerCase().replace(/\s/g, '') + '">' + subValue + '</option>');
-                    });
+            $(this).find('option:selected').each(function() {
+                var kantorId = $(this).data('kantor-id');
+            
+                // Menggunakan AJAX untuk mengambil data wilayah binaan berdasarkan kacab_id
+                $.ajax({
+                    url: '{{ route('admin.cariWilayahBinaan', ['kantorId' => ':kantorId']) }}'.replace(':kantorId', kantorId),
+                    type: 'GET',
+                    success: function(data) {
+                        // Menambahkan opsi wilayah binaan ke dropdown kedua
+                        console.log(data);
+                        data.forEach(function(subValue) {
+                            $('#wilayahBinaan').append('<option value="' + subValue.nama_wilbin + '">' + subValue.nama_wilbin + '</option>');
+                        });
+                    },
+                    error: function(error) {
+                        console.log('Terjadi error pada:', error);
+                    }
                 });
-            }
-
-            // Memperbarui tampilan Select2 pada dropdown kedua
-            // $('#dynamicSelect').select2();
+            });
         });
+
 
         // Mengirim nilai Select2 Shelter ke server saat tombol filter ditekan
         $('#filterSemua').click(function () {
-            var selectedShelters = $('#multiSelect').val();
-            var selectedWil = $('#dynamicSelect').val();
+            var selectedKacab = $('#kantorCabang').val();
+            var selectedWil = $('#wilayahBinaan').val();
 
             $('#CalonAnakBinaanTable').DataTable().destroy();
-            loadData(selectedShelters, selectedWil);
+            loadData(selectedKacab, selectedWil);
         });
 
 
         function resetFilter() {
             // Hapus semua nilai yang dipilih di Select2
-            $('#multiSelect').val(null).trigger('change');
+            $('#kantorCabang').val(null).trigger('change');
 
             // Destroy tabel data (gantilah '#tabelData' dengan ID atau kelas tabel Anda)
             $('#CalonAnakBinaanTable').DataTable().destroy();
