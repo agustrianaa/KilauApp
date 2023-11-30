@@ -51,6 +51,10 @@ class CalonAnakBinaanController extends Controller
                     $wilbin = $request->wilbin;
                     return $query->whereIn('anaks.wilayah_binaan', $wilbin);
                 })
+                ->when($request->has('shelters'), function ($query) use ($request) {
+                    $shelters = $request->shelters;
+                    return $query->whereIn('anaks.shelter', $shelters);
+                })
                 ->where('status_anaks.status_binaan', 0)
                 ->get();
 

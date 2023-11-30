@@ -182,11 +182,10 @@
                                     </div>
                                     <div class="col-4">
                                         <select class="form-select" id="WilayahBinaanAnak" name="WilayahBinaanAnak">
-                                            <option disabled selected>Pilih Wilayah Binaan...</option>
-                                            <option value="Indramayu">Indramayu</option>
-                                            <option value="Bandung">Bandung</option>
-                                            <option value="Sumedang">Sumedang</option>
-                                            <option value="Bogor">Bogor</option>
+                                            <option disabled selected>-Pilih-</option>
+                                            @foreach($wilayahBinaans as $wilayahBinaan)
+                                                <option value="{{ $wilayahBinaan->nama_wilbin }}">{{ $wilayahBinaan->nama_wilbin }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="col-4"></div>
@@ -199,11 +198,10 @@
                                     </div>
                                     <div class="col-4">
                                         <select class="form-select" id="ShelterAnak" name="ShelterAnak">
-                                            <option disabled selected>Pilih Shelter...</option>
-                                            <option value="Indramayu">Indramayu</option>
-                                            <option value="Bandung">Bandung</option>
-                                            <option value="Sumedang">Sumedang</option>
-                                            <option value="Bogor">Bogor</option>
+                                            <option disabled selected>-Pilih-</option>
+                                            @foreach($shelters as $shelter)
+                                                <option value="{{ $shelter->nama_shelter }}">{{ $shelter->nama_shelter }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="col-4"></div>

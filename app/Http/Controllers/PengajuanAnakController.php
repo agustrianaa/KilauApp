@@ -21,7 +21,7 @@ class PengajuanAnakController extends Controller
         $kantorCabangs = KantorCabang::all();
         $wilayahBinaans = WilayahBinaan::all();
         $shelters = Shelter::all();
-        
+
         return view('PengajuanAnak.PengajuanAnak', compact('kantorCabangs', 'wilayahBinaans', 'shelters'));
     }
 
@@ -114,12 +114,14 @@ class PengajuanAnakController extends Controller
         return redirect()->route('admin.calonanakbinaanIndex')->with('alert', $alert);
     }
 
-    public function AjukanAnak(Request $request) {
+    public function tambahAnakForm(Request $request)
+    {
+        $kantorCabangs = KantorCabang::all();
+        $wilayahBinaans = WilayahBinaan::all();
+        $shelters = Shelter::all();
         $dataKeluargaId = $request->input('idDataKeluarga'); // Mendapatkan ID DataKeluarga dari formulir
 
-        // Lakukan validasi atau operasi lain sesuai kebutuhan di sini
-
-        return view('PengajuanAnak.AjukanAnak', ['dataKeluargaId' => $dataKeluargaId]);
+        return view('PengajuanAnak.AjukanAnak', compact('kantorCabangs', 'wilayahBinaans', 'shelters'), ['dataKeluargaId' => $dataKeluargaId]);
     }
 
     public function search(Request $request)
@@ -129,15 +131,6 @@ class PengajuanAnakController extends Controller
         $result = DataKeluarga::where('no_kk', 'like', '%'.$nomorKartuKeluarga.'%')->get();
 
         return response()->json($result);
-    }
-
-    public function tambahAnakForm(Request $request)
-    {
-        $dataKeluargaId = $request->input('idDataKeluarga'); // Mendapatkan ID DataKeluarga dari formulir
-
-        // Lakukan validasi atau operasi lain sesuai kebutuhan di sini
-
-        return view('PengajuanAnak.AjukanAnak', ['dataKeluargaId' => $dataKeluargaId]);
     }
 
     public function simpanAnak(Request $request)

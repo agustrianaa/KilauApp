@@ -134,6 +134,7 @@
                                     <th>Agama</th>
                                     <th>Kacab</th>
                                     <th>Wilbin</th>
+                                    <th>Shelter</th>
                                     <th>No. KK</th>
                                     <th>Kepala Keluarga</th>
                                     <th>Anak Ke</th>
@@ -173,7 +174,8 @@
         function loadData() {
             var selectedKacab = $('#kantorCabang').val();
             var selectedWil = $('#wilayahBinaan').val();
-            console.log(selectedKacab, selectedWil);
+            var selectedShel = $('#shelterFilter').val();
+            console.log(selectedKacab, selectedWil, selectedShel);
 
             $('#CalonAnakBinaanTable').DataTable({
                 processing : true,
@@ -184,6 +186,7 @@
                     data: {
                         kacab : selectedKacab,
                         wilbin : selectedWil,
+                        shelters : selectedShel,
                     },
                 },
                 columns : [
@@ -198,6 +201,7 @@
                     { data: 'agamaAnak', name: 'agamaAnak'},
                     { data: 'kacab', name: 'kacab'},
                     { data: 'wilayah_binaan', name: 'wilayah_binaan'},
+                    { data: 'shelter', name: 'shelter'},
                     { data: 'no_kk', name: 'no_kk'},
                     { data: 'nama_ayah', name: 'nama_ayah'},
                     { data: 'anak_ke', name: 'anak_ke'},
@@ -341,15 +345,18 @@
         $('#filterSemua').click(function () {
             var selectedKacab = $('#kantorCabang').val();
             var selectedWil = $('#wilayahBinaan').val();
+            var selectedShel = $('#shelterFilter').val();
 
             $('#CalonAnakBinaanTable').DataTable().destroy();
-            loadData(selectedKacab, selectedWil);
+            loadData(selectedKacab, selectedWil, selectedShel);
         });
 
 
         function resetFilter() {
             // Hapus semua nilai yang dipilih di Select2
             $('#kantorCabang').val(null).trigger('change');
+            $('#wilayahBinaan').val(null).trigger('change');
+            $('#shelterFilter').val(null).trigger('change');
 
             // Destroy tabel data (gantilah '#tabelData' dengan ID atau kelas tabel Anda)
             $('#CalonAnakBinaanTable').DataTable().destroy();
