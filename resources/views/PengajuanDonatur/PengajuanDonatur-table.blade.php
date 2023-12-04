@@ -394,7 +394,6 @@
                 window.location.href = '/admin/pengajuan/' + id;
             },
             error: function(xhr, status, error) {
-                // Tangani kesalahan jika ada
                 console.error('Error:', error);
             }
         });

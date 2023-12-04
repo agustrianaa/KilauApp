@@ -15,6 +15,7 @@ use App\Http\Controllers\ValidasiSurveyController;
 use App\Http\Controllers\ValidasiBeasiswaController;
 use App\Http\Controllers\AnakBinaanController;
 use App\Http\Controllers\SurveyController;
+use App\Http\Controllers\TutorController;
 use App\Http\Controllers\TestCont;
 use Illuminate\Support\Facades\Route;
 
@@ -135,9 +136,12 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::post('/simpan-donatur', [PengajuanDonaturController::class,'store'])->name('simpanDonatur');
     Route::patch('/hapus-donatur', [PengajuanDonaturController::class, 'destroy'])->name('hapus-donatur');
     Route::get('/profile-donatur/{id}', [PengajuanDonaturController::class, 'profileDonatur'])->name('profile-donatur');
-    // Route::get('/cariWilayahBinaan/{kantorId}', [PengajuanDonaturController::class, 'cariWilayahBinaan'])->name('cariWilayahBinaan2');
-    // Route::get('/cariShelters/{wilbinId}', [PengajuanDonaturController::class, 'cariShelters'])->name('cariShelters2');
 
+    // TUTOR
+    Route::get('/tutor', [TutorController::class, 'index'])->name('tutor');
+    Route::get('/addTutor', [TutorController::class, 'create'])->name('add-tutor');
+
+    // LAIN-LAIN
     Route::resource('/posts', \App\Http\Controllers\PostController::class);
     Route::resource('/acc', \App\Http\Controllers\AccController::class);
 
