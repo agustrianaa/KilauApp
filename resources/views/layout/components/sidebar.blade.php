@@ -103,16 +103,16 @@
                 </p>
             </a>
             </li>
-<!-- 
+
             <li class="nav-item">
-                <a href="{{ url('datasurvey') }}" class="nav-link">
-                    <i class="bi bi-clipboard2-plus-fill"></i>{{-- icon --}}
+                <a href="{{ route('admin.tutor') }}" class="nav-link">
+                <i class="fas fa-chalkboard-teacher"></i>{{-- icon --}}
                     <p class="pl-1">
-                        Contoh Survey
+                        Tutor
                     </p>
                 </a>
             </li>
-
+<!-- 
             <li class="nav-item">
                 <a href="{{ route('admin.posts.index') }}" class="nav-link">
                     <i class="bi bi-mailbox"></i>{{-- icon --}}
