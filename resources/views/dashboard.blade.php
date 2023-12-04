@@ -12,7 +12,23 @@
   }
   .breadcrumb.float-sm-right li {
     color: black;
+    background-color: rgb(255, 242, 0);
   }
+  /* Atur lebar dan tinggi notifikasi */
+.swal2-popup {
+    background-color: rgb(255, 255, 255);
+    border-radius: 30px;
+    width: 500px; /* Ganti dengan lebar yang diinginkan */
+    height: auto; /* Sesuaikan dengan kebutuhan, atau biarkan otomatis */
+}
+/* Atur font size untuk judul */
+.swal2-title {
+    font-size: 20px; /* Ganti dengan ukuran font yang diinginkan */
+}
+/* Atur font size untuk teks */
+.swal2-content {
+    font-size: 16px; /* Ganti dengan ukuran font yang diinginkan */
+}
 </style>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
@@ -105,27 +121,15 @@
     <!-- /.row -->
     <!-- Main row -->
     <div class="row">
-      <!-- Left col -->
-      <section class="col-lg-6 connectedSortable">
-        <div class="card">
-          <div class="card-body">
-            <div class="card-body text-center">
-              <h3>Pengajuan Calon Anak Binaan Baru</h3>
-              <a href="{{ route('admin.pengajuanForm') }}" class="btn btn-outline-info">Pengajuan Anak+</a>
-            </div>
-          </div>
-        </div>
 
-      </section>
-      <!-- /.Left col -->
-      <!-- right col (We are only adding the ID to make the widgets sortable)-->
-      <section class="col-lg-6 connectedSortable">
+
+      <section class="col-lg-12 connectedSortable">
         <div class="card">
           <div class="card-body">
             <div class="card-body">
               <div class="text-center">
-                <h3>Sudah mempunyai Keluarga Terdaftar?</h3>
-                <a href="{{ route('admin.anak.tambah') }}" class="btn btn-outline-success">Ajukan Anak+</a>
+                <h3>Tambahkan Keluarga / Anak</h3>
+                <button onclick="tampilkanSweetAlert()" class="btn btn-outline-success">Tambah+</button>
               </div>
             </div>
           </div>
@@ -150,4 +154,26 @@
 </section>
 <!-- /.content -->
   <div>
+
+  <script>
+    function tampilkanSweetAlert() {
+        // Munculkan SweetAlert2
+        Swal.fire({
+            title: 'Pilih Opsi',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3F74E5',
+            cancelButtonColor: '#FFC100',
+            confirmButtonText: '<i class="bi bi-people-fill"></i> Keluarga Baru+',
+            cancelButtonText: '<i class="bi bi-person-arms-up"></i> Ajukan Anak+',
+        }).then((result) => {
+            // Arahkan ke halaman berdasarkan pilihan
+            if (result.isConfirmed) {
+                window.location.href = '{{ route('admin.pengajuanForm') }}';
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                window.location.href = '{{ route('admin.anak.tambah') }}';
+            }
+        });
+    }
+  </script>
 @endsection

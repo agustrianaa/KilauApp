@@ -30,6 +30,57 @@
         color: rgb(0, 136, 255);
         transition: 0.1s;
     }
+    #input-group-text-KK {
+        background-color: rgb(0, 225, 255);
+        border-radius: 0;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        color: white;
+    }
+    #input-group-text-KK:hover {
+        background-color:  rgb(0, 189, 214);
+        box-shadow: 0px 0px 5px #00A6FF ;
+        /* cursor: default;
+        cursor: pointer;
+        cursor: progress;
+        cursor: help;
+        cursor: move;
+        cursor: text; */
+        /* cursor: wait; */
+        /* cursor: not-allowed;
+        cursor: alias;
+        cursor: context-menu;
+        cursor: grab;
+        cursor: grabbing; */
+        /* cursor: ns-resize; Utara-Selatan (atas-bawah) */
+        /* cursor: ew-resize; Timur-Barat (kiri-kanan) */
+        /* cursor: nesw-resize; Timur Laut-Barat Daya */
+        /* cursor: nwse-resize; Barat Laut-Timur Tenggara */
+    }
+    #input-group-text-KK:active {
+        cursor: wait;
+    }
+    #checkKK {
+        text-decoration: none;
+    }
+    #infoKK {
+        cursor: default;
+    }
+    /* Atur lebar dan tinggi notifikasi */
+    .swal2-popup {
+        background-color: rgb(255, 255, 255);
+        border-radius: 30px;
+        width: 300px; /* Ganti dengan lebar yang diinginkan */
+        height: auto; /* Sesuaikan dengan kebutuhan, atau biarkan otomatis */
+    }
+    /* Atur font size untuk judul */
+    .swal2-title {
+        font-size: 20px; /* Ganti dengan ukuran font yang diinginkan */
+    }
+    /* Atur font size untuk teks */
+    .swal2-content {
+        font-size: 16px; /* Ganti dengan ukuran font yang diinginkan */
+    }
 </style>
 
 <div class="content-wrapper background">
@@ -70,7 +121,79 @@
 
                     <form action="{{ route('admin.pengajuanFormStore') }}" method="POST">
                     @csrf
-                                    <div class="row">
+                            <div class="row">
+                                <!--Form Keluarga-->
+                                <div class="col-12 col-sm-6">
+                                    <div class="card">
+                                        <div class="card-title">
+                                            <h4 class="text-center">Form Keluarga</h4>
+                                        </div>
+                                        <hr>
+                                        <div class="card-body">
+                                            <div class="row mb-2">
+                                                <div class="col-12 text-center">
+                                                    <i id="infoKK">*Setelah Input No. KK, harap cek terlebih dahulu, apakah sudah terdaftar atau belum.</i>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-12 col-sm-4">
+                                                    <p class="text-sm-end">No. KK :</p>
+                                                </div>
+                                                <div class="col-12 col-sm-8">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" id="no_kk" name="no_kk" placeholder="No. Kartu Keluarga...">
+                                                        <a href="" id="checkKK"><span class="input-group-text" id="input-group-text-KK">Check</span></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-12 col-sm-4">
+                                                    <p class="text-sm-end">Kantor Cabang :</p>
+                                                </div>
+                                                <div class="col-12 col-sm-8">
+                                                    <select class="form-select" id="kacab" name="kacab">
+                                                        <option disabled selected>-Pilih-</option>
+                                                        @foreach($kantorCabangs as $kantorCabang)
+                                                            <option value="{{ $kantorCabang->nama_kacab }}">{{ $kantorCabang->nama_kacab }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div> 
+                                            <div class="row mb-2">
+                                                <div class="col-12 col-sm-4">
+                                                    <p class="text-sm-end">Alamat Lengkap :</p>
+                                                </div>
+                                                <div class="col-12 col-sm-8">
+                                                    <textarea class="form-control" id="alamat_kk" name="alamat_kk" rows="3" placeholder="Alamat Lengkap..."></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-12 col-sm-4">
+                                                    <p class="text-sm-end">Kepala Keluarga :</p>
+                                                </div>
+                                                <div class="col-12 col-sm-8">
+                                                    <input type="text" class="form-control" id="kepala_keluarga" name="kepala_keluarga" placeholder="Nama Kepala Keluarga...">
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-12 col-sm-4">
+                                                    <p class="text-sm-end">No HP :</p>
+                                                </div>
+                                                <div class="col-12 col-sm-8">
+                                                    <input type="number" class="form-control" id="no_telp" name="no_telp" placeholder="No. HP...">
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-12 col-sm-4">
+                                                    <p class="text-sm-end">No Rekening :</p>
+                                                </div>
+                                                <div class="col-12 col-sm-8">
+                                                    <input type="text" class="form-control" id="no_rek" name="no_rek" placeholder="No. Rekening...">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                         <!--Form Anak-->
                                 <div class="col-12 col-sm-6">
                                     <div class="card">
@@ -233,71 +356,6 @@
                                             </div>
                                             <input type="hidden" class="form-control" id="status_binaan_anak" name="status_binaan_anak" value="{{ 0 }}">
                                             <input type="hidden" class="form-control" id="status_beasiswa_anak" name="status_beasiswa_anak" value="{{ 'Belum Validasi' }}">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!--Form Keluarga-->
-                                <div class="col-12 col-sm-6">
-                                    <div class="card">
-                                        <div class="card-title">
-                                            <h4 class="text-center">Form Keluarga</h4>
-                                        </div>
-                                        <hr>
-                                        <div class="card-body">
-                                            <div class="row mb-2">
-                                                <div class="col-12 col-sm-4">
-                                                    <p class="text-sm-end">Kantor Cabang :</p>
-                                                </div>
-                                                <div class="col-12 col-sm-8">
-                                                    <select class="form-select" id="kacab" name="kacab">
-                                                        <option disabled selected>-Pilih-</option>
-                                                        @foreach($kantorCabangs as $kantorCabang)
-                                                            <option value="{{ $kantorCabang->nama_kacab }}">{{ $kantorCabang->nama_kacab }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-2">
-                                                <div class="col-12 col-sm-4">
-                                                    <p class="text-sm-end">No. KK :</p>
-                                                </div>
-                                                <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="no_kk" name="no_kk" placeholder="No. Kartu Keluarga...">
-                                                </div>
-                                            </div>
-                                            <div class="row mb-2">
-                                                <div class="col-12 col-sm-4">
-                                                    <p class="text-sm-end">Alamat Lengkap :</p>
-                                                </div>
-                                                <div class="col-12 col-sm-8">
-                                                    <textarea class="form-control" id="alamat_kk" name="alamat_kk" rows="3" placeholder="Alamat Lengkap..."></textarea>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-2">
-                                                <div class="col-12 col-sm-4">
-                                                    <p class="text-sm-end">Kepala Keluarga :</p>
-                                                </div>
-                                                <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="kepala_keluarga" name="kepala_keluarga" placeholder="Nama Kepala Keluarga...">
-                                                </div>
-                                            </div>
-                                            <div class="row mb-2">
-                                                <div class="col-12 col-sm-4">
-                                                    <p class="text-sm-end">No HP :</p>
-                                                </div>
-                                                <div class="col-12 col-sm-8">
-                                                    <input type="number" class="form-control" id="no_telp" name="no_telp" placeholder="No. HP...">
-                                                </div>
-                                            </div>
-                                            <div class="row mb-2">
-                                                <div class="col-12 col-sm-4">
-                                                    <p class="text-sm-end">No Rekening :</p>
-                                                </div>
-                                                <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="no_rek" name="no_rek" placeholder="No. Rekening...">
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -745,10 +803,7 @@
             // Update the hidden input value when the user types in "Lainnya"
             $("#pekerjaan_ayah_selected").val(lainnyaValue);
         });
-    });
 
-    // Kondisi "Lainnya" dari input pekerjaan_ibu
-    $(document).ready(function () {
         // Ketika elemen "select" dengan ID "pekerjaan_ibu" berubah
         $("#pekerjaan_ibu").change(function () {
             var selectedValue = $(this).val(); // Mendapatkan nilai yang dipilih    
@@ -768,10 +823,7 @@
             // Update the hidden input value when the user types in "Lainnya"
             $("#pekerjaan_ibu_selected").val(lainnyaValue);
         });
-    });
 
-    // Kondisi "Lainnya" dari input pekerjaan_wali
-    $(document).ready(function () {
         $("#pekerjaan_wali").change(function () {
             var selectedValue = $(this).val(); // Mendapatkan nilai yang dipilih    
 
@@ -787,6 +839,59 @@
             var lainnyaValue = $(this).val();
             // Update the hidden input value when the user types in "Lainnya"
             $("#pekerjaan_wali_selected").val(lainnyaValue);
+        });
+
+        $('#checkKK').on('click', function (e) {
+            e.preventDefault(); // Mencegah aksi default dari tautan
+
+            // Mendapatkan nilai nomor KK dari input
+            var no_kk = $('#no_kk').val();
+
+            // Mengirim permintaan AJAX ke server
+            $.ajax({
+                url: "{{ url('admin/checkKK') }}",
+                method: 'POST',
+                data: { 
+                    no_kk: no_kk,
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function (response) {
+                    if (response.exists) {
+                        // Jika nomor KK sudah terdaftar
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Keluarga sudah terdaftar',
+                            text: 'Ingin Ajukan Anak?',
+                            confirmButtonColor: '#FFC100',
+                            cancelButtonColor: '#DCDCDC',
+                            showCancelButton: true,
+                            confirmButtonText: '<i class="bi bi-person-arms-up"></i> Ajukan Anak+',
+                            cancelButtonText: 'Tutup'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Arahkan ke halaman Ajukan Anak+ dengan menyertakan no_kk sebagai parameter
+                                window.location.href = '{{ route('admin.anak.tambah') }}?no_kk=' + encodeURIComponent(no_kk);
+                            }
+                        });
+                    } else {
+                        // Jika nomor KK belum terdaftar
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Belum Terdaftar',
+                            showConfirmButton: false,
+                            timer: 1200,
+                        });
+                    }
+                },
+                error: function (error) {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Terjadi kesalahan saat memeriksa nomor KK',
+                    });
+                }
+            });
         });
     });
 </script>

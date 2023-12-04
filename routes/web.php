@@ -88,6 +88,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::get('/CariKK',[PengajuanAnakController::class,'search'])->name('CariNoKK');
     Route::get('/anak/tambah', [PengajuanAnakController::class, 'tambahAnakForm'])->name('anak.tambah');
     Route::post('/anak/simpan', [PengajuanAnakController::class, 'simpanAnak'])->name('anak.simpan');
+    Route::post('/checkKK', [PengajuanAnakController::class, 'checkKK'])->name('checkNoKK');
 
     Route::get('/calonAnakBinaan', [CalonAnakBinaanController::class, 'calonanakbinaanIndex'])->name('calonanakbinaanIndex');
     Route::post('/save-calonAnakBinaan',[CalonAnakBinaanController::class,'store'])->name('save-calonAnakBinaan');

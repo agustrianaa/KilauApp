@@ -32,6 +32,7 @@ class AnakBinaanController extends Controller
                 'walis.*',
                 'status_anaks.*',
                 'survey_keluargas.*',
+                'survey_keluargas.id as id_survey_keluarga'
                 )
             ->leftJoin('ayahs', 'data_keluargas.id', '=', 'ayahs.data_keluarga_id')
             ->leftJoin('ibus', 'data_keluargas.id', '=', 'ibus.data_keluarga_id')
@@ -39,7 +40,7 @@ class AnakBinaanController extends Controller
             ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
             ->leftJoin('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
             ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
-            ->orderBy('anaks.id_anaks', 'desc')
+            ->orderBy('anaks.created_at', 'desc')
             ->when($request->has('shelter'), function ($query) use ($request) {
                 $shelter = $request->shelter;
                 return $query->whereIn('shelter', $shelter);
@@ -49,7 +50,6 @@ class AnakBinaanController extends Controller
                 return $query->whereIn('anaks.agama', $agamaAnak);
             })
             ->where('status_anaks.status_binaan', 1)
-            ->whereNull('survey_keluargas.id')
             ->get();
 
             return datatables($data)
@@ -60,12 +60,17 @@ class AnakBinaanController extends Controller
                     $btn = $btn.'<a href="' . url("admin/AnakBinaandelete/" . $data->id_kelu) . '" data-toggle="tooltip" data-id="' . $data->id_kelu . '" title="Hapus Data" class="view btn btn-sm btn-danger view text-white ms-1"><i class="bi bi-trash-fill"></i> Delete</a>';
                     return $btn;
                 })
-                ->addColumn('survey_status', function ($data) {
-                    return $data->survey_keluargas ? 'Sudah Survey' : 'Belum Survey';
-                })
                 ->addColumn('ttl', function ($data) {
                     return $data->tempat_lahir_anak . ', ' . $data->tanggal_lahir_anak;
                 })
+                ->addColumn('survey_status', function ($data) {
+                    if (empty($data->id_survey_keluarga)) {
+                        return '<span class="badge bg-danger">Belum Survey</span>';
+                    } else {
+                        return '<span class="badge bg-success">Sudah Survey</span>';
+                    }
+                })
+                
                 ->rawColumns(['action', 'ttl', 'survey_status'])
                 ->addIndexColumn()
                 ->make(true);
