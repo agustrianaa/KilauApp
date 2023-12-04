@@ -13,44 +13,60 @@
         </div>
         <div class="container-fluid">
             <div class="row mb-2">
-
+                <div class="col-lg-12" id="openFilter">
+                    <button type="button" class="btn btn-success mx-1 mb-2" id="tombolbukafilter">Buka Filter <i class="bi bi-funnel-fill"></i></button>
+                </div>
+                <div class="col-lg-12 tutupFilter" id="closeFilter">
+                    <button type="button" class="btn btn-danger mx-1 mb-2" id="tombolTutupFilter">Tutup Filter <i class="bi bi-funnel-fill"></i><i class="bi bi-x"></i></button>
+                </div>
                 <div class="container mb-3">
-                    <div class="card h-100">
+                    <div class="card filters h-100" id="filterCard">
                         <div class="card-header">filter wilayah</div>
-                    <div class="row mt-3 ml-3">
-                        
-                        <div class="col-3" style="margin-bottom: 10px;">
-                            <select name="fkacab" id="fkacab" multiple="multiple" class="form-control">
-                                @foreach($data as $kacab)
-                                <option value="{{$kacab->kacab}}">{{$kacab->kacab}}</option>
-                                @endforeach
-                            </select>
+                        <div class="row mt-3 ml-3">
+                            <div class="col-3" style="margin-bottom: 10px;">
+                                <label for="">Kantor Cabang</label>
+                                <select name="fkacab" id="fkacab" multiple="multiple" class="form-control">
+                                    @foreach($wilayah as $kacab)
+                                    <option value="{{ $kacab->nama_kacab }}" data-kantor-id="{{ $kacab->id_kacab }}">
+                                        {{ $kacab->nama_kacab }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-3">
+                                <label for="">Wilayah Binaan</label>
+                                <select id="fwilbin" multiple="multiple" class="form-control">
+                                </select>
+                            </div>
+
+                            <div class="col-3">
+                                <label for="">Shelter</label>
+                                <select id="fshelter" multiple="multiple" class="form-control">
+                                </select>
+                            </div>
+                            <div class="col-1"> <br>
+                                <button type="button" class="btn btn-outline-info" id="all_fwilayah">Filter</button>
+                            </div>
+                            <div class="col-1"> <br>
+                                <button type="reset" class="btn btn-outline-danger" id="resetFwilayah">Reset</button>
+                            </div>
+                            <div class="col-3">
+                                <label for="">Beasiswa</label>
+                                <select class="form-select" name="fbeasiswa" id="fbeasiswa" style="width: 100%;">
+                                    <option value="#" disabled selected>Pilih Status Beasiswa</option>
+                                    <option value="">Semua</option>
+                                    <option value="cpb">CPB</option>
+                                    <option value="npb">NPB</option>
+                                </select>
+                            </div>
+
                         </div>
-                        <div class="col-3">
-                            <select name="fkacab" id="fwilbin" multiple="multiple" class="form-control">
-                            @foreach($data as $wilbin)
-                                <option value="{{$wilbin->wilbin}}">{{$wilbin->wilbin}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-3">
-                            <select name="fkacab" id="fshelter" multiple="multiple" class="form-control" >
-                            @foreach($data as $shelter)
-                                <option value="{{$shelter->shelter}}">{{$shelter->shelter}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-1">
-                        <button type="button" class="btn btn-outline-info" id="all_fwilayah">Filter</button>
-                        </div>
-                    </div>
                     </div>
                 </div>
 
                 <!-- TABLE -->
                 <div class="card">
-                    <div class="card-header">
-                        <!-- <div class="d-flex flex-row"> -->
+                    <!-- <div class="card-header">
                         <div class="row">
                             <div class="col-3">
                                 <label for="">Beasiswa</label><br>
@@ -61,19 +77,8 @@
                                     <option value="npb">NPB</option>
                                 </select>
                             </div>
-
-                            <div class="col-3 ">
-                                <label for="">Wilayah</label><br>
-                                <select class="form-select" name="" id="fwilayah" style="width: 100%;">
-                                    <option value="#" disabled selected>Pilih Wilayah</option>
-                                    <option value="">Semua</option>
-                                    <option value="wilayah1">Wilayah 1</option>
-                                    <option value="wilayah2">Wilayah 2</option>
-                                </select>
-                            </div>
                         </div>
-                        <!-- </div> -->
-                    </div>
+                    </div> -->
                     <div class="card-body">
                         <div class="table-responsive text-nowrap">
                             <table class="table table-hover" id="pengajuanDonatur">
@@ -142,6 +147,9 @@
                     url: "{{ route('admin.aju-donatur')}}",
                     data: {
                         status_beasiswa: fbeasiswa,
+                        kacab: fkacab,
+                        wilbin: fwilbin,
+                        shelter: fshelter,
                     }
                 },
                 columns: [{
@@ -209,6 +217,21 @@
             $('#profilDonaturModal').modal('hide');
         });
 
+        var filterCard = $("#filterCard");
+        var openFilter = $("#openFilter");
+        var closeFilter = $("#closeFilter");
+        $("#tombolbukafilter").click(function() {
+            // Menghapus class "filters"
+            filterCard.removeClass("filters");
+            openFilter.addClass("bukaFilter");
+            closeFilter.removeClass("tutupFilter");
+        });
+        $("#tombolTutupFilter").click(function() {
+            // Menghapus class "filters"
+            filterCard.addClass("filters");
+            openFilter.removeClass("bukaFilter");
+            closeFilter.addClass("tutupFilter");
+        });
         $('#fkacab').select2({
             placeholder: 'Pilih Kantor Cabang...',
             width: '100%', // Menetapkan lebar dropdown
@@ -225,37 +248,104 @@
             allowClear: true,
         });
 
-        $('#fkacab').on('change', function(){
-            var filter = $(this).val('data');
+        $('#fkacab').on('change', function() {
+            // var filter = $(this).val('data');
             $('#fwilbin').empty();
-            $('#shelter').empty();
+            // $('#shelter').empty();
 
-            var kacab = [];
-                    for (var i = 0; i < filter.length; i++) {
-                        kacab.push(filter[i].text);
+            $(this).find('option:selected').each(function() {
+                var kantorId = $(this).data('kantor-id');
+                console.log('Selected Kantor ID:', kantorId);
+
+                $.ajax({
+                    url: '{{ route('admin.cariWilayahBinaan', ['kantorId' => ':kantorId']) }}'.replace(':kantorId', kantorId),
+                    type: 'GET',
+                    data: {
+                        kantorId: kantorId
+                    },
+                    success: function(response) {
+                        console.log('Terjadi response:', response);
+
+                        var data = response.hasOwnProperty('data') ? response.data : response;
+
+                        // Memastikan data adalah array sebelum menggunakan forEach
+                        if (Array.isArray(data)) {
+                            // Iterasi melalui data dan tambahkan opsi ke dropdown
+                            data.forEach(function(subValue) {
+                                console.log('subvalue log:', subValue.id_wilbin, subValue.nama_wilbin);
+
+                                $('#fwilbin').append('<option value="' + subValue.nama_wilbin + '" data-wilbin-id="' + subValue.id_wilbin + '">' + subValue.nama_wilbin + '</option>');
+                            });
+                        } else {
+                            console.log('Invalid data format:', data);
+                        }
+
+                        // Pengaktifan ulang Select2 pada dropdown #wilayahBinaan
+                        $('#fwilbin').trigger('change');
+                    },
+                    error: function(error) {
+                        console.log('Terjadi error pada:', error);
                     }
-            // load_data();
+                });
+            });
         });
 
-        $('#fwilbin').on('change', function(){
-            var filter = $(this).val();
-            $('#shelter').empty();
-            // $('#fwilbin').empty();
+        $('#fwilbin').on('change', function() {
+            // Membersihkan opsi pada dropdown kedua
+            $('#fshelter').empty();
 
-            var kacab = [];
-                    for (var i = 0; i < filter.length; i++) {
-                        kacab.push(filter[i].text);
+            // Mengisi ulang opsi pada dropdown kedua berdasarkan nilai yang dipilih pada dropdown pertama
+            $(this).find('option:selected').each(function() {
+                var wilbinId = $(this).data('wilbin-id');
+                console.log('Selected Wilbin ID:', wilbinId);
+
+                // Menggunakan AJAX untuk mengambil data wilayah binaan berdasarkan kacab_id
+                $.ajax({
+                    url: '{{ route('admin.cariShelters', ['wilbinId' => ':wilbinId']) }}'.replace(':wilbinId', wilbinId),
+                    type: 'GET',
+                    data: {
+                        wilbinId: wilbinId
+                    },
+                    success: function(response) {
+                        console.log('Terjadi response:', response);
+
+                        var data = response.hasOwnProperty('data') ? response.data : response;
+
+                        // Memastikan data adalah array sebelum menggunakan forEach
+                        if (Array.isArray(data)) {
+                            // Iterasi melalui data dan tambahkan opsi ke dropdown
+                            data.forEach(function(subValue) {
+                                console.log('subvalue log:', subValue.id_shelter, subValue.nama_shelter);
+
+                                $('#fshelter').append('<option value="' + subValue.nama_shelter + '" data-wilbin-id="' + subValue.id_shelter + '">' + subValue.nama_shelter + '</option>');
+                            });
+                        } else {
+                            console.log('Invalid data format:', data);
+                        }
+
+                        // Pengaktifan ulang Select2 pada dropdown #shelterFilter
+                        $('#fshelter').trigger('change');
+                    },
+                    error: function(error) {
+                        console.log('Terjadi error pada:', error);
                     }
-            // load_data();
+                });
+            });
         });
-        
 
-        $('#all_fwilayah').click(function(){
-            var fkacab = $('#fkacab').val('data');
-            var fwilbin = $('#fwilbin').val('data');
-            var fshelter = $('#fshelter').val('data');
+        $('#all_fwilayah').click(function() {
+            var fkacab = $('#fkacab').val();
+            var fwilbin = $('#fwilbin').val();
+            var fshelter = $('#fshelter').val();
             $('#pengajuanDonatur').DataTable().destroy();
             load_data(fkacab, fwilbin, fshelter);
+        });
+
+        $('#resetFwilayah').click(function() {
+            $('#fkacab').val(null).trigger('change');
+            $('#shelter').val(null).trigger('change');
+            $('#pengajuanDonatur').DataTable().destroy();
+            load_data();
         });
 
     });

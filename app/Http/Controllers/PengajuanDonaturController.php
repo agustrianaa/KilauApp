@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Anak;
 use App\Models\Donatur;
+use App\Models\KantorCabang;
+use App\Models\Shelter;
 use App\Models\StatusAnak;
 use App\Models\SurveyKeluarga;
+use App\Models\WilayahBinaan;
 use Illuminate\Http\Request;
 
 class PengajuanDonaturController extends Controller
@@ -15,27 +18,7 @@ class PengajuanDonaturController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Anak::select(
-            'anaks.id_anaks as id',
-            'anaks.donatur_id as donatur_id',
-            'anaks.agama as agama',
-            'survey_keluargas.hsurvey as hsurvey',
-            'donaturs.name as namadonatur',
-            'donaturs.id as donatur_id',
-            'status_anaks.status_beasiswa as status_beasiswa',
-            'anaks.*',
-            'status_anaks.*',
-            'data_keluargas.*',
-            'data_keluargas.wilayah_binaan as wilbin',
-        )
-            ->join('data_keluargas', 'anaks.data_keluarga_id', '=', 'data_keluargas.id')
-            ->join('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
-            ->join('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
-            ->leftJoin('donaturs', 'anaks.donatur_id', '=', 'donaturs.id')
-            ->where(function ($query)  {
-                $query->where('survey_keluargas.hsurvey', '=', 'layak')
-                    ->orWhere('survey_keluargas.hsurvey', '=', 'cukup layak');
-            })
+        $wilayah = KantorCabang::with('dataWilbin.dataShelter')
             ->get();
 
         if (request()->ajax()) {
@@ -51,7 +34,6 @@ class PengajuanDonaturController extends Controller
                 'anaks.*',
                 'status_anaks.*',
                 'anaks.agama as agama',
-                'data_keluargas.wilayah_binaan as wilbin',
             )
                 ->join('data_keluargas', 'anaks.data_keluarga_id', '=', 'data_keluargas.id')
                 ->join('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
@@ -64,9 +46,14 @@ class PengajuanDonaturController extends Controller
                 ->when($fbeasiswa, function ($query) use ($fbeasiswa) {
                     $query->where('status_anaks.status_beasiswa', $fbeasiswa);
                 })
-                // ->when($fbeasiswa, function ($query) use ($fbeasiswa) {
-                //     $query->where('status_anaks.status_beasiswa', $fbeasiswa);
-                // })
+                ->when($request->has('kacab'), function ($query) use ($request) {
+                    $kacab = $request->kacab;
+                    return $query->whereIn('data_keluargas.kacab', $kacab);
+                })
+                ->when($request->has('wilbin'), function ($query) use ($request) {
+                    $wilbin = $request->wilbin;
+                    return $query->whereIn('anaks.wilayah_binaan', $wilbin);
+                })
                 ->get();
 
                 // if($fbeasiswa != ''){
@@ -116,9 +103,47 @@ class PengajuanDonaturController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        return view('PengajuanDonatur.PengajuanDonatur-table', compact('data'));
+        return view('PengajuanDonatur.PengajuanDonatur-table', compact('wilayah'));
     }
 
+    public function cariWilayahBinaan(Request $request)
+    {
+        try {
+            $kacabId = $request->input('kantorId');
+
+            $wilayahBinaan = WilayahBinaan::where('kacab_id', $kacabId)->get(['id_wilbin', 'nama_wilbin']);
+
+            return response()->json([
+                'status' => 'success',
+                'data' => $wilayahBinaan,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function cariShelters(Request $request)
+    {
+        try {
+            $wilbinsID = $request->input('wilbinId');
+
+            $shelters = Shelter::where('wilbin_id', $wilbinsID)->get(['id_shelter', 'nama_shelter']);
+
+            return response()->json([
+                'status' => 'success',
+                'data' => $shelters,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+    
     /**
      * Show the form for creating a new resource.
      */

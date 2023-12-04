@@ -135,6 +135,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::post('/simpan-donatur', [PengajuanDonaturController::class,'store'])->name('simpanDonatur');
     Route::patch('/hapus-donatur', [PengajuanDonaturController::class, 'destroy'])->name('hapus-donatur');
     Route::get('/profile-donatur/{id}', [PengajuanDonaturController::class, 'profileDonatur'])->name('profile-donatur');
+    // Route::get('/cariWilayahBinaan/{kantorId}', [PengajuanDonaturController::class, 'cariWilayahBinaan'])->name('cariWilayahBinaan2');
+    // Route::get('/cariShelters/{wilbinId}', [PengajuanDonaturController::class, 'cariShelters'])->name('cariShelters2');
 
     Route::resource('/posts', \App\Http\Controllers\PostController::class);
     Route::resource('/acc', \App\Http\Controllers\AccController::class);
