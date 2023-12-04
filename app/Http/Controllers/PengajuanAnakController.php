@@ -104,11 +104,8 @@ class PengajuanAnakController extends Controller
 
         // Tambahkan kode SweetAlert2 sebelum redirect
         $alert = [
-            'title' => 'Berhasil disimpan!',
-            'text' => 'Data disimpan pada tabel Calon Anak Binaan!',
+            'title' => 'Berhasil ditambahkan!',
             'icon' => 'success',
-            'timer' => '2000',
-            'showConfirmButton' => 'false',
         ];
 
         return redirect()->route('admin.calonanakbinaanIndex')->with('alert', $alert);
@@ -191,5 +188,13 @@ class PengajuanAnakController extends Controller
         return redirect()->route('admin.calonanakbinaanIndex')->with('alert', $alert);
     }
 
+    public function checkKK(Request $request)
+    {
+        $no_kk = $request->input('no_kk');
 
+        // Lakukan pemeriksaan di database
+        $exists = DataKeluarga::where('no_kk', $no_kk)->exists();
+
+        return response()->json(['exists' => $exists]);
+    }
 }

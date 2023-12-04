@@ -309,7 +309,14 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
-        })
+        });
+
+        // Mendapatkan nilai no_kk dari URL
+        var no_kk_dari_url = new URLSearchParams(window.location.search).get('no_kk');
+            
+        // Mengisi nilai pada input nomor Kartu Keluarga pada halaman kedua
+        $('#nomorKartuKeluarga').val(no_kk_dari_url);
+
 
         $('#nomorKartuKeluarga').on('keyup', function() {
             var query = $(this).val();
