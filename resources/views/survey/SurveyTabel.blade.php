@@ -33,7 +33,7 @@
                 <div class="col-md-3">
                     <select class="multiple-kacab form-select" name="kacab[]" multiple="multiple">
                         @foreach ($data as $item)
-                        <option value="{{ $item->kacab }}" >{{ $item->kacab }}</option>
+                        <option value="{{ $item->id_kacab }}" >{{ $item->nama_kacab }}</option>
                         @endforeach
                       </select>
                 </div>
@@ -138,52 +138,56 @@
             });
 
             $('.multiple-kacab').on('change', function() {
-                var selectedKacab = $(this).select2('data');
+                var selectedKacab = $(this).val();
                 $('.multiple-shelter').empty();
                 $('.multiple-wilbin').empty();
 
-                var kacab = [];
-                    for (var i = 0; i < selectedKacab.length; i++) {
-                        kacab.push(selectedKacab[i].text);
-                    }
+                // var kacab = [];
+                //     for (var i = 0; i < selectedKacab.length; i++) {
+                //         kacab.push(selectedKacab[i].text);
+                //     }
+
+                    console.log(selectedKacab)
 
                 $.ajax({
                     url: "/admin/wilbinSurvey",
                     type: 'get',
                     data: {
-                        kacab: kacab
+                        kacab: selectedKacab
                     },
                     success: function( result ) {
-                        // console.log(result[0].shelter)
+                        console.log(result)
 
                         for (var i = 0; i < result.length; i++) {
                             var rowData = result[i];
-                        $('.multiple-wilbin').append(`<option value="${rowData.wilayah_binaan}">${rowData.wilayah_binaan}</option>`)
+                        $('.multiple-wilbin').append(`<option value="${rowData.id_wilbin}">${rowData.nama_wilbin}</option>`)
                         }
                     }
                 })
             })
             $('.multiple-wilbin').on('change', function() {
-                var selectedwilbin = $(this).select2('data');
+                var selectedwilbin = $(this).val();
                 $('.multiple-shelter').empty();
 
-                var wilbin = [];
-                    for (var i = 0; i < selectedwilbin.length; i++) {
-                        wilbin.push(selectedwilbin[i].text);
-                    }
+
+                console.log(selectedwilbin);
+                // var wilbin = [];
+                //     for (var i = 0; i < selectedwilbin.length; i++) {
+                //         wilbin.push(selectedwilbin[i].text);
+                //     }
 
                 $.ajax({
                     url: "/admin/shelterSurvey",
                     type: 'get',
                     data: {
-                        wilayah_binaan: wilbin
+                        wilayah_binaan: selectedwilbin
                     },
                     success: function( result ) {
-                        // console.log(result[0].shelter)
+                        console.log(result)
 
                         for (var i = 0; i < result.length; i++) {
                             var rowData = result[i];
-                        $('.multiple-shelter').append(`<option value="${rowData.shelter}">${rowData.shelter}</option>`)
+                        $('.multiple-shelter').append(`<option value="${rowData.id_shelter}">${rowData.nama_shelter}</option>`)
                         }
                     }
                 })
@@ -198,6 +202,8 @@
                 var kacab = [];
                 for (var i = 0; i < selectedKacab.length; i++) {
                     kacab.push(selectedKacab[i].text);
+
+                    console.log(kacab);
                 }
                 var wilbin = [];
                 for (var i = 0; i < selectedwilbin.length; i++) {
@@ -219,21 +225,6 @@
                         console.log('Ajax berhasil:', response.data); // Handle response dari controller jika diperlukan
 
                         var table = $('#tabelsurvey').DataTable();
-                        // table.clear().destroy().rows.add(response.data).draw();
-
-                        // Clear existing data in the DataTable
-                        // table.clear().destroy();
-
-                        // // Add new data to the DataTable
-                        // table.rows.add(response.data);
-
-                        // // Redraw the DataTable with the new data
-                        // table.draw();
-
-                        // for (var i = 0; i < response.data.length; i++) {
-                        //     console.log(response.data[i].kacab)
-                        // }
-
                         var tbody = $('#tabelsurvey tbody');
                         tbody.empty();
 

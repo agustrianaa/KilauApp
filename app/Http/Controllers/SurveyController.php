@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 
 use App\Models\DataKeluarga;
+use App\Models\KantorCabang;
+use App\Models\Shelter;
 use App\Models\SurveyKeluarga;
+use App\Models\WilayahBinaan;
 use DB;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -13,29 +16,30 @@ class SurveyController extends Controller
 {
     public function indexSurvey(Request $request)
     {
-        $data = DataKeluarga::select(
-            'data_keluargas.id',
-            'data_keluargas.kacab',
-            'anaks.id_anaks',
-            'anaks.data_keluarga_id',
-            'status_anaks.*',
-            'survey_keluargas.keluarga_id',
-        )
-        // ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
-        ->leftJoin('anaks', function ($join) {
-            $join->on('data_keluargas.id', '=', 'anaks.data_keluarga_id')
-                ->where('anaks.id_anaks', '=', DB::raw('(SELECT MAX(id_anaks) FROM anaks WHERE anaks.data_keluarga_id = data_keluargas.id)'));
-        })
+        $data = KantorCabang::all();
+        // $data = DataKeluarga::select(
+        //     'data_keluargas.id',
+        //     'data_keluargas.kacab',
+        //     // 'anaks.id_anaks',
+        //     // 'anaks.data_keluarga_id',
+        //     // 'status_anaks.*',
+        //     'survey_keluargas.keluarga_id',
+        // )
+        // // // ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
+        // // ->leftJoin('anaks', function ($join) {
+        // //     $join->on('data_keluargas.id', '=', 'anaks.data_keluarga_id')
+        // //         ->where('anaks.id_anaks', '=', DB::raw('(SELECT MAX(id_anaks) FROM anaks WHERE anaks.data_keluarga_id = data_keluargas.id)'));
+        // // })
 
-        ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
-        ->leftJoin('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
-        // ->where('status_anaks.status_binaan', 1)
-        ->where('status_anaks.status_binaan', '=', 1)
+        // // ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
+        // ->leftJoin('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
+        // // ->where('status_anaks.status_binaan', 1)
+        // // ->where('status_anaks.status_binaan', '=', 1)
 
-        // ->whereRaw('anaks.id_anaks IN (SELECT MAX(id_anaks) FROM anaks GROUP BY data_keluarga_id)') // Memilih satu anak dengan id_anaks tertinggi
-        ->whereNotNull('survey_keluargas.id')
-        ->orderBy('data_keluargas.created_at', 'asc')
-        ->get();
+        // // ->whereRaw('anaks.id_anaks IN (SELECT MAX(id_anaks) FROM anaks GROUP BY data_keluarga_id)') // Memilih satu anak dengan id_anaks tertinggi
+        // ->whereNotNull('survey_keluargas.id')
+        // ->orderBy('data_keluargas.created_at', 'asc')
+        // ->get();
         if(request()->ajax()){
             $kacab = $request->kacab;
             $wilayah_binaan = $request->wilayah_binaan;
@@ -43,59 +47,29 @@ class SurveyController extends Controller
             $data = DataKeluarga::select(
                 'data_keluargas.*',
                 'data_keluargas.id as id_kel',
-                'anaks.*',
                 'status_anaks.*',
-                'anaks.id_anaks as id_anaks',
-                'anaks.nama_lengkap as nama_lengkap_anak',
-                'anaks.nama_panggilan as nama_panggilan_anak',
-                'anaks.tempat_lahir as tempat_lahir_anak',
-                'anaks.tanggal_lahir as tanggal_lahir_anak',
-                'anaks.nama_sekolah as nama_sekolah_anak',
-                'anaks.nama_madrasah as nama_madrasah_anak',
-                'anaks.hobby as hobby_anak',
-                'anaks.cita_cita as cita_cita_anak',
-                'ayahs.*',
-                'ibus.*',
-                'walis.*',
-                'survey_keluargas.*',
+                'anaks.id_anaks',
+                'anaks.wilayah_binaan',
+                'anaks.shelter',
+                'survey_keluargas.id',
+                'survey_keluargas.keluarga_id',
                 )
-            ->leftJoin('ayahs', 'data_keluargas.id', '=', 'ayahs.data_keluarga_id')
-            ->leftJoin('ibus', 'data_keluargas.id', '=', 'ibus.data_keluarga_id')
-            ->leftJoin('walis', 'data_keluargas.id', '=', 'walis.data_keluarga_id')
             ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
             ->leftJoin('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
             ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
             ->where('status_anaks.status_binaan', 1)
-            // ->where('anaks.wilayah_binaan', 'Bogor')
             ->whereNotNull('survey_keluargas.id')
             ->orderBy('data_keluargas.created_at', 'asc')
             ->when(isset($kacab), function ($query) use ($kacab) {
-                // foreach ($kacab as $wilayah) {
                     $query->whereIn('kacab', $kacab);
-                // }
             })
             ->when(isset($wilayah_binaan), function ($query) use ($wilayah_binaan) {
-                // foreach ($wilayah_binaan as $wilayah) {
                     $query->whereIn('wilayah_binaan', $wilayah_binaan);
-                // }
             })
             ->when(isset($shelter), function ($query) use ($shelter) {
-                // foreach ($shelter as $wilayah) {
                     $query->whereIn('shelter', $shelter);
-                // }
             })
             ->get();
-
-            // $result = $data->get();
-
-            // if ($request->has('wilayah_binaan')) {
-            //     $wilayah_binaan = $request->wilayah_binaan;
-            //     $data = $data->whereIn('wilayah_binaan', $wilayah_binaan);
-            // }
-
-            // if(isset($wilbin)) {
-            //     $data->orWhere('wilayah_binaan', $wilbin);
-            // }
 
             return datatables($data)
             ->addIndexColumn()
@@ -118,34 +92,35 @@ class SurveyController extends Controller
         if(request()->ajax()){
             if(isset($kacab)){
 
-                $data = DataKeluarga::select(
-                    'data_keluargas.id',
-                    'anaks.id_anaks',
-                    'anaks.data_keluarga_id',
-                    'anaks.shelter',
-                    'anaks.wilayah_binaan',
-                    'status_anaks.*',
-                    'survey_keluargas.id',
-                    'survey_keluargas.keluarga_id',
-                )
+                // $data = DataKeluarga::select(
+                //     'data_keluargas.id',
+                //     'anaks.id_anaks',
+                //     'anaks.data_keluarga_id',
+                //     'anaks.shelter',
+                //     'anaks.wilayah_binaan',
+                //     'status_anaks.*',
+                //     'survey_keluargas.id',
+                //     'survey_keluargas.keluarga_id',
+                // )
                 // ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
-                ->leftJoin('anaks', function ($join) {
-                    $join->on('data_keluargas.id', '=', 'anaks.data_keluarga_id')
-                        ->where('anaks.id_anaks', '=', DB::raw('(SELECT MAX(id_anaks) FROM anaks WHERE anaks.data_keluarga_id = data_keluargas.id)'));
-                })
+                // ->leftJoin('anaks', function ($join) {
+                //     $join->on('data_keluargas.id', '=', 'anaks.data_keluarga_id')
+                //         ->where('anaks.id_anaks', '=', DB::raw('(SELECT MAX(id_anaks) FROM anaks WHERE anaks.data_keluarga_id = data_keluargas.id)'));
+                // })
 
-                ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
-                ->leftJoin('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
-                // ->where('status_anaks.status_binaan', 1)
-                ->where('status_anaks.status_binaan', '=', 1)
+                // ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
+                // ->leftJoin('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
+                // // ->where('status_anaks.status_binaan', 1)
+                // ->where('status_anaks.status_binaan', '=', 1)
 
-                // ->whereRaw('anaks.id_anaks IN (SELECT MAX(id_anaks) FROM anaks GROUP BY data_keluarga_id)') // Memilih satu anak dengan id_anaks tertinggi
-                ->whereNotNull('survey_keluargas.id')
-                ->orderBy('data_keluargas.created_at', 'asc')
-                ->when(isset($kacab), function ($query) use ($kacab) {
-                        $query->whereIn('kacab', $kacab);
-                })
-                ->get();
+                // // ->whereRaw('anaks.id_anaks IN (SELECT MAX(id_anaks) FROM anaks GROUP BY data_keluarga_id)') // Memilih satu anak dengan id_anaks tertinggi
+                // ->whereNotNull('survey_keluargas.id')
+                // ->orderBy('data_keluargas.created_at', 'asc')
+                // ->when(isset($kacab), function ($query) use ($kacab) {
+                //         $query->whereIn('kacab', $kacab);
+                // })
+                // ->get();
+                $data = WilayahBinaan::whereIn('kacab_id', $kacab)->get();
 
                 return response()->json($data);
             }
@@ -157,34 +132,36 @@ class SurveyController extends Controller
         if(request()->ajax()){
             if(isset($wilbin)){
 
-                $data = DataKeluarga::select(
-                    'data_keluargas.id',
-                    'anaks.id_anaks',
-                    'anaks.data_keluarga_id',
-                    'anaks.shelter',
-                    'anaks.wilayah_binaan',
-                    'status_anaks.*',
-                    'survey_keluargas.id',
-                    'survey_keluargas.keluarga_id',
-                )
-                // ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
-                ->leftJoin('anaks', function ($join) {
-                    $join->on('data_keluargas.id', '=', 'anaks.data_keluarga_id')
-                        ->where('anaks.id_anaks', '=', DB::raw('(SELECT MAX(id_anaks) FROM anaks WHERE anaks.data_keluarga_id = data_keluargas.id)'));
-                })
+                // $data = DataKeluarga::select(
+                //     'data_keluargas.id',
+                //     'anaks.id_anaks',
+                //     'anaks.data_keluarga_id',
+                //     'anaks.shelter',
+                //     'anaks.wilayah_binaan',
+                //     'status_anaks.*',
+                //     'survey_keluargas.id',
+                //     'survey_keluargas.keluarga_id',
+                // )
+                // // ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
+                // ->leftJoin('anaks', function ($join) {
+                //     $join->on('data_keluargas.id', '=', 'anaks.data_keluarga_id')
+                //         ->where('anaks.id_anaks', '=', DB::raw('(SELECT MAX(id_anaks) FROM anaks WHERE anaks.data_keluarga_id = data_keluargas.id)'));
+                // })
 
-                ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
-                ->leftJoin('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
-                // ->where('status_anaks.status_binaan', 1)
-                ->where('status_anaks.status_binaan', '=', 1)
+                // ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
+                // ->leftJoin('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
+                // // ->where('status_anaks.status_binaan', 1)
+                // ->where('status_anaks.status_binaan', '=', 1)
 
-                // ->whereRaw('anaks.id_anaks IN (SELECT MAX(id_anaks) FROM anaks GROUP BY data_keluarga_id)') // Memilih satu anak dengan id_anaks tertinggi
-                ->whereNotNull('survey_keluargas.id')
-                ->orderBy('data_keluargas.created_at', 'asc')
-                ->when(isset($wilbin), function ($query) use ($wilbin) {
-                        $query->whereIn('wilayah_binaan', $wilbin);
-                })
-                ->get();
+                // // ->whereRaw('anaks.id_anaks IN (SELECT MAX(id_anaks) FROM anaks GROUP BY data_keluarga_id)') // Memilih satu anak dengan id_anaks tertinggi
+                // ->whereNotNull('survey_keluargas.id')
+                // ->orderBy('data_keluargas.created_at', 'asc')
+                // ->when(isset($wilbin), function ($query) use ($wilbin) {
+                //         $query->whereIn('wilayah_binaan', $wilbin);
+                // })
+                // ->get();
+
+                $data = Shelter::whereIn('wilbin_id', $wilbin)->get();
 
                 return response()->json($data);
             }
