@@ -50,6 +50,9 @@
                                         <b>Kelas</b> <div class="float-right">{{ $dataAnak ? $dataAnak->kelas_sekolah : 'Data Kosong' }}</div>
                                     </li>
                                     <li class="list-group-item">
+                                        <b>Kantor Cabang</b> <div class="float-right">{{ $dataAnak ? $dataAnak->kacab : 'Data Kosong' }}</div>
+                                    </li>
+                                    <li class="list-group-item">
                                         <b>Wilayah Binaan</b> <div class="float-right">{{ $dataAnak ? $dataAnak->wilayah_binaan : 'Data Kosong' }}</div>
                                     </li>
                                     <li class="list-group-item">
@@ -132,6 +135,18 @@
                                                                     <input type="date" class="form-control" id="tanggal_lahirAnak" name="tanggal_lahirAnak" placeholder="" value="{{ $dataAnak ? $dataAnak->tanggal_lahir : 'Data Kosong' }}" required="">
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-sm-12">
+                                                            <label class="control-label">Kantor Cabang</label>
+                                                            <select class="form-select" id="kacab" name="kacab">
+                                                                <option disabled selected {{ $dataAnak->kacab == '' ? 'selected' : '' }}>Wilayah Binaan...</option>
+                                                                <option value="Indramayu" {{ $dataAnak->kacab == 'Indramayu' ? 'selected' : '' }}>Indramayu</option>
+                                                                <option value="Bandung" {{ $dataAnak->kacab == 'Bandung' ? 'selected' : '' }}>Bandung</option>
+                                                                <option value="Sumedang" {{ $dataAnak->kacab == 'Sumedang' ? 'selected' : '' }}>Sumedang</option>
+                                                                <option value="Bogor" {{ $dataAnak->kacab == 'Bogor' ? 'selected' : '' }}>Bogor</option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -264,44 +279,12 @@
                                                                     <div class="row">
                                                                         <div class="col-sm-6">
                                                                             <div class="">
-                                                                                <b>Kantor Cabang</b>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-sm-6">
-                                                                            <div class="float-start">
-                                                                                <b>: </b> {{ $dataKeluarga ? $dataKeluarga->kacab : 'Data Kosong' }}
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="list-group-item">
-                                                                <div class="col-sm-12">
-                                                                    <div class="row">
-                                                                        <div class="col-sm-6">
-                                                                            <div class="">
                                                                                 <b>No. Kartu Keluarga</b>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-sm-6">
                                                                             <div class="float-start">
                                                                                 <b>: </b> {{ $dataKeluarga ? $dataKeluarga->no_kk : 'Data Kosong' }}
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="list-group-item">
-                                                                <div class="col-sm-12">
-                                                                    <div class="row">
-                                                                        <div class="col-sm-6">
-                                                                            <div class="">
-                                                                                <b>Anak Ke</b>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-sm-6">
-                                                                            <div class="float-start">
-                                                                                <b>: </b> {{ $dataAnak ? $dataAnak->anak_ke : 'Data Kosong' }}
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -1167,6 +1150,7 @@
             var jenisKelaminAnak = $('#jenisKelaminAnak').val();
             var tempat_lahirAnak = $('#tempat_lahirAnak').val();
             var tanggal_lahirAnak = $('#tanggal_lahirAnak').val();
+            var kacab = $('#kacab').val();
             var wilayah_binaan = $('#wilayah_binaan').val();
             var shelter = $('#shelter').val();
             var jarakShelter = $('#jarakShelter').val();
@@ -1188,6 +1172,7 @@
                     jenis_kelamin : jenisKelaminAnak,
                     tempat_lahir : tempat_lahirAnak,
                     tanggal_lahir : tanggal_lahirAnak,
+                    kacab : kacab,
                     wilayah_binaan : wilayah_binaan,
                     shelter : shelter,
                     jarak_ke_shelter : jarakShelter,
@@ -1240,7 +1225,6 @@
         });
 
         function getDataKeluarga(){
-            var kacab = $('#kacab').val();
             var nomorkk = $('#nomorkk').val();
             var no_telp = $('#no_telp').val();
             var no_rek = $('#no_rek').val();
@@ -1249,7 +1233,6 @@
                 method : 'PUT',
                 url : "/admin/calonAnakBinaanEdit/" + idKeluarga,
                 data: {
-                    kacab : kacab,
                     no_kk : nomorkk,
                     no_telp : no_telp,
                     no_rek : no_rek,

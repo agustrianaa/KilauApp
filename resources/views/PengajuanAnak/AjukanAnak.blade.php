@@ -193,6 +193,22 @@
                                 <div class="row mb-2">
                                     <div class="col-4">
                                         <div class="float-end">
+                                            <b>Kantor Cabang :</b>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <select class="form-select" id="KacabAnak" name="KacabAnak">
+                                            <option disabled selected>-Pilih-</option>
+                                            @foreach($kantorCabangs as $kantorCabang)
+                                                <option value="{{ $kantorCabang->nama_kacab }}">{{ $kantorCabang->nama_kacab }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-4"></div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4">
+                                        <div class="float-end">
                                             <b>Shelter :</b>
                                         </div>
                                     </div>
@@ -303,6 +319,7 @@
 <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.18/dist/sweetalert2.all.min.js"></script>
 
+<script src="{{ asset('javascript/sharedFunctions.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $.ajaxSetup({
@@ -311,11 +328,15 @@
             }
         });
 
-        // Mendapatkan nilai no_kk dari URL
-        var no_kk_dari_url = new URLSearchParams(window.location.search).get('no_kk');
-            
-        // Mengisi nilai pada input nomor Kartu Keluarga pada halaman kedua
-        $('#nomorKartuKeluarga').val(no_kk_dari_url);
+        var urlParams = new URLSearchParams(window.location.search);
+        var dataKeluargaId = urlParams.get('dataKeluargaId');
+        var noKk = urlParams.get('noKk');
+
+        // Memeriksa apakah parameter ditemukan
+        if (dataKeluargaId && noKk) {
+            // Menjalankan fungsi sharedFunctions.js
+            handleLinkColorClick(dataKeluargaId, noKk);
+        }
 
 
         $('#nomorKartuKeluarga').on('keyup', function() {
@@ -342,19 +363,14 @@
                     // Menambahkan event click pada tautan yang mengatur data-keluarga-id
                     $('.linkColor').on('click', function() {
                         var dataKeluargaId = $(this).data('data-keluarga-id');
-                        $('#dataKeluargaId').val(dataKeluargaId);
-
                         var noKk = $(this).data('no-kk');
-                        $('#displayNoKk').val(noKk);
 
-                        $('#nomorKartuKeluarga').val('');
+                        localStorage.setItem('dataKeluargaId', dataKeluargaId);
+                        localStorage.setItem('noKk', noKk);
 
-                        var formAnak = $("#formAnak");
-                        var inputCariKK = $("#inputCariKK");
-                        // Menambahkan class "sembunyikanInputKK"
-                        inputCariKK.addClass("sembunyikanInputKK");
-                        // Menghapus class "sembunyikan"
-                        formAnak.removeClass("sembunyikan");
+                        // Akses fungsi bersama
+                        handleLinkColorClick(dataKeluargaId, noKk);
+
                     });
                 }
             });

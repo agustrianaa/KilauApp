@@ -27,7 +27,6 @@ class PengajuanAnakController extends Controller
 
     public function pengajuanFormStore(Request $request) {
         $dataKeluarga = DataKeluarga::create([
-            "kacab" => $request->kacab,
             "no_kk" => $request->no_kk,
             "alamat_kk" => $request->alamat_kk,
             "kepala_keluarga" => $request->kepala_keluarga,
@@ -46,6 +45,7 @@ class PengajuanAnakController extends Controller
             "jenis_kelamin" => $request->jenis_kelamin_calon_anak,
             "tempat_lahir" => $request->tempat_lahir_calon_anak,
             "tanggal_lahir" => $request->tanggal_lahir_calon_anak,
+            "kacab" => $request->kacab,
             "wilayah_binaan" => $request->wilayah_binaan,
             "shelter" => $request->shelter,
             "jarak_ke_shelter" => $request->jarak_ke_shelter,
@@ -140,6 +140,7 @@ class PengajuanAnakController extends Controller
             'jenisKelaminAnak' => 'required',
             'tempatLahirAnak' => 'required',
             'tanggalLahirAnak' => 'required',
+            'KacabAnak' => 'required',
             'WilayahBinaanAnak' => 'required',
             'ShelterAnak' => 'required',
             'jarakShelterAnak' => 'required',
@@ -160,6 +161,7 @@ class PengajuanAnakController extends Controller
             'jenis_kelamin' => $request->jenisKelaminAnak,
             'tempat_lahir' => $request->tempatLahirAnak,
             'tanggal_lahir' => $request->tanggalLahirAnak,
+            'kacab' => $request->KacabAnak,
             'wilayah_binaan' => $request->WilayahBinaanAnak,
             'shelter' => $request->ShelterAnak,
             'jarak_ke_shelter' => $request->jarakShelterAnak,

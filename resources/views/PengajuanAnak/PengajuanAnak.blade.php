@@ -2,86 +2,7 @@
 @section('content')
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-<style>
-    .mb-2.tombolsubmit{
-        justify-content: center;
-        align-content: center;
-    }
-
-    .row.mb-2.pekerjaanibu{
-        display: none;
-    }
-
-    .row.mb-2.pekerjaanayah{
-        display: none;
-    }
-
-    .row.mb-2.pekerjaanwali{
-        display: none;
-    }
-    .breadcrumb-item a {
-    text-decoration: none;
-    color: black;
-    transition: 0.1s;
-    }
-
-    .breadcrumb-item a:hover {
-        text-decoration: none;
-        color: rgb(0, 136, 255);
-        transition: 0.1s;
-    }
-    #input-group-text-KK {
-        background-color: rgb(0, 225, 255);
-        border-radius: 0;
-        border-top-right-radius: 5px;
-        border-bottom-right-radius: 5px;
-        color: white;
-    }
-    #input-group-text-KK:hover {
-        background-color:  rgb(0, 189, 214);
-        box-shadow: 0px 0px 5px #00A6FF ;
-        /* cursor: default;
-        cursor: pointer;
-        cursor: progress;
-        cursor: help;
-        cursor: move;
-        cursor: text; */
-        /* cursor: wait; */
-        /* cursor: not-allowed;
-        cursor: alias;
-        cursor: context-menu;
-        cursor: grab;
-        cursor: grabbing; */
-        /* cursor: ns-resize; Utara-Selatan (atas-bawah) */
-        /* cursor: ew-resize; Timur-Barat (kiri-kanan) */
-        /* cursor: nesw-resize; Timur Laut-Barat Daya */
-        /* cursor: nwse-resize; Barat Laut-Timur Tenggara */
-    }
-    #input-group-text-KK:active {
-        cursor: wait;
-    }
-    #checkKK {
-        text-decoration: none;
-    }
-    #infoKK {
-        cursor: default;
-    }
-    /* Atur lebar dan tinggi notifikasi */
-    .swal2-popup {
-        background-color: rgb(255, 255, 255);
-        border-radius: 30px;
-        width: 300px; /* Ganti dengan lebar yang diinginkan */
-        height: auto; /* Sesuaikan dengan kebutuhan, atau biarkan otomatis */
-    }
-    /* Atur font size untuk judul */
-    .swal2-title {
-        font-size: 20px; /* Ganti dengan ukuran font yang diinginkan */
-    }
-    /* Atur font size untuk teks */
-    .swal2-content {
-        font-size: 16px; /* Ganti dengan ukuran font yang diinginkan */
-    }
-</style>
+<link rel="stylesheet" href="{{ asset('css/PengajuanAnak.css') }}">
 
 <div class="content-wrapper background">
     <!-- Content Header (Page header) -->
@@ -124,7 +45,7 @@
                             <div class="row">
                                 <!--Form Keluarga-->
                                 <div class="col-12 col-sm-6">
-                                    <div class="card">
+                                    <div class="card" id="form-keluarga">
                                         <div class="card-title">
                                             <h4 class="text-center">Form Keluarga</h4>
                                         </div>
@@ -132,7 +53,7 @@
                                         <div class="card-body">
                                             <div class="row mb-2">
                                                 <div class="col-12 text-center">
-                                                    <i id="infoKK">*Setelah Input No. KK, harap cek terlebih dahulu, apakah sudah terdaftar atau belum.</i>
+                                                    <i id="infoKK">*Setelah Input No. KK, harap <b>Check</b> terlebih dahulu,<br> apakah sudah terdaftar atau belum.</i>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -146,19 +67,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row mb-2">
-                                                <div class="col-12 col-sm-4">
-                                                    <p class="text-sm-end">Kantor Cabang :</p>
-                                                </div>
-                                                <div class="col-12 col-sm-8">
-                                                    <select class="form-select" id="kacab" name="kacab">
-                                                        <option disabled selected>-Pilih-</option>
-                                                        @foreach($kantorCabangs as $kantorCabang)
-                                                            <option value="{{ $kantorCabang->nama_kacab }}">{{ $kantorCabang->nama_kacab }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div> 
                                             <div class="row mb-2">
                                                 <div class="col-12 col-sm-4">
                                                     <p class="text-sm-end">Alamat Lengkap :</p>
@@ -188,15 +96,17 @@
                                                     <p class="text-sm-end">No Rekening :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="no_rek" name="no_rek" placeholder="No. Rekening...">
+                                                    <input type="number" class="form-control" id="no_rek" name="no_rek" placeholder="No. Rekening...">
                                                 </div>
                                             </div>
+                                            <div class="InvBox"></div>
                                         </div>
                                     </div>
                                 </div>
-                                        <!--Form Anak-->
+                                
+                                <!--Form Anak-->
                                 <div class="col-12 col-sm-6">
-                                    <div class="card">
+                                    <div class="card" id="form-anak">
                                         <div class="card-title">
                                             <h4 class="text-center">Form Anak</h4>
                                         </div>
@@ -208,7 +118,7 @@
                                                     <p class="text-sm-end">Nama Lengkap :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="nama_lengkap_calon_anak" name="nama_lengkap_calon_anak" placeholder="Nama Lengkap...">
+                                                    <input type="text" class="form-control" id="nama_lengkap_calon_anak" name="nama_lengkap_calon_anak" placeholder="Nama Lengkap..." disabled>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -216,7 +126,7 @@
                                                     <p class="text-sm-end">Nama Panggilan :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="nama_panggilan_calon_anak" name="nama_panggilan_calon_anak" placeholder="Nama Panggilan...">
+                                                    <input type="text" class="form-control" id="nama_panggilan_calon_anak" name="nama_panggilan_calon_anak" placeholder="Nama Panggilan..." disabled>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -224,7 +134,7 @@
                                                     <p class="text-sm-end">Agama :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <select class="form-select" id="agama_anak" name="agama_anak" required="">
+                                                    <select class="form-select" id="agama_anak" name="agama_anak" required="" disabled>
                                                         <option value="" disabled selected>-Pilih-</option>
                                                         <option value="Islam">Islam</option>
                                                         <option value="Kristen">Kristen</option>
@@ -240,7 +150,7 @@
                                                     <p class="text-sm-end">Jenis Kelamin :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <select class="form-select" id="jenis_kelamin_calon_anak" name="jenis_kelamin_calon_anak" required="">
+                                                    <select class="form-select" id="jenis_kelamin_calon_anak" name="jenis_kelamin_calon_anak" required="" disabled>
                                                         <option value="" disabled selected>-Pilih-</option>
                                                         <option value="Laki-Laki">Laki-Laki</option>
                                                         <option value="Perempuan">Perempuan</option>
@@ -252,7 +162,7 @@
                                                     <p class="text-sm-end">Tempat Lahir :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="tempat_lahir_calon_anak" name="tempat_lahir_calon_anak" placeholder="Tempat Lahir...">
+                                                    <input type="text" class="form-control" id="tempat_lahir_calon_anak" name="tempat_lahir_calon_anak" placeholder="Tempat Lahir..." disabled>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -260,7 +170,20 @@
                                                     <p class="text-sm-end">Tanggal Lahir :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="date" class="form-control" id="tanggal_lahir_calon_anak" name="tanggal_lahir_calon_anak" placeholder="Tanggal Lahir...">
+                                                    <input type="date" class="form-control" id="tanggal_lahir_calon_anak" name="tanggal_lahir_calon_anak" placeholder="Tanggal Lahir..." disabled>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-12 col-sm-4">
+                                                    <p class="text-sm-end">Kantor Cabang :</p>
+                                                </div>
+                                                <div class="col-12 col-sm-8">
+                                                    <select class="form-select" id="kacab" name="kacab" disabled>
+                                                        <option disabled selected>-Pilih-</option>
+                                                        @foreach($kantorCabangs as $kantorCabang)
+                                                            <option value="{{ $kantorCabang->nama_kacab }}">{{ $kantorCabang->nama_kacab }}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -268,7 +191,7 @@
                                                     <p class="text-sm-end">Wilayah Binaan :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <select class="form-select" id="wilayah_binaan" name="wilayah_binaan">
+                                                    <select class="form-select" id="wilayah_binaan" name="wilayah_binaan" disabled>
                                                         <option disabled selected>-Pilih-</option>
                                                         @foreach($wilayahBinaans as $wilayahBinaan)
                                                             <option value="{{ $wilayahBinaan->nama_wilbin }}">{{ $wilayahBinaan->nama_wilbin }}</option>
@@ -281,7 +204,7 @@
                                                     <p class="text-sm-end">Shelter :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <select class="form-select" id="shelter" name="shelter">
+                                                    <select class="form-select" id="shelter" name="shelter" disabled>
                                                         <option disabled selected>-Pilih-</option>
                                                         @foreach($shelters as $shelter)
                                                             <option value="{{ $shelter->nama_shelter }}">{{ $shelter->nama_shelter }}</option>
@@ -295,7 +218,7 @@
                                                 </div>
                                                 <div class="col-12 col-sm-6">
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" id="jarak_ke_shelter" name="jarak_ke_shelter" placeholder="">
+                                                        <input type="text" class="form-control" id="jarak_ke_shelter" name="jarak_ke_shelter" placeholder="" disabled>
                                                         <span class="input-group-text">KM</span>
                                                     </div>
                                                 </div>
@@ -305,7 +228,7 @@
                                                     <p class="text-sm-end">Anak Ke :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-6">
-                                                    <input type="number" class="form-control" id="anak_ke" name="anak_ke" placeholder="Anak ke...">
+                                                    <input type="number" class="form-control" id="anak_ke" name="anak_ke" placeholder="Anak ke..." disabled>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -315,10 +238,10 @@
                                                 <div class="col-12 col-sm-8">
                                                     <div class="row">
                                                         <div class="col-sm-6">
-                                                            <input type="text" class="form-control" id="nama_sekolah" name="nama_sekolah" placeholder="Nama Sekolah...">
+                                                            <input type="text" class="form-control" id="nama_sekolah" name="nama_sekolah" placeholder="Nama Sekolah..." disabled>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <input type="text" class="form-control" id="kelas_sekolah" name="kelas_sekolah" placeholder="Kelas...">
+                                                            <input type="number" class="form-control" id="kelas_sekolah" name="kelas_sekolah" placeholder="Kelas..." disabled>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -330,10 +253,10 @@
                                                 <div class="col-12 col-sm-8">
                                                     <div class="row">
                                                         <div class="col-sm-6">
-                                                            <input type="text" class="form-control" id="nama_madrasah" name="nama_madrasah" placeholder="Nama Madrasah...">
+                                                            <input type="text" class="form-control" id="nama_madrasah" name="nama_madrasah" placeholder="Nama Madrasah..." disabled>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <input type="text" class="form-control" id="kelas_madrasah" name="kelas_madrasah" placeholder="Kelas...">
+                                                            <input type="number" class="form-control" id="kelas_madrasah" name="kelas_madrasah" placeholder="Kelas..." disabled>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -343,7 +266,7 @@
                                                     <p class="text-sm-end">Hobby :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="hobby" name="hobby" placeholder="Hobby...">
+                                                    <input type="text" class="form-control" id="hobby" name="hobby" placeholder="Hobby..." disabled>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -351,7 +274,7 @@
                                                     <p class="text-sm-end">Cita - cita :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="cita_cita" name="cita_cita" placeholder="Cita-cita...">
+                                                    <input type="text" class="form-control" id="cita_cita" name="cita_cita" placeholder="Cita-cita..." disabled>
                                                 </div>
                                             </div>
                                             <input type="hidden" class="form-control" id="status_binaan_anak" name="status_binaan_anak" value="{{ 0 }}">
@@ -365,7 +288,7 @@
                                     <div class="row">
                                 <!--Form Ayah-->
                                 <div class="col-12 col-sm-4">
-                                    <div class="card">
+                                    <div class="card" id="form-ayah">
                                         <div class="card-title">
                                             <h4 class="text-center">Form Ayah</h4>
                                         </div>
@@ -376,7 +299,7 @@
                                                     <p class="text-sm-end">Nik Ayah :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="nik_ayah" name="nik_ayah" placeholder="NIK KTP...">
+                                                    <input type="text" class="form-control" id="nik_ayah" name="nik_ayah" placeholder="NIK KTP..." disabled>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -384,7 +307,7 @@
                                                     <p class="text-sm-end">Nama Ayah Kandung :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="nama_ayah" name="nama_ayah" placeholder="Nama Lengkap...">
+                                                    <input type="text" class="form-control" id="nama_ayah" name="nama_ayah" placeholder="Nama Lengkap..." disabled>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -392,7 +315,7 @@
                                                     <p class="text-sm-end">Tempat Lahir :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="tempat_lahir_ayah" name="tempat_lahir_ayah" placeholder="Tempat Lahir(Kota)...">
+                                                    <input type="text" class="form-control" id="tempat_lahir_ayah" name="tempat_lahir_ayah" placeholder="Tempat Lahir(Kota)..." disabled>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -400,7 +323,7 @@
                                                     <p class="text-sm-end">Tanggal Lahir :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="date" class="form-control" id="tanggal_lahir_ayah" name="tanggal_lahir_ayah" placeholder="Tanggal Lahir...">
+                                                    <input type="date" class="form-control" id="tanggal_lahir_ayah" name="tanggal_lahir_ayah" placeholder="Tanggal Lahir..." disabled>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -408,7 +331,7 @@
                                                     <p class="text-sm-end">Pekerjaan :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <select class="form-select" id="pekerjaan_ayah" name="pekerjaan_ayah">
+                                                    <select class="form-select" id="pekerjaan_ayah" name="pekerjaan_ayah" disabled>
                                                         <option disabled selected>Pilih Pekerjaan...</option>
                                                         <option value="Petani">Petani</option>
                                                         <option value="Nelayan">Nelayan</option>
@@ -435,7 +358,7 @@
                                                 </div>
                                                 <div class="col-12 col-sm-8">
                                                     <!-- Input untuk menangkap Mengisi Value "Lainnya" -->
-                                                    <input type="text" id="pekerjaan_ayah_lainnya" name="pekerjaan_ayah" class="form-control" placeholder="isi Pekerjaan 'Lainnya'">
+                                                    <input type="text" id="pekerjaan_ayah_lainnya" name="pekerjaan_ayah" class="form-control" placeholder="isi Pekerjaan 'Lainnya'" disabled>
                                                     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
                                                     <!-- Input untuk menangkap Value Select Option -->
@@ -449,7 +372,7 @@
                                                 </div>
                                                 <div class="col-12 col-sm-6">
                                                     <div class="input-group mb-3">
-                                                        <input type="number" class="form-control" id="jumlah_tanggungan_ayah" name="jumlah_tanggungan_ayah" placeholder="">
+                                                        <input type="number" class="form-control" id="jumlah_tanggungan_ayah" name="jumlah_tanggungan_ayah" placeholder="" disabled>
                                                         <span class="input-group-text">Jiwa</span>
                                                     </div>
                                                 </div>
@@ -460,7 +383,7 @@
                                                 </div>
                                                 <div class="col-12 col-sm-8">
                                                     <div class="input-group mb-3">
-                                                        <select class="form-select" id="pendapatan_ayah" name="pendapatan_ayah">
+                                                        <select class="form-select" id="pendapatan_ayah" name="pendapatan_ayah" disabled>
                                                             <option disabled selected>Pilih Penghasilan...</option>
                                                             <option value="Dibawah Rp.500.000,-">Dibawah Rp.500.000,-</option>
                                                             <option value="Rp.500.000,- s/d Rp.1.500.000,-">Rp.500.000,- s/d Rp.1.500.000,-</option>
@@ -479,7 +402,7 @@
                                                     <p class="text-sm-end">Agama :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <select class="form-select" id="agama" name="agama" required="">
+                                                    <select class="form-select" id="agama" name="agama" required="" disabled>
                                                         <option value="" disabled selected>Pilih Agama</option>
                                                         <option value="Islam">Islam</option>
                                                         <option value="Kristen">Kristen</option>
@@ -495,7 +418,7 @@
                                                     <p class="text-sm-end">Alamat :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <textarea class="form-control" id="alamat_ayah" name="alamat_ayah" rows="3" placeholder="Alamat Lengkap..."></textarea>
+                                                    <textarea class="form-control" id="alamat_ayah" name="alamat_ayah" rows="3" placeholder="Alamat Lengkap..." disabled></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -504,7 +427,7 @@
 
                                 <!--Form Ibu-->
                                 <div class="col-12 col-sm-4">
-                                    <div class="card">
+                                    <div class="card" id="form-ibu">
                                         <div class="card-title">
                                             <h4 class="text-center">Form Ibu</h4>
                                         </div>
@@ -515,7 +438,7 @@
                                                     <p class="text-sm-end">Nik Ibu :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="nik_ibu" name="nik_ibu" placeholder="NIK KTP...">
+                                                    <input type="text" class="form-control" id="nik_ibu" name="nik_ibu" placeholder="NIK KTP..." disabled>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -523,7 +446,7 @@
                                                     <p class="text-sm-end">Nama Ibu Kandung :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="nama_ibu" name="nama_ibu" placeholder="Nama Lengkap...">
+                                                    <input type="text" class="form-control" id="nama_ibu" name="nama_ibu" placeholder="Nama Lengkap..." disabled>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -531,7 +454,7 @@
                                                     <p class="text-sm-end">Tempat Lahir :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="tempat_lahir_ibu" name="tempat_lahir_ibu" placeholder="Tempat Lahir(Kota)...">
+                                                    <input type="text" class="form-control" id="tempat_lahir_ibu" name="tempat_lahir_ibu" placeholder="Tempat Lahir(Kota)..." disabled>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -539,7 +462,7 @@
                                                     <p class="text-sm-end">Tanggal Lahir :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="date" class="form-control" id="tanggal_lahir_ibu" name="tanggal_lahir_ibu" placeholder="Tanggal Lahir...">
+                                                    <input type="date" class="form-control" id="tanggal_lahir_ibu" name="tanggal_lahir_ibu" placeholder="Tanggal Lahir..." disabled>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -547,7 +470,7 @@
                                                     <p class="text-sm-end">Pekerjaan :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <select class="form-select" id="pekerjaan_ibu" name="pekerjaan_ibu">
+                                                    <select class="form-select" id="pekerjaan_ibu" name="pekerjaan_ibu" disabled>
                                                         <option disabled selected>Pilih Pekerjaan...</option>
                                                         <option value="Petani">Petani</option>
                                                         <option value="Nelayan">Nelayan</option>
@@ -574,7 +497,7 @@
                                                 </div>
                                                 <div class="col-12 col-sm-8">
                                                     <!-- Input untuk menangkap Mengisi Value "Lainnya" -->
-                                                    <input type="text" id="pekerjaan_ibu_lainnya" name="pekerjaan_ibu" class="form-control" placeholder="isi Pekerjaan 'Lainnya'">
+                                                    <input type="text" id="pekerjaan_ibu_lainnya" name="pekerjaan_ibu" class="form-control" placeholder="isi Pekerjaan 'Lainnya'" disabled>
                                                     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
                                                     <!-- Input untuk menangkap Value Select Option -->
@@ -588,7 +511,7 @@
                                                 </div>
                                                 <div class="col-12 col-sm-8">
                                                     <div class="input-group mb-3">
-                                                        <select class="form-select" id="pendapatan_ibu" name="pendapatan_ibu">
+                                                        <select class="form-select" id="pendapatan_ibu" name="pendapatan_ibu" disabled>
                                                             <option disabled selected>Pilih Penghasilan...</option>
                                                             <option value="Dibawah Rp.500.000,-">Dibawah Rp.500.000,-</option>
                                                             <option value="Rp.500.000,- s/d Rp.1.500.000,-">Rp.500.000,- s/d Rp.1.500.000,-</option>
@@ -607,7 +530,7 @@
                                                     <p class="text-sm-end">Agama :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <select class="form-select" id="agama" name="agama" required="">
+                                                    <select class="form-select" id="agama" name="agama" required="" disabled>
                                                         <option value="" disabled selected>Pilih Agama</option>
                                                         <option value="Islam">Islam</option>
                                                         <option value="Kristen">Kristen</option>
@@ -623,7 +546,7 @@
                                                     <p class="text-sm-end">Alamat :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <textarea class="form-control" id="alamat_ibu" name="alamat_ibu" rows="3" placeholder="Alamat Lengkap..."></textarea>
+                                                    <textarea class="form-control" id="alamat_ibu" name="alamat_ibu" rows="3" placeholder="Alamat Lengkap..." disabled></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -632,7 +555,7 @@
 
                                 <!--Form Wali-->
                                 <div class="col-12 col-sm-4">
-                                    <div class="card">
+                                    <div class="card" id="form-wali">
                                         <div class="card-title">
                                             <h4 class="text-center">Form Wali (Jika ada)</h4>
                                         </div>
@@ -643,7 +566,7 @@
                                                     <p class="text-sm-end">No. KTP :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="no_ktp_wali" name="no_ktp_wali" placeholder="NO. KTP...">
+                                                    <input type="text" class="form-control" id="no_ktp_wali" name="no_ktp_wali" placeholder="NO. KTP..." disabled>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -651,7 +574,7 @@
                                                     <p class="text-sm-end">Nama Lengkap :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="nama_lengkap_wali" name="nama_lengkap_wali" placeholder="Nama Lengkap...">
+                                                    <input type="text" class="form-control" id="nama_lengkap_wali" name="nama_lengkap_wali" placeholder="Nama Lengkap..." disabled>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -659,7 +582,7 @@
                                                     <p class="text-sm-end">Nama Panggilan :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="nama_panggilan_wali" name="nama_panggilan_wali" placeholder="Nama Panggilan...">
+                                                    <input type="text" class="form-control" id="nama_panggilan_wali" name="nama_panggilan_wali" placeholder="Nama Panggilan..." disabled>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -667,7 +590,7 @@
                                                     <p class="text-sm-end">Tempat Lahir :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="text" class="form-control" id="tempat_lahir_wali" name="tempat_lahir_wali" placeholder="Tempat Lahir(Kota)...">
+                                                    <input type="text" class="form-control" id="tempat_lahir_wali" name="tempat_lahir_wali" placeholder="Tempat Lahir(Kota)..." disabled>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -675,7 +598,7 @@
                                                     <p class="text-sm-end">Tanggal Lahir :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <input type="date" class="form-control" id="tanggal_lahir_wali" name="tanggal_lahir_wali" placeholder="Tanggal Lahir...">
+                                                    <input type="date" class="form-control" id="tanggal_lahir_wali" name="tanggal_lahir_wali" placeholder="Tanggal Lahir..." disabled>
                                                 </div>
                                             </div>
                                             <div class="row mb-2">
@@ -683,7 +606,7 @@
                                                     <p class="text-sm-end">Pekerjaan :</p>
                                                 </div>
                                                 <div class="col-12 col-sm-8">
-                                                    <select class="form-select" id="pekerjaan_wali" name="pekerjaan_wali">
+                                                    <select class="form-select" id="pekerjaan_wali" name="pekerjaan_wali" disabled>
                                                         <option disabled selected>Pilih Pekerjaan...</option>
                                                         <option value="Petani">Petani</option>
                                                         <option value="Nelayan">Nelayan</option>
@@ -710,7 +633,7 @@
                                                 </div>
                                                 <div class="col-12 col-sm-8">
                                                     <!-- Input untuk menangkap Mengisi Value "Lainnya" -->
-                                                    <input type="text" id="pekerjaan_wali_lainnya" name="pekerjaan_wali" class="form-control" placeholder="isi Pekerjaan 'Lainnya'">
+                                                    <input type="text" id="pekerjaan_wali_lainnya" name="pekerjaan_wali" class="form-control" placeholder="isi Pekerjaan 'Lainnya'" disabled>
                                                     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
                                                     <!-- Input untuk menangkap Value Select Option -->
@@ -724,7 +647,7 @@
                                                 </div>
                                                 <div class="col-12 col-sm-6">
                                                     <div class="input-group mb-3">
-                                                        <input type="number" class="form-control" id="jumlah_tanggungan_wali" name="jumlah_tanggungan_wali" placeholder="">
+                                                        <input type="number" class="form-control" id="jumlah_tanggungan_wali" name="jumlah_tanggungan_wali" placeholder="" disabled>
                                                         <span class="input-group-text">Jiwa</span>
                                                     </div>
                                                 </div>
@@ -735,7 +658,7 @@
                                                 </div>
                                                 <div class="col-12 col-sm-8">
                                                     <div class="input-group mb-3">
-                                                        <select class="form-select" id="pendapatan_wali" name="pendapatan_wali">
+                                                        <select class="form-select" id="pendapatan_wali" name="pendapatan_wali" disabled>
                                                             <option disabled selected>Pilih Penghasilan...</option>
                                                             <option value="Dibawah Rp.500.000,-">Dibawah Rp.500.000,-</option>
                                                             <option value="Rp.500.000,- s/d Rp.1.500.000,-">Rp.500.000,- s/d Rp.1.500.000,-</option>
@@ -783,8 +706,8 @@
 <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.18/dist/sweetalert2.all.min.js"></script>
 
+<script src="{{ asset('javascript/sharedFunctions.js') }}"></script>
 <script type="text/javascript">
-
     // Kondisi "Lainnya" dari input pekerjaan_ayah
     $(document).ready(function () {
         $("#pekerjaan_ayah").change(function () {
@@ -846,7 +769,20 @@
 
             // Mendapatkan nilai nomor KK dari input
             var no_kk = $('#no_kk').val();
+            var dataKeluargaId = $(this).data('data-keluarga-id');
+            var noKk = $(this).data('no-kk');
 
+            // Validasi input kosong
+            if (no_kk.trim() === '') {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Isi terlebih dahulu',
+                    showConfirmButton: false,
+                    timer: 1200,
+                });
+                return; // Berhenti jika input kosong
+            }
+        
             // Mengirim permintaan AJAX ke server
             $.ajax({
                 url: "{{ url('admin/checkKK') }}",
@@ -857,7 +793,7 @@
                 },
                 success: function (response) {
                     if (response.exists) {
-                        // Jika nomor KK sudah terdaftar
+
                         Swal.fire({
                             icon: 'info',
                             title: 'Keluarga sudah terdaftar',
@@ -869,8 +805,10 @@
                             cancelButtonText: 'Tutup'
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                // Arahkan ke halaman Ajukan Anak+ dengan menyertakan no_kk sebagai parameter
-                                window.location.href = '{{ route('admin.anak.tambah') }}?no_kk=' + encodeURIComponent(no_kk);
+                                var dataKeluargaId = localStorage.getItem('dataKeluargaId');
+                                var noKk = localStorage.getItem('noKk');
+                                window.location.href = "{{ url('admin/anak/tambah/') }}" + "?dataKeluargaId=" + dataKeluargaId + "&noKk=" + noKk;
+                                console.log(dataKeluargaId, noKk);
                             }
                         });
                     } else {
@@ -893,8 +831,260 @@
                 }
             });
         });
+
     });
+
+
+
+    // // Membuat array dari ID formulir dalam urutan hierarki
+    // const formIds = ['form-keluarga', 'form-anak', 'form-ayah', 'form-ibu', 'form-wali'];
+
+    // // Menambahkan event listener untuk setiap input dalam formulir
+    // formIds.forEach((formId, index) => {
+    //     const form = document.getElementById(formId);
+    //     const elements = form.querySelectorAll('input, select, textarea');
+
+    //     elements.forEach(element => {
+    //         element.addEventListener('input', function () {
+    //             // Mengecek apakah semua input, select, dan textarea dalam formulir saat ini sudah terisi
+    //             const isFormTerisi = cekFormTerisi(formId);
+
+    //             if (isFormTerisi) {
+    //                 // Menghapus atribut disabled pada formulir berikutnya (jika ada)
+    //                 const nextFormId = formIds[index + 1];
+    //                 if (nextFormId) {
+    //                     document.getElementById(nextFormId).removeAttribute('disabled');
+    //                     console.log(`Form ${formId} terisi. Mengaktifkan Form ${nextFormId}`);
+    //                 }
+    //             }
+    //         });
+    //     });
+    // });
+
+    // // Fungsi untuk memeriksa apakah semua input, select, dan textarea dalam formulir sudah terisi
+    // function cekFormTerisi(idForm) {
+    //     const elements = document.getElementById(idForm).querySelectorAll('input, select, textarea');
+    //     for (let i = 0; i < elements.length; i++) {
+    //         const element = elements[i];
+    //         if (element.tagName.toLowerCase() === 'input' && element.type !== 'submit' && element.value.trim() === '') {
+    //             // Jika ada input yang belum terisi, kembalikan false
+    //             return false;
+    //         } else if ((element.tagName.toLowerCase() === 'select' || element.tagName.toLowerCase() === 'textarea') && element.value.trim() === '') {
+    //             // Jika ada select atau textarea yang belum terisi, kembalikan false
+    //             return false;
+    //         }
+    //     }
+    //     return true;
+    // }
+
+
+
+    var formOrder = ['form-keluarga', 'form-anak', 'form-ibu', 'form-ayah', 'form-wali'];
+
+    // Menambahkan event listener pada setiap form untuk memantau perubahan pada elemen input
+    formOrder.forEach(function(formId, index) {
+        var currentForm = document.getElementById(formId);
+
+        if (currentForm) {
+            currentForm.addEventListener('input', function() {
+                checkAndEnableForms();
+            });
+        }
+    });
+
+    // Fungsi untuk memeriksa dan menghapus atribut disabled pada semua form
+    function checkAndEnableForms() {
+        var enableNextForm = true;
+
+        formOrder.forEach(function(formId) {
+            var form = document.getElementById(formId);
+
+            if (!form) {
+                return;
+            }
+
+            var isFormValid = checkFormValidity(form);
+
+            if (enableNextForm) {
+                // Mengaktifkan form jika form sebelumnya valid
+                enableForm(form);
+                console.log(`Form ${formId} terisi. Mengaktifkan Form ${enableNextForm}`);
+            } else {
+                // Menonaktifkan form jika form sebelumnya tidak valid
+                disableForm(form);
+            }
+
+            // Memeriksa apakah form saat ini tidak valid untuk menonaktifkan form berikutnya
+            if (!isFormValid) {
+                enableNextForm = false;
+            }
+        });
+    }
+
+    // ...
+
+    // Fungsi umum untuk memeriksa validitas form
+    function checkFormValidity(form) {
+        var inputElements = form.querySelectorAll('input, select, textarea');
+
+        return Array.from(inputElements).every(function(input) {
+            return input.value.trim() !== '' || (input.type === 'checkbox' && input.checked);
+        });
+    }
+
+    // Fungsi umum untuk menghapus atau menambah atribut disabled pada form
+    function enableForm(form) {
+        var inputElementsForm = form.querySelectorAll('input, select, textarea');
+
+        inputElementsForm.forEach(function(input) {
+            input.removeAttribute('disabled');
+        });
+    }
+
+    function disableForm(form) {
+    var inputElementsForm = form.querySelectorAll('input, select, textarea');
+
+    inputElementsForm.forEach(function(input) {
+        input.setAttribute('disabled', 'disabled'); // Menambahkan nilai 'disabled'
+    });
+}
+
+
+
+
+//     // Membuat array yang berisi ID form dalam urutan yang diinginkan
+//     var formOrder = ['form-keluarga', 'form-anak', 'form-ibu', 'form-wali', 'form-ayah'];
+
+//     // Menambahkan event listener pada setiap form untuk memantau perubahan pada elemen input
+//     formOrder.forEach(function(formId, index) {
+//         var currentForm = document.getElementById(formId);
+//         var nextFormId = formOrder[index + 1]; // ID form berikutnya dalam urutan
+
+//         if (currentForm && nextFormId) {
+//             currentForm.addEventListener('input', function() {
+//                 checkAndEnableNextForm(formId, nextFormId);
+//             });
+//         }
+//     });
+// // 
+//     // Fungsi umum untuk memeriksa dan menghapus atribut disabled pada form berikutnya
+//     function checkAndEnableNextForm(currentFormId, nextFormId) {
+//         var currentForm = document.getElementById(currentFormId);
+//         var nextForm = document.getElementById(nextFormId);
+
+//         if (!currentForm || !nextForm) {
+//             return; // Hentikan jika salah satu form tidak ditemukan
+//         }
+
+//         var isCurrentFormValid = checkFormValidity(currentForm);
+
+//         if (isCurrentFormValid) {
+//             enableNextForm(nextForm);
+//         }
+//     }
+
+//     // Fungsi umum untuk memeriksa validitas form
+//     function checkFormValidity(form) {
+//         var inputElements = form.querySelectorAll('input, select, textarea');
+
+//         return Array.from(inputElements).every(function(input) {
+//             return input.value.trim() !== '' || (input.type === 'checkbox' && input.checked);
+//         });
+//     }
+
+//     // Fungsi umum untuk menghapus atribut disabled pada form berikutnya
+//     function enableNextForm(nextForm) {
+//         var inputElementsNextForm = nextForm.querySelectorAll('input, select, textarea');
+
+//         inputElementsNextForm.forEach(function(input) {
+//             input.removeAttribute('disabled');
+//         });
+//     }
+
+
+    // // Fungsi mengecek input Card "Form Keluarga", apakah sudah ter-isi atau belum, dan menghapus atribut disabled pada Card "Form Anak"
+    // // Ganti 'form-keluarga' dengan ID atau kelas sesuai kebutuhan
+    // var formKeluarga = document.getElementById('form-keluarga');
+
+    // // Menambahkan event listener pada form-keluarga untuk memantau perubahan pada elemen input
+    // formKeluarga.addEventListener('input', function() {
+    //     checkAndEnableFormAnak();
+    // });
+
+    // function checkAndEnableFormAnak() {
+    //     // Mengecek apakah semua input pada form-keluarga telah diisi
+    //     var isFormKeluargaValid = checkFormValidity(formKeluarga);
+
+    //     // Jika semua input di <!--Form Keluarga--> telah diisi, maka menghapus atribut disabled di <!--Form Anak-->
+    //     if (isFormKeluargaValid) {
+    //         enableFormAnak();
+    //     }
+    // }
+
+    // function checkFormValidity(form) {
+    //     // Mendapatkan semua elemen input, select, dan textarea di dalam form
+    //     var inputElements = form.querySelectorAll('input, select, textarea');
+
+    //     // Mengecek apakah semua input pada form telah diisi
+    //     return Array.from(inputElements).every(function(input) {
+    //         return input.value.trim() !== '' || (input.type === 'checkbox' && input.checked);
+    //     });
+    // }
+
+    // function enableFormAnak() {
+    //     // Ganti 'form-anak' dengan ID atau kelas sesuai kebutuhan
+    //     var formAnak = document.getElementById('form-anak');
+
+    //     // Mendapatkan semua elemen input, select, dan textarea di dalam form anak
+    //     var inputElementsAnak = formAnak.querySelectorAll('input, select, textarea');
+
+    //     // Menghapus atribut disabled pada semua input di <!--Form Anak-->
+    //     inputElementsAnak.forEach(function(input) {
+    //         input.removeAttribute('disabled');
+    //     });
+    // }
+
+
+    // // Fungsi mengecek input Card "Form Anak", apakah sudah ter-isi atau belum, dan menghapus atribut disabled pada Card "Form Keluarga"
+    // var formAnakCheck = document.getElementById('form-anak');
+
+    // formAnakCheck.addEventListener('input', function() {
+    //     checkAndEnableFormAyah();
+    // });
+
+    // function checkAndEnableFormAyah() {
+    //     var isFormAnakValid = checkFormValidityAnak(formAnakCheck);
+
+    //     if (isFormAnakValid) {
+    //         enableFormAyah();
+    //     }
+    // }
+
+    // function checkFormValidityAnak(form) {
+    //     var inputElements = form.querySelectorAll('input, select, textarea');
+
+    //     return Array.from(inputElements).every(function(input) {
+    //         return input.value.trim() !== '' || (input.type === 'checkbox' && input.checked);
+    //     });
+    // }
+
+    // function enableFormAyah() {
+    //     var formAyah = document.getElementById('form-ayah');
+
+    //     var inputElementsAyah = formAyah.querySelectorAll('input, select, textarea');
+
+    //     inputElementsAyah.forEach(function(input) {
+    //         input.removeAttribute('disabled');
+    //     });
+    // }
+
+
+
+    
 </script>
+
+
+
 
 
 @endsection

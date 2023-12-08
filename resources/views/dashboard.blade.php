@@ -12,7 +12,6 @@
   }
   .breadcrumb.float-sm-right li {
     color: black;
-    background-color: rgb(255, 242, 0);
   }
   /* Atur lebar dan tinggi notifikasi */
 .swal2-popup {

@@ -1,0 +1,85 @@
+.mb-2.tombolsubmit{
+    justify-content: center;
+    align-content: center;
+}
+
+.row.mb-2.pekerjaanibu{
+    display: none;
+}
+.row.mb-2.pekerjaanayah{
+    display: none;
+}
+.row.mb-2.pekerjaanwali{
+    display: none;
+}
+
+.breadcrumb-item a {
+text-decoration: none;
+color: black;
+transition: 0.1s;
+}
+.breadcrumb-item a:hover {
+    text-decoration: none;
+    color: rgb(0, 136, 255);
+    transition: 0.1s;
+}
+
+#input-group-text-KK {
+    background-color: rgb(0, 225, 255);
+    border-radius: 0;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    color: white;
+}
+#input-group-text-KK:hover {
+    background-color:  rgb(0, 189, 214);
+    box-shadow: 0px 0px 5px #00A6FF ;
+    /* cursor: default;
+    cursor: pointer;
+    cursor: progress;
+    cursor: help;
+    cursor: move;
+    cursor: text; */
+    /* cursor: wait; */
+    /* cursor: not-allowed;
+    cursor: alias;
+    cursor: context-menu;
+    cursor: grab;
+    cursor: grabbing; */
+    /* cursor: ns-resize; Utara-Selatan (atas-bawah) */
+    /* cursor: ew-resize; Timur-Barat (kiri-kanan) */
+    /* cursor: nesw-resize; Timur Laut-Barat Daya */
+    /* cursor: nwse-resize; Barat Laut-Timur Tenggara */
+}
+#input-group-text-KK:active {
+    cursor: wait;
+}
+
+#checkKK {
+    text-decoration: none;
+}
+#infoKK {
+    cursor: default;
+    width: auto;
+    color: red;
+}
+
+/* Atur lebar dan tinggi notifikasi */
+.swal2-popup {
+    background-color: rgb(255, 255, 255);
+    border-radius: 30px;
+    width: 300px; /* Ganti dengan lebar yang diinginkan */
+    height: auto; /* Sesuaikan dengan kebutuhan, atau biarkan otomatis */
+}
+/* Atur font size untuk judul */
+.swal2-title {
+    font-size: 20px; /* Ganti dengan ukuran font yang diinginkan */
+}
+/* Atur font size untuk teks */
+.swal2-content {
+    font-size: 16px; /* Ganti dengan ukuran font yang diinginkan */
+}
+.InvBox {
+    display: block;
+    height: 282px;
+}
