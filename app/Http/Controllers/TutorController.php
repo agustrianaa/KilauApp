@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KantorCabang;
+use App\Models\Shelter;
 use App\Models\Tutor;
+use App\Models\WilayahBinaan;
 use Illuminate\Http\Request;
 
 class TutorController extends Controller
@@ -14,22 +17,25 @@ class TutorController extends Controller
     {
         $key = 0;
         if (request()->ajax()) {
-            $data = Tutor::select('*');
-    
+            $data = Tutor::select('id_tutor as id', 'nama', 'pendidikan', 'email', 'no_hp', 'mapel')
+    ->get();
+            
             return datatables($data)
-            ->addColumn('no', function ($row) use (&$key) {
-                return ++$key;
-            })
+                ->addColumn('no', function ($row) use (&$key) {
+                    return ++$key;
+                })
                 ->addColumn('action', function ($row) {
+                    // dd($row);
                     $id = $row->id;
-                    $act = '<a href="javascript:void(0)" onClick="editDonatur(' . $id . ')" data-original-title="Edit Donatur" class="edit-donatur btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>';
-                    $act .= '<a href="javascript:void(0)" onClick="hapusDonatur(' . $id . ')" data-original-title="Hapus Donatur" class="hapus-donatur btn btn-danger btn-sm ml-2"><i class="fas fa-trash"></i></a>';
+                    $act = '<a href="javascript:void(0)" onClick="viewTutor(' . $id . ')" data-original-title="View Tutor" class="view-tutor btn btn-info btn-sm"><i class="fas fa-eye"></i></a>';
+                    $act .= '<a href="javascript:void(0)" onClick="editTutor(' . $id . ')" data-original-title="Edit Tutor" class="edit-tutor btn btn-primary btn-sm ml-2"><i class="fas fa-edit"></i></a>';
+                    $act .= '<a href="javascript:void(0)" onClick="hapusTutor(' . $id . ')" data-original-title="Hapus Tutor" class="hapus-tutor btn btn-danger btn-sm ml-2"><i class="fas fa-trash"></i></a>';
                     return $act;
                 })
-                ->rawColumns(['action']) // Tambahkan ini jika Anda menggunakan HTML di kolom
+                ->rawColumns(['no','action']) // Tambahkan ini jika Anda menggunakan HTML di kolom
                 ->make(true);
         }
-    
+
         return view('Tutor.TutorTabel');
     }
 
@@ -38,7 +44,10 @@ class TutorController extends Controller
      */
     public function create()
     {
-        return view('Tutor.TambahTutor');
+        $kacab = KantorCabang::all();
+        $wilbin = WilayahBinaan::all();
+        $shelter = Shelter::all();
+        return view('Tutor.TambahTutor', compact('kacab', 'wilbin', 'shelter'));
     }
 
     /**
@@ -46,7 +55,28 @@ class TutorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tutorId = $request->id;
+        $kacabId = $request->input('kacab');
+        $wilbinId = $request->input('wilbin');
+
+        $tutor = Tutor::updateOrCreate(
+            [
+                'id_tutor' => $tutorId,
+            ],
+            [
+                'kacab_id' =>$kacabId,
+                'wilbin_id' =>$wilbinId,
+                'shelter_id' =>$request->shelter,
+                'nama' => $request->namaTutor,
+                'pendidikan' => $request->pend,
+                'email' => $request->email,
+                'no_hp' => $request->no_hp,
+                'alamat' => $request->alamat,
+                'mapel' => $request->mapel,
+                'status' => $request->status,
+            ]   
+        );
+        return Response()->json($tutor);
     }
 
     /**
@@ -54,7 +84,8 @@ class TutorController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $tutor = Tutor::find($id);
+        return response()->json(['tutor' => $tutor]);
     }
 
     /**
@@ -76,8 +107,9 @@ class TutorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        $tutor = Tutor::where('id_tutor', $request->id)->delete();
+        return Response()->json($tutor);
     }
 }
