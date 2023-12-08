@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Anak;
 use App\Models\DataKeluarga;
 use App\Models\KantorCabang;
 use App\Models\Shelter;
@@ -44,38 +45,68 @@ class SurveyController extends Controller
             $kacab = $request->kacab;
             $wilayah_binaan = $request->wilayah_binaan;
             $shelter = $request->shelter;
+            // $data = DataKeluarga::select(
+            //     'data_keluargas.*',
+            //     'data_keluargas.id as id_kel',
+            //     'status_anaks.*',
+            //     'anaks.id_anaks',
+            //     'anaks.wilayah_binaan',
+            //     'anaks.shelter',
+            //     'survey_keluargas.id',
+            //     'survey_keluargas.keluarga_id',
+            //     )
+            // ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
+            // ->leftJoin('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
+            // ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
+            // ->where('status_anaks.status_binaan', 1)
+            // ->whereNotNull('survey_keluargas.id')
+            // ->orderBy('data_keluargas.created_at', 'asc')
+            // ->when(isset($kacab), function ($query) use ($kacab) {
+            //         $query->whereIn('kacab', $kacab);
+            // })
+            // ->when(isset($wilayah_binaan), function ($query) use ($wilayah_binaan) {
+            //         $query->whereIn('wilayah_binaan', $wilayah_binaan);
+            // })
+            // ->when(isset($shelter), function ($query) use ($shelter) {
+            //         $query->whereIn('shelter', $shelter);
+            // })
+            // ->get();
+
             $data = DataKeluarga::select(
-                'data_keluargas.*',
-                'data_keluargas.id as id_kel',
-                'status_anaks.*',
-                'anaks.id_anaks',
-                'anaks.wilayah_binaan',
-                'anaks.shelter',
-                'survey_keluargas.id',
+                'data_keluargas.id',
+                'anaks.data_keluarga_id as foreignId',
                 'survey_keluargas.keluarga_id',
-                )
+                DB::raw('count(id_anaks) as id_kel'),
+                DB::raw('GROUP_CONCAT(DISTINCT data_keluargas.no_kk) as no_kk'),
+                DB::raw('GROUP_CONCAT(DISTINCT data_keluargas.kepala_keluarga) as kepala_keluarga'),
+                DB::raw('GROUP_CONCAT(DISTINCT data_keluargas.kacab) as kacab'),
+                DB::raw('GROUP_CONCAT(DISTINCT anaks.wilayah_binaan) as wilayah_binaan'),
+                DB::raw('GROUP_CONCAT(DISTINCT anaks.shelter) as shelter'),
+            )
             ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
             ->leftJoin('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
-            ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
-            ->where('status_anaks.status_binaan', 1)
+            ->join('status_anaks', function ($join) {
+                $join->on('anaks.id_anaks', '=', 'status_anaks.anak_id')
+                    ->where('status_anaks.status_binaan', 1);
+            })
             ->whereNotNull('survey_keluargas.id')
-            ->orderBy('data_keluargas.created_at', 'asc')
             ->when(isset($kacab), function ($query) use ($kacab) {
-                    $query->whereIn('kacab', $kacab);
+                    $query->whereIn('data_keluargas.kacab', $kacab);
             })
             ->when(isset($wilayah_binaan), function ($query) use ($wilayah_binaan) {
-                    $query->whereIn('wilayah_binaan', $wilayah_binaan);
+                    $query->whereIn('anaks.wilayah_binaan', $wilayah_binaan);
             })
             ->when(isset($shelter), function ($query) use ($shelter) {
-                    $query->whereIn('shelter', $shelter);
+                    $query->whereIn('anaks.shelter', $shelter);
             })
+            ->groupBy('foreignId', 'data_keluargas.id', 'survey_keluargas.keluarga_id')
             ->get();
 
             return datatables($data)
             ->addIndexColumn()
             ->addColumn('action', function ($data) {
 
-                $btn = '<a href="' . url("admin/surveyShow/" . $data->id_kel) . '" data-toggle="tooltip" data-id="' . $data->id_kel . '" data-original-title="View" class="view btn btn-sm btn-info view text-white"><i class="bi bi-clipboard2-plus"></i> Edit Survey</a>';
+                $btn = '<a href="' . url("admin/surveyShow/" . $data->id) . '" data-toggle="tooltip" data-id="' . $data->id . '" data-original-title="View" class="view btn btn-sm btn-info view text-white"><i class="bi bi-clipboard2-plus"></i> Edit Survey</a>';
 
                 return $btn;
             })

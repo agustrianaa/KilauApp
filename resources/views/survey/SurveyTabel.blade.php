@@ -147,7 +147,7 @@
                 //         kacab.push(selectedKacab[i].text);
                 //     }
 
-                    console.log(selectedKacab)
+                    // console.log(selectedKacab)
 
                 $.ajax({
                     url: "/admin/wilbinSurvey",
@@ -156,7 +156,7 @@
                         kacab: selectedKacab
                     },
                     success: function( result ) {
-                        console.log(result)
+                        // console.log(result)
 
                         for (var i = 0; i < result.length; i++) {
                             var rowData = result[i];
@@ -170,7 +170,7 @@
                 $('.multiple-shelter').empty();
 
 
-                console.log(selectedwilbin);
+                // console.log(selectedwilbin);
                 // var wilbin = [];
                 //     for (var i = 0; i < selectedwilbin.length; i++) {
                 //         wilbin.push(selectedwilbin[i].text);
@@ -183,7 +183,7 @@
                         wilayah_binaan: selectedwilbin
                     },
                     success: function( result ) {
-                        console.log(result)
+                        // console.log(result)
 
                         for (var i = 0; i < result.length; i++) {
                             var rowData = result[i];
@@ -203,7 +203,7 @@
                 for (var i = 0; i < selectedKacab.length; i++) {
                     kacab.push(selectedKacab[i].text);
 
-                    console.log(kacab);
+                    // console.log(kacab);
                 }
                 var wilbin = [];
                 for (var i = 0; i < selectedwilbin.length; i++) {
@@ -222,7 +222,7 @@
                     url: 'surveyAnak', // Ganti dengan URL controller Laravel Anda
                     data: { kacab: kacab, wilayah_binaan: wilbin, shelter: shelter },
                     success: function(response) {
-                        console.log('Ajax berhasil:', response.data); // Handle response dari controller jika diperlukan
+                        // console.log('Ajax berhasil:', response.data); // Handle response dari controller jika diperlukan
 
                         var table = $('#tabelsurvey').DataTable();
                         var tbody = $('#tabelsurvey tbody');
