@@ -11,6 +11,8 @@ class Tutor extends Model
 
     public $table = 'tutor';
 
+    protected $primaryKey = 'id_tutor';
+
     protected $fillable =[
         'nama',
         'pendidikan',

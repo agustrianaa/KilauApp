@@ -258,7 +258,7 @@
                 console.log('Selected Kantor ID:', kantorId);
 
                 $.ajax({
-                    url: '{{ route('admin.cariWilayahBinaan', ['kantorId' => ':kantorId']) }}'.replace(':kantorId', kantorId),
+                    url: "{{ route('admin.cariWilayahBinaan', ['kantorId' => ':kantorId']) }}".replace(':kantorId', kantorId),
                     type: 'GET',
                     data: {
                         kantorId: kantorId
@@ -289,7 +289,7 @@
                 });
             });
         });
-
+// 
         $('#fwilbin').on('change', function() {
             // Membersihkan opsi pada dropdown kedua
             $('#fshelter').empty();
@@ -301,7 +301,7 @@
 
                 // Menggunakan AJAX untuk mengambil data wilayah binaan berdasarkan kacab_id
                 $.ajax({
-                    url: '{{ route('admin.cariShelters', ['wilbinId' => ':wilbinId']) }}'.replace(':wilbinId', wilbinId),
+                    url: "{{ route('admin.cariShelters', ['wilbinId' => ':wilbinId']) }}".replace(':wilbinId', wilbinId),
                     type: 'GET',
                     data: {
                         wilbinId: wilbinId
@@ -363,7 +363,10 @@
             url: url,
             dataType: 'json',
             success: function(data) {
-                $('#profilDonaturModal').find('.modal-body').html('<table class="table"> <tr> <td> Nama Donatur </td> <td>' + ': ' + data.name + '</td> </tr> <tr> <td> ' + 'Alamat  </td> <td>' + ': ' + data.alamat + ' </td> </tr><tr> <td> ' + 'No HP  </td> <td>' + ': ' + data.no_hp + ' </td> </tr><tr> <td> ' + 'Bank  </td> <td>' + ': ' + data.nama_bank + ', ' + data.no_rek + ' </td> </tr>' + '</table>');
+                $('#profilDonaturModal').find('.modal-body').html('<table class="table"> <tr> <td> Nama Donatur </td> <td>' + ': ' + data.name + '</td> </tr> <tr> <td> ' + 
+                'Alamat  </td> <td>' + ': ' + data.alamat + ' </td> </tr><tr> <td> ' + 
+                'No HP  </td> <td>' + ': ' + data.no_hp + ' </td> </tr><tr> <td> ' + 
+                'Bank  </td> <td>' + ': ' + data.nama_bank + ', ' + data.no_rek + ' </td> </tr>' + '</table>');
                 $('#profilDonaturModal').modal('show');
             },
             error: function(error) {

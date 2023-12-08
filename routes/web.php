@@ -14,6 +14,7 @@ use App\Http\Controllers\surveyDataController;
 use App\Http\Controllers\ValidasiSurveyController;
 use App\Http\Controllers\ValidasiBeasiswaController;
 use App\Http\Controllers\AnakBinaanController;
+use App\Http\Controllers\AreaController;
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\TutorController;
 use App\Http\Controllers\TestCont;
@@ -140,6 +141,13 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     // TUTOR
     Route::get('/tutor', [TutorController::class, 'index'])->name('tutor');
     Route::get('/addTutor', [TutorController::class, 'create'])->name('add-tutor');
+    Route::post('/saveTutor', [TutorController::class, 'store'])->name('save-tutor');
+    Route::post('/deleteTutor', [TutorController::class, 'destroy'])->name('delete-tutor');
+    Route::get('/viewTutor/{id}', [TutorController::class, 'show'])->name('view-tutor');
+
+    //AREA
+    Route::get('/get-wilbin/{kacabId}', [AreaController::class, 'getWilbin'])->name('get-wilbin');
+    Route::get('/get-shelter/{wilbinId}', [AreaController::class, 'getShelter'])->name('get-shelter');
 
     // LAIN-LAIN
     Route::resource('/posts', \App\Http\Controllers\PostController::class);

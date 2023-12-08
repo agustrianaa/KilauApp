@@ -186,7 +186,7 @@ class SettingsController extends Controller
     public function getWilbin($id_wilbin)
     {
         $wilbin = WilayahBinaan::find($id_wilbin);
-        return response()->json($wilbin);
+        return response()->json($wilbin); 
     }
 
     public function updateWilbin(Request $request, $id_wilbin)
