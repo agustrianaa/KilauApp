@@ -25,6 +25,7 @@ class Anak extends Model
         'jenis_kelamin',
         'tempat_lahir',
         'tanggal_lahir',
+        'kacab',
         'wilayah_binaan',
         'shelter',
         'jarak_ke_shelter',
@@ -34,6 +35,7 @@ class Anak extends Model
         'kelas_madrasah',
         'hobby',
         'cita_cita',
+        'status_aktif',
     ];
 
     public function dataKeluarga(): BelongsTo

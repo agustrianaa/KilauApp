@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('jenis_kelamin');
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
+            $table->string('kacab');
             $table->string('wilayah_binaan');
             $table->string('shelter');
             $table->string('jarak_ke_shelter')->nullable();
@@ -31,6 +32,7 @@ return new class extends Migration
             $table->string('kelas_madrasah');
             $table->string('hobby');
             $table->string('cita_cita');
+            $table->boolean('status_aktif');
             $table->timestamps();
         });
     }

@@ -13,7 +13,6 @@ class DataKeluarga extends Model
     public $tabel = 'data_keluargas';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'kacab',
         'no_kk', // Nomor Kartu Keluarga
         'alamat_kk',
         'kepala_keluarga',
