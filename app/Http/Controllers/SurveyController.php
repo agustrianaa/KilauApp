@@ -79,7 +79,7 @@ class SurveyController extends Controller
                 DB::raw('count(id_anaks) as id_kel'),
                 DB::raw('GROUP_CONCAT(DISTINCT data_keluargas.no_kk) as no_kk'),
                 DB::raw('GROUP_CONCAT(DISTINCT data_keluargas.kepala_keluarga) as kepala_keluarga'),
-                DB::raw('GROUP_CONCAT(DISTINCT data_keluargas.kacab) as kacab'),
+                DB::raw('GROUP_CONCAT(DISTINCT anaks.kacab) as kacab'),
                 DB::raw('GROUP_CONCAT(DISTINCT anaks.wilayah_binaan) as wilayah_binaan'),
                 DB::raw('GROUP_CONCAT(DISTINCT anaks.shelter) as shelter'),
             )
@@ -91,7 +91,7 @@ class SurveyController extends Controller
             })
             ->whereNotNull('survey_keluargas.id')
             ->when(isset($kacab), function ($query) use ($kacab) {
-                    $query->whereIn('data_keluargas.kacab', $kacab);
+                    $query->whereIn('anaks.kacab', $kacab);
             })
             ->when(isset($wilayah_binaan), function ($query) use ($wilayah_binaan) {
                     $query->whereIn('anaks.wilayah_binaan', $wilayah_binaan);
