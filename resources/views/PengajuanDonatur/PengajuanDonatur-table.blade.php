@@ -21,7 +21,7 @@
                 </div>
                 <div class="container mb-3">
                     <div class="card filters h-100" id="filterCard">
-                        <div class="card-header">filter wilayah</div>
+                        <!-- <div class="card-header">Filter Wilayah</div> -->
                         <div class="row mt-3 ml-3">
                             <div class="col-3" style="margin-bottom: 10px;">
                                 <label for="">Kantor Cabang</label>
@@ -44,8 +44,8 @@
                                 <select id="fshelter" multiple="multiple" class="form-control">
                                 </select>
                             </div>
-                            <div class="col-1"> <br>
-                                <button type="button" class="btn btn-outline-info" id="all_fwilayah">Filter</button>
+                            <div class="col-1 "> <br>
+                                <button type="button " class="btn btn-outline-info" id="all_fwilayah">Filter</button>
                             </div>
                             <div class="col-1"> <br>
                                 <button type="reset" class="btn btn-outline-danger" id="resetFwilayah">Reset</button>
@@ -59,7 +59,6 @@
                                     <option value="npb">NPB</option>
                                 </select>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -114,8 +113,6 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -289,7 +286,7 @@
                 });
             });
         });
-// 
+
         $('#fwilbin').on('change', function() {
             // Membersihkan opsi pada dropdown kedua
             $('#fshelter').empty();
@@ -343,7 +340,8 @@
 
         $('#resetFwilayah').click(function() {
             $('#fkacab').val(null).trigger('change');
-            $('#shelter').val(null).trigger('change');
+            $('#fwilbin').val(null).trigger('change');
+            $('#fshelter').val(null).trigger('change');
             $('#pengajuanDonatur').DataTable().destroy();
             load_data();
         });

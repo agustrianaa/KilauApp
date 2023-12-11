@@ -54,6 +54,10 @@ class PengajuanDonaturController extends Controller
                     $wilbin = $request->wilbin;
                     return $query->whereIn('anaks.wilayah_binaan', $wilbin);
                 })
+                ->when($request->has('shelter'), function ($query) use ($request) {
+                    $shelter = $request->shelter;
+                    return $query->whereIn('anaks.shelter', $shelter);
+                })
                 ->get();
 
                 // if($fbeasiswa != ''){
