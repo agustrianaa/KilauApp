@@ -35,7 +35,6 @@ class Anak extends Model
         'kelas_madrasah',
         'hobby',
         'cita_cita',
-        'status_aktif',
     ];
 
     public function dataKeluarga(): BelongsTo

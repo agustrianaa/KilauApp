@@ -32,7 +32,6 @@ return new class extends Migration
             $table->string('kelas_madrasah');
             $table->string('hobby');
             $table->string('cita_cita');
-            $table->boolean('status_aktif');
             $table->timestamps();
         });
     }
