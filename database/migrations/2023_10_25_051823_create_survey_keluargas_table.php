@@ -44,7 +44,7 @@ return new class extends Migration
 
             // data suvey
             $table->text('resume');
-            $table->string('hsurvey');
+            $table->string('hsurvey')->nullable();
             $table->string('petugas_survey');
             $table->timestamps();
         });

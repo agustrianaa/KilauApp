@@ -1,3 +1,21 @@
+/* #bg-form {
+    background: linear-gradient(to right, #3498db, #f1c40f);
+} */
+#form-keluarga {
+    border: 1px solid black;
+}
+#form-anak {
+    border: 1px solid black;
+}
+#form-ayah {
+    border: 1px solid black;
+}
+#form-ibu {
+    border: 1px solid black;
+}
+#form-wali {
+    border: 1px solid black;
+}
 .mb-2.tombolsubmit{
     justify-content: center;
     align-content: center;
@@ -81,5 +99,16 @@ transition: 0.1s;
 }
 .InvBox {
     display: block;
-    height: 282px;
+    height: 378px;
+}
+.InvBox2 {
+    display: block;
+    height: 62px;
+}
+.InvBox3 {
+    display: block;
+    height: 94px;
+}
+#tombol-save {
+    height: 50px;
 }

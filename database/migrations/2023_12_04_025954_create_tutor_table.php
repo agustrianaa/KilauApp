@@ -22,8 +22,8 @@ return new class extends Migration
             $table->foreignId('wilbin_id')->references('id_wilbin')->on('wilayah_binaans')->onDelete('cascade');
             $table->foreignId('shelter_id')->references('id_shelter')->on('shelters')->onDelete('cascade');
             $table->string('mapel');
-            $table->string('foto')->null();
-            $table->string('status');
+            $table->string('foto')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }
