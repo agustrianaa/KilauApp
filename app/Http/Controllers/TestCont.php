@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataKeluarga;
+use App\Models\KantorCabang;
 use Illuminate\Http\Request;
 
 class TestCont extends Controller
@@ -12,6 +13,8 @@ class TestCont extends Controller
      */
     public function indexTest(Request $request)
     {
+        $wilayah = KantorCabang::with('dataWilBin.dataShelter')->get();
+
         if(request()->ajax()){
             $data = DataKeluarga::select(
                 'data_keluargas.*',
@@ -36,25 +39,20 @@ class TestCont extends Controller
             ->leftJoin('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
             ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
             ->where('status_anaks.status_binaan', 1)
+            ->when($request->has('kacab'), function ($query) use ($request) {
+                $kacab = $request->kacab;
+                return $query->whereIn('anaks.kacab', $kacab);
+            })
+            ->when($request->has('wilbin'), function ($query) use ($request) {
+                $wilbin = $request->wilbin;
+                return $query->whereIn('anaks.wilayah_binaan', $wilbin);
+            })
+            ->when($request->has('shelters'), function ($query) use ($request) {
+                $shelters = $request->shelters;
+                return $query->whereIn('anaks.shelter', $shelters);
+            })
             ->orderBy('data_keluargas.created_at', 'desc')
             ->get();
-
-             // Mengecek apakah filter shelter diberikan
-            if ($request->has('shelter')) {
-                $shelter = $request->shelter;
-                $data = $data->whereIn('shelter', $shelter);
-            }
-
-            // if ($request->has('no_kk')) {
-            //     $no_kk = $request->no_kk;
-            //     $data = $data->whereIn('no_kk', $no_kk);
-            // }
-
-            // Mengecek apakah terdapat pencarian nomor KK
-            // if ($request->has('inputCariKK')) {
-            //     $inputCariKK = $request->inputCariKK;
-            //     $data = $data->where('data_keluargas.no_kk', 'LIKE', '%' . $inputCariKK . '%');
-            // }
 
             return datatables($data)
             ->addIndexColumn()
@@ -68,7 +66,7 @@ class TestCont extends Controller
             ->rawColumns(['action'])
             ->make(true);
         }
-        return view('AnakBinaan');
+        return view('AnakBinaan', compact('wilayah'));
     }
 
     /**
