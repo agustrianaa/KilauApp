@@ -45,7 +45,7 @@ class CalonAnakBinaanController extends Controller
                 ->orderBy('anaks.id_anaks', 'desc')
                 ->when($request->has('kacab'), function ($query) use ($request) {
                     $kacab = $request->kacab;
-                    return $query->whereIn('data_keluargas.kacab', $kacab);
+                    return $query->whereIn('anaks.kacab', $kacab);
                 })
                 ->when($request->has('wilbin'), function ($query) use ($request) {
                     $wilbin = $request->wilbin;
@@ -109,24 +109,6 @@ class CalonAnakBinaanController extends Controller
             ], 500);
         }
     }
-
-    public function filterData(Request $request)
-    {
-        // Pastikan ada parameter 'shelters' yang dikirim dari Select2
-        if ($request->has('shelters')) {
-            $shelters = $request->shelters; 
-
-            // Lakukan filter data berdasarkan nilai yang diterima dari Select2 Shelter
-            $filteredData = DataKeluarga::whereIn('shelter', $shelters)->get(); 
-
-            // Lakukan sesuatu dengan data yang difilter (misalnya, kirim kembali sebagai respons)
-            return response()->json($filteredData);
-        }   
-
-        // Jika tidak ada parameter 'shelters' atau terjadi kesalahan lain
-        return response()->json(['message' => 'Invalid request']);
-    }
-
 
     public function update(Request $request, $id_anaks)
     {

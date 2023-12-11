@@ -107,7 +107,6 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::get('/cariShelters/{wilbinId}', [CalonAnakBinaanController::class, 'cariShelters'])->name('cariShelters');
 
     Route::post('/getWilayah', [CalonAnakBinaanController::class, 'cariWilayah'])->name('cariWilayah');
-    Route::post('/filterData', [CalonAnakBinaanController::class, 'filterData'])->name('filterData');
 
     Route::get('/surveyAnak', [SurveyController::class, 'indexSurvey'])->name('surveyAnak');
     Route::get('/surveyForm/{id}', [SurveyController::class, 'surveyForm'])->name('surveyForm');
@@ -123,6 +122,11 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::get('/AnakBinaanview/{id}', [AnakBinaanController::class, 'showViewPage'])->name('AnakBinaanview');
     Route::post('/AnakBinaanedit', [AnakBinaanController::class, 'edit'])->name('AnakBinaanedit');
     Route::get('/AnakBinaandelete/{id}', [AnakBinaanController::class, 'destroy'])->name('AnakBinaandelete');
+
+    Route::post('/updateStatusAktif', [AnakBinaanController::class, 'updateStatusAktif'])->name('updateStatusAktif');
+
+    Route::get('/cariWilBin/{kantorId}', [AnakBinaanController::class, 'cariWilBin'])->name('cariWilBin');
+    Route::get('/cariShel/{wilbinId}', [AnakBinaanController::class, 'cariShel'])->name('cariShel');
 
     // Validasi Survey
     Route::get('/validasi-survey', [ValidasiSurveyController::class, 'index'])->name('validasi-survey');

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KantorCabang;
+use App\Models\Shelter;
+use App\Models\WilayahBinaan;
 use Illuminate\Http\Request;
 use App\Models\Anak;
 use App\Models\DataKeluarga;
@@ -16,6 +19,8 @@ class AnakBinaanController extends Controller
 {
     public function index(Request $request)
     {
+        $wilayah = KantorCabang::with('dataWilBin.dataShelter')->get();
+
         if (request()->ajax()) {
             $data = DataKeluarga::select(
                 'data_keluargas.*',
@@ -41,19 +46,22 @@ class AnakBinaanController extends Controller
             ->leftJoin('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
             ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
             ->orderBy('anaks.created_at', 'desc')
-            ->when($request->has('shelter'), function ($query) use ($request) {
-                $shelter = $request->shelter;
-                return $query->whereIn('shelter', $shelter);
+            ->when($request->has('kacab'), function ($query) use ($request) {
+                $kacab = $request->kacab;
+                return $query->whereIn('anaks.kacab', $kacab);
             })
-            ->when($request->has('agamaAnak'), function ($query) use ($request) {
-                $agamaAnak = $request->agamaAnak;
-                return $query->whereIn('anaks.agama', $agamaAnak);
+            ->when($request->has('wilbin'), function ($query) use ($request) {
+                $wilbin = $request->wilbin;
+                return $query->whereIn('anaks.wilayah_binaan', $wilbin);
+            })
+            ->when($request->has('shelters'), function ($query) use ($request) {
+                $shelters = $request->shelters;
+                return $query->whereIn('anaks.shelter', $shelters);
             })
             ->where('status_anaks.status_binaan', 1)
             ->get();
 
             return datatables($data)
-                // ->addColumn('action', 'DataAnakBinaan.dataanakbinaan-action')
                 ->addColumn('action', function ($data) {
                     $btn = '<a href="' . url("/admin/calonAnakBinaanDetail/" . $data->id_kelu .'/'. $data->id_anaks) . '" data-toggle="tooltip" data-id="' . $data->id_kelu . '" title="Detail Anak & Keluarga" class="view btn btn-sm btn-info view text-white me-1"><i class="bi bi-file-richtext"></i> Detail</a>';
                     $btn = $btn.'<a href="' . url("admin/surveyForm/" . $data->id_kelu) . '" data-toggle="tooltip" data-id="' . $data->id_kelu . '" title="Isi Survey Detail Keluarga" class="view btn btn-sm btn-success view text-white"><i class="bi bi-ui-checks"></i> Isi Survey</a>';
@@ -70,13 +78,50 @@ class AnakBinaanController extends Controller
                         return '<span class="badge bg-success">Sudah Survey</span>';
                     }
                 })
-                
                 ->rawColumns(['action', 'ttl', 'survey_status'])
                 ->addIndexColumn()
                 ->make(true);
         }
 
-        return view('DataAnakBinaan.dataanakbinaan');
+        return view('DataAnakBinaan.AnakBinaan', compact('wilayah'));
+    }
+
+    public function cariWilBin(Request $request)
+    {
+        try {
+            $kacabId = $request->input('kantorId');
+
+            $wilayahBinaan = WilayahBinaan::where('kacab_id', $kacabId)->get(['id_wilbin', 'nama_wilbin']);
+
+            return response()->json([
+                'status' => 'success',
+                'data' => $wilayahBinaan,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function cariShel(Request $request)
+    {
+        try {
+            $wilbinsID = $request->input('wilbinId');
+
+            $shelters = Shelter::where('wilbin_id', $wilbinsID)->get(['id_shelter', 'nama_shelter']);
+
+            return response()->json([
+                'status' => 'success',
+                'data' => $shelters,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     public function showViewPage(Request $request, $id):View
@@ -99,4 +144,31 @@ class AnakBinaanController extends Controller
 
         // return Response()->json($anak);
     }
+
+    public function updateStatusAktif(Request $request)
+{
+    try {
+        // Validasi request
+        $request->validate([
+            'id_anaks' => 'required|numeric',
+            'status_aktif' => 'required|boolean',
+        ]);
+
+        // Update status_aktif berdasarkan ID Anak
+        $anak = Anak::find($request->id_anaks);
+
+        if (!$anak) {
+            throw new \Exception('Anak tidak ditemukan');
+        }
+
+        $anak->status_aktif = $request->status_aktif;
+        $anak->save();
+
+        return response()->json(['success' => true]);
+    } catch (\Exception $e) {
+        // Tangkap dan tanggapi kesalahan
+        return response()->json(['success' => false, 'message' => $e->getMessage()], 422);
+    }
+}
+
 }

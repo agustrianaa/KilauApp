@@ -35,7 +35,7 @@
             </div>
             <div class="row">
 
-                <div class="card">
+                <div class="card" id="bg-form">
                     <div class="card-body">
                         <div class="card-body text-nowrap">
                             <div class="row">
@@ -285,7 +285,7 @@
                                     </div>
                                 
 
-                                    <div class="row">
+                                    <div class="row" id="form-kedua">
                                 <!--Form Ayah-->
                                 <div class="col-12 col-sm-4">
                                     <div class="card" id="form-ayah">
@@ -549,6 +549,7 @@
                                                     <textarea class="form-control" id="alamat_ibu" name="alamat_ibu" rows="3" placeholder="Alamat Lengkap..." disabled></textarea>
                                                 </div>
                                             </div>
+                                            <div class="InvBox2"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -672,6 +673,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="InvBox3"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -879,7 +881,7 @@
 
 
 
-    var formOrder = ['form-keluarga', 'form-anak', 'form-ibu', 'form-ayah', 'form-wali'];
+    var formOrder = ['form-keluarga', 'form-anak', 'form-kedua'];
 
     // Menambahkan event listener pada setiap form untuk memantau perubahan pada elemen input
     formOrder.forEach(function(formId, index) {
