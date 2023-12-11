@@ -13,13 +13,28 @@ class TutorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $key = 0;
+        $wilayah = KantorCabang::with('dataWilbin.dataShelter')
+        ->get();
+        
         if (request()->ajax()) {
-            $data = Tutor::select('id_tutor as id', 'nama', 'pendidikan', 'email', 'no_hp', 'mapel')
-    ->get();
-            
+            $key = 0;
+            $data = Tutor::select('id_tutor as id', 'nama', 'pendidikan', 'email', 'no_hp', 'mapel', 'kacab_id', 'wilbin_id', 'shelter_id')
+            ->when($request->has('kacab_id'), function ($query) use ($request) {
+                $kacab = $request->kacab_id;
+                return $query->whereIn('kacab_id', $kacab);
+            })
+            ->when($request->has('wilbin_id'), function ($query) use ($request) {
+                $wilbin = $request->wilbin_id;
+                return $query->whereIn('wilbin_id', $wilbin);
+            })
+            ->when($request->has('shelter_id'), function ($query) use ($request) {
+                $shelter = $request->shelter_id;
+                return $query->whereIn('shelter_id', $shelter);
+            })
+                ->get();
+
             return datatables($data)
                 ->addColumn('no', function ($row) use (&$key) {
                     return ++$key;
@@ -32,11 +47,11 @@ class TutorController extends Controller
                     $act .= '<a href="javascript:void(0)" onClick="hapusTutor(' . $id . ')" data-original-title="Hapus Tutor" class="hapus-tutor btn btn-danger btn-sm ml-2"><i class="fas fa-trash"></i></a>';
                     return $act;
                 })
-                ->rawColumns(['no','action']) // Tambahkan ini jika Anda menggunakan HTML di kolom
+                ->rawColumns(['no', 'action']) // Tambahkan ini jika Anda menggunakan HTML di kolom
                 ->make(true);
         }
 
-        return view('Tutor.TutorTabel');
+        return view('Tutor.TutorTabel', compact('wilayah'));
     }
 
     /**
@@ -64,9 +79,9 @@ class TutorController extends Controller
                 'id_tutor' => $tutorId,
             ],
             [
-                'kacab_id' =>$kacabId,
-                'wilbin_id' =>$wilbinId,
-                'shelter_id' =>$request->shelter,
+                'kacab_id' => $kacabId,
+                'wilbin_id' => $wilbinId,
+                'shelter_id' => $request->shelter,
                 'nama' => $request->namaTutor,
                 'pendidikan' => $request->pend,
                 'email' => $request->email,
@@ -74,7 +89,7 @@ class TutorController extends Controller
                 'alamat' => $request->alamat,
                 'mapel' => $request->mapel,
                 'status' => $request->status,
-            ]   
+            ]
         );
         return Response()->json($tutor);
     }
@@ -93,7 +108,8 @@ class TutorController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $tutor = Tutor::find($id);
+        return response()->json($tutor);
     }
 
     /**
