@@ -55,6 +55,7 @@ class PengajuanAnakController extends Controller
             "kelas_madrasah" => $request->kelas_madrasah,
             "hobby" => $request->hobby,
             "cita_cita" => $request->cita_cita,
+            "status_aktif" => $request->statusAktifAnak,
         ]);
         $anakID = $dataAnak->id_anaks;
         Ayah::create([
@@ -171,6 +172,7 @@ class PengajuanAnakController extends Controller
             'kelas_madrasah' => $request->kelasMadrasah,
             'hobby' => $request->hobbyAnak,
             'cita_cita' => $request->citaCitaAnak,
+            'status_aktif' => $request->statusAktif,
             'data_keluarga_id' => $request->idDataKeluarga, // Gunakan ID DataKeluarga yang sudah disimpan dalam input tersembunyi
         ]);
         $anakID = $dataAnak->id_anaks;

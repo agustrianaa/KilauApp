@@ -28,11 +28,29 @@
     <section class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-12" id="openFilter">
-                <button type="button" class="btn btn-success mx-1 mb-2" id="tombolbukafilter">Buka Filter <i class="bi bi-funnel-fill"></i></button>
-            </div>
-            <div class="col-lg-12 tutupFilter" id="closeFilter">
-                <button type="button" class="btn btn-danger mx-1 mb-2" id="tombolTutupFilter">Tutup Filter <i class="bi bi-funnel-fill"></i><i class="bi bi-x"></i></button>
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-6" id="openFilter">
+                        <button type="button" class="btn btn-success mx-1 mb-2" id="tombolbukafilter">Buka Filter <i class="bi bi-funnel-fill"></i></button>
+                    </div>
+                    <div class="col-6 tutupFilter" id="closeFilter">
+                        <button type="button" class="btn btn-danger mx-1 mb-2" id="tombolTutupFilter">Tutup Filter <i class="bi bi-funnel-fill"></i><i class="bi bi-x"></i></button>
+                    </div>
+                    <div class="col-6">
+                        <div class="float-end mr-5">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-danger dropdown-toggle" id="tombolDropDown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Export
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><button class="dropdown-item" id="btn-export-excel">Excel (.xlsx) </button></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><button class="dropdown-item" id="btn-export-csv">CSV (.csv)</button></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
             <!-- Card Untuk Filter ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -42,13 +60,13 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="row">
-                                    <div class="col-4">
+                                    <div class="col-3">
                                         <label class="form-label select-label">Kantor Cabang</label>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-3">
                                         <label class="form-label select-label">Wilayah Binaan</label>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-3">
                                         <label class="form-label select-label">Shelter</label>
                                     </div>
                                 </div>
@@ -57,7 +75,7 @@
                                 <div class="row">
 
                                     <!-- Filter -->
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <select id="kantorCabang" class="form-select" multiple="multiple" style="width: 300px; height:100px;">
                                             @foreach($wilayah as $kantorCabang)
                                                 <option value="{{ $kantorCabang->nama_kacab }}" data-kantor-id="{{ $kantorCabang->id_kacab }}">
@@ -66,13 +84,17 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <select id="wilayahBinaan" class="form-select" multiple="multiple" style="width: 300px;">
                                         </select>
                                     </div>
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <select id="shelterFilter" class="form-select" multiple="multiple" style="width: 300px;">
                                         </select>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <button type="button" class="btn btn-outline-info" id="filterSemua"><i class="bi bi-funnel"></i> Filter</button>
+                                        <button type="reset" class="btn btn-outline-danger" id="resetFilter"><i class="bi bi-exclamation-lg"></i> Reset</button>
                                     </div>
                                     <!-- End Filter -->
 
@@ -88,13 +110,6 @@
                                         </div>
                                     </div>
                                     <div class="col-2"></div>
-                                    <div class="col-4">
-                                        <div class="text-center">
-                                            <button type="button" class="btn btn-outline-info" id="filterSemua">Filter</button>
-                                            <button type="reset" class="btn btn-outline-danger" id="resetFilter">Reset</button>
-                                        </div>
-                                    </div>
-                                    <div class="col-4"></div>
                                 </div>
                             </div>
                         </div>
@@ -103,14 +118,22 @@
                         <hr>
                         <div class="card-body">
                             <div class="col-12">
-                                <div class="row">
+                                <div class="row mb-2">
                                     <div class="col-4">
                                         <div class="float-end">
                                             <b>No. KK :</b>
                                         </div>
                                     </div>
                                     <div class="col-4">
-                                        <input type="text" class="form-control" id="inputCariKK" name="inputCariKK">
+                                        <input type="text" class="form-control" id="formcariKK" name="inputCariKK">
+                                    </div>
+                                    <div class="col-4"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4"></div>
+                                    <div class="col-4 text-center">
+                                        <button class="btn btn-warning" id="btncariKK">Cari</button>
+                                        <button class="btn btn-outline-danger" id="resetKK">Reset</button>
                                     </div>
                                     <div class="col-4"></div>
                                 </div>
@@ -175,7 +198,7 @@
             var selectedKacab = $('#kantorCabang').val();
             var selectedWil = $('#wilayahBinaan').val();
             var selectedShel = $('#shelterFilter').val();
-            console.log(selectedKacab, selectedWil, selectedShel);
+            var valuekk = $('#formcariKK').val();
 
             $('#CalonAnakBinaanTable').DataTable({
                 processing : true,
@@ -187,6 +210,7 @@
                         kacab : selectedKacab,
                         wilbin : selectedWil,
                         shelters : selectedShel,
+                        noKK : valuekk,
                     },
                 },
                 columns : [
@@ -340,6 +364,114 @@
             });
         });
 
+        // Fungsi-fungsi untuk menangani klik pada tombol
+        function fungsiExportExcel() {
+            var currentDate = new Date();
+            var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            var formattedDate = currentDate.toLocaleDateString('id-ID', options);
+
+            // Ambil nilai dari elemen Select2
+            var selectedValuesKacab = $('#kantorCabang').val();
+            var selectedValuesStringKacab = selectedValuesKacab ? selectedValuesKacab.join(', ') : 'Kantor Cabang';
+
+            var selectedValuesWilbin = $('#wilayahBinaan').val();
+            var selectedValuesStringWilbin = selectedValuesWilbin ? selectedValuesWilbin.join(', ') : 'Wilayah Binaan';
+
+            var selectedValuesShelter = $('#shelterFilter').val();
+            var selectedValuesStringShelter = selectedValuesShelter ? selectedValuesShelter.join(', ') : 'Shelter';
+
+            // Buat judul file Excel
+            var excelTitle = "Data_" + formattedDate;
+
+            // Inisialisasi DataTable dan ambil data yang sudah terfilter
+            var table = $('#CalonAnakBinaanTable').DataTable();
+            var filteredData = table.rows({ search: 'applied' }).data().toArray();
+
+            // Buat objek Excel menggunakan library SheetJS
+            var judul = "Laporan Data Anak (" + formattedDate + ")";
+            var ws = XLSX.utils.json_to_sheet(filteredData, {
+                header: ['ID_Keluarga', 'id_anaks', 'no_kk', 'nama_lengkap_calon_anak', 'agamaAnak', 'kacab', 'wilayah_binaan', 'shelter', 'nama_ayah', 'anak_ke', 'status_aktif', 'DiBuat', 'DiUbah'],
+                origin: 'D9',
+            });
+        
+            // Tambahkan judul ke file Excel
+            XLSX.utils.sheet_add_aoa(ws, [[judul]], {origin: 'G4'});
+            // Tambahkan nilai selectedValuesStringKacab ke worksheet di sel G5
+            var startingRow = 5; // Baris awal untuk menambahkan judul kondisional
+
+            // Tambahkan judul kondisional berdasarkan nilai
+            if (selectedValuesStringKacab) {
+                XLSX.utils.sheet_add_aoa(ws, [['Kacab: ' + selectedValuesStringKacab]], { origin: 'G' + startingRow });
+                startingRow++;
+            }
+            if (selectedValuesStringWilbin) {
+                XLSX.utils.sheet_add_aoa(ws, [['Wilbin: ' + selectedValuesStringWilbin]], { origin: 'G' + startingRow });
+                startingRow++;
+            }
+            if (selectedValuesStringShelter) {
+                XLSX.utils.sheet_add_aoa(ws, [['Shelter: ' + selectedValuesStringShelter]], { origin: 'G' + startingRow });
+            }
+        
+            // Buat file Excel menggunakan workbook dan worksheet yang telah dibuat
+            var wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        
+            // Simpan file Excel
+            XLSX.writeFile(wb, 'data_calon_anak_binaan.xlsx');
+        }
+
+        $('#btn-export-excel').click(function () {
+            fungsiExportExcel();
+        });
+
+        function fungsiExportCSV() {
+            var table = $('#CalonAnakBinaanTable').DataTable();
+            var filteredData = table.rows({ search: 'applied' }).data().toArray();
+
+            // Buat objek worksheet dari data yang sudah terfilter
+            var ws = XLSX.utils.json_to_sheet(filteredData, {
+                header: ['ID_Keluarga', 'id_anaks', 'no_kk', 'nama_lengkap_anak', 'agamaAnak', 'kacab', 'wilayah_binaan', 'shelter', 'nama_ayah', 'anak_ke', 'status_aktif', 'DiBuat', 'DiUbah']
+            });
+        
+            // Konversi worksheet ke format CSV
+            var csv = XLSX.utils.sheet_to_csv(ws);
+        
+            // Simpan file CSV
+            var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            var link = document.createElement("a");
+            var url = URL.createObjectURL(blob);
+            link.href = url;
+            link.setAttribute("download", "laporan_data_anak.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        $('#btn-export-csv').click(function () {
+            fungsiExportCSV();
+        });
+
+        $('#btncariKK').click(function (event) {
+            event.preventDefault(); // Mencegah aksi default formulir (refresh halaman)
+
+            var valuekk = $('#formcariKK').val();
+
+            $('#CalonAnakBinaanTable').DataTable().destroy();
+            loadData(valuekk);
+        });
+
+        function resetFilterKK() {
+            $('#formcariKK').val(null).trigger('change');
+
+            $('#CalonAnakBinaanTable').DataTable().destroy();
+
+            loadData();
+        }
+
+        $('#resetKK').click(function () {
+            event.preventDefault();
+            resetFilterKK();
+        });
 
         // Mengirim nilai Select2 Shelter ke server saat tombol filter ditekan
         $('#filterSemua').click(function () {

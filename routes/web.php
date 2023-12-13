@@ -127,6 +127,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
 
     Route::get('/cariWilBin/{kantorId}', [AnakBinaanController::class, 'cariWilBin'])->name('cariWilBin');
     Route::get('/cariShel/{wilbinId}', [AnakBinaanController::class, 'cariShel'])->name('cariShel');
+    Route::get('/exportToExcel', [AnakBinaanController::class, 'exportToExcel'])->name('exportToExcel');
 
     // Validasi Survey
     Route::get('/validasi-survey', [ValidasiSurveyController::class, 'index'])->name('validasi-survey');

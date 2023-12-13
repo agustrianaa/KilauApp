@@ -18,49 +18,23 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class CalonAnakBinaanController extends Controller
 {
+    private $filteredData;
     public function calonanakbinaanIndex(Request $request)
     {
         $wilayah = KantorCabang::with('dataWilBin.dataShelter')->get();
 
         if (request()->ajax()) {
-            $data = DataKeluarga::select(
-                'data_keluargas.*',
-                'anaks.*',
-                'anaks.nama_lengkap as nama_lengkap_calon_anak',
-                'anaks.tempat_lahir as tempat_lahir_calon_anak',
-                'anaks.tanggal_lahir as tanggal_lahir_calon_anak',
-                'anaks.agama as agamaAnak',
-                'ayahs.*',
-                'ayahs.nama as nama_ayah',
-                'ayahs.nik as nik_ayah',
-                'ibus.*',
-                'walis.*',
-                'status_anaks.*'
-            )
-                ->leftJoin('ayahs', 'data_keluargas.id', '=', 'ayahs.data_keluarga_id')
-                ->leftJoin('ibus', 'data_keluargas.id', '=', 'ibus.data_keluarga_id')
-                ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
-                ->leftJoin('walis', 'data_keluargas.id', '=', 'walis.data_keluarga_id')
-                ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
-                ->orderBy('anaks.id_anaks', 'desc')
-                ->when($request->has('kacab'), function ($query) use ($request) {
-                    $kacab = $request->kacab;
-                    return $query->whereIn('anaks.kacab', $kacab);
-                })
-                ->when($request->has('wilbin'), function ($query) use ($request) {
-                    $wilbin = $request->wilbin;
-                    return $query->whereIn('anaks.wilayah_binaan', $wilbin);
-                })
-                ->when($request->has('shelters'), function ($query) use ($request) {
-                    $shelters = $request->shelters;
-                    return $query->whereIn('anaks.shelter', $shelters);
-                })
-                ->where('status_anaks.status_binaan', 0)
-                ->get();
+            $this->filteredData = $this->getFilteredData($request);
 
-            return datatables($data)
+            return datatables($this->filteredData)
                 ->addColumn('TTL', function ($data) {
                     return $data->tempat_lahir_calon_anak . ', ' . $data->tanggal_lahir_calon_anak;
+                })
+                ->addColumn('DiBuat', function ($data) {
+                    return $data->DiBuat ? \Carbon\Carbon::parse($data->DiBuat)->isoFormat('D MMMM YYYY') : '-';
+                })
+                ->addColumn('DiUbah', function ($data) {
+                    return $data->DiUbah ? \Carbon\Carbon::parse($data->DiUbah)->isoFormat('D MMMM YYYY') : '-';
                 })
                 ->addColumn('action', 'DataCalonAnakBinaan.CalonAnakBinaan-action')
                 ->rawColumns(['action'])
@@ -69,6 +43,53 @@ class CalonAnakBinaanController extends Controller
         }
 
         return view('DataCalonAnakBinaan.CalonAnakBinaan', compact('wilayah'));
+    }
+
+    private function getFilteredData(Request $request)
+    {
+        $filteredData = DataKeluarga::select(
+            'data_keluargas.*',
+            'anaks.*',
+            'anaks.data_keluarga_id as ID_Keluarga',
+            'anaks.nama_lengkap as nama_lengkap_calon_anak',
+            'anaks.tempat_lahir as tempat_lahir_calon_anak',
+            'anaks.tanggal_lahir as tanggal_lahir_calon_anak',
+            'anaks.agama as agamaAnak',
+            'anaks.created_at as DiBuat',
+            'anaks.updated_at as DiUbah',
+            'ayahs.*',
+            'ayahs.nama as nama_ayah',
+            'ayahs.nik as nik_ayah',
+            'ibus.*',
+            'walis.*',
+            'status_anaks.*'
+        )
+            ->leftJoin('ayahs', 'data_keluargas.id', '=', 'ayahs.data_keluarga_id')
+            ->leftJoin('ibus', 'data_keluargas.id', '=', 'ibus.data_keluarga_id')
+            ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
+            ->leftJoin('walis', 'data_keluargas.id', '=', 'walis.data_keluarga_id')
+            ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
+            ->orderBy('anaks.id_anaks', 'desc')
+            ->when($request->has('kacab'), function ($query) use ($request) {
+                $kacab = $request->kacab;
+                return $query->whereIn('anaks.kacab', $kacab);
+            })
+            ->when($request->has('wilbin'), function ($query) use ($request) {
+                $wilbin = $request->wilbin;
+                return $query->whereIn('anaks.wilayah_binaan', $wilbin);
+            })
+            ->when($request->has('shelters'), function ($query) use ($request) {
+                $shelters = $request->shelters;
+                return $query->whereIn('anaks.shelter', $shelters);
+            })
+            ->when($request->has('noKK'), function ($query) use ($request) {
+                $noKK = $request->noKK;
+                return $query->where('data_keluargas.no_kk', 'LIKE', "%$noKK%");
+            }) 
+            ->where('status_anaks.status_binaan', 0)
+            ->get();
+
+        return $filteredData;
     }
 
 

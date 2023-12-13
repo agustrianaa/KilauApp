@@ -286,6 +286,7 @@
                                     </div>
                                     <div class="col-4"></div>
                                 </div>
+                                <input type="hidden" class="form-control" value="1" name="statusAktif">
                                 <input type="hidden" class="form-control" value="0" name="statusAnak">
                                 <input type="hidden" class="form-control" value="BCPB" name="statusBeasiswa">
                                 <div class="row mb-2">

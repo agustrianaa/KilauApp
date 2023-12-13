@@ -2,11 +2,11 @@
     display: none;
 }
 
-.col-lg-12.bukaFilter {
+.col-6.bukaFilter {
     display: none;
 }
 
-.col-lg-12.tutupFilter {
+.col-6.tutupFilter {
     display: none;
 }
 /* Atur lebar dan tinggi notifikasi */
@@ -108,4 +108,67 @@
 .garis {
     font-weight: bold;
     color: black;
+}
+
+#btncariKK {
+    background-color: #3376EC;
+    border-color: #3376EC;
+    color: white;
+}
+#btncariKK:hover {
+    background-color: #2657ab;
+    border-color: #2657ab;
+    color: white;
+}
+#resetKK {
+    background-color: #D6D332;
+    border-color: #D6D332;
+    color: black;
+}
+#resetKK:hover {
+    background-color: #afac29;
+    border-color: #afac29;
+    color: black;
+}
+#filterSemua {
+    background-color: aqua;
+    border-color: rgb(0, 200, 200);
+    color: rgb(0, 0, 0);
+}
+#filterSemua:hover {
+    background-color: rgb(0, 198, 198);
+    border-color: rgb(0, 200, 200);
+    color: rgb(0, 0, 0);
+}
+#resetFilter {
+    background-color: red;
+    border-color: red;
+    color: rgb(255, 255, 255);
+}
+#resetFilter:hover {
+    background-color: rgb(206, 0, 0);
+    border-color: rgb(206, 0, 0);
+    color: rgb(255, 255, 255);
+}
+#tombolDropDown {
+    background-color: transparent;
+    border-color: transparent;
+    color: black;
+}
+#tombolDropDown:hover {
+    color: rgb(172, 71, 255);
+    font-size: 16.6px;
+    cursor: pointer;
+}
+#btn-export-excel:hover {
+    color: rgb(172, 71, 255);
+    background-color: rgb(230, 230, 230);
+    font-size: 16.6px;
+    cursor: pointer;
+}
+#btn-export-csv:hover {
+    color: rgb(172, 71, 255);
+    background-color: rgb(230, 230, 230);
+    font-size: 16.6px;
+    cursor: pointer;
 }
