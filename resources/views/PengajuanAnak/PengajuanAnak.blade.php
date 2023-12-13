@@ -279,6 +279,7 @@
                                             </div>
                                             <input type="hidden" class="form-control" id="status_binaan_anak" name="status_binaan_anak" value="{{ 0 }}">
                                             <input type="hidden" class="form-control" id="status_beasiswa_anak" name="status_beasiswa_anak" value="{{ 'Belum Validasi' }}">
+                                            <input type="hidden" class="form-control" name="statusAktifAnak" value="{{ 1 }}">
                                         </div>
                                     </div>
                                 </div>

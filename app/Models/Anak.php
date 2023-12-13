@@ -38,6 +38,25 @@ class Anak extends Model
         'status_aktif',
     ];
 
+    protected $hidden = [
+        'id_anaks',
+        'data_keluarga_id',
+        'donatur_id',
+        'nama_panggilan',
+        'jenis_kelamin',
+        'tempat_lahir',
+        'tanggal_lahir',
+        'jarak_ke_shelter',
+        'nama_sekolah',
+        'kelas_sekolah',
+        'nama_madrasah',
+        'kelas_madrasah',
+        'hobby',
+        'cita_cita',
+        'beasiswa_id',
+    ];
+    
+
     public function dataKeluarga(): BelongsTo
     {
         return $this->belongsTo(DataKeluarga::class);
