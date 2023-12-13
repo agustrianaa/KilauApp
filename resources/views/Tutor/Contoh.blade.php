@@ -96,4 +96,67 @@
         });
 
         $('#shelter').on('change', function(){})
+
+        function editTutor2(id) {
+        console.log('ID:', id);
+        $.ajax({
+            type: 'PUT',
+            url: "{{route('admin.edit-tutor')}}",
+            data: {
+                id: id
+            },
+            dataType: 'json',
+            success: function(data) {
+                // $('#editTutorModal .modal-body').html(data);
+                $('#TutorModal').html("Edit Tutor");
+                $("#editTutorModal").modal('show');
+                $('#editNama').val(data.nama);
+                $('#editPendidikan').val(data.pendidikan);
+                $('#editEmail').val(data.email);
+                $('#editNoHp').val(data.no_hp);
+                $('#editAlamat').val(data.alamat);
+                $('#editMapel').val(data.mapel);
+                $('#editKacab').val(data.kacab_id);
+                $('#editWilbin').val(data.wlbin_id);
+                $('#editShelter').val(data.shelter_id);
+            },
+        })
+    }
+
+
+
+
+    function editTutor(id) {
+    $.ajax({
+        type: 'GET',
+        url: "{{ route('admin.edit-tutor', ['id' => ':id']) }}".replace(':id', id),
+        dataType: 'json',
+        success: function(response) {
+            if (response.success) {
+                // Data berhasil diambil, tampilkan formulir dan isi data
+                $('#idTutor').val(response.data.id); // Isi input hidden dengan ID tutor
+                $('#kacab').val(response.data.kacab_id).trigger('change'); // Isi dropdown kacab
+                // Isi dropdown wilbin dan shelter sesuai data response
+                $('#wilbin').val(response.data.wilbin_id).trigger('change');
+                $('#shelter').val(response.data.shelter_id).trigger('change');
+                // Isi input nama tutor, pendidikan, email, dan sebagainya
+                $('#namaTutor').val(response.data.nama);
+                $('#pend').val(response.data.pendidikan);
+                $('#email').val(response.data.email);
+                $('#no_hp').val(response.data.no_hp);
+                $('#alamat').val(response.data.alamat);
+                $('#mapel').val(response.data.mapel);
+                // Tambahan: Handle foto jika perlu
+            } else {
+                // Data tidak ditemukan, tampilkan pesan atau lakukan sesuatu yang sesuai
+                console.error('Error:', response.message);
+            }
+        },
+        error: function(error) {
+            // Handle error, tampilkan pesan atau lakukan sesuatu yang sesuai
+            console.error('Error:', error);
+        }
+    });
+}
+
 </script>

@@ -96,9 +96,9 @@
                                         <th style="width: 5%;">No</th>
                                         <th>Nama Lengkap</th>
                                         <th>Pendidikan</th>
-                                        <th>Email</th>
-                                        <th>No HP</th>
                                         <th>Mata Pelajaran</th>
+                                        <th>No HP</th>
+                                        <th>Shelter</th>
                                         <!-- <th>Detail</th> -->
                                         <th>Action</th>
                                     </tr>
@@ -131,7 +131,7 @@
 
             <!-- Modal Untuk Edit data Tutor -->
             <div class="modal fade" id="editTutorModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="editModalLabel">Biodata Tutor</h1>
@@ -139,34 +139,68 @@
                         </div>
                         <div class="modal-body">
                             <form action="javascript:void(0)" id="EditTutor" method="PUT">
-                                <div class="col-12 mb-3">
-                                    <label for="namaTutor" class="form-label">Nama Tutor</label>
-                                    <input type="text" class="form-control" id="editNama" name="nama">
+                                <div class="form-group row">
+                                    <label for="namaTutor" class="col-sm-2 col-form-label">Nama Tutor</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="editNama" name="nama">
+                                    </div>
                                 </div>
-                                <div class="col-12 mb-3">
-                                    <label for="pendidikanTutor" class="form-label">Pendidikan</label>
-                                    <input type="text" class="form-control" id="editPendidikan" name="pendidikan">
+                                <div class="form-group row">
+                                    <label for="pendidikanTutor" class="col-sm-2 col-form-label">Pendidikan</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="editPendidikan" name="pendidikan">
+                                    </div>
                                 </div>
-                                <div class="col-12 mb-3">
-                                    <label for="emailTutor" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="editEmail" name="email">
+                                <div class="form-group row">
+                                    <label for="emailTutor" class="col-sm-2 col-form-label">Email</label>
+                                    <div class="col-sm-10">
+                                        <input type="email" class="form-control" id="editEmail" name="email">
+                                    </div>
                                 </div>
-                                <div class="col-12 mb-3">
-                                    <label for="noHpTutor" class="form-label">No Hp</label>
-                                    <input type="text" class="form-control" id="editNoHp" name="no_hp">
+                                <div class="form-group row">
+                                    <label for="noHpTutor" class="col-sm-2 col-form-label">No Hp</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="editNoHp" name="no_hp">
+                                    </div>
                                 </div>
-                                <div class="col-12 mb-3">
-                                    <label for="alamatTutor" class="form-label">Alamat</label>
-                                    <input type="text" class="form-control" id="editAlamat" name="alamat">
+                                <div class="form-group row">
+                                    <label for="alamatTutor" class="col-sm-2 col-form-label">Alamat</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="editAlamat" name="alamat">
+                                    </div>
                                 </div>
-                                <div class="col-12 mb-3">
-                                    <label for="mapelTutor" class="form-label">Mata Pelajran</label>
-                                    <input type="text" class="form-control" id="editMapel" name="mapel">
+                                <div class="form-group row">
+                                    <label for="mapelTutor" class="col-sm-2 col-form-label">Mata Pelajran</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="editMapel" name="mapel">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="wilayah">Wilayah : </label>
+                                    <div class="col-3">
+                                        <label for="kacab">Kacab</label>
+                                        <select name="kacab" id="editKacab" class="form-control">
+                                            <option value="a">Sumedang</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-3">
+                                        <label for="wilbin">Wilayah Binaan</label>
+                                        <select name="wilbin" id="editWilbin" class="form-control">
+                                            <option value="a">sumedang</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-3">
+                                        <label for="shelter">Shelter</label>
+                                        <select name="shelter" id="editShelter" class="form-control">
+                                            <option value="b">Sukaasih</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-info">Simpan</button>
                         </div>
                     </div>
                 </div>
@@ -195,11 +229,11 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url : "{{ route('admin.tutor')}}",
-                    data : {
-                        kacab_id : fkacab,
-                        wilbin_id : fwilbin,
-                        shelter_id : fshelter,
+                    url: "{{ route('admin.tutor')}}",
+                    data: {
+                        kacab_id: fkacab,
+                        wilbin_id: fwilbin,
+                        shelter_id: fshelter,
                     }
                 },
 
@@ -216,16 +250,16 @@
                         name: 'pendidikan'
                     },
                     {
-                        data: 'email',
-                        name: 'email'
+                        data: 'mapel',
+                        name: 'mapel'
                     },
                     {
                         data: 'no_hp',
                         name: 'no_hp'
                     },
                     {
-                        data: 'mapel',
-                        name: 'mapel'
+                        data: 'nama_shelter',
+                        name: 'nama_shelter'
                     },
                     {
                         data: 'action',
@@ -244,7 +278,6 @@
                 }
             });
         }
-
 
 
         var filterCard = $("#filterCard");
@@ -287,7 +320,7 @@
                 var kantorId = $(this).data('kantor-id');
                 console.log('Selected Kantor ID:', kantorId);
 
-                $.ajax({ 
+                $.ajax({
                     url: "{{ route('admin.cariWilayahBinaan', ['kantorId' => ':kantorId']) }}".replace(':kantorId', kantorId),
                     type: 'GET',
                     data: {
@@ -360,25 +393,25 @@
                         console.log('Terjadi error pada:', error);
                     }
                 });
+                // });
+            });
+
+            $('#all_fwilayah').click(function() {
+                var fkacab = $('#fkacab').val();
+                var fwilbin = $('#fwilbin').val();
+                var fshelter = $('#fshelter').val();
+                $('#tutor').DataTable().destroy();
+                load_data(fkacab, fwilbin, fshelter);
+            });
+
+            $('#resetFwilayah').click(function() {
+                $('#fkacab').val(null).trigger('change');
+                $('#fwilbin').val(null).trigger('change');
+                $('#fshelter').val(null).trigger('change');
+                $('#tutor').DataTable().destroy();
+                load_data();
             });
         });
-
-        $('#all_fwilayah').click(function() {
-            var fkacab = $('#fkacab').val();
-            var fwilbin = $('#fwilbin').val();
-            var fshelter = $('#fshelter').val();
-            $('#tutor').DataTable().destroy();
-            load_data(fkacab, fwilbin, fshelter);
-        });
-
-        $('#resetFwilayah').click(function() {
-            $('#fkacab').val(null).trigger('change');
-            $('#fwilbin').val(null).trigger('change');
-            $('#fshelter').val(null).trigger('change');
-            $('#tutor').DataTable().destroy();
-            load_data();
-        });
-
     });
 
     function add() {
@@ -397,11 +430,17 @@
                 console.log(response);
                 var tutorData = response.tutor;
 
-                $('#tutorDetail').html('<table class="table"> <tr> <td> Nama Tutor </td> <td>' + ': ' + tutorData.nama + '</td> </tr> <tr> <td>' +
-                    'No HP </td> <td>' + ': ' + tutorData.no_hp + '</td> </tr> <tr> <td>' +
-                    'Email </td> <td>' + ': ' + tutorData.email + '</td> </tr> <tr> <td>' +
-                    'Alamat  </td> <td>' + ': ' + tutorData.alamat + '</td> </tr> <tr> <td>' +
-                    'Status </td> <td' + ':' + tutorData.status + '</td> </tr> <tr> <td>' +
+                $('#tutorDetail').html('<table class="table"> <tr> <td> <b>Nama Tutor</b> </td> <td>' + ': ' + tutorData.nama + '</td> </tr> <tr> <td>' +
+                    '<b>pendidikan</b>  </td> <td>' + ': ' + tutorData.pendidikan + '</td> </tr> <tr> <td>' +
+                    '<b>No HP</b> </td> <td>' + ': ' + tutorData.no_hp + '</td> </tr> <tr> <td>' +
+                    '<b>Email</b> </td> <td>' + ': ' + tutorData.email + '</td> </tr> <tr> <td>' +
+                    '<b>Alamat</b>  </td> <td>' + ': ' + tutorData.alamat + '</td> </tr> <tr> <td>' +
+                    '<b>Mata Pelajaran</b>  </td> <td>' + ': ' + tutorData.mapel + '</td> </tr> <tr> <td>' +
+                    '<b>Kantor Cabang</b>  </td> <td>' + ': ' + tutorData.kacab.nama_kacab + '</td> </tr> <tr> <td>' +
+                    '<b>Wilayah Binaan</b>  </td> <td>' + ': ' + tutorData.wilbin.nama_wilbin + '</td> </tr> <tr> <td>' +
+                    '<b>Shelter</b>  </td> <td>' + ': ' + tutorData.shelter.nama_shelter + '</td> </tr> <tr> <td>' +
+                    '<b>Status</b> </td> <td' + ':' + tutorData.status + '</td> </tr> <tr> <td>' +
+                    '<b>Foto</b>  </td> <td>' + ': ' + tutorData.foto + '</td> </tr>' +
                     '</table>')
                 $('#tutorModal').modal('show');
             }
@@ -409,22 +448,23 @@
 
     }
 
-    function editTutor(id) {
-        console.log('ID:', id);
+    function editTutor(id){
+        // window.location.href = "{{ url('admin/addTutor') }}/" + id + "/editTutor";
+        console.log('ID', id);
         $.ajax({
-            type: 'PUT',
-            url : "{{route('admin.edit-tutor')}}",
-            data : { id : id},
-            dataType : 'json',
+            type: 'GET',
+            url : "{{ url('admin/editTutor')}}/" + id,
             success : function (data) {
-                $("#editTutorModal").modal('show');
-            },
+                window.location.href = "{{ url('admin/editTutor') }}/" + id,
+                $('#editNama').val(data.nama);
+            $('#editPendidikan').val(data.pendidikan);
+            }
         })
     }
 
     function hapusTutor(id) {
         console.log('ID:', id);
-        if (confirm("Delete Record?") == true) {
+        if (confirm("Ingin Menghapus data?") == true) {
             // var id = id;
             // Ajax
             $.ajax({

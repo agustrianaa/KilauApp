@@ -6,11 +6,26 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
 <link rel="stylesheet" href="{{ asset('css/calonAnakBinaan.css') }}">
 
-<div class="content-wrapper">
-    <section class="content">
-        <div class="content-header">
-            <h1 class="m-0">Pengajuan Donatur</h1>
+<div class="content-wrapper background">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Pengajuan Donatur</h1>
+                </div>
+                <div class="col">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">
+                            <a href="{{ route('admin.dashboard') }}" class="text-reset text-decoration-none">Home</a>
+                        </li>
+                        <!-- <li class="breadcrumb-item"><div href="{{ route('admin.tutor') }}" class="text-reset text-decoration-none">Data Tutor</div></li> -->
+                        <li class="breadcrumb-item active">Data Anak</li>
+                    </ol>
+                </div>
+            </div>
         </div>
+    </div>
+    <section class="content">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-lg-12" id="openFilter">
@@ -361,10 +376,10 @@
             url: url,
             dataType: 'json',
             success: function(data) {
-                $('#profilDonaturModal').find('.modal-body').html('<table class="table"> <tr> <td> Nama Donatur </td> <td>' + ': ' + data.name + '</td> </tr> <tr> <td> ' + 
-                'Alamat  </td> <td>' + ': ' + data.alamat + ' </td> </tr><tr> <td> ' + 
-                'No HP  </td> <td>' + ': ' + data.no_hp + ' </td> </tr><tr> <td> ' + 
-                'Bank  </td> <td>' + ': ' + data.nama_bank + ', ' + data.no_rek + ' </td> </tr>' + '</table>');
+                $('#profilDonaturModal').find('.modal-body').html('<table class="table"> <tr> <td> Nama Donatur </td> <td>' + ': ' + data.name + '</td> </tr> <tr> <td> ' +
+                    'Alamat  </td> <td>' + ': ' + data.alamat + ' </td> </tr><tr> <td> ' +
+                    'No HP  </td> <td>' + ': ' + data.no_hp + ' </td> </tr><tr> <td> ' +
+                    'Bank  </td> <td>' + ': ' + data.nama_bank + ', ' + data.no_rek + ' </td> </tr>' + '</table>');
                 $('#profilDonaturModal').modal('show');
             },
             error: function(error) {

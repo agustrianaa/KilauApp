@@ -16,23 +16,24 @@ class TutorController extends Controller
     public function index(Request $request)
     {
         $wilayah = KantorCabang::with('dataWilbin.dataShelter')
-        ->get();
-        
+            ->get();
+
         if (request()->ajax()) {
             $key = 0;
-            $data = Tutor::select('id_tutor as id', 'nama', 'pendidikan', 'email', 'no_hp', 'mapel', 'kacab_id', 'wilbin_id', 'shelter_id')
-            ->when($request->has('kacab_id'), function ($query) use ($request) {
-                $kacab = $request->kacab_id;
-                return $query->whereIn('kacab_id', $kacab);
-            })
-            ->when($request->has('wilbin_id'), function ($query) use ($request) {
-                $wilbin = $request->wilbin_id;
-                return $query->whereIn('wilbin_id', $wilbin);
-            })
-            ->when($request->has('shelter_id'), function ($query) use ($request) {
-                $shelter = $request->shelter_id;
-                return $query->whereIn('shelter_id', $shelter);
-            })
+            $data = Tutor::select('id_tutor as id', 'tutor.*', 'shelters.nama_shelter as nama_shelter')
+                ->join('shelters', 'tutor.shelter_id', '=', 'shelters.id_shelter')
+                ->when($request->has('kacab_id'), function ($query) use ($request) {
+                    $kacab = $request->kacab_id;
+                    return $query->whereIn('tutor.kacab_id', $kacab);
+                })
+                ->when($request->has('wilbin_id'), function ($query) use ($request) {
+                    $wilbin = $request->wilbin_id;
+                    return $query->whereIn('tutor.wilbin_id', $wilbin);
+                })
+                ->when($request->has('shelter_id'), function ($query) use ($request) {
+                    $shelter = $request->shelter_id;
+                    return $query->whereIn('tutor.shelter_id', $shelter);
+                })
                 ->get();
 
             return datatables($data)
@@ -99,25 +100,29 @@ class TutorController extends Controller
      */
     public function show(string $id)
     {
-        $tutor = Tutor::find($id);
+        $tutor = Tutor::with(['wilbin', 'shelter', 'kacab'])->findOrFail($id);
         return response()->json(['tutor' => $tutor]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request, $id)
     {
         $tutor = Tutor::find($id);
-        return response()->json($tutor);
+        $kacab = KantorCabang::all();
+        $wilbin = WilayahBinaan::all();
+        $shelter = Shelter::all();
+        return view('Tutor.EditTutor', compact('tutor', 'kacab', 'wilbin', 'shelter'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function get(Request $request, string $id)
     {
-        //
+        $tutor = Tutor::find($id);
+        return response()->json(['tutor' => $tutor]);
     }
 
     /**
