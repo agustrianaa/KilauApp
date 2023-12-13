@@ -26,4 +26,18 @@ class Tutor extends Model
         'foto',
         'status',
     ];
+
+    public function shelter()
+    {
+        return $this->belongsTo(Shelter::class, 'shelter_id');
+    }
+    public function wilbin()
+    {
+        return $this->belongsTo(WilayahBinaan::class, 'wilbin_id');
+    }
+
+    public function kacab()
+    {
+        return $this->belongsTo(KantorCabang::class, 'kacab_id');
+    }
 }

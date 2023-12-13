@@ -149,7 +149,9 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::post('/saveTutor', [TutorController::class, 'store'])->name('save-tutor');
     Route::post('/deleteTutor', [TutorController::class, 'destroy'])->name('delete-tutor');
     Route::get('/viewTutor/{id}', [TutorController::class, 'show'])->name('view-tutor');
-    Route::put('/editTutor', [TutorController::class, 'edit'])->name('edit-tutor');
+    // Route::get('/addTutor/{id}/editTutor', [TutorController::class, 'edit'])->name('edit-tutor');
+    Route::get('/editTutor/{id}', [TutorController::class, 'edit'])->name('edit-tutor');
+    Route::get('/getTutor/{id}', [TutorController::class, 'get'])->name('get-tutor');
 
     //AREA
     Route::get('/get-wilbin/{kacabId}', [AreaController::class, 'getWilbin'])->name('get-wilbin');

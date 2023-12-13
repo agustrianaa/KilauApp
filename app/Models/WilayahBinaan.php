@@ -20,7 +20,7 @@ class WilayahBinaan extends Model
 
     public function dataKaCab(): BelongsTo
     {
-        return $this->belongsTo(KantorCabang::class);
+        return $this->belongsTo(KantorCabang::class, 'kacab_id');
     }
 
     public function dataShelter(): HasOne

@@ -1,14 +1,28 @@
 @extends('layout.main')
 @section('content')
 
-<div class="content-wrapper">
+<div class="content-wrapper background">
+<div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1> Tambah Donatur</h1>
+                </div>
+                <div class="col">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">
+                            <a href="{{ route('admin.dashboard') }}" class="text-reset text-decoration-none">Home</a>
+                        </li>
+                        <!-- <li class="breadcrumb-item"><div href="{{ route('admin.tutor') }}" class="text-reset text-decoration-none">Data Tutor</div></li> -->
+                        <li class="breadcrumb-item active">Pengajuan Donatur</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <section class="content">
         <div class="container-fluid">
-            <div class="row">
-                <div class="row">
-                    <h2>Tambah Donatur</h2>
-                </div>
-
                 <div class="card">
                     <div class="card-body">
                         <input type="hidden" value="{{ $id }}" id="anak_id">
