@@ -8,7 +8,7 @@
                 <div class="row text-center">
                     <h1>Kelayakan Penerimaan Beasiswa</h1>
                 </div>
-                
+
                 <!-- DATA SURVEY -->
                 <div class="col-12 col-sm-6">
                     <div class="card card-primary card-tabs">
@@ -51,7 +51,13 @@
                                             <b>Dinding</b> <div class="float-right">{{ $validasi ? $validasi->dinding : 'Data Kosong' }}</div>
                                         </li>
                                         <li class="list-group-item">
-                                            <b>Kepemilikan Kendaraan</b> <div class="float-right">{{ $validasi ? $validasi->kep_kendaraan : 'Data Kosong' }}</div>
+                                            <b>Kepemilikan Kendaraan</b>
+                                            <div class="float-right">
+                                            @if ($validasi)
+                                                {!! implode(', ', $validasi->kep_kendaraan) !!}
+                                            @else
+                                                Data Kosong
+                                            @endif</div>
                                         </li>
                                         <li class="list-group-item">
                                             <b>Kepemilikan Elektronik</b> <div class="float-right">{{ $validasi ? $validasi->kep_elektronik : 'Data Kosong' }}</div>
@@ -284,8 +290,8 @@
                                     <input type="radio" name="status" class="form-check-input" id="ckp_layak" value="cukup layak" @if ($status === 'cukup layak') checked @endif>
                                     <label class="form-check-label" for="pb" ><h5>Tidak Layak</h5> 'Non Penerimaan Beasiswa(NPB) dan Anak Binaan'</label>
                                 </div>
-                                
-                                <br><br>               
+
+                                <br><br>
                                 <label for="ketSurvey">Keterangan Hasil Survey</label>
                                 <textarea name="ket" id="ket" class="form-control" cols="30" rows="6">{{ $ket }}</textarea>
 

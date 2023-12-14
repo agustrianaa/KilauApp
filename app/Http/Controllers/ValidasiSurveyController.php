@@ -11,16 +11,24 @@ use App\Models\SurveyKeluarga;
 use App\Models\Wali;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use Carbon\Carbon;
 
 class ValidasiSurveyController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         if(request()->ajax()){
-            $data = DataKeluarga:: 
+            $no_kk = $request->no_kk;
+            $kepala_keluarga = $request->kepala_keluarga;
+            $petugas_survey = $request->petugas_survey;
+            $created_at = $request->created_at;
+            $hsurvey = $request->hsurvey;
+
+
+            $data = DataKeluarga::
             select(
                 'survey_keluargas.id as id',
                 'data_keluargas.no_kk as no_kk',
@@ -30,9 +38,30 @@ class ValidasiSurveyController extends Controller
                 'survey_keluargas.*',
             )
             ->join('survey_keluargas', 'data_keluargas.id', '=', 'survey_keluargas.keluarga_id')
+            ->when(isset($no_kk), function ($query) use ($no_kk) {
+                $query->where('data_keluargas.no_kk', 'like', '%' . $no_kk . '%');
+            })
+            ->when(isset($kepala_keluarga), function ($query) use ($kepala_keluarga) {
+                    $query->where('data_keluargas.kepala_keluarga', 'like', '%' . $kepala_keluarga . '%');
+            })
+            ->when(isset($petugas_survey), function ($query) use ($petugas_survey) {
+                    $query->where('survey_keluargas.petugas_survey', 'like', '%' . $petugas_survey . '%');
+            })
+            ->when(isset($created_at), function ($query) use ($created_at) {
+                $query->where(function ($subQuery) use ($created_at) {
+                    $subQuery->orWhereRaw('DAY(survey_keluargas.created_at) LIKE ?', ["%$created_at%"])
+                                ->orWhereRaw('MONTHNAME(survey_keluargas.created_at) LIKE ?', ["%$created_at%"])
+                                ->orWhereRaw('YEAR(survey_keluargas.created_at) LIKE ?', ["%$created_at%"])
+                                ->orWhereRaw("DATE_FORMAT(survey_keluargas.created_at, '%e %M %Y') LIKE ?", ["%$created_at%"])
+                                ->orWhereRaw("DATE_FORMAT(survey_keluargas.created_at, '%M %Y') LIKE ?", ["%$created_at%"]);
+                });
+            })
+            ->when(isset($hsurvey), function ($query) use ($hsurvey) {
+                $query->where('survey_keluargas.hsurvey', 'like', '%' . $hsurvey . '%');
+            })
             ->get();
 
-            return datatables($data) 
+            return datatables($data)
             ->addColumn('action', function($row){
                 $id = $row->id; // Ambil ID dari baris data
                 $validAct = ' <a href="javascript:void(0)" onClick="editFunc(' . $id . ')" data-original-title="Edit" class="edit btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>';
@@ -50,10 +79,13 @@ class ValidasiSurveyController extends Controller
                 }
                 return $kelayakanAct;
             })
+            ->editColumn('created_at', function ($row) {
+                return Carbon::parse($row->created_at)->isoFormat('D MMMM YYYY');
+            })
             ->rawColumns(['action', 'kelayakan'])
             ->addIndexColumn()
             ->make(true);
-            
+
         }
         return view('validasiSurvey.validasi-table');
     }
@@ -89,8 +121,8 @@ class ValidasiSurveyController extends Controller
         $survey = SurveyKeluarga::find($id);
         $status = $request->input('status');
         $ket = $request->input('ket');
-        
-        
+
+
         SurveyKeluarga::create([
             'resume' => $ket,
             'hsurvey' => $status,
@@ -115,7 +147,7 @@ class ValidasiSurveyController extends Controller
         //
     }
 
-    
+
     /**
      * Update the specified resource in storage.
      */
@@ -145,7 +177,7 @@ class ValidasiSurveyController extends Controller
                             })
                             ->update(['status_beasiswa' => $stat, 'status_binaan' => true]);
     }
-    
+
     return redirect()->back()->with('success', 'Data berhasil diperbarui.');
 }
 
@@ -156,7 +188,8 @@ class ValidasiSurveyController extends Controller
     public function destroy(Request $request)
     {
         $survey = SurveyKeluarga::where('id',$request->id)->delete();
-       
+
         return Response()->json($survey);
     }
+
 }

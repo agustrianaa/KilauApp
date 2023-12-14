@@ -134,7 +134,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth'], 'as' => 'admin.'], f
     Route::post('/survey-delete', [ValidasiSurveyController::class, 'destroy'])->name('survey-delete');
     Route::put('/update-validasi/{id}', [ValidasiSurveyController::class, 'update'])->name('save-validasi');
 
-    // Pengajuan Donatur 
+    // Pengajuan Donatur
     Route::get('/pengajuan-donatur', [PengajuanDonaturController::class,'index'])->name('aju-donatur');
     Route::get('/pengajuan/{id?}', [PengajuanDonaturController::class,'show'])->name('pengajuan');
     Route::get('/cari-donatur', [PengajuanDonaturController::class,'search'])->name('cariDonatur');
