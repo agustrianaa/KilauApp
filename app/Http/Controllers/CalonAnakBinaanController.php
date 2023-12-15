@@ -64,30 +64,30 @@ class CalonAnakBinaanController extends Controller
             'walis.*',
             'status_anaks.*'
         )
-            ->leftJoin('ayahs', 'data_keluargas.id', '=', 'ayahs.data_keluarga_id')
-            ->leftJoin('ibus', 'data_keluargas.id', '=', 'ibus.data_keluarga_id')
-            ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
-            ->leftJoin('walis', 'data_keluargas.id', '=', 'walis.data_keluarga_id')
-            ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
-            ->orderBy('anaks.id_anaks', 'desc')
-            ->when($request->has('kacab'), function ($query) use ($request) {
-                $kacab = $request->kacab;
-                return $query->whereIn('anaks.kacab', $kacab);
-            })
-            ->when($request->has('wilbin'), function ($query) use ($request) {
-                $wilbin = $request->wilbin;
-                return $query->whereIn('anaks.wilayah_binaan', $wilbin);
-            })
-            ->when($request->has('shelters'), function ($query) use ($request) {
-                $shelters = $request->shelters;
-                return $query->whereIn('anaks.shelter', $shelters);
-            })
-            ->when($request->has('noKK'), function ($query) use ($request) {
-                $noKK = $request->noKK;
-                return $query->where('data_keluargas.no_kk', 'LIKE', "%$noKK%");
-            }) 
-            ->where('status_anaks.status_binaan', 0)
-            ->get();
+        ->leftJoin('ayahs', 'data_keluargas.id', '=', 'ayahs.data_keluarga_id')
+        ->leftJoin('ibus', 'data_keluargas.id', '=', 'ibus.data_keluarga_id')
+        ->leftJoin('anaks', 'data_keluargas.id', '=', 'anaks.data_keluarga_id')
+        ->leftJoin('walis', 'data_keluargas.id', '=', 'walis.data_keluarga_id')
+        ->leftJoin('status_anaks', 'anaks.id_anaks', '=', 'status_anaks.anak_id')
+        ->orderBy('anaks.id_anaks', 'desc')
+        ->when($request->has('kacab'), function ($query) use ($request) {
+            $kacab = $request->kacab;
+            return $query->whereIn('anaks.kacab', $kacab);
+        })
+        ->when($request->has('wilbin'), function ($query) use ($request) {
+            $wilbin = $request->wilbin;
+            return $query->whereIn('anaks.wilayah_binaan', $wilbin);
+        })
+        ->when($request->has('shelters'), function ($query) use ($request) {
+            $shelters = $request->shelters;
+            return $query->whereIn('anaks.shelter', $shelters);
+        })
+        ->when($request->has('noKK'), function ($query) use ($request) {
+            $noKK = $request->noKK;
+            return $query->where('data_keluargas.no_kk', 'LIKE', "%$noKK%");
+        }) 
+        ->where('status_anaks.status_binaan', 0)
+        ->get();
 
         return $filteredData;
     }

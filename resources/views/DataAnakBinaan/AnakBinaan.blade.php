@@ -229,7 +229,7 @@
                     { data: 'wilayah_binaan', name: 'wilayah_binaan'},
                     { data: 'shelter', name: 'shelter'},
                     { data: 'no_kk', name: 'no_kk'},
-                    { data: 'nama_ayah', name: 'nama_ayah'},
+                    { data: 'kepala_keluarga', name: 'kepala_keluarga'},
                     { data: 'anak_ke', name: 'anak_ke'},
                     {
                         data: 'status_aktif',
@@ -374,60 +374,107 @@
             });
         });
 
-        // Fungsi-fungsi untuk menangani klik pada tombol
+        function fungsiGetAllPages(callback) {
+            var selectedKacab = $('#kantorCabang').val();
+            var selectedWil = $('#wilayahBinaan').val();
+            var selectedShel = $('#shelterFilter').val();
+            var valuekk = $('#formcariKK').val();
+                
+            $.ajax({
+                url: "{{ url('admin/AnakBinaan') }}",
+                type: 'GET',
+                data: {
+                    kacab: selectedKacab,
+                    wilbin: selectedWil,
+                    shelters: selectedShel,
+                    noKK: valuekk,
+                    page: 'all' // Beri tahu server bahwa kita ingin semua data
+                },
+                success: function (response) {
+                    var data = response.data;
+                    callback(data);
+                },
+                error: function (error) {
+                    console.log('Terjadi error pada:', error);
+                }
+            });
+        }
+
+
+        // Fungsi Ekspor Excel
         function fungsiExportExcel() {
             var currentDate = new Date();
             var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
             var formattedDate = currentDate.toLocaleDateString('id-ID', options);
 
-            // Ambil nilai dari elemen Select2
+            // Judul file Excel
+            var excelTitle = "Data Anak (" + formattedDate + ")";
+                
+            // Ambil Value dari elemen Select2
             var selectedValuesKacab = $('#kantorCabang').val();
-            var selectedValuesStringKacab = selectedValuesKacab ? selectedValuesKacab.join(', ') : 'Kantor Cabang';
-
             var selectedValuesWilbin = $('#wilayahBinaan').val();
-            var selectedValuesStringWilbin = selectedValuesWilbin ? selectedValuesWilbin.join(', ') : 'Wilayah Binaan';
-
             var selectedValuesShelter = $('#shelterFilter').val();
-            var selectedValuesStringShelter = selectedValuesShelter ? selectedValuesShelter.join(', ') : 'Shelter';
+                
+            // Panggil fungsi fungsiGetAllPages untuk mendapatkan semua data
+            fungsiGetAllPages(function (filteredData) {
+                // Fungsi Nomor urut pada setiap baris data
+                filteredData.forEach(function (row, index) {
+                    row['No. Urut'] = index + 1;
+                });
+            
+                // Saring data untuk hanya mencakup kolom yang diinginkan
+                var filteredDataForExport = filteredData.map(function (row) {
+                    return {
+                        'No. Urut': row['No. Urut'],
+                        'Id Keluarga': row.ID_Keluarga,
+                        'Id Anak': row.id_anaks,
+                        'No. KK': row.no_kk,
+                        'Nama Lengkap Anak': row.nama_lengkap_anak,
+                        'Agama': row.agamaAnak,
+                        'Kacab': row.kacab,
+                        'Wilayah Binaan': row.wilayah_binaan,
+                        'Shelter': row.shelter,
+                        'Kepala Keluarga': row.kepala_keluarga,
+                        'Anak Ke': row.anak_ke,
+                        'Status Aktif': row.status_aktif ? 'Aktif' : 'Tidak Aktif', // Ubah nilai boolean menjadi string
+                        'Di Buat': row.DiBuat,
+                        'Di Ubah': row.DiUbah
+                    };
+                });
+            
+                // Buat objek Excel menggunakan library SheetJS
+                var judul = "Laporan Data Anak (" + formattedDate + ")";
+                var ws = XLSX.utils.json_to_sheet(filteredDataForExport, {
+                    header: ['No. Urut', 'Id Keluarga', 'Id Anak', 'No. KK', 'Nama Lengkap Anak', 'Agama', 'Kacab', 'Wilayah Binaan', 'Shelter', 'Kepala Keluarga', 'Anak Ke', 'Status Aktif', 'Di Buat', 'Di Ubah'],
+                    origin: 'D9',
+                });
+            
+                // Judul ke file Excel
+                XLSX.utils.sheet_add_aoa(ws, [[judul]], { origin: 'G4' });
 
-            // Buat judul file Excel
-            var excelTitle = "Data_" + formattedDate;
-
-            // Inisialisasi DataTable dan ambil data yang sudah terfilter
-            var table = $('#AnakBinaanTable').DataTable();
-            var filteredData = table.rows({ search: 'applied' }).data().toArray();
-
-            // Buat objek Excel menggunakan library SheetJS
-            var judul = "Laporan Data Anak (" + formattedDate + ")";
-            var ws = XLSX.utils.json_to_sheet(filteredData, {
-                header: ['ID_Keluarga', 'id_anaks', 'no_kk', 'nama_lengkap_anak', 'agamaAnak', 'kacab', 'wilayah_binaan', 'shelter', 'nama_ayah', 'anak_ke', 'status_aktif', 'DiBuat', 'DiUbah'],
-                origin: 'D9',
+                // Tambahkan nilai selectedValuesStringKacab ke worksheet di sel G5
+                var startingRow = 5; // Baris awal untuk menambahkan judul kondisional
+            
+                // Kondisi jika value null, maka title dan value tidak tampil
+                if (selectedValuesKacab && selectedValuesKacab.length > 0) {
+                    XLSX.utils.sheet_add_aoa(ws, [['Kacab: ' + selectedValuesKacab.join(', ')]], { origin: 'G' + startingRow });
+                    startingRow++;
+                }
+                if (selectedValuesWilbin && selectedValuesWilbin.length > 0) {
+                    XLSX.utils.sheet_add_aoa(ws, [['Wilbin: ' + selectedValuesWilbin.join(', ')]], { origin: 'G' + startingRow });
+                    startingRow++;
+                }
+                if (selectedValuesShelter && selectedValuesShelter.length > 0) {
+                    XLSX.utils.sheet_add_aoa(ws, [['Shelter: ' + selectedValuesShelter.join(', ')]], { origin: 'G' + startingRow });
+                }
+            
+                // Buat file Excel menggunakan workbook dan worksheet yang telah dibuat
+                var wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+            
+                // Nama File Excel
+                XLSX.writeFile(wb, excelTitle + '.xlsx');
             });
-        
-            // Tambahkan judul ke file Excel
-            XLSX.utils.sheet_add_aoa(ws, [[judul]], {origin: 'G4'});
-            // Tambahkan nilai selectedValuesStringKacab ke worksheet di sel G5
-            var startingRow = 5; // Baris awal untuk menambahkan judul kondisional
-
-            // Tambahkan judul kondisional berdasarkan nilai
-            if (selectedValuesStringKacab) {
-                XLSX.utils.sheet_add_aoa(ws, [['Kacab: ' + selectedValuesStringKacab]], { origin: 'G' + startingRow });
-                startingRow++;
-            }
-            if (selectedValuesStringWilbin) {
-                XLSX.utils.sheet_add_aoa(ws, [['Wilbin: ' + selectedValuesStringWilbin]], { origin: 'G' + startingRow });
-                startingRow++;
-            }
-            if (selectedValuesStringShelter) {
-                XLSX.utils.sheet_add_aoa(ws, [['Shelter: ' + selectedValuesStringShelter]], { origin: 'G' + startingRow });
-            }
-        
-            // Buat file Excel menggunakan workbook dan worksheet yang telah dibuat
-            var wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-        
-            // Simpan file Excel
-            XLSX.writeFile(wb, 'laporan_data_anak.xlsx');
         }
 
         $('#btn-export-excel').click(function () {
@@ -438,14 +485,33 @@
             var table = $('#AnakBinaanTable').DataTable();
             var filteredData = table.rows({ search: 'applied' }).data().toArray();
 
-            // Buat objek worksheet dari data yang sudah terfilter
-            var ws = XLSX.utils.json_to_sheet(filteredData, {
-                header: ['ID_Keluarga', 'id_anaks', 'no_kk', 'nama_lengkap_anak', 'agamaAnak', 'kacab', 'wilayah_binaan', 'shelter', 'nama_ayah', 'anak_ke', 'status_aktif', 'DiBuat', 'DiUbah']
+            // Saring data untuk hanya mencakup kolom yang diinginkan
+            var filteredDataForExport = filteredData.map(function (row) {
+                return {
+                    'Id Keluarga': row.ID_Keluarga,
+                    'Id Anak': row.id_anaks,
+                    'No. KK': row.no_kk,
+                    'Nama Lengkap Anak': row.nama_lengkap_anak,
+                    'Agama': row.agamaAnak,
+                    'Kacab': row.kacab,
+                    'Wilayah Binaan': row.wilayah_binaan,
+                    'Shelter': row.shelter,
+                    'Kepala Keluarga': row.kepala_keluarga,
+                    'Anak Ke': row.anak_ke,
+                    'Status Aktif': row.status_aktif ? 'Aktif' : 'Tidak Aktif', // Ubah nilai boolean menjadi string
+                    'Di Buat': row.DiBuat,
+                    'Di Ubah': row.DiUbah
+                };
             });
-        
+
+            // Buat objek worksheet dari data yang sudah terfilter
+            var ws = XLSX.utils.json_to_sheet(filteredDataForExport, {
+                header: ['Id Keluarga', 'Id Anak', 'No. KK', 'Nama Lengkap Anak', 'Agama', 'Kacab', 'Wilayah Binaan', 'Shelter', 'Kepala Keluarga', 'Anak Ke', 'Status Aktif', 'Di Buat', 'Di Ubah']
+            });
+
             // Konversi worksheet ke format CSV
             var csv = XLSX.utils.sheet_to_csv(ws);
-        
+
             // Simpan file CSV
             var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
             var link = document.createElement("a");
@@ -460,7 +526,6 @@
         $('#btn-export-csv').click(function () {
             fungsiExportCSV();
         });
-    
 
         // Mengirim nilai Select2 Shelter ke server saat tombol filter ditekan
         $('#filterSemua').click(function () {

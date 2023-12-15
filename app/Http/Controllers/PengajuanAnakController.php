@@ -151,7 +151,10 @@ class PengajuanAnakController extends Controller
             'kelasMadrasah' => 'required',
             'hobbyAnak' => 'required',
             'citaCitaAnak' => 'required',
+            'statusAktif_anak' => 'required',
         ]);
+
+        \Log::info('Nilai statusAktif_anak: ' . $request->statusAktif_anak);
 
         // Simpan data anak ke database
         $dataAnak = Anak::create([
@@ -172,7 +175,7 @@ class PengajuanAnakController extends Controller
             'kelas_madrasah' => $request->kelasMadrasah,
             'hobby' => $request->hobbyAnak,
             'cita_cita' => $request->citaCitaAnak,
-            'status_aktif' => $request->statusAktif,
+            'status_aktif' => $request->statusAktif_anak,
             'data_keluarga_id' => $request->idDataKeluarga, // Gunakan ID DataKeluarga yang sudah disimpan dalam input tersembunyi
         ]);
         $anakID = $dataAnak->id_anaks;
