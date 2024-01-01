@@ -35,6 +35,7 @@ class Anak extends Model
         'kelas_madrasah',
         'hobby',
         'cita_cita',
+        'status_aktif',
     ];
 
     protected $hidden = [
@@ -52,6 +53,7 @@ class Anak extends Model
         'kelas_madrasah',
         'hobby',
         'cita_cita',
+        'status_aktif',
         'beasiswa_id',
     ];
     

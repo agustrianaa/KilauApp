@@ -129,8 +129,18 @@ class SettingsController extends Controller
             'tbhKabupaten' => 'required',
             'tbhKecamatan' => 'required',
             'tbhKelurahan' => 'required',
+        ], [
+            'required' => ':attribute masih kosong.',
+        ], [
+            'namaKacab' => 'Nama Kantor Cabang',
+            'nomortlp' => 'Nomor Telepon',
+            'alamatKacab' => 'Alamat Kantor Cabang',
+            'tbhProvinsi' => 'Provinsi',
+            'tbhKabupaten' => 'Kabupaten',
+            'tbhKecamatan' => 'Kecamatan',
+            'tbhKelurahan' => 'Kelurahan',
         ]);
-        // dd($province[1]);
+        
 
         KantorCabang::create([
             'nama_kacab' => $request->namaKacab,
