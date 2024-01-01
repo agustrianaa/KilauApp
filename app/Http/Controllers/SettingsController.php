@@ -20,18 +20,22 @@ use GuzzleHttp\Client;
 class SettingsController extends Controller
 {
     private function getDataFromApi($url)
-    {
-        $client = new Client([
-            'verify' => false, // Tambahkan opsi ini untuk mengabaikan verifikasi sertifikat SSL
-        ]);
-        
-        $response = $client->get($url);
+{
+    $client = new Client();
 
-        // Ambil data sebagai array
-        $data = json_decode($response->getBody(), true);
+    // Menonaktifkan verifikasi SSL sementara
+    $options = [
+        'verify' => false,
+    ];
 
-        return $data;
-    }
+    $response = $client->get($url, $options);
+
+    // Ambil data sebagai array
+    $data = json_decode($response->getBody(), true);
+
+    return $data;
+}
+
     public function settingIndex(Request $request)
     {
         $totalDataKaCab = KantorCabang::count();
@@ -199,7 +203,7 @@ class SettingsController extends Controller
     public function getWilbin($id_wilbin)
     {
         $wilbin = WilayahBinaan::find($id_wilbin);
-        return response()->json($wilbin); 
+        return response()->json($wilbin);
     }
 
     public function updateWilbin(Request $request, $id_wilbin)
