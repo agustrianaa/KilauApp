@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dancing+Script">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
 <link rel="stylesheet" href="{{ asset('css/calonAnakBinaan.css') }}">
+<link rel="stylesheet" href="{{ asset('css/AnakBinaan.css') }}">
 
 <div class="content-wrapper background">
     <div class="content-header">
@@ -28,7 +29,7 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-lg-12" id="openFilter">
+                <div class="col-lg-3" id="openFilter">
                     <button type="button" class="btn btn-success mx-1 mb-2" id="tombolbukafilter">Buka Filter <i class="bi bi-funnel-fill"></i></button>
                 </div>
                 <div class="col-lg-12 tutupFilter" id="closeFilter">

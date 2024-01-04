@@ -85,7 +85,7 @@ class PostController extends Controller
             $image->storeAs('public/posts', $image->hashName());
 
             //delete old image
-            Storage::delete('public/posts/'.$post->image);
+            Storage::delete('public/posts/' . $post->image);
 
             //update post with new image
             $post->update([
@@ -94,9 +94,8 @@ class PostController extends Controller
                 'content'   => $request->content,
                 'confirmed' => $request->confirmed
             ]);
-
         } else {
-
+            
             //update post without image
             $post->update([
                 'title'     => $request->title,
@@ -114,7 +113,7 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
 
         //delete image
-        Storage::delete('public/posts/'. $post->image);
+        Storage::delete('public/posts/' . $post->image);
 
         //delete post
         $post->delete();
@@ -125,7 +124,7 @@ class PostController extends Controller
 
     public function upload(Request $request)
     {
-        if($request->hasFile('upload')) {
+        if ($request->hasFile('upload')) {
             $originName = $request->file('upload')->getClientOriginalName();
             $fileName = pathinfo($originName, PATHINFO_FILENAME);
             $extension = $request->file('upload')->getClientOriginalExtension();

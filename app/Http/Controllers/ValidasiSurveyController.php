@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Redirect;
 use App\Models\anak;
 use App\Models\Ayah;
 use App\Models\DataKeluarga;
@@ -178,7 +178,7 @@ class ValidasiSurveyController extends Controller
                             ->update(['status_beasiswa' => $stat, 'status_binaan' => true]);
     }
 
-    return redirect()->back()->with('success', 'Data berhasil diperbarui.');
+    return Redirect::route('admin.validasi-survey')->with('success', 'Data berhasil diperbarui.');
 }
 
 
